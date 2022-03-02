@@ -1,0 +1,44 @@
+# Default values for appname-game.
+replicaCount: 2
+
+image:
+  repository: amuappimages.azurecr.io
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+deployment:
+  configMap: appname-game-config
+  healthCheckPath: "/"
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 3000
+  annotations: 
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+
+ingress:
+  host: appname.games.amuniversal.com
+  tlssecret: appname-game-tls-secret
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/whitelist-source-range: "0.0.0.0/0"
+
+resources: 
+  limits:
+    cpu: 1000m
+    memory: 1000Mi
+  requests:
+     cpu: 100m
+     memory: 100Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 30
+  targetCPUUtilizationPercentage: 50
