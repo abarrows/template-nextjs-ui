@@ -145,7 +145,7 @@ jobs:
       domainName: ${{ steps.setenvs.outputs.DOMAINNAME }}
       fqdn: ${{ steps.setenvs.outputs.INGRESS }}
 
-  UpdateInternalDNS:
+  update_internal_dns:
     needs: deploy
     runs-on: [self-hosted,Windows,boley]
     continue-on-error: false
