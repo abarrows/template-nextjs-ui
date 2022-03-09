@@ -1,0 +1,42 @@
+# General Software Engineering
+*                               @abarrows
+
+# Front-end Engineering
+
+.storybook/**                   @abarrows
+jest**                          @abarrows
+public/**                       @abarrows
+*.js                            @abarrows
+*.css                           @abarrows
+*.scss                          @abarrows
+*.sass                          @abarrows
+*.otf                           @abarrows
+*.eot                           @abarrows
+*.ttf                           @abarrows
+*.woff*                         @abarrows
+*.svg                           @abarrows
+*.jpg                           @abarrows
+*.jpeg                          @abarrows
+*.gif                           @abarrows
+*.png                           @abarrows
+*.ico                           @abarrows
+.browserslistrc*                @abarrows
+src/**                          @abarrows
+**.eslint**                     @abarrows
+**.prettier**                   @abarrows
+**.stylelint**                  @abarrows
+**/src/assets/**                @abarrows
+**/src/src/**                   @abarrows
+**/src/amu/**                   @abarrows
+
+# Back-end Engineering
+data/**                         @abarrows @axufurisamu
+
+# DevOps
+.nvmrc*                         @abarrows @fdickinson
+.gitignore                      @abarrows @fdickinson
+.env**                          @abarrows @fdickinson
+.github/**                      @abarrows @fdickinson
+Dockerfile*                      @abarrows @fdickinson
+docker-compose*                 @abarrows @fdickinson
+deployments/**                  @abarrows @fdickinson
