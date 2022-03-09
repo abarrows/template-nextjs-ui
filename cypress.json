@@ -1,0 +1,17 @@
+{
+  "baseUrl": "http://localhost:3000/",
+  "video": false,
+  "testFiles": "**/*.spec.js",
+  "screenshotsFolder": "./cypress/screenshots",
+  "integrationFolder": "./cypress/integration",
+  "pluginsFile": "./cypress/plugins/index.js",
+  "supportFile": "./cypress/support",
+  "videosFolder": "./cypress/videos",
+  "fixturesFolder": "./cypress/fixtures",
+  "chromeWebSecurity": false,
+  "modifyObstructiveCode": false,
+  "blockHosts": ["*a.pub.network*", "www.google-analytics.com"],
+  "retries": {
+    "runMode": 3
+  }
+}

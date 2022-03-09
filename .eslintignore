@@ -1,0 +1,6 @@
+# Add any directories or files to ignore here
+**.bundle.js
+.cache
+/deployments
+build
+**/node_modules/**
