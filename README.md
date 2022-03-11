@@ -110,3 +110,9 @@ Jira Release: <https://amuniversal.atlassian.net/projects/CAN/versions/12711/tab
 
 Once a pull request is merged into _production_ from _staging_ the AMU software engineer **must** create a tagged version. Navigate to the [product releases in github](https://github.com/Andrews-McMeel-Universal/AppName_game/releases) Click the button for "Draft a New Release" and then click "Auto-generated Release Notes". _NOTE: We do not use the vx.x.x pattern for version naming. We simply have the semantic release version number like this: x.x.x_
 
+### Template References
+
+There are a few commented references to take note of.
+- _TODO-ONBOARDING:_ This denotes a todo task which should be done after a new UI repo has been created.  _IE: Create sentry project and paste in token value._
+- _REVIEW:_ This denotes that the front-end engineering team as a group should discuss and decide to keep the scaffold, make it optional, or remove it.
+- _"amuproduct"_ This string should be globally searched and replaced with the real product.
