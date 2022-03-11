@@ -14,8 +14,7 @@ module.exports = {
   ],
   // alternateRefs: [
   //   {
-  //     href: 'https://example.com',
-  //     TODO: 'Add alternative refs from spreadsheet in confluence.',
+  //     href: 'https://amuproduct.com',
   //   },
   // ],
   Sitemap: `${process.env.BASE_URL}/sitemap.xml.gz`,
