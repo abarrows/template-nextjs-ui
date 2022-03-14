@@ -88,13 +88,13 @@ jobs:
 
       - uses: ./.github/actions/use-build-cache
         with:
-          build-args: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/puzzle-society-service-api/v1
+          build-args: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
       - name: Run Jest tests
         run: yarn test:ci
 
       - name: Run Cypress tests
-        run: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/puzzle-society-service-api/v1 yarn cy:ci
+        run: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1 yarn cy:ci
 
       - name: Archive test screenshots
         uses: actions/upload-artifact@v1
@@ -123,12 +123,12 @@ jobs:
 
       - uses: ./.github/actions/use-build-cache
         with:
-          build-args: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/puzzle-society-service-api/v1
+          build-args: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
       - name: Run Broken Link Checker
         id: link-checker-report
         continue-on-error: true
-        run: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/puzzle-society-service-api/v1 yarn test:links
+        run: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1 yarn test:links
 
       - name: Link Checker Results
         if: ${{ failure() }}
@@ -139,7 +139,7 @@ jobs:
     runs-on: ubuntu-18.04
     env:
       API_SERVICE_KEY: ${{ secrets.STAGING_AZ_WEBSERVICE_KEY }}
-      API_SERVICE_URL: https://amustageapi101.azure-api.net/puzzle-society-service-api/v1
+      API_SERVICE_URL: https://amustageapi101.azure-api.net/amuproduct-service-api/v1
     needs: [install-and-build, format]
     timeout-minutes: 10
     steps:
@@ -151,7 +151,7 @@ jobs:
 
       - uses: ./.github/actions/use-build-cache
         with:
-          build-args: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/puzzle-society-service-api/v1
+          build-args: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
       - uses: andresz1/size-limit-action@v1
         with:

@@ -3,8 +3,8 @@ export default {
   openGraph: {
     type: 'website',
     locale: 'en_IE',
-    url: 'https://www.puzzlesociety.com',
-    site_name: 'The Puzzle Society',
+    url: 'https://www.amuproduct.com',
+    site_name: 'AmuProduct',
   },
-  titleTemplate: ' %s | Puzzle Society ',
+  titleTemplate: ' %s | AmuProduct ',
 };
