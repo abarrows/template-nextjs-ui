@@ -1,16 +1,15 @@
 import '../style/index.css';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import { DefaultSeo } from 'next-seo';
-
+// import { DefaultSeo } from 'next-seo';
+// import SEO from 'next-seo.config';
 
 
 const AmuProduct = ({ Component, pageProps }) => (
     <>
-      {/* There should only be one Head Component, see https://nextjs.org/docs/api-reference/next/head */}
-      <DefaultSeo {...SEO} />
+      {/* There should only be one Head Component, see https://nextjs.org/docs/api-reference/next/head <DefaultSeo {...SEO} /> */}
       <Head>
-        <link
+        {/* <link
           href="/images/favicons/apple-touch-icon.png"
           rel="apple-touch-icon"
           sizes="180x180"
@@ -32,11 +31,15 @@ const AmuProduct = ({ Component, pageProps }) => (
           color="#05354e"
           href="/images/favicons/safari-pinned-tab.svg"
           rel="mask-icon"
-        />
+        /> */}
         <meta content="#05354e" name="msapplication-TileColor" />
         <meta content="#ffffff" name="theme-color" />
         <script src="https://utilities.amuniversal.com/unsupportedbrowsers/index.js" />
-      </Head>
+    </Head>
+    <h1>
+      Welcome to an <a href="/" id="onboarding">AmuProduct!</a>
+    </h1>
+    <p>This is a test paragraph for the homepage.</p>
     </>
   );
 
