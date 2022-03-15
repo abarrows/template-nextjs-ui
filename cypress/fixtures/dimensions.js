@@ -6,7 +6,7 @@
  * TODO-REVIEW: Discuss with team if this is something that we should list as optional or remove.
  * */
 
- const viewportDimensions = {
+const viewportDimensions = {
   xs: {
     breakpointName: 'XS Phone',
     deviceType: 'phone',
