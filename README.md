@@ -113,6 +113,7 @@ Once a pull request is merged into _production_ from _staging_ the AMU software 
 ### Template References
 
 There are a few commented references to take note of.
-- _TODO-ONBOARDING:_ This denotes a todo task which should be done after a new UI repo has been created.  _IE: Create sentry project and paste in token value._
+
+- _TODO-ONBOARDING:_ This denotes a todo task which should be done after a new UI repo has been created. _IE: Create sentry project and paste in token value._
 - _TODO-REVIEW:_ This denotes that the front-end engineering team as a group should discuss and decide to keep the scaffold, make it optional, or remove it.
 - _"amuproduct"_ This string should be globally searched and replaced with the real product.
