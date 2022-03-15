@@ -21,6 +21,7 @@
     "test": "jest src --verbose",
     "test:ci": "jest src --ci",
     "test:links": "start-server-and-test start http://localhost:3000 \"blc --input http://localhost:3000 --filter-level 3 -ro --exclude /pages/dynamic-sitemap.xml --verbose \"",
+    "test:size": "size-limit",
     "lint:js": "eslint \"./{src,cypress}/**/*.{js,jsx}\" --fix",
     "lint:styles": "stylelint **/*.scss --fix",
     "format-all": "prettier --write .",
@@ -29,10 +30,9 @@
     "cy:ci": "start-server-and-test start http://localhost:3000 cy:run",
     "cy:headless": "yarn build && start-server-and-test start http://localhost:3000 cy:run",
     "cy:ui": "start-server-and-test dev http://localhost:3000 cy:open",
-    "size": "size-limit",
     "storybook:build": "build-storybook",
     "storybook:run": "start-storybook -p 6006",
-    "preflight": "yarn browserslist --update-db && yarn lint:js && yarn lint:styles && yarn format-all && yarn test -u && yarn cypress run"
+    "preflight": "yarn browserslist --update-db && yarn lint:js && yarn lint:styles && yarn format-all && yarn test -u && yarn cy:ci && yarn test:size"
   },
   "dependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
