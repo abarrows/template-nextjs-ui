@@ -1,4 +1,7 @@
-import { applyStyles, createHeader } from 'src/helpers/utilities/outputToConsole';
+import {
+  applyStyles,
+  createHeader,
+} from 'src/helpers/utilities/outputToConsole';
 
 describe('applyStyles', () => {
   it('formats styles correctly', () => {

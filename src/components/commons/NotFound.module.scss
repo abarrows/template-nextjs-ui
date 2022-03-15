@@ -1,0 +1,26 @@
+@import 'src/styles/utilities';
+
+// TODO-REVIEW: Where should we draw the line here.
+$message-max-width: 768px;
+
+.errorMessageWrapper {
+  margin: 0 auto;
+}
+
+.errorMessage {
+  background-color: #dfdfdf;
+  width: $message-max-width;
+  padding: 20px;
+}
+
+.errorMessage__heading {
+  font-size: 4rem;
+}
+
+.errorMessage__message {
+  text-align: center;
+}
+
+.errorMessage__image {
+  @include responsive-image();
+}
