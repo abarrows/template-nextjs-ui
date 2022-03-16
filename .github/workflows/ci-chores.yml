@@ -5,14 +5,14 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # for yarn
-    directory: "/" # Look for `package.json` and `lock` files in the `root` directory
+  - package-ecosystem: 'npm' # for yarn
+    directory: '/' # Look for `package.json` and `lock` files in the `root` directory
     schedule:
-      interval: "weekly"
-      day: "monday"
+      interval: 'weekly'
+      day: 'monday'
     labels:
-      - "npm"
-      - "dependencies"
+      - 'npm'
+      - 'dependencies'
     reviewers:
-      - "Andrews-McMeel-Universal/k8sapp_ui_template"
+      - '@front-end-engineers'
     versioning-strategy: increase

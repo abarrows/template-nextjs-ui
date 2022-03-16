@@ -3,21 +3,20 @@ on:
     branches:
       - 'Branch To Deploy to Development ENV'
 env:
-      cluster_name: amuaks201
-      resource_group: AMU_AKS_201
-      container_registry: 'amuappimages201.azurecr.io'
-      application_environment: development
-      docker_image_name: ${{ github.event.repository.name }}
-      ingress_host: amuaks201-development-ingress.centralus.cloudapp.azure.com.
-      charts_path: ./deployments/charts/
-      application_path: ./appname
+  cluster_name: amuaks201
+  resource_group: AMU_AKS_201
+  container_registry: 'amuappimages201.azurecr.io'
+  application_environment: development
+  docker_image_name: ${{ github.event.repository.name }}
+  ingress_host: amuaks201-development-ingress.centralus.cloudapp.azure.com.
+  charts_path: ./deployments/charts/
+  application_path: ./amuproduct
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     continue-on-error: false
     timeout-minutes: 20
-
 
     steps:
       - name: Checkout
@@ -52,7 +51,7 @@ jobs:
           echo "::set-output name=DOMAINNAME::$DomainName"
           echo "::set-output name=HOSTNAME::$HostName"
           echo "::set-output name=IMAGEPULLSECRET::$ImagePullSecret"
-            
+
       - name: Login via Az module
         uses: azure/login@v1
         with:
@@ -72,7 +71,7 @@ jobs:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
           cluster-name: ${{ env.cluster_name }}
           resource-group: ${{ env.resource_group }}
-      
+
       - name: Switch to ${{ env.application_environment }} Namespace
         run: kubectl config set-context --current --namespace=${{ env.application_environment }}
 
@@ -80,7 +79,7 @@ jobs:
         uses: swdotcom/update-and-apply-kubernetes-configs@v1
         with:
           k8-config-file-paths: deployments/k8s/config-${{ env.application_environment }}.yaml
-      
+
       - name: Create or Update Public DNS Record
         uses: azure/powershell@v1
         with:
@@ -101,7 +100,6 @@ jobs:
         run: |
           docker build ${{ env.application_path }}  -t ${{ env.container_registry }}/${{ env.docker_image_name }}:${{ github.sha }}
           docker push ${{ env.container_registry }}/${{ env.docker_image_name }}:${{ github.sha }}
-
 
       - name: Create valid release-name
         id: generate-release-name
@@ -142,22 +140,13 @@ jobs:
 
   update_internal_dns:
     needs: deploy
-    runs-on: [self-hosted,Windows,boley]
+    runs-on: [self-hosted, Windows, boley]
     continue-on-error: false
     timeout-minutes: 10
 
     steps:
       - name: Update Internal DNS
-        run:
-          | 
+        run: |
           try {Add-DnsServerResourceRecordCName -Name "${{ needs.deploy.outputs.hostName }}" -HostNameAlias "${{ env.ingress_host }}" -ZoneName "${{ needs.deploy.outputs.domainName }}" -ComputerName ${{ secrets.BOLEY_DC }} } catch {Write-Host "Record Already Exists"}
           Get-DnsServerResourceRecord -ZoneName "${{ needs.deploy.outputs.domainName }}" -ComputerName ${{ secrets.BOLEY_DC }} | Where-Object HostName -eq "${{ needs.deploy.outputs.fqdn }}" | Format-List
           try {Sync-DnsServerZone -Name "${{ needs.deploy.outputs.domainName }}" -ComputerName ${{ secrets.BOLEY_DC }}} catch {Write-Host "Skipping zone sync. Zone is currently being synced."}
-
-
-
-  
-
-
-
-

@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "This is the GitHub template repo for all Next.js UIs",
   "author": "Andrews McMeel Universal",
-  "homepage": "https://github.com/Andrews-McMeel-Universal/k8s_ui_template",
+  "homepage": "https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Andrews-McMeel-Universal/k8s_ui_template"
+    "url": "https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template"
   },
   "license": "UNLICENSED",
   "private": true,

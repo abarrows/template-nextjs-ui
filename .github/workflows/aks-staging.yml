@@ -1,19 +1,19 @@
 on:
   push:
     branches:
-      - 'change to staging'
+      - 'staging'
 env:
-      cluster_name: amuaks201
-      resource_group: AMU_AKS_201
-      container_registry: amuappimages201.azurecr.io
-      application_environment: staging
-      docker_image_name: ${{ github.event.repository.name }}
-      ingress_host: amuaks201-staging-ingress.centralus.cloudapp.azure.com.
-      charts_path: ./deployments/charts/
-      application_path: ./appname
-      cdn_resource_group: 'AMU_Games_RG'
-      cdn_profile: 'cdnprofilename'
-      cdn_endpoint: 'cdnendpointname'
+  cluster_name: amuaks201
+  resource_group: AMU_AKS_201
+  container_registry: amuappimages201.azurecr.io
+  application_environment: staging
+  docker_image_name: ${{ github.event.repository.name }}
+  ingress_host: amuaks201-staging-ingress.centralus.cloudapp.azure.com.
+  charts_path: ./deployments/charts/
+  application_path: ./amuproduct
+  cdn_resource_group: 'AMU_AmuProduct_RG'
+  cdn_profile: 'cdnprofilename'
+  cdn_endpoint: 'cdnendpointname'
 
 jobs:
   deploy:
@@ -54,7 +54,7 @@ jobs:
           echo "::set-output name=DOMAINNAME::$DomainName"
           echo "::set-output name=HOSTNAME::$HostName"
           echo "::set-output name=IMAGEPULLSECRET::$ImagePullSecret"
-            
+
       - name: Login via Az module
         uses: azure/login@v1
         with:
@@ -74,7 +74,7 @@ jobs:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
           cluster-name: ${{ env.cluster_name }}
           resource-group: ${{ env.resource_group }}
-      
+
       - name: Switch to ${{ env.application_environment }} Namespace
         run: kubectl config set-context --current --namespace=${{ env.application_environment }}
 
@@ -103,7 +103,6 @@ jobs:
         run: |
           docker build ${{ env.application_path }}  -t ${{ env.container_registry }}/${{ env.docker_image_name }}:${{ github.sha }}
           docker push ${{ env.container_registry }}/${{ env.docker_image_name }}:${{ github.sha }}
-
 
       - name: Create valid release-name
         id: generate-release-name
@@ -139,7 +138,7 @@ jobs:
 
       - name: Purge CDN
         run: |
-            az cdn endpoint purge --resource-group {{ env.cdn_resource_group }} --profile-name {{ env.cdn_profile }} --name {{ env.cdn_endpoint }} --content-paths '/*'
+          az cdn endpoint purge --resource-group {{ env.cdn_resource_group }} --profile-name {{ env.cdn_profile }} --name {{ env.cdn_endpoint }} --content-paths '/*'
     outputs:
       hostName: ${{ steps.setenvs.outputs.HOSTNAME }}
       domainName: ${{ steps.setenvs.outputs.DOMAINNAME }}
@@ -147,22 +146,13 @@ jobs:
 
   update_internal_dns:
     needs: deploy
-    runs-on: [self-hosted,Windows,boley]
+    runs-on: [self-hosted, Windows, boley]
     continue-on-error: false
     timeout-minutes: 10
 
     steps:
       - name: Update Internal DNS
-        run:
-          | 
+        run: |
           try {Add-DnsServerResourceRecordCName -Name "${{ needs.deploy.outputs.hostName }}" -HostNameAlias "${{ env.ingress_host }}" -ZoneName "${{ needs.deploy.outputs.domainName }}" -ComputerName ${{ secrets.BOLEY_DC }} } catch {Write-Host "Record Already Exists"}
           Get-DnsServerResourceRecord -ZoneName "${{ needs.deploy.outputs.domainName }}" -ComputerName ${{ secrets.BOLEY_DC }} | Where-Object HostName -eq "${{ needs.deploy.outputs.fqdn }}" | Format-List
           try {Sync-DnsServerZone -Name "${{ needs.deploy.outputs.domainName }}" -ComputerName ${{ secrets.BOLEY_DC }}} catch {Write-Host "Skipping zone sync. Zone is currently being synced."}
-
-
-
-  
-
-
-
-
