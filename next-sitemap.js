@@ -17,6 +17,7 @@ module.exports = {
   //     href: 'https://amuproduct.com',
   //   },
   // ],
+  // TODO-REVIEW: Need to work with the team to establish which basic pages.
   Sitemap: `${process.env.BASE_URL}/sitemap.xml.gz`,
 
   robotsTxtOptions: {
