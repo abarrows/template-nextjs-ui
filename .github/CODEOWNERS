@@ -1,42 +1,45 @@
-# General Software Engineering
-*                               @abarrows
+# General Front-end Engineering
+*                               @front-end-engineers
 
-# Front-end Engineering
+# Product Specific Front-end Engineering
+# TODO-ONBOARDING: Update below to target the product specific github team
+# that will be the ones to review.  IE: If this were for GoComics, you would
+# update the @front-end-engineers below to be @front-end-engineers-gocomics
 
-.storybook/**                   @abarrows
-jest**                          @abarrows
-public/**                       @abarrows
-*.js                            @abarrows
-*.css                           @abarrows
-*.scss                          @abarrows
-*.sass                          @abarrows
-*.otf                           @abarrows
-*.eot                           @abarrows
-*.ttf                           @abarrows
-*.woff*                         @abarrows
-*.svg                           @abarrows
-*.jpg                           @abarrows
-*.jpeg                          @abarrows
-*.gif                           @abarrows
-*.png                           @abarrows
-*.ico                           @abarrows
-.browserslistrc*                @abarrows
-src/**                          @abarrows
-**.eslint**                     @abarrows
-**.prettier**                   @abarrows
-**.stylelint**                  @abarrows
-**/src/assets/**                @abarrows
-**/src/src/**                   @abarrows
-**/src/amu/**                   @abarrows
+.storybook/**                   @front-end-engineers
+jest**                          @front-end-engineers
+public/**                       @front-end-engineers
+*.js                            @front-end-engineers
+*.css                           @front-end-engineers
+*.scss                          @front-end-engineers
+*.sass                          @front-end-engineers
+*.otf                           @front-end-engineers
+*.eot                           @front-end-engineers
+*.ttf                           @front-end-engineers
+*.woff*                         @front-end-engineers
+*.svg                           @front-end-engineers
+*.jpg                           @front-end-engineers
+*.jpeg                          @front-end-engineers
+*.gif                           @front-end-engineers
+*.png                           @front-end-engineers
+*.ico                           @front-end-engineers
+.browserslistrc*                @front-end-engineers
+src/**                          @front-end-engineers
+**.eslint**                     @front-end-engineers
+**.prettier**                   @front-end-engineers
+**.stylelint**                  @front-end-engineers
+**/src/assets/**                @front-end-engineers
+**/src/src/**                   @front-end-engineers
+**/src/amu/**                   @front-end-engineers
 
 # Back-end Engineering
-data/**                         @abarrows @axufurisamu
+data/**                         @front-end-engineers @back-end-engineers
 
 # DevOps
-.nvmrc*                         @abarrows @fdickinson
-.gitignore                      @abarrows @fdickinson
-.env**                          @abarrows @fdickinson
-.github/**                      @abarrows @fdickinson
-Dockerfile*                      @abarrows @fdickinson
-docker-compose*                 @abarrows @fdickinson
-deployments/**                  @abarrows @fdickinson
+.nvmrc*                         @front-end-engineers @devops-engineers
+.gitignore                      @front-end-engineers @devops-engineers
+.env**                          @front-end-engineers @devops-engineers
+.github/**                      @front-end-engineers @devops-engineers
+Dockerfile*                      @front-end-engineers @devops-engineers
+docker-compose*                 @front-end-engineers @devops-engineers
+deployments/**                  @front-end-engineers @devops-engineers
