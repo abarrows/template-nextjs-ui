@@ -7,7 +7,6 @@
 build/
 cypress/
 deployments/
-devcontainer.env
 Dockerfile
 docker-compose.yml
 jest/
