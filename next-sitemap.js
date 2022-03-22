@@ -4,14 +4,7 @@ module.exports = {
   priority: 0.7,
   sitemapSize: 4999,
   generateRobotsTxt: true,
-  exclude: [
-    '/dynamic-sitemap.xml',
-    '/create-account*',
-    '/my-account*',
-    '/api*',
-    '/admin',
-    '/age-restriction',
-  ],
+  exclude: ['/dynamic-sitemap.xml', '/api*', '/admin'],
   // alternateRefs: [
   //   {
   //     href: 'https://amuproduct.com',
@@ -55,11 +48,8 @@ module.exports = {
       //   userAgent: '*',
       //   disallow: [
       //     '/dynamic-sitemap.xml',
-      //     '/create-account*',
-      //     '/my-account*',
       //     '/api*',
       //     '/admin',
-      //     '/age-restriction',
       //   ],
       // },
     ],
