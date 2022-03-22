@@ -6,6 +6,9 @@ on:
       # Only run this on the 'staging' branch. Create another workflow if `production` needs similar checks, because this one uses secrets and other steps that are unique to `staging`.
       - 'staging'
       - '!production'
+    paths-ignore:
+      # Match the paths in pull-request-bypass.yml
+      - '**.md'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -50,6 +53,7 @@ jobs:
           commit_user_email: amu_deploy@amuniversal.com
           commit_message: Apply prettier changes
 
+  # Required status check
   # Checks code quality, uses caches from install-and-build
   lint-code:
     runs-on: ubuntu-18.04
@@ -58,6 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          token: ${{ secrets.PAT_ACTION_CI }}
           ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-node-modules-cache
