@@ -14,5 +14,5 @@ updates:
       - 'npm'
       - 'dependencies'
     reviewers:
-      - '@front-end-engineers'
+      - '@Andrews-McMeel-Universal/front-end-engineers'
     versioning-strategy: increase
