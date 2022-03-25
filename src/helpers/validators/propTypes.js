@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 
-// TODO-REVIEW: Should we keep this globally?
 const imageFormats = () =>
   PropTypes.shape({
     ext: PropTypes.string,
@@ -13,7 +12,6 @@ const imageFormats = () =>
     width: PropTypes.number,
   });
 
-// TODO-REVIEW: Should we keep this globally?
 export const strapiImage = () =>
   PropTypes.shape({
     alternativeText: PropTypes.string.isRequired,
@@ -39,50 +37,6 @@ export const strapiImage = () =>
     width: PropTypes.number.isRequired,
   });
 
-// TODO-REVIEW: Should we keep this globally?
-export const validDesignHeading = (props, propName, componentName) => {
-  if (props[propName]) {
-    const validOptions = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
-    const value = props[propName];
-    if (!validOptions.includes(value)) {
-      return new Error(
-        `${propName} in ${componentName} is not valid design heading`
-      );
-    }
-  }
-
-  return null;
-};
-
-// TODO-REVIEW: Should we keep this globally?
-export const validBodyStyle = (props, propName, componentName) => {
-  if (props[propName]) {
-    const validOptions = [1, 2];
-    const value = props[propName];
-    if (!validOptions.includes(value)) {
-      return new Error(
-        `${propName} in ${componentName} is not valid body style`
-      );
-    }
-  }
-
-  return null;
-};
-
-// TODO-REVIEW: Should we keep this globally?
-export const validSubtitleStyle = (props, propName, componentName) => {
-  if (props[propName]) {
-    const validOptions = [1, 2];
-    const value = props[propName];
-    if (!validOptions.includes(value)) {
-      return new Error(
-        `${propName} in ${componentName} is not valid subtitle style`
-      );
-    }
-  }
-
-  return null;
-};
 export const searchData = () =>
   PropTypes.shape({
     id: PropTypes.number,
