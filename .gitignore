@@ -196,6 +196,7 @@ yarn-error.log*
 
 # Sentry
 .sentryclirc
+.sentry.properties
 
 # Sitemap
 public/robots.txt
