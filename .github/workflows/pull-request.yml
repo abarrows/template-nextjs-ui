@@ -28,7 +28,7 @@ jobs:
 
       - uses: ./.github/actions/use-build-cache
         with:
-          build-args: API_SERVICE_KEY=${{ secrets.AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/gocomics-service-api/v1
+          build-args: API_SERVICE_KEY=${{ secrets.AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
   # Auto-formats code, uses caches from install-and-build
   format:
