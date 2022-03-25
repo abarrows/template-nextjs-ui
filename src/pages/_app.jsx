@@ -19,7 +19,7 @@ const AmuProduct = ({ Component, err, pageProps }) => {
   return (
     <>
       {/* There should only be one Head Component, see https://nextjs.org/docs/api-reference/next/head */}
-      {/* <DefaultSeo {...SEO} /> */}
+      {/* TODO-ONBOARDING: Setup default SEO. <DefaultSeo {...SEO} /> */}
       <Head>
         <link href="/favicon.ico" rel="icon" sizes="16x16" />
         {/*
