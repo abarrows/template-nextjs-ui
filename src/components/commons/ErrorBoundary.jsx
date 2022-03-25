@@ -9,6 +9,9 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false };
   }
 
+  // TODO-REVIEW: This was done by a terminated contractor.
+  // We need to review the error boundary as a group and see if
+  // there are ways to mature it.
   // eslint-disable-next-line no-unused-vars
   static getDerivedStateFromError(error) {
     return { hasError: true };
