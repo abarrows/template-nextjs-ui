@@ -13,18 +13,9 @@ const notFound = () => (
           </h1>
         </div>
         <div className={styles.errorMessage__message}>
-          <p>
-            The page you&apo;re looking for might have disappeared or never
-            existed at all. (A frustrating prank from those dunces in the
-            Quizzical League, we surmise.)
-          </p>
+          <p>The page you&apo;re looking for cannot be found.</p>
         </div>
       </div>
-      <img
-        alt="404"
-        className={styles.errorMessage__image}
-        src="/images/errors/404_Scramble_Margaret_1200.png"
-      />
     </div>
   </PageWrapper>
 );
