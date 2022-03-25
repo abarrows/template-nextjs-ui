@@ -9,7 +9,6 @@ export async function getServerSideProps(context) {
   // TODO-REVIEW: Need to discuss with the team.
   // TODO-ONBOARDING: Need to add in the proper UI structure.
   // const itemSlugs = activeitems.map((item) => {
-  //   console.log(`The item updated at is ${item.updatedAt}`);
   //   const field = {
   //     loc: `${process.env.NEXT_PUBLIC_BASE_URL}/${item.categorySlug}/${item.slug}`,
   //     lastmod: item.updatedAt,
