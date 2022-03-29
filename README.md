@@ -5,11 +5,63 @@
 
 # k8sapp_ui_template
 
-This is a github template repo specifically for new AMU UI products which use
-the unified front-end technical stack. This stack is comprised of React,
-Next.js, Jest, Cypress, Sentry, and Storybook. The codebase has been carefully
-agnosticized by using repeated and general strings so that it can be quickly
-bootstrapped for a new UI product's front-end.
+This UI template repository serves as a boilerplate/blueprint for any "New World" front-end UI application for our department. All product string references have been agnosticized with detailed onboarding instructions in the README. This template repo will evolve and mature. The goal of maintaining this is to two fold, decrease the time it takes to build new SPA UI's and increase uniformity across our front-end ecosystem. As it matures, more and more configuration, utilities, and logic which embodies what our application specific "standards" are as a team. To update this repository, this question needs to be answered as true:
+
+<blockquote>At this very moment does the team agree that we would we want PROPOSED FEATURE on at least 80% of our "new world" UI applications.</blockquote>
+
+Below is a high level list of things brought over:
+
+1. Environment Configuration
+1. Dotenv variables
+   - Development
+   - Staging
+   - Production
+1. NVM (Node Version Manager)
+1. Docker UI Image (Docker-Compose coming soon!)
+1. .github configuration
+
+- PR template
+- README template
+- Basic Pull Request Workflow
+- Basic CI Chores Workflow for Dependabot and Auto-updating branches
+- Deployment Workflow for Development, Staging, and Production
+- Caching actions for dependencies
+- CODEOWNERS
+- .gitignore
+
+5. Linting and Formatting
+
+- Eslint
+- Stylelint
+- Prettier
+- Browserlistrc
+
+4. Package.json
+
+- Babel Transpilation
+- Next.js
+- React
+- Global Component Folder Structure (Commons, modules, module children, sections, and pages)
+- outputToConsole Utility (Custom Logger for console logs)
+- Global propType validations
+- Global error page
+
+6. Automated Tests and CI Checks
+
+- Jest (1 example passing test)
+- Cypress (1 example passing test)
+- Link Checker
+- Size Checker
+
+7. Basic Scaffold for UI Capabilities
+
+- Sentry
+- Vindicia
+- B2C
+- Sentry Error Reporting
+- General Error Boundary
+- Nextjs Sitemap with Robots.txt generation
+- Redirects (With a few examples)
 
 Related links:
 
