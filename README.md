@@ -90,13 +90,28 @@ git clone https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template.git
 
 You will need:
 
-- [Homebrew](https://brew.sh/)
+- [Homebrew](https://brew.sh/) #For Macs
+- [Chocolatey](https://chocolatey.org/install) #For Windows
 - [NVM & Node](https://github.com/creationix/nvm)
   - Install Node v14.1.0 or above, preferably the version listed in the `.nvmrc` file
 - [Yarn](https://yarnpkg.com/): `brew install yarn`
-- [Docker](https://www.docker.com/): `brew cask install docker`
-  - (optional, not needed to run a dev environment)
+- [Docker](https://www.docker.com/): `brew cask install docker` #For Macs or `choco install docker-desktop` #For Windows
+- [Powershell_7]: `brew install --cask powershell` #For Macs or `choco install powershell-core` #For Windows
 
+If you have never setup PowerShell Core on your computer before, you will need to do the following:
+1.  After you install PowerShell Core, open a terminal and type `pwsh` to to start powershell.
+2.  From a PowerShell session, type `Install-Module Az`.   Once the Azure module is installed, type `Import-Module Az`.
+3.  Type `Connect-AzAccount` to log into Azure.   Every 30 days or so you may be required to run `Connect-AzAccount` to login.
+
+## Azure Key Vaults
+appname-development
+appname-staging
+appname-production
+
+Azure Key Vaults are created or updated with the Create-KeyVaults.ps1 script.   This script contains sensitive information and thus should never be checked into GitHub without being 
+encrypted first.   For Mac and Linux users (Including Windows Subsystem for Linux), you can use the encryptkeyvaults.sh and decryptkeyvaults.sh to encrypt and unencrypt the 
+Create-KeyVaults.ps1 PowerShell script.  For Windows, you will need to download and install https://gpg4win.org/download.html.   The secret for encrypting and unencrypting the file is 
+in 1Password under the .env files encryption secret
 ---
 
 ## Usage
@@ -111,6 +126,9 @@ You will need:
 > Sensitive information should **ALWAYS** be stored in a safe place, such as in GitHub Secrets or in Azure Secrets.
 
 #### About .env
+The `.env` file should not be checked into version control.  
+To generate a local `.env` file, from the root of the project directory start a PowerShell terminal by typing pwsh and hitting enter.  Run the Get-LocalEnv.ps1 script and specify the keyvault to generate local environmental 
+variables from.  Example: ./Get-LocalEnv.ps1 -KeyVaultName 'appname-development'
 
 Next.js has [built-in support](https://nextjs.org/docs/basic-features/environment-variables) for environment variables. It will automatically load variables from one of the following files for the matching Node environment, which are used to set default values for **non-sensitive** information:
 
@@ -125,13 +143,12 @@ These variables can be overridden with `.local` versions of those files, such as
 #### Adding new variables
 
 Depending on where the variable is stored, additional steps may be needed to make it available to the app. If the variable is sourced from GitHub Secrets or Azure Secrets:
+Typically Environmental Variables should be stored in Azure KeyVaults with the Create-KeyVaults.ps1 script.   There should be one Key Vault for every environment for an app.
+Every secret stored in a Azure KeyVault should have a ContentType set for it.   ContentTypes can be: 'BuildArg', 'Env', or 'BuildArg Env'
 
-1. Work with a DevOps engineer to set up the variable you need:
-   1. Add it to GitHub Secrets or Azure Secrets
-   2. Modify the deployment workflow file:
-      1. Add it to the 'Add GitHub secrets to k8s' step (if applicable)
-      2. Add it to the 'Build & Push Docker Image' step
-2. Finally, add the variable to the Dockerfile with `ARG` and `ENV` steps
+A ContentType of BuildArg means the secret is a Docker Build Argument.   A ContentType of Env means that the secret is an Environmental Variable.   A ContentType of BuildArg Env 
+means the secret is both a Docker Build Argument and an Environmental Variable.   Azure requires secret names to be lowercase kebabcase (example: The secretname for a DB_CONNECTION_STRING should be db-connection-string).   When Env files are created or the application is deployed, the lowercase kebabcase secret name will be converted to 
+Uppercase SnakeCase (example: the secret name db-connection-string gets converted to DB_CONNECTION_STRING).
 
 - Reference: <https://www.saltycrane.com/blog/2021/04/buildtime-vs-runtime-environment-variables-nextjs-docker/>
 
