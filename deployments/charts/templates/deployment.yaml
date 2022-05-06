@@ -42,5 +42,11 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
+            {{- if .Values.deployment.configMap }}
             - configMapRef:
                 name: {{ .Values.deployment.configMap }}
+            {{- end }}
+            {{- if .Values.deployment.secret }}
+            - secretRef:
+                name: {{ .Values.deployment.secret }}
+            {{- end }}
