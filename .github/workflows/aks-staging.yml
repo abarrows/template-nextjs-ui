@@ -1,158 +1,41 @@
 on:
   push:
     branches:
-      - 'staging'
-env:
-  cluster_name: amuaks201
-  resource_group: AMU_AKS_201
-  container_registry: amuappimages201.azurecr.io
-  application_environment: staging
-  docker_image_name: ${{ github.event.repository.name }}
-  ingress_host: amuaks201-staging-ingress.centralus.cloudapp.azure.com.
-  charts_path: ./deployments/charts/
-  application_path: ./amuproduct
-  cdn_resource_group: 'AMU_AmuProduct_RG'
-  cdn_profile: 'cdnprofilename'
-  cdn_endpoint: 'cdnendpointname'
+      - staging
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-    continue-on-error: false
-    timeout-minutes: 20
+   uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@1.2
+   with:
+        repositoryName: ${{ github.event.repository.name }}
+        environment: staging
+        environmentKeyVault: gamename-staging
+        clusterName: amuaks201
+        clusterResourceGroup: AMU_AKS_201
+        aksIngressFqdn: amuaks201-staging-ingress.centralus.cloudapp.azure.com.
+        dnsResourceGroup: AMU_DNS_RG
+        chartsPath: ./deployments/charts/
+        dockerFilePath: .
+        dockerImageName: ${{ github.event.repository.name }}
+        dockerImageTag: ${{ github.sha }}
+        maximumReplicas: 4
+        storageAccountName: amucloudapps
+        appInfoTableName: DeployedApplications
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
+   secrets:
+    azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+    registryUserName: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
+    registryPassword: ${{ secrets.AMUAPPIMAGES201_PASSWORD }}
+    storageAccountKey: ${{ secrets.AMUCLOUDAPPS_KEY }}
 
-      - name: Set env
-        id: setenvs
-        shell: pwsh
-        run: |
-          $AppEnv = "${{ env.application_environment }}"
-          $BasePath = Get-Location
-          $YamlPath = Join-Path $BasePath ${{ env.charts_path }} "values.yaml"
-          $AppConfig = ./deployments/scripts/Get-Envs.ps1 -PathToYaml $YamlPath
-          $YamlPath = Join-Path $BasePath ${{ env.charts_path }} "Chart.yaml"
-          $ChartConfig = ./deployments/scripts/Get-Envs.ps1 -PathToYaml $YamlPath
-          $AppName = $ChartConfig.name
-          $ConfigMap = $AppConfig.deployment.configMap
-          $ConfigSecret = $AppConfig.deployment.secret
-          $Ingress = $AppConfig.ingress.host
-          $DomainName = ($Ingress.Split('.') | Select-Object -Last 2) -join '.'
-          $HostName = $Ingress -replace $DomainName, ''
-          $HostName = $HostName.Substring(0,$HostName.Length-1)
-          switch ($AppEnv) {
-            'development' {$HostName = "development.$Hostname"; $Ingress = "development.$Ingress"}
-            'staging' {$HostName = "staging.$Hostname"; $Ingress = "staging.$Ingress"}
-          }
-          $ImagePullSecret = "$AppName-pull-secret"
-          echo "::set-output name=APPNAME::$AppName"
-          echo "::set-output name=CONFIGMAP::$ConfigMap"
-          echo "::set-output name=CONFIGSECRET::$ConfigSecret"
-          echo "::set-output name=INGRESS::$Ingress"
-          echo "::set-output name=DOMAINNAME::$DomainName"
-          echo "::set-output name=HOSTNAME::$HostName"
-          echo "::set-output name=IMAGEPULLSECRET::$ImagePullSecret"
-
-      - name: Login via Az module
-        uses: azure/login@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-          enable-AzPSSession: true
-
-      - name: Login to Azure Container Registry
-        uses: Azure/docker-login@v1
-        with:
-          login-server: ${{ env.container_registry }}
-          username: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
-          password: ${{ secrets.AMUAPPIMAGES201_PASSWORD }}
-
-      - name: Set target AKS cluster
-        uses: Azure/aks-set-context@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-          cluster-name: ${{ env.cluster_name }}
-          resource-group: ${{ env.resource_group }}
-
-      - name: Switch to ${{ env.application_environment }} Namespace
-        run: kubectl config set-context --current --namespace=${{ env.application_environment }}
-
-      - name: Apply ConfigMap
-        uses: swdotcom/update-and-apply-kubernetes-configs@v1
-        with:
-          k8-config-file-paths: deployments/k8s/config-${{ env.application_environment }}.yaml
-
-      - name: Create or Update Public DNS Record
-        uses: azure/powershell@v1
-        with:
-          inlineScript: |
-            $NewRecords = New-AzDnsRecordConfig -Cname ${{ env.ingress_host }};
-            New-AzDnsRecordSet -Name "${{ steps.setenvs.outputs.HOSTNAME }}" -RecordType CNAME -ZoneName ${{ steps.setenvs.outputs.DOMAINNAME }} -ResourceGroupName AMU_DNS_RG -Ttl 3600 -DnsRecords $NewRecords -Overwrite;
-          azPSVersion: '3.1.0'
-
-      - name: Create k8s Image Pull Secret
-        uses: Azure/k8s-create-secret@v1
-        with:
-          container-registry-url: ${{ env.container_registry }}
-          container-registry-username: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
-          container-registry-password: ${{ secrets.AMUAPPIMAGES201_PASSWORD }}
-          secret-name: ${{ steps.setenvs.outputs.IMAGEPULLSECRET }}
-
-      - name: Build & Push Docker Image
-        run: |
-          docker build ${{ env.application_path }}  -t ${{ env.container_registry }}/${{ env.docker_image_name }}:${{ github.sha }}
-          docker push ${{ env.container_registry }}/${{ env.docker_image_name }}:${{ github.sha }}
-
-      - name: Create valid release-name
-        id: generate-release-name
-        run: |
-          release=${{ steps.setenvs.outputs.APPNAME }}-${{ github.sha }}
-          release=${release::53}
-          release=$(echo ${release//[!0-9a-zA-Z]/-} | tr '[:upper:]' '[:lower:]' | sed -e 's/^-/z/' -e 's/-$/z/')
-          echo ::set-output name=result::$release
-
-      - name: Bake Helm templates
-        uses: azure/k8s-bake@v1
-        with:
-          renderEngine: 'helm'
-          helmChart: ${{ env.charts_path }}
-          releaseName: ${{steps.generate-release-name.outputs.result}}
-          helm-version: 'latest'
-          overrides: |
-            image.repository:${{ env.container_registry }}/${{ env.docker_image_name }}
-            image.tag:${{ github.sha }}
-            ingress.host:${{ steps.setenvs.outputs.INGRESS }}
-            autoscaling.maxReplicas:4
-        id: bake
-
-      - name: Deploy to Azure
-        uses: Azure/k8s-deploy@v1
-        with:
-          namespace: ${{ env.application_environment }}
-          manifests: ${{ steps.bake.outputs.manifestsBundle }}
-          images: |
-            ${{ env.container_registry }}/${{ env.docker_image_name }}:${{ github.sha }}
-          imagepullsecrets: |
-            ${{ steps.setenvs.outputs.IMAGEPULLSECRET }}
-
-      - name: Purge CDN
-        run: |
-          az cdn endpoint purge --resource-group {{ env.cdn_resource_group }} --profile-name {{ env.cdn_profile }} --name {{ env.cdn_endpoint }} --content-paths '/*'
-    outputs:
-      hostName: ${{ steps.setenvs.outputs.HOSTNAME }}
-      domainName: ${{ steps.setenvs.outputs.DOMAINNAME }}
-      fqdn: ${{ steps.setenvs.outputs.INGRESS }}
-
-  update_internal_dns:
-    needs: deploy
-    runs-on: [self-hosted, Windows, boley]
-    continue-on-error: false
-    timeout-minutes: 10
-
-    steps:
-      - name: Update Internal DNS
-        run: |
-          try {Add-DnsServerResourceRecordCName -Name "${{ needs.deploy.outputs.hostName }}" -HostNameAlias "${{ env.ingress_host }}" -ZoneName "${{ needs.deploy.outputs.domainName }}" -ComputerName ${{ secrets.BOLEY_DC }} } catch {Write-Host "Record Already Exists"}
-          Get-DnsServerResourceRecord -ZoneName "${{ needs.deploy.outputs.domainName }}" -ComputerName ${{ secrets.BOLEY_DC }} | Where-Object HostName -eq "${{ needs.deploy.outputs.fqdn }}" | Format-List
-          try {Sync-DnsServerZone -Name "${{ needs.deploy.outputs.domainName }}" -ComputerName ${{ secrets.BOLEY_DC }}} catch {Write-Host "Skipping zone sync. Zone is currently being synced."}
+  update_boley_dns:
+    needs: deploy 
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@1.2
+    with:
+          environment: staging
+          repositoryName: ${{ github.event.repository.name }}
+          storageAccountName: amucloudapps
+          appInfoTableName: DeployedApplications
+    secrets:
+          domainController: ${{ secrets.BOLEY_DC }}
+          storageAccountKey: ${{ secrets.AMUCLOUDAPPS_KEY }}
