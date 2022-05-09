@@ -9,7 +9,7 @@ jobs:
    with:
         repositoryName: ${{ github.event.repository.name }}
         environment: staging
-        environmentKeyVault: gamename-staging
+        environmentKeyVault: appname-staging
         clusterName: amuaks201
         clusterResourceGroup: AMU_AKS_201
         aksIngressFqdn: amuaks201-staging-ingress.centralus.cloudapp.azure.com.
