@@ -2,7 +2,7 @@
 replicaCount: 2
 
 image:
-  repository: amuappimages.azurecr.io
+  repository: amuappimages201.azurecr.io
   pullPolicy: IfNotPresent
   tag: ''
 
@@ -11,7 +11,7 @@ nameOverride: ''
 fullnameOverride: ''
 
 deployment:
-  configMap: amuproduct-config
+  secret: amuproduct-config-secret
   healthCheckPath: '/'
 
 service:
