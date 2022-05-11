@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Script from 'next/script';
+import { SWRConfig } from 'swr';
 
 // Components
 // import { DefaultSeo } from 'next-seo';
@@ -52,13 +53,19 @@ function AmuProduct({ Component, err, pageProps }) {
       />
 
       <ErrorBoundary>
-        {Template ? (
-          <Template {...pageProps}>
+        <SWRConfig
+          value={{
+            fetcher: (resource) => fetch(resource).then((res) => res.json()),
+          }}
+        >
+          {Template ? (
+            <Template {...pageProps}>
+              <Component {...pageProps} err={err} />
+            </Template>
+          ) : (
             <Component {...pageProps} err={err} />
-          </Template>
-        ) : (
-          <Component {...pageProps} err={err} />
-        )}
+          )}
+        </SWRConfig>
       </ErrorBoundary>
     </>
   );
