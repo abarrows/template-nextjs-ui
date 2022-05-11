@@ -36,7 +36,6 @@
     "preflight": "yarn browserslist --update-db && yarn lint:js && yarn lint:styles && yarn format-all && yarn test -u && yarn cy:ci && yarn test:size"
   },
   "dependencies": {
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@next/bundle-analyzer": "^12.1.6",
     "@sentry/integrations": "^6.0.3",
     "@sentry/nextjs": "^6.13.3",
@@ -71,6 +70,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@size-limit/file": "^7.0.8",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/builder-webpack5": "^6.4.19",
@@ -80,8 +80,8 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^11.1.0",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.5.2",
-    "babel-loader": "^8.2.2",
+    "babel-jest": "27.5.1",
+    "babel-loader": "^8.2.5",
     "chromatic": "^5.10.1",
     "cypress": "8.3.0",
     "cypress-wait-until": "^1.7.2",
@@ -97,7 +97,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-storybook": "^0.5.7",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.5.3",
+    "jest": "27.5.1",
     "mockdate": "^3.0.2",
     "prettier": "^2.1.2",
     "react-test-renderer": "^17.0.1",

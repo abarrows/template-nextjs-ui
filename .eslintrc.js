@@ -60,9 +60,10 @@ module.exports = {
       // globs allow using devDependencies in story and test files
       {
         devDependencies: [
-          '**/*.{spec,stories,test}.js',
+          '{jest,.storybook,cypress,src/stories}/**/*',
+          '**/*.{spec,stories,test}.js*',
+          'jest.*.js',
           'webpack.config.js',
-          '{.jest,.storybook,cypress}/**/*',
         ],
       },
     ],
