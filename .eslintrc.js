@@ -1,5 +1,4 @@
 module.exports = {
-  root: true,
   plugins: ['babel', 'cypress', 'chai-friendly', 'react', 'jsx-a11y'],
   extends: [
     'airbnb',

@@ -14,7 +14,7 @@ import ErrorBoundary from 'src/components/commons/ErrorBoundary';
 // Styles
 import '../styles/index.scss';
 
-const AmuProduct = ({ Component, err, pageProps }) => {
+function AmuProduct({ Component, err, pageProps }) {
   const Template = Component.template;
   return (
     <>
@@ -47,19 +47,17 @@ const AmuProduct = ({ Component, err, pageProps }) => {
         <script src="https://utilities.amuniversal.com/unsupportedbrowsers/index.js" />
       </Head>
       <ErrorBoundary>
-        <>
-          {Template ? (
-            <Template {...pageProps}>
-              <Component {...pageProps} err={err} />
-            </Template>
-          ) : (
+        {Template ? (
+          <Template {...pageProps}>
             <Component {...pageProps} err={err} />
-          )}
-        </>
+          </Template>
+        ) : (
+          <Component {...pageProps} err={err} />
+        )}
       </ErrorBoundary>
     </>
   );
-};
+}
 
 AmuProduct.propTypes = {
   Component: PropTypes.func.isRequired,

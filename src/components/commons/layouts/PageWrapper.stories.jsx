@@ -5,11 +5,11 @@ export default {
   component: PageWrapper,
 };
 
-const Template = (args) => (
-  <div style={{ textAlign: 'center' }}>
+function Template(args) {
+  return <div style={{ textAlign: 'center' }}>
     <PageWrapper {...args} />
-  </div>
-);
+  </div>;
+}
 
 export const Default = Template.bind({});
 
