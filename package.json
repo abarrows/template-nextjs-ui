@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "build:analyze": "ANALYZE=true yarn build",
     "postbuild": "next-sitemap",
     "setup": "yarn install && yarn dev",
     "start": "next start",
