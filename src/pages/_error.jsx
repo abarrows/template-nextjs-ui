@@ -4,7 +4,7 @@ import NextErrorComponent from 'next/error';
 
 import * as Sentry from '@sentry/nextjs';
 
-const ServerError = ({ statusCode, hasGetInitialPropsRun, err }) => {
+function ServerError({ statusCode, hasGetInitialPropsRun, err }) {
   if (!hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of
     // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
@@ -14,7 +14,7 @@ const ServerError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   }
 
   return <NextErrorComponent statusCode={statusCode} />;
-};
+}
 
 ServerError.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
