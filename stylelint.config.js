@@ -1,5 +1,4 @@
 // TODO: add these
-// https://www.npmjs.com/package/stylelint-a11y
 // https://www.npmjs.com/package/stylelint-color-format
 
 const kebabCaseRegex = /^([a-z][a-z0-9]*)(-[a-z0-9]+)*$/;
@@ -7,6 +6,7 @@ const kebabCaseRegex = /^([a-z][a-z0-9]*)(-[a-z0-9]+)*$/;
 /* eslint-disable max-len */
 module.exports = {
   extends: [
+    'stylelint-a11y/recommended',
     'stylelint-config-recess-order',
     'stylelint-config-standard-scss',
     /**
