@@ -19,7 +19,10 @@ module.exports = {
      */
     'stylelint-config-prettier-scss',
   ],
-  plugins: ['stylelint-no-unsupported-browser-features'],
+  plugins: [
+    'stylelint-color-format',
+    'stylelint-no-unsupported-browser-features',
+  ],
   rules: {
     // standard rules
     // https://github.com/stylelint/stylelint/blob/main/docs/user-guide/rules/list.md
