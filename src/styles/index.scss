@@ -40,7 +40,7 @@ footer {
   justify-content: center;
   width: 100%;
   height: 100px;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid rgb(234 234 234);
 }
 
 footer img {
@@ -54,7 +54,7 @@ footer a {
 }
 
 .title a {
-  color: #0070f3;
+  color: rgb(0 112 243);
   text-decoration: none;
 }
 
@@ -85,7 +85,7 @@ code {
   font-family: Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono",
     "Bitstream Vera Sans Mono", "Courier New", monospace;
   font-size: 1.1rem;
-  background: #fafafa;
+  background: rgb(250 250 250);
   border-radius: 5px;
 }
 
@@ -106,7 +106,7 @@ code {
   color: inherit;
   text-align: left;
   text-decoration: none;
-  border: 1px solid #eaeaea;
+  border: 1px solid rgb(234 234 234);
   border-radius: 10px;
   transition: none;
 }
@@ -119,7 +119,7 @@ code {
   color: inherit;
   text-align: left;
   text-decoration: none;
-  border: 1px solid #eaeaea;
+  border: 1px solid rgb(234 234 234);
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
@@ -127,8 +127,8 @@ code {
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: rgb(0 112 243);
+  border-color: rgb(0 112 243);
 }
 
 .card h3 {

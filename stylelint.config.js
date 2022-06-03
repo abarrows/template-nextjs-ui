@@ -90,5 +90,8 @@ module.exports = {
         ],
       },
     ],
+    'color-format/format': {
+      format: 'rgb',
+    },
   },
 };
