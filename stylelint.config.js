@@ -1,6 +1,13 @@
+// TODO: add these
+// https://www.npmjs.com/package/stylelint-color-format
+
+const kebabCaseRegex = /^([a-z][a-z0-9]*)(-[a-z0-9]+)*$/;
+
 /* eslint-disable max-len */
 module.exports = {
   extends: [
+    'stylelint-a11y/recommended',
+    'stylelint-config-recess-order',
     'stylelint-config-standard-scss',
     /**
      * Note: We previously used stylelint-config-prettier, but that package
@@ -12,7 +19,10 @@ module.exports = {
      */
     'stylelint-config-prettier-scss',
   ],
-  plugins: ['stylelint-no-unsupported-browser-features'],
+  plugins: [
+    'stylelint-color-format',
+    'stylelint-no-unsupported-browser-features',
+  ],
   rules: {
     // standard rules
     // https://github.com/stylelint/stylelint/blob/main/docs/user-guide/rules/list.md
@@ -23,6 +33,7 @@ module.exports = {
         message: 'No @extend',
       },
     ],
+    'custom-property-pattern': kebabCaseRegex,
     'declaration-no-important': [
       true,
       {
@@ -46,8 +57,8 @@ module.exports = {
           "Don't style js- prefixed classes, those are reserved for JavaScript use only",
       },
     ],
-    'selector-pseudo-element-colon-notation': 'single',
     'selector-max-id': 0,
+    'selector-pseudo-element-colon-notation': 'single',
     'selector-pseudo-class-no-unknown': [
       true,
       {
@@ -59,22 +70,11 @@ module.exports = {
 
     // scss rules
     // https://github.com/stylelint-scss/stylelint-scss/tree/master/src/rules
-    'scss/at-import-partial-extension-whitelist': ['module'],
-
-    // TODO: revisit these rules and enable/customize **one at a time**
-    // they were introduced during version upgrades and affect many files
-    'comment-empty-line-before': null,
-    'custom-property-pattern': null,
-    'declaration-block-no-redundant-longhand-properties': null,
-    'declaration-empty-line-before': null,
-    'rule-empty-line-before': null,
-    'scss/at-import-partial-extension': null,
-    'scss/at-mixin-argumentless-call-parentheses': null,
-    'scss/at-mixin-pattern': null,
-    'scss/dollar-variable-empty-line-before': null,
-    'scss/dollar-variable-pattern': null,
-    'scss/double-slash-comment-empty-line-before': null,
-    'scss/no-global-function-names': null,
+    'scss/at-import-partial-extension': 'always',
+    'scss/at-import-partial-extension-whitelist': ['scss', 'module.scss'],
+    'scss/at-mixin-argumentless-call-parentheses': 'always',
+    'scss/at-mixin-pattern': kebabCaseRegex,
+    'scss/dollar-variable-pattern': kebabCaseRegex,
 
     // plugin rules
     'plugin/no-unsupported-browser-features': [
@@ -90,5 +90,8 @@ module.exports = {
         ],
       },
     ],
+    'color-format/format': {
+      format: 'rgb',
+    },
   },
 };
