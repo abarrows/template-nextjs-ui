@@ -5,7 +5,7 @@ import * as Sentry from '@sentry/nextjs';
 
 import NotFound from 'src/components/commons/NotFound';
 
-const ClientError = () => {
+function ClientError() {
   const router = useRouter();
 
   // log 404 in Sentry, include requested path
@@ -18,6 +18,6 @@ const ClientError = () => {
       <NotFound />
     </>
   );
-};
+}
 
 export default ClientError;

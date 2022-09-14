@@ -3,6 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
+import Script from 'next/script';
+import { SWRConfig } from 'swr';
 
 // Components
 // import { DefaultSeo } from 'next-seo';
@@ -14,7 +16,7 @@ import ErrorBoundary from 'src/components/commons/ErrorBoundary';
 // Styles
 import '../styles/index.scss';
 
-const AmuProduct = ({ Component, err, pageProps }) => {
+function AmuProduct({ Component, err, pageProps }) {
   const Template = Component.template;
   return (
     <>
@@ -44,10 +46,18 @@ const AmuProduct = ({ Component, err, pageProps }) => {
         */}
         <meta content="#05354e" name="msapplication-TileColor" />
         <meta content="#ffffff" name="theme-color" />
-        <script src="https://utilities.amuniversal.com/unsupportedbrowsers/index.js" />
       </Head>
+      <Script
+        src="https://utilities.amuniversal.com/unsupportedbrowsers/index.js"
+        strategy="lazyOnload"
+      />
+
       <ErrorBoundary>
-        <>
+        <SWRConfig
+          value={{
+            fetcher: (resource) => fetch(resource).then((res) => res.json()),
+          }}
+        >
           {Template ? (
             <Template {...pageProps}>
               <Component {...pageProps} err={err} />
@@ -55,11 +65,11 @@ const AmuProduct = ({ Component, err, pageProps }) => {
           ) : (
             <Component {...pageProps} err={err} />
           )}
-        </>
+        </SWRConfig>
       </ErrorBoundary>
     </>
   );
-};
+}
 
 AmuProduct.propTypes = {
   Component: PropTypes.func.isRequired,
