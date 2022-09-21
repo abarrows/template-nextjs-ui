@@ -1,5 +1,4 @@
 .cache/
-.env.gpg
 .git/
 .github/
 .next/
@@ -7,12 +6,12 @@
 build/
 cypress/
 deployments/
-Dockerfile
-docker-compose.yml
 jest/
 node_modules/
-plugins/wysiwyg/node_modules/
+Dockerfile
+docker-compose.*
 public/robots.*
 public/sitemap.*
 decryptenv.sh
 encryptenv.sh
+**.gpg
