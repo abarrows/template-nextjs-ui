@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  puzzlesocietyui:
+  ui:
     # .env is loaded automatically by Docker and can be used to easily set
     # local secrets. Alternatively, you can use the `--env-file` flag with
     # the path to your secrets file during `docker compose up --build puzzlesocietyui`,
@@ -22,7 +22,7 @@ services:
         - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL:?err}
         - DEPLOY_ENV=${DEPLOY_ENV:?err}
         - NEXT_PUBLIC_DEPLOY_ENV=${DEPLOY_ENV:?err}
-        - SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN:?err}
+        # - SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN:?err}
     ports:
       - '3000:3000'
     environment:
@@ -34,7 +34,7 @@ services:
       NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL:?err}
       DEPLOY_ENV: ${DEPLOY_ENV:?err}
       NEXT_PUBLIC_DEPLOY_ENV: ${DEPLOY_ENV:?err}
-      SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN:?err}
+      # SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN:?err}
       # Runtime only:
       NEXTAUTH_URL: ${NEXTAUTH_URL:?err}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:?err}
