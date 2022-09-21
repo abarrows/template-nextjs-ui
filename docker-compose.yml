@@ -24,7 +24,7 @@ services:
         - NEXT_PUBLIC_DEPLOY_ENV=${DEPLOY_ENV:?err}
         # - SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN:?err}
     ports:
-      - '3000:3000'
+      - '3003:3000'
     environment:
       # TODO-ONBOARDING: update and set envs
       # Set dynamic and/or secret env vars used during Next.js runtime. Env
