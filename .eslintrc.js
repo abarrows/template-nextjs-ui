@@ -12,11 +12,15 @@ module.exports = {
     'plugin:storybook/csf',
     'plugin:storybook/csf-strict',
   ],
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 6,
+    requireConfigFile: false,
     ecmaFeatures: {
       jsx: true,
+    },
+    babelOptions: {
+      presets: ['@babel/preset-react'],
     },
   },
   env: {
