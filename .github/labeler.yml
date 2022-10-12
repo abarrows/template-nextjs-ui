@@ -1,0 +1,25 @@
+dependencies:
+  - yarn.lock
+
+docker:
+  - .dockerignore
+  - Dockerfile
+  - docker-compose.yml
+
+documentation:
+  - '**/*.md'
+
+javascript:
+  - '**/*.js'
+  - '**/*.jsx'
+  - '**/*.ts'
+  - '**/*.tsx'
+
+npm:
+  - yarn.lock
+
+devops:
+  - '.github/**'
+  - 'deployments/**'
+  - '*keyvaults.sh'
+  - 'Create-KeyVaults.ps1.gpg'
