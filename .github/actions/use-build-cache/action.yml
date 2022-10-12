@@ -5,7 +5,7 @@ description: Builds the Next.js app and caches the result
 inputs:
   build-args:
     description: 'ENV vars for build step'
-    required: true
+    required: false
 
 runs:
   using: 'composite'
