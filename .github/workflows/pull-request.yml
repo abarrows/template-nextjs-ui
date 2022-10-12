@@ -28,7 +28,7 @@ jobs:
 
       - uses: ./.github/actions/use-build-cache
         with:
-          build-args: API_SERVICE_KEY=${{ secrets.AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
+          build-args: API_SERVICE_KEY=${{ secrets.STAGING_AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
   # Auto-formats code, uses caches from install-and-build
   format:
@@ -45,7 +45,7 @@ jobs:
 
       # This step must be after other jobs or steps that might add or change files
       - name: Format all
-        run: yarn format-all
+        run: yarn format
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
@@ -161,4 +161,4 @@ jobs:
       - uses: andresz1/size-limit-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          build_script: test:size
+          skip_step: build
