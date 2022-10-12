@@ -32,6 +32,7 @@ src/**                          @Andrews-McMeel-Universal/front-end-engineers
 .storybook/**                   @Andrews-McMeel-Universal/front-end-engineers
 .browserslistrc                 @Andrews-McMeel-Universal/front-end-engineers
 **eslint**                      @Andrews-McMeel-Universal/front-end-engineers
+**jest**                        @Andrews-McMeel-Universal/front-end-engineers
 **prettier**                    @Andrews-McMeel-Universal/front-end-engineers
 **stylelint**                   @Andrews-McMeel-Universal/front-end-engineers
 
