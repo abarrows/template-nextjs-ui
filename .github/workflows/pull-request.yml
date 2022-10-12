@@ -25,6 +25,8 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-node-modules-cache
+        with:
+          build-args: API_SERVICE_KEY=${{ secrets.AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
       - uses: ./.github/actions/use-build-cache
 
@@ -40,6 +42,8 @@ jobs:
           token: ${{ secrets.PAT_ACTION_CI }}
 
       - uses: ./.github/actions/use-node-modules-cache
+        with:
+          build-args: API_SERVICE_KEY=${{ secrets.AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
       # This step must be after other jobs or steps that might add or change files
       - name: Format all
@@ -64,6 +68,8 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-node-modules-cache
+        with:
+          build-args: API_SERVICE_KEY=${{ secrets.AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
       - name: Lint javascript
         run: yarn lint:js
@@ -88,6 +94,8 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-node-modules-cache
+        with:
+          build-args: API_SERVICE_KEY=${{ secrets.AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
       - uses: ./.github/actions/use-build-cache
 
@@ -121,6 +129,8 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-node-modules-cache
+        with:
+          build-args: API_SERVICE_KEY=${{ secrets.AZ_WEBSERVICE_KEY }} API_SERVICE_URL=https://amustageapi101.azure-api.net/amuproduct-service-api/v1
 
       - uses: ./.github/actions/use-build-cache
 
