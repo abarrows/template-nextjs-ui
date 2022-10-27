@@ -105,15 +105,19 @@ If you have never setup PowerShell Core on your computer before, you will need t
 3.  Type `Connect-AzAccount` to log into Azure. Every 30 days or so you may be required to run `Connect-AzAccount` to login.
 
 ## Environment Variables
+
 A guide that explains the different types of Environmental Variables that we use in our environments: https://vsupalov.com/docker-arg-env-variable-guide/
+
 ### About `.env`
-The `.env` file should not be checked into version control.  
+
+The `.env` file should not be checked into version control.
 
 By default, the `.env` file is what is read for local development. You can specify different .env files in the `docker-compose.yaml` file (example: `.env.development` or `.env.test`).
 
-To generate a local `.env` file, run the `Get-LocalEnv.ps1` script and specify the Azure Key Vault name to generate local environmental variables from. For example, `Get-LocalEnv.ps1 -KeyVaultName 'gamename-staging'` 
+To generate a local `.env` file, run the `Get-LocalEnv.ps1` script and specify the Azure Key Vault name to generate local environmental variables from. For example, `Get-LocalEnv.ps1 -KeyVaultName 'gamename-staging'`
 
 Here are the available Azure Key Vault names for this project:
+
 ```
 gamename-development
 gamename-staging
@@ -121,23 +125,27 @@ gamename-production
 ```
 
 ### Adding new variables to Azure Key Vaults
-Azure Key Vaults are created or updated with the `Create-KeyVaults.ps1` script. The Azure Key Vault names and values are stored in `KeyVaults.json`. This `KeyVaults.json` file contains and thus should never be checked into GitHub without being encrypted first. 
+
+Azure Key Vaults are created or updated with the `Create-KeyVaults.ps1` script. The Azure Key Vault names and values are stored in `KeyVaults.json`. This `KeyVaults.json` file contains and thus should never be checked into GitHub without being encrypted first.
 
 To modify Key Vault names or values, you'll need to decrypt the Key Vaults file by running `Manage-KeyVaultsFile.ps1 -Decrypt`.
 
 Once you're done editing the file, re-encrypt the file by running `Manage-KeyVaultsFile.ps1 -Encrypt`. Please commit the new `KeyVaults.json` file back into the repository.
 
 #### General Rules when creating new variables
-- There should be one Key Vault for every environment for an app. 
+
+- There should be one Key Vault for every environment for an app.
 - All environments should have the same variables made available.
 
 #### About each of the variable types
+
 Depending on where the variable is stored, additional steps may be needed to make it available to the app.
 Every secret stored in a Azure KeyVault should have a `ContentType` set for it. The available values for `ContentType` are: `BuildArg`, `Env`, or `BuildArg Env`
 
-- `BuildArg`: the secret is a Docker Build Argument. 
-- `Env`: the secret is an Environmental Variable. 
-- `BuildArg Env`: the secret is both a Docker Build Argument and an Environmental Variable. 
+- `BuildArg`: the secret is a Docker Build Argument.
+- `Env`: the secret is an Environmental Variable.
+- `BuildArg Env`: the secret is both a Docker Build Argument and an Environmental Variable.
+
 #### Using variables
 
 To access environment variables in **server-side code**:`process.env.VARIABLE_NAME`
