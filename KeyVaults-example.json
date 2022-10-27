@@ -1,5 +1,5 @@
 {
-  "gamename-development": [
+  "appname-development": [
     {
       "SecretName": "DEPLOY_ENV",
       "SecretValue": "development",
@@ -76,7 +76,7 @@
       "ContentType": "Env"
     }
   ],
-  "gamename-staging": [
+  "appname-staging": [
     {
       "SecretName": "DEPLOY_ENV",
       "SecretValue": "staging",
@@ -153,7 +153,7 @@
       "ContentType": "Env"
     }
   ],
-  "gamename-production": [
+  "appname-production": [
     {
       "SecretName": "DEPLOY_ENV",
       "SecretValue": "production",
