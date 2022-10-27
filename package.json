@@ -11,6 +11,10 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
+    "setup:mac": "brew install --cask powershell && pwsh -c \"Install-Module Az\"; brew install --cask gpg-suite",
+    "keys:encrypt": "pwsh -c \"./Manage-KeyVaultsFile.ps1 -Encrypt\"",
+    "keys:decrypt": "pwsh -c \"./Manage-KeyVaultsFile.ps1 -Decrypt\"",
+    "keys:get": "pwsh -c \"./Get-LocalEnv.ps1 -KeyVaultName appname-${ENVIRONMENT}\"",
     "setup": "yarn install && yarn dev",
     "dev": "next",
     "build": "next build",
