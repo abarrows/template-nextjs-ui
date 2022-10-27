@@ -104,16 +104,45 @@ If you have never setup PowerShell Core on your computer before, you will need t
 2.  From a PowerShell session, type `Install-Module Az`. Once the Azure module is installed, type `Import-Module Az`.
 3.  Type `Connect-AzAccount` to log into Azure. Every 30 days or so you may be required to run `Connect-AzAccount` to login.
 
-## Azure Key Vaults
+## Environment Variables
+A guide that explains the different types of Environmental Variables that we use in our environments: https://vsupalov.com/docker-arg-env-variable-guide/
+### About `.env`
+The `.env` file should not be checked into version control.  
 
-appname-development
-appname-staging
-appname-production
+By default, the `.env` file is what is read for local development. You can specify different .env files in the `docker-compose.yaml` file (example: `.env.development` or `.env.test`).
 
-Azure Key Vaults are created or updated with the Create-KeyVaults.ps1 script. This script contains sensitive information and thus should never be checked into GitHub without being
-encrypted first. For Mac and Linux users (Including Windows Subsystem for Linux), you can use the encryptkeyvaults.sh and decryptkeyvaults.sh to encrypt and unencrypt the
-Create-KeyVaults.ps1 PowerShell script. For Windows, you will need to download and install https://gpg4win.org/download.html. The secret for encrypting and unencrypting the file is
-in 1Password under the .env files encryption secret
+To generate a local `.env` file, run the `Get-LocalEnv.ps1` script and specify the Azure Key Vault name to generate local environmental variables from. For example, `Get-LocalEnv.ps1 -KeyVaultName 'gamename-staging'` 
+
+Here are the available Azure Key Vault names for this project:
+```
+gamename-development
+gamename-staging
+gamename-production
+```
+
+### Adding new variables to Azure Key Vaults
+Azure Key Vaults are created or updated with the `Create-KeyVaults.ps1` script. The Azure Key Vault names and values are stored in `KeyVaults.json`. This `KeyVaults.json` file contains and thus should never be checked into GitHub without being encrypted first. 
+
+To modify Key Vault names or values, you'll need to decrypt the Key Vaults file by running `Manage-KeyVaultsFile.ps1 -Decrypt`.
+
+Once you're done editing the file, re-encrypt the file by running `Manage-KeyVaultsFile.ps1 -Encrypt`. Please commit the new `KeyVaults.json` file back into the repository.
+
+#### General Rules when creating new variables
+- There should be one Key Vault for every environment for an app. 
+- All environments should have the same variables made available.
+
+#### About each of the variable types
+Depending on where the variable is stored, additional steps may be needed to make it available to the app.
+Every secret stored in a Azure KeyVault should have a `ContentType` set for it. The available values for `ContentType` are: `BuildArg`, `Env`, or `BuildArg Env`
+
+- `BuildArg`: the secret is a Docker Build Argument. 
+- `Env`: the secret is an Environmental Variable. 
+- `BuildArg Env`: the secret is both a Docker Build Argument and an Environmental Variable. 
+#### Using variables
+
+To access environment variables in **server-side code**:`process.env.VARIABLE_NAME`
+
+To access environment variables in **client-side code**: `process.env.NEXT_PUBLIC_VARIABLE_NAME`
 
 ---
 
@@ -123,44 +152,6 @@ in 1Password under the .env files encryption secret
 - Start app for development: `yarn dev`
 - Start app for production: `yarn build && yarn start`
 - Open app in browser: `open http://localhost:3000/`
-
-### Environment Variables
-
-> Sensitive information should **ALWAYS** be stored in a safe place, such as in GitHub Secrets or in Azure Secrets.
-
-#### About .env
-
-The `.env` file should not be checked into version control.  
-To generate a local `.env` file, from the root of the project directory start a PowerShell terminal by typing pwsh and hitting enter. Run the Get-LocalEnv.ps1 script and specify the keyvault to generate local environmental
-variables from. Example: ./Get-LocalEnv.ps1 -KeyVaultName 'appname-development'
-
-Next.js has [built-in support](https://nextjs.org/docs/basic-features/environment-variables) for environment variables. It will automatically load variables from one of the following files for the matching Node environment, which are used to set default values for **non-sensitive** information:
-
-```
-.env.development
-.env.test
-.env.production
-```
-
-These variables can be overridden with `.local` versions of those files, such as `.env.development.local`. Local versions should not be checked into source control, and are in our `.gitignore`. We similarly ignore `.env` as a convention, preferring to use more specific files for storing environment variables.
-
-#### Adding new variables
-
-Depending on where the variable is stored, additional steps may be needed to make it available to the app. If the variable is sourced from GitHub Secrets or Azure Secrets:
-Typically Environmental Variables should be stored in Azure KeyVaults with the Create-KeyVaults.ps1 script. There should be one Key Vault for every environment for an app.
-Every secret stored in a Azure KeyVault should have a ContentType set for it. ContentTypes can be: 'BuildArg', 'Env', or 'BuildArg Env'
-
-A ContentType of BuildArg means the secret is a Docker Build Argument. A ContentType of Env means that the secret is an Environmental Variable. A ContentType of BuildArg Env
-means the secret is both a Docker Build Argument and an Environmental Variable. Azure requires secret names to be lowercase kebabcase (example: The secretname for a DB_CONNECTION_STRING should be db-connection-string). When Env files are created or the application is deployed, the lowercase kebabcase secret name will be converted to
-Uppercase SnakeCase (example: the secret name db-connection-string gets converted to DB_CONNECTION_STRING).
-
-- Reference: <https://www.saltycrane.com/blog/2021/04/buildtime-vs-runtime-environment-variables-nextjs-docker/>
-
-#### Using variables
-
-To access environment variables in **server-side code**:`process.env.VARIABLE_NAME`
-
-To access environment variables in **client-side code**: `process.env.NEXT_PUBLIC_VARIABLE_NAME`
 
 ### Docker
 
