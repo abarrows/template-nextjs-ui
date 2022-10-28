@@ -22,8 +22,7 @@
 .DS_Store
 
 # dotenv
-!.env.example
-.env*
+.env
 
 # logfiles and tempfiles
 /log/*
