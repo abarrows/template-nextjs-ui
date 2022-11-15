@@ -126,7 +126,7 @@ gamename-production
 
 ### Adding new variables to Azure Key Vaults
 
-Azure Key Vaults are created or updated with the `Create-KeyVaults.ps1` script. The Azure Key Vault names and values are stored in `KeyVaults.json`. This `KeyVaults.json` file contains and thus should never be checked into GitHub without being encrypted first.
+Azure Key Vaults are created or updated with the `Create-KeyVaults.ps1` script. The Azure Key Vault names and values are stored in `KeyVaults.json`. This `KeyVaults.json` file can contain confidential information and thus should never be checked into GitHub without being encrypted first.
 
 To modify Key Vault names or values, you'll need to decrypt the Key Vaults file by running `Manage-KeyVaultsFile.ps1 -Decrypt` or `yarn keys:decrypt`
 
