@@ -128,9 +128,9 @@ gamename-production
 
 Azure Key Vaults are created or updated with the `Create-KeyVaults.ps1` script. The Azure Key Vault names and values are stored in `KeyVaults.json`. This `KeyVaults.json` file contains and thus should never be checked into GitHub without being encrypted first.
 
-To modify Key Vault names or values, you'll need to decrypt the Key Vaults file by running `Manage-KeyVaultsFile.ps1 -Decrypt`.
+To modify Key Vault names or values, you'll need to decrypt the Key Vaults file by running `Manage-KeyVaultsFile.ps1 -Decrypt` or `yarn keys:decrypt`
 
-Once you're done editing the file, re-encrypt the file by running `Manage-KeyVaultsFile.ps1 -Encrypt`. Please commit the new `KeyVaults.json` file back into the repository.
+Once you're done editing the file, re-encrypt the file by running `Manage-KeyVaultsFile.ps1 -Encrypt` or `yarn keys:encrypt`. Please commit the new `KeyVaults.json` file back into the repository.
 
 #### General Rules when creating new variables
 
@@ -156,6 +156,8 @@ To access environment variables in **client-side code**: `process.env.NEXT_PUBLI
 
 ## Usage
 
+- Retrieve KeyVaults: `yarn keys:get gamename-environment`
+- Set up packages on your local machine: `yarn setup:os`
 - Install dependencies: `yarn install`
 - Start app for development: `yarn dev`
 - Start app for production: `yarn build && yarn start`
