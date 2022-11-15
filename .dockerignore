@@ -12,6 +12,6 @@ Dockerfile
 docker-compose.*
 public/robots.*
 public/sitemap.*
-decryptenv.sh
-encryptenv.sh
+*KeyVaults*
 **.gpg
+Get-LocalEnv.ps1
