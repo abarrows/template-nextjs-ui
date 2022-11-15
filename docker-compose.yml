@@ -11,7 +11,7 @@ services:
       # Provide static and non-secret env values to be used during Next.js
       # runtime. Do not duplicate these values elsewhere or set them
       # dynamically from other values.
-      - .env
+      - .env.production
     build:
       context: .
       args:
