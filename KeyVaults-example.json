@@ -3,7 +3,7 @@
     {
       "SecretName": "DEPLOY_ENV",
       "SecretValue": "development",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "NEXT_PUBLIC_DEPLOY_ENV",
