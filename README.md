@@ -114,6 +114,16 @@ The `.env` file should not be checked into version control.
 
 By default, the `.env` file is what is read for local development. You can specify different .env files in the `docker-compose.yaml` file (example: `.env.development` or `.env.test`).
 
+Next.js has [built-in support](https://nextjs.org/docs/basic-features/environment-variables) for environment variables. It will automatically load variables from one of the following files for the matching Node environment, which are used to set default values for **non-sensitive** information:
+
+```
+.env.development
+.env.test
+.env.production
+```
+
+These variables can be overridden with `.local` versions of those files, such as `.env.development.local`. Local versions should not be checked into source control, and are in our `.gitignore`. We similarly ignore `.env` as a convention, preferring to use more specific files for storing environment variables.
+
 To generate a local `.env` file, run the `Get-LocalEnv.ps1` script and specify the Azure Key Vault name to generate local environmental variables from. For example, `Get-LocalEnv.ps1 -KeyVaultName 'gamename-staging'`
 
 Here are the available Azure Key Vault names for this project:
