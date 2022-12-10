@@ -1,6 +1,11 @@
 {
   "appname-development": [
     {
+      "SecretName": "BASE_URL",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
       "SecretName": "DEPLOY_ENV",
       "SecretValue": "development",
       "ContentType": "BuildArg Env"
@@ -8,7 +13,7 @@
     {
       "SecretName": "NEXT_PUBLIC_DEPLOY_ENV",
       "SecretValue": "$DEPLOY_ENV",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "APP_VERSION",
@@ -18,7 +23,7 @@
     {
       "SecretName": "NEXT_PUBLIC_APP_VERSION",
       "SecretValue": "$APP_VERSION",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "API_SERVICE_KEY",
@@ -43,7 +48,7 @@
     {
       "SecretName": "NEXT_PUBLIC_SENTRY_DSN",
       "SecretValue": "$SENTRY_DSN",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "SENTRY_ORG",
@@ -58,7 +63,7 @@
     {
       "SecretName": "NEXT_PUBLIC_VINDICIA_AUTH_ID",
       "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "VINDICIA_PRIVATE_KEY",
@@ -68,24 +73,49 @@
     {
       "SecretName": "NEXT_PUBLIC_VINDICIA_SERVER",
       "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "NEXT_PUBLIC_VINDICIA_REST_SERVER",
       "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "B2C_CLIENT_ID",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "B2C_CLIENT_SECRET",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "NEXTAUTH_URL",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "NEXTAUTH_SECRET",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
     }
   ],
   "appname-staging": [
     {
+      "SecretName": "BASE_URL",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
       "SecretName": "DEPLOY_ENV",
       "SecretValue": "staging",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "NEXT_PUBLIC_DEPLOY_ENV",
       "SecretValue": "$DEPLOY_ENV",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "APP_VERSION",
@@ -95,7 +125,7 @@
     {
       "SecretName": "NEXT_PUBLIC_APP_VERSION",
       "SecretValue": "$APP_VERSION",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "API_SERVICE_KEY",
@@ -120,7 +150,7 @@
     {
       "SecretName": "NEXT_PUBLIC_SENTRY_DSN",
       "SecretValue": "$SENTRY_DSN",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "SENTRY_ORG",
@@ -135,7 +165,7 @@
     {
       "SecretName": "NEXT_PUBLIC_VINDICIA_AUTH_ID",
       "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "VINDICIA_PRIVATE_KEY",
@@ -145,24 +175,49 @@
     {
       "SecretName": "NEXT_PUBLIC_VINDICIA_SERVER",
       "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "NEXT_PUBLIC_VINDICIA_REST_SERVER",
       "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "B2C_CLIENT_ID",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "B2C_CLIENT_SECRET",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "NEXTAUTH_URL",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "NEXTAUTH_SECRET",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
     }
   ],
   "appname-production": [
     {
+      "SecretName": "BASE_URL",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
       "SecretName": "DEPLOY_ENV",
       "SecretValue": "production",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "NEXT_PUBLIC_DEPLOY_ENV",
       "SecretValue": "$DEPLOY_ENV",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "APP_VERSION",
@@ -172,7 +227,7 @@
     {
       "SecretName": "NEXT_PUBLIC_APP_VERSION",
       "SecretValue": "$APP_VERSION",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "API_SERVICE_KEY",
@@ -197,7 +252,7 @@
     {
       "SecretName": "NEXT_PUBLIC_SENTRY_DSN",
       "SecretValue": "$SENTRY_DSN",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "SENTRY_ORG",
@@ -212,7 +267,7 @@
     {
       "SecretName": "NEXT_PUBLIC_VINDICIA_AUTH_ID",
       "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "VINDICIA_PRIVATE_KEY",
@@ -222,12 +277,32 @@
     {
       "SecretName": "NEXT_PUBLIC_VINDICIA_SERVER",
       "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
     },
     {
       "SecretName": "NEXT_PUBLIC_VINDICIA_REST_SERVER",
       "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
-      "ContentType": "Env"
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "B2C_CLIENT_ID",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "B2C_CLIENT_SECRET",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "NEXTAUTH_URL",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
+    },
+    {
+      "SecretName": "NEXTAUTH_SECRET",
+      "SecretValue": "xxxxxxxxxxxxxxxxxxxxx",
+      "ContentType": "BuildArg Env"
     }
   ]
 }
