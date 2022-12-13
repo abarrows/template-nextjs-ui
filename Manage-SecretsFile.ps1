@@ -1,6 +1,6 @@
 param (
     [parameter(Mandatory = $false)]
-    [string]$File = "KeyVaults.json",
+    [string]$File = "Secrets.json",
     [parameter(Mandatory = $false)]
     [switch]$Encrypt,
     [parameter(Mandatory = $false)]
