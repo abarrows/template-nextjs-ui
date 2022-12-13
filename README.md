@@ -124,7 +124,7 @@ Next.js has [built-in support](https://nextjs.org/docs/basic-features/environmen
 
 These variables can be overridden with `.local` versions of those files, such as `.env.development.local`. Local versions should not be checked into source control, and are in our `.gitignore`. We similarly ignore `.env` as a convention, preferring to use more specific files for storing environment variables.
 
-To generate a local `.env` file, run the `Get-LocalEnv.ps1` script and specify the Azure Key Vault name to generate local environmental variables from. For example, `Get-LocalEnv.ps1 -KeyVaultName 'gamename-staging'`
+To generate a local `.env` file, run the `Get-Secrets.ps1` script and specify the Azure Key Vault name to generate local environmental variables from. For example, `Get-Secrets.ps1 -KeyVaultName 'gamename-staging'`
 
 Here are the available Azure Key Vault names for this project:
 
@@ -136,9 +136,9 @@ gamename-production
 
 ### Adding new variables to Azure Key Vaults
 
-Azure Key Vaults are created or updated with the `Create-KeyVaults.ps1` script. The Azure Key Vault names and values are stored in `KeyVaults.json`. This `KeyVaults.json` file can contain confidential information and thus should never be checked into GitHub without being encrypted first.
+Azure Key Vaults are created or updated with the `Set-Secrets.ps1` script. The Azure Key Vault names and values are stored in `Secrets.json`. This `Secrets.json` file can contain confidential information and thus should never be checked into GitHub without being encrypted first.
 
-To modify Key Vault names or values, you'll need to decrypt the Key Vaults file by running `Manage-KeyVaultsFile.ps1 -Decrypt` or `yarn keys:decrypt`
+To modify Key Vault names or values, you'll need to decrypt the Key Vaults file by running `Manage-SecretsFile.ps1 -Decrypt` or `yarn keys:decrypt`
 
 Once you're done editing the file, re-encrypt the file by running `Manage-KeyVaultsFile.ps1 -Encrypt` or `yarn keys:encrypt`. Please commit the new `KeyVaults.json` file back into the repository.
 

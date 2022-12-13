@@ -1,6 +1,8 @@
 param (
     [parameter(Mandatory = $false)]
-    $KeyVaultRG = "AMU_KeyVaults_RG"
+    $KeyVaultRG = "AMU_KeyVaults_RG",
+    [parameter(Mandatory = $false)]
+    $SecretsFile = "Secrets.json"
 )
 
 #Check to see if Az module is installed 
@@ -14,7 +16,7 @@ if (Get-Module -ListAvailable Az) {
 
 Import-Module Az -ErrorAction SilentlyContinue
 
-$keyVaults = (Get-Content -Path KeyVaults.json | ConvertFrom-Json).PSObject.Properties
+$keyVaults = (Get-Content -Path $SecretsFile | ConvertFrom-Json).PSObject.Properties
 
 $keyVaults | ForEach-Object {
     $KeyVaultName = $_.Name
