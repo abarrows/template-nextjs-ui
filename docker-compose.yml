@@ -19,10 +19,14 @@ services:
         # Set dynamic and/or secret env vars used during Next.js + Dockerfile
         # build processes. They are NOT available during runtime.
         - BASE_URL=${BASE_URL:?err}
-        - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL:?err}
         - DEPLOY_ENV=${DEPLOY_ENV:?err}
-        - NEXT_PUBLIC_DEPLOY_ENV=${DEPLOY_ENV:?err}
-        # - SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN:?err}
+        - NEXT_PUBLIC_DEPLOY_ENV=${NEXT_PUBLIC_DEPLOY_ENV:?err}
+        - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL:?err}
+        - NEXT_PUBLIC_B2C_TENANT_NAME=${NEXT_PUBLIC_B2C_TENANT_NAME:?err}
+        - NEXT_PUBLIC_VINDICIA_AUTH_ID=${NEXT_PUBLIC_VINDICIA_AUTH_ID:?err}
+        - NEXT_PUBLIC_VINDICIA_SERVER=${NEXT_PUBLIC_VINDICIA_SERVER:?err}
+        - NEXT_PUBLIC_VINDICIA_REST_SERVER=${NEXT_PUBLIC_VINDICIA_REST_SERVER:?err}
+        - NEXT_PUBLIC_SENTRY_DSN=${NEXT_PUBLIC_SENTRY_DSN:?err}
     ports:
       - '3003:3000'
     environment:
@@ -31,10 +35,16 @@ services:
       # vars needed during both build and runtime need to be duplicated here.
       # Build + runtime:
       BASE_URL: ${BASE_URL:?err}
-      NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL:?err}
       DEPLOY_ENV: ${DEPLOY_ENV:?err}
-      NEXT_PUBLIC_DEPLOY_ENV: ${DEPLOY_ENV:?err}
-      # SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN:?err}
-      # Runtime only:
       NEXTAUTH_URL: ${NEXTAUTH_URL:?err}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:?err}
+      API_SERVICE_URL: ${API_SERVICE_URL:?err}
+      API_SERVICE_KEY: ${API_SERVICE_KEY:?err}
+      VINDICIA_PRIVATE_KEY: ${VINDICIA_PRIVATE_KEY:?err}
+      B2C_CLIENT_ID: ${B2C_CLIENT_ID:?err}
+      B2C_CLIENT_SECRET: ${B2C_CLIENT_SECRET:?err}
+      SENTRY_PROJECT: ${SENTRY_PROJECT}
+      SENTRY_ORG: ${SENTRY_ORG}
+      SENTRY_DSN: ${SENTRY_DSN}
+      SENTRY_URL: ${SENTRY_URL}
+      APP_VERSION: ${APP_VERSION}

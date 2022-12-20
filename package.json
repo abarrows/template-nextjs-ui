@@ -11,7 +11,10 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "setup": "yarn install && yarn dev",
+    "keys:decrypt": "pwsh -c \"./Manage-KeyVaultsFile.ps1 -Decrypt\"",
+    "keys:encrypt": "pwsh -c \"./Manage-KeyVaultsFile.ps1 -Encrypt\"",
+    "keys:get": "sh -c 'pwsh -c \"./Get-LocalEnv.ps1 -KeyVaultName ${0}\"'",
+    "setup:os": "if [[ $OSTYPE == 'darwin'* ]]; then yarn config set packager \"brew\"; else yarn config set packager \"choco\"; fi $npm_config_packager install --cask powershell gpg-suite && pwsh -c \"Install-Module Az -Force\"; yarn install",
     "dev": "next",
     "build": "next build",
     "build:analyze": "ANALYZE=true yarn build",

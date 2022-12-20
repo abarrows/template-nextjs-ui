@@ -200,4 +200,6 @@ yarn-error.log*
 
 # Sitemap
 public/robots.txt
-Create-KeyVaults.ps1
+
+# Key Vaults
+KeyVaults.json
