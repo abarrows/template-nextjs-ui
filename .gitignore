@@ -202,4 +202,4 @@ yarn-error.log*
 public/robots.txt
 
 # Key Vaults
-KeyVaults.json
+Secrets.json
