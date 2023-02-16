@@ -1,0 +1,36 @@
+changelog:
+  categories:
+    - title: General Changes
+      labels:
+        - "*"
+      exclude:
+        labels:
+          - dependencies
+    - title: Application Code Changes
+      labels:
+        - npm
+        - javascript
+      exclude:
+        labels:
+          - dependencies
+    - title: Docker changes
+      labels:
+        - docker
+      exclude:
+        labels:
+          - dependencies
+    - title: DevOps File changes
+      labels:
+        - devops
+      exclude:
+        labels:
+          - dependencies
+    - title: Documentation Changes
+      labels:
+        - documentation
+      exclude:
+        labels:
+          - dependencies
+    - title: Dependency Changes
+      labels:
+        - dependencies

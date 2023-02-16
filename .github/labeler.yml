@@ -1,5 +1,6 @@
 dependencies:
   - yarn.lock
+  - package.json
 
 docker:
   - .dockerignore
@@ -11,15 +12,34 @@ documentation:
 
 javascript:
   - '**/*.js'
+  - '**/*.js.html'
+  - '**/*.json'
   - '**/*.jsx'
   - '**/*.ts'
   - '**/*.tsx'
+  - '!**/Secrets.json*'
+  - '!/.vscode'
+  - '!**/*.test.js'
 
 npm:
   - yarn.lock
+  - package.json
+
+tools:
+  - '/.vscode'
+  - '/.devcontainer'
+
+test-integration:
+  - 'playwright/**'
+  - 'cypress/**'
+  - '**/.spec.*'
+  - '**/*.test.js'
 
 devops:
   - '.github/**'
   - 'deployments/**'
-  - '*keyvaults.sh'
-  - 'Create-KeyVaults.ps1.gpg'
+  - '*.ps1'
+  - 'Secrets.json*'
+  - 'docker-compose.yml'
+  - 'Dockerfile'
+  - '.*ignore'

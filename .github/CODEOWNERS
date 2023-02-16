@@ -38,12 +38,11 @@ src/**                          @Andrews-McMeel-Universal/front-end-engineers
 
 # Back-end Engineering
 data/**                         @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/back-end-engineers
-
 # DevOps
+/.github/**                     @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
+/deployments/**                 @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
+*.ps1                           @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
+Dockerfile                      @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
+docker-compose.yml              @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
+.*ignore                        @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
 .nvmrc*                         @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-.gitignore                      @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-.env**                          @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-.github/**                      @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-Dockerfile*                      @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-docker-compose*                 @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-deployments/**                  @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers

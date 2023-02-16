@@ -21,3 +21,13 @@
 .idea/
 *.tmproj
 .vscode/
+
+# DevOps files
+*KeyVaults*
+Secrets.json.gpg
+Secrets.json
+*.ps1
+Dockerfile
+docker-compose.yml
+deployments/
+.*ignore
