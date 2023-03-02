@@ -1,0 +1,7 @@
+CODEOWNERS
+values.yaml
+labeler.yml
+dependabot.yml
+release.yml
+Secrets-example.json
+README.md

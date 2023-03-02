@@ -7,7 +7,7 @@ on:
 jobs:
   deploy:
     name: Execute AKS Deployment
-    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2.1.15
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2.1.16
     with:
       repositoryName: ${{ github.event.repository.name }}
       environment: production
@@ -22,10 +22,6 @@ jobs:
       dockerImageTag: ${{ github.sha }}
       storageAccountName: amucloudapps
       appInfoTableName: DeployedApplications
-      deploymentTimeout: 20
-      webAuthentication: false
-      ingressWhitelist: '0.0.0.0/0'
-      adminIngressWhitelist: '207.67.20.252'
       environmentIngress: false
     secrets:
       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
@@ -36,7 +32,7 @@ jobs:
   update_boley_dns:
     needs: deploy
     name: Update Boley DNS
-    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2.1.15
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2.1.16
     with:
       environment: production
       repositoryName: ${{ github.event.repository.name }}

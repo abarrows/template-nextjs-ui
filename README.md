@@ -84,11 +84,13 @@ Related links:
 
 ---
 
-## Install
+## Getting Started
 
 ```bash
 git clone https://github.com/Andrews-McMeel-Universal/appname_ui.git
 ```
+
+### Prerequisites
 
 You will need:
 
@@ -711,7 +713,6 @@ Below are the intended uses for them.
    instructions for the new product.
 5. Once all is finished, run the **preflight** command which executes all setup scripts,
    tests, linting, etc. to ensure that everything works correctly without errors:
-
-```javascript
+```shell
 yarn preflight
 ```

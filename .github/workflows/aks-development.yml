@@ -2,8 +2,7 @@ name: 'Development AKS Deploy'
 
 on:
   push:
-    branches:
-      - development
+    branches: [development]
     paths-ignore:
       - '**.md'
       - '**.ps1'
@@ -16,7 +15,7 @@ on:
 jobs:
   deploy:
     name: Execute AKS Deployment
-    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2.1.15
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2.1.16
     with:
       repositoryName: ${{ github.event.repository.name }}
       environment: development
@@ -32,11 +31,6 @@ jobs:
       maximumReplicas: 4
       storageAccountName: amucloudapps
       appInfoTableName: DeployedApplications
-      deploymentTimeout: 20
-      webAuthentication: false
-      ingressWhitelist: '0.0.0.0/0'
-      adminIngressWhitelist: '207.67.20.252'
-      environmentIngress: true
     secrets:
       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
       registryUserName: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
@@ -46,7 +40,7 @@ jobs:
   update_boley_dns:
     needs: deploy
     name: Update Boley DNS
-    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2.1.15
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2.1.16
     with:
       environment: development
       repositoryName: ${{ github.event.repository.name }}
