@@ -103,7 +103,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "27.5.1",
     "mockdate": "^3.0.2",
-    "postcss": "^8.4.13",
+    "postcss": "^8.4.21",
     "prettier": "^2.6.2",
     "react-test-renderer": "^17.0.1",
     "size-limit": "^7.0.8",
