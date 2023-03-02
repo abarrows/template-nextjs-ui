@@ -2,15 +2,19 @@ name: 'Development AKS Deploy'
 
 on:
   push:
-    branches: [development]
+    branches:
+      - main
+      # Filter out Dependabot PRs
+      - "!dependabot/**"
     paths-ignore:
-      - '**.md'
-      - '**.ps1'
-      - 'Secrets.json'
+      - '**/*.md'
+      - '**/*.ps1'
+      - '**/Secrets.json*'
       - '.*ignore'
-      - '**.gpg'
-      - '/.devcontainer/'
-      - '/.vscode/'
+      - '.github/'
+      - '!.github/workflows/aks-development.yml'
+      - '.devcontainer/'
+      - '.vscode/'
 
 jobs:
   deploy:
@@ -28,7 +32,7 @@ jobs:
       dockerFilePath: .
       dockerImageName: ${{ github.event.repository.name }}
       dockerImageTag: ${{ github.sha }}
-      maximumReplicas: 4
+      maximumReplicas: 2
       storageAccountName: amucloudapps
       appInfoTableName: DeployedApplications
     secrets:

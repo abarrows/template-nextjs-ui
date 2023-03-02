@@ -20,6 +20,7 @@ jobs:
       dockerFilePath: .
       dockerImageName: ${{ github.event.repository.name }}
       dockerImageTag: ${{ github.sha }}
+      maximumReplicas: 30
       storageAccountName: amucloudapps
       appInfoTableName: DeployedApplications
       environmentIngress: false
