@@ -1,7 +1,7 @@
-CODEOWNERS
-values.yaml
-labeler.yml
-dependabot.yml
-release.yml
+.github/CODEOWNERS
+**/values.yaml
+.github/labeler.yml
+.github/dependabot.yml
+.github/release.yml
 Secrets-example.json
 README.md
