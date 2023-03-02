@@ -11,7 +11,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 deployment:
-  secret: appname-ui-config-secret
+  secret: appname-secret
   healthCheckPath: "/"
 
 service:

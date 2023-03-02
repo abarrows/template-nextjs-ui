@@ -3,7 +3,7 @@
 ![Pull Requests](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/pull-request.yml/badge.svg)
 ![Storybook](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/chromatic.yml/badge.svg)
 
-# AppName UI
+# AppName
 
 Web service responsible for all appname related data.
 

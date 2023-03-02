@@ -1,4 +1,4 @@
 apiVersion: v1
-name: appname-ui
-version: 1.1.1
+name: appname
+version: 1.0.0
 appVersion: 0.0.0
