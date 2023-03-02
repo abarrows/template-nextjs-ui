@@ -3,15 +3,17 @@ name: Application CI
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    branches: [main, development]
+    branches:
+      - main
+      # Filter out Dependabot PRs
+      - "!dependabot/**"
     paths-ignore:
-      - '**.md'
-      - '**.ps1'
-      - 'Secrets.json'
+      - '**/*.md'
+      - '**/*.ps1'
+      - '**/Secrets.json*'
       - '.*ignore'
-      - '**.gpg'
-      - '/.devcontainer/'
-      - '/.vscode/'
+      - '.github/'
+      - '!.github/workflows/application-ci.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -33,8 +35,6 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-build-args-cache
         with:
@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
+          token: ${{ secrets.PAT_ACTION_CI }}
 
       - uses: ./.github/actions/use-build-args-cache
 
@@ -81,12 +81,10 @@ jobs:
   unit-tests:
     name: Run Unit Tests
     runs-on: ubuntu-latest
-    needs: [setup-and-build,lint-and-format]
+    needs: [lint-and-format]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-build-args-cache
 
@@ -97,19 +95,15 @@ jobs:
       - name: Run Jest tests
         run: yarn test:unit:ci
 
-
-
   # Runs Playwright integration tests
   integration-tests:
     name: Run Integration Tests
     runs-on: ubuntu-latest
     # needs: [build, check-linters]
-    needs: [setup-and-build,lint-and-format]
+    needs: [lint-and-format]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-build-args-cache
 
@@ -133,12 +127,10 @@ jobs:
   check-links:
     name: Check Application Links
     runs-on: ubuntu-latest
-    needs: [setup-and-build,lint-and-format]
+    needs: [lint-and-format]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-build-args-cache
 
@@ -159,12 +151,10 @@ jobs:
   check-size:
     runs-on: ubuntu-latest
     name: Get File Sizes Limits
-    needs: [setup-and-build,lint-and-format]
+    needs: [lint-and-format]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-build-args-cache
 
@@ -176,3 +166,11 @@ jobs:
         id: link-checker-report
         continue-on-error: true
         run: yarn test:size
+
+  required-checks:
+    name: Required Checks
+    runs-on: ubuntu-latest
+    needs: [check-size,check-links,unit-tests,integration-tests]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
