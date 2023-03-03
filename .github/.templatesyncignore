@@ -1,5 +1,4 @@
 .github/CODEOWNERS
-**/values.yaml
 .github/labeler.yml
 .github/dependabot.yml
 .github/release.yml
