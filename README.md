@@ -4,8 +4,15 @@
 ![Storybook](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/chromatic.yml/badge.svg)
 
 # AppName
+App responsible for all appname related data.
 
-Web service responsible for all appname related data.
+Detailed information about how to prepare an app to deploy to K8s is here: (https://amuniversal.atlassian.net/l/c/AV1H0Sbf)
+
+Related links:
+
+- [Development Environment](https://development.appname.amuniversal.com)
+- [Staging Environment](https://staging.appname.amuniversal.com)
+- [Production Environment](https://appname.amuniversal.com)
 
 This UI template repository serves as a boilerplate/blueprint for any "New World" front-end UI application for our department. All product string references have been agnosticized with detailed onboarding instructions in the README. This template repo will evolve and mature. The goal of maintaining this is to two fold, decrease the time it takes to build new SPA UI's and increase uniformity across our front-end ecosystem. As it matures, more and more configuration, utilities, and logic which embodies what our application specific "standards" are as a team. To update this repository, this question needs to be answered as true:
 
@@ -87,7 +94,7 @@ Related links:
 ## Getting Started
 
 ```bash
-git clone https://github.com/Andrews-McMeel-Universal/appname_ui.git
+git clone https://github.com/Andrews-McMeel-Universal/appname.git
 ```
 
 ### Prerequisites
@@ -663,7 +670,7 @@ Once approved and an AMU software engineer has merged this pull request in, the 
 
 ### Semantic Versioning
 
-Within this application, there are three locations that are updated to denote what the current version is. These three values should always match each other:
+Within this application, there are two locations that are updated to denote what the current version is. These three values should always match each other:
 
 - `/package.json`
 - `/deployments/charts/Chart.yaml` (update `appVersion`)
