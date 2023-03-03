@@ -4,3 +4,4 @@
 .github/release.yml
 Secrets-example.json
 README.md
+.github/workflows/template-sync.yml
