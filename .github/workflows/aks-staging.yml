@@ -1,6 +1,6 @@
 name: 'Staging AKS Deploy'
 
-on: 
+on:
   release:
     types: [prereleased]
 

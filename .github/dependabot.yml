@@ -5,41 +5,41 @@
 
 version: 2
 updates:
-- package-ecosystem: 'npm' # for yarn
-  directory: '/' # Look for `package.json` and `lock` files in the `root` directory
-  schedule:
-    interval: "weekly"
-    day: "monday"
-  labels:
-    - 'npm'
-    - 'dependencies'
-  reviewers:
-    - 'Andrews-McMeel-Universal/front-end-engineers-puzzle-society'
-  versioning-strategy: increase
-  open-pull-requests-limit: 10
+  - package-ecosystem: 'npm' # for yarn
+    directory: '/' # Look for `package.json` and `lock` files in the `root` directory
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    labels:
+      - 'npm'
+      - 'dependencies'
+    reviewers:
+      - 'Andrews-McMeel-Universal/front-end-engineers-puzzle-society'
+    versioning-strategy: increase
+    open-pull-requests-limit: 10
 
-- package-ecosystem: 'docker'
-  directory: '/'
-  ignore:
-    - dependency-name: 'node'
-  schedule:
-    interval: "weekly"
-    day: "monday"
-  labels:
-    - 'dependencies'
-    - 'docker'
-  reviewers:
-    - 'Andrews-McMeel-Universal/devops-engineers'
-  open-pull-requests-limit: 10
+  - package-ecosystem: 'docker'
+    directory: '/'
+    ignore:
+      - dependency-name: 'node'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    labels:
+      - 'dependencies'
+      - 'docker'
+    reviewers:
+      - 'Andrews-McMeel-Universal/devops-engineers'
+    open-pull-requests-limit: 10
 
-- package-ecosystem: "github-actions"
-  directory: ".github"
-  schedule:
-    interval: "weekly"
-    day: "monday"
-  labels:
-    - 'devops'
-    - 'dependencies'
-  reviewers:
-    - 'Andrews-McMeel-Universal/devops-engineers'
-  open-pull-requests-limit: 10
+  - package-ecosystem: 'github-actions'
+    directory: '.github'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    labels:
+      - 'devops'
+      - 'dependencies'
+    reviewers:
+      - 'Andrews-McMeel-Universal/devops-engineers'
+    open-pull-requests-limit: 10

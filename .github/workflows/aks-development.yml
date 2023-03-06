@@ -5,7 +5,7 @@ on:
     branches:
       - main
       # Filter out Dependabot PRs
-      - "!dependabot/**"
+      - '!dependabot/**'
     paths-ignore:
       - '**/*.md'
       - '**/*.ps1'

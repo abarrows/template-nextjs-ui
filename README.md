@@ -4,6 +4,7 @@
 ![Storybook](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/chromatic.yml/badge.svg)
 
 # AppName
+
 App responsible for all appname related data.
 
 Detailed information about how to prepare an app to deploy to K8s is here: (https://amuniversal.atlassian.net/l/c/AV1H0Sbf)
@@ -720,6 +721,7 @@ Below are the intended uses for them.
    instructions for the new product.
 5. Once all is finished, run the **preflight** command which executes all setup scripts,
    tests, linting, etc. to ensure that everything works correctly without errors:
+
 ```shell
 yarn preflight
 ```

@@ -1,6 +1,6 @@
 name: 'Production AKS Deploy'
 
-on: 
+on:
   release:
     types: [released, deleted]
 

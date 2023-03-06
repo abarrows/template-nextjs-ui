@@ -7,12 +7,12 @@ param (
     [switch]$Decrypt
 )
 
-if ((!$Decrypt) -and (!$Encrypt)){
+if ((!$Decrypt) -and (!$Encrypt)) {
     Write-Error "Please use either -Decrypt or -Encrypt when calling the script"
 }
 
 if ($File -match "\.gpg") {
-    $File.Replace(".gpg","")
+    $File.Replace(".gpg", "")
 }
 
 if ($Encrypt) {
