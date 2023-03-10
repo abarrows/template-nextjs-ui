@@ -1,5 +1,4 @@
-![Production](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-production.yml/badge.svg)
-![Staging](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-staging.yml/badge.svg)
+![Deployment](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml/badge.svg)
 ![Pull Requests](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/pull-request.yml/badge.svg)
 ![Storybook](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/chromatic.yml/badge.svg)
 
@@ -8,12 +7,6 @@
 App responsible for all appname related data.
 
 Detailed information about how to prepare an app to deploy to K8s is here: (https://amuniversal.atlassian.net/l/c/AV1H0Sbf)
-
-Related links:
-
-- [Development Environment](https://development.appname.amuniversal.com)
-- [Staging Environment](https://staging.appname.amuniversal.com)
-- [Production Environment](https://appname.amuniversal.com)
 
 This UI template repository serves as a boilerplate/blueprint for any "New World" front-end UI application for our department. All product string references have been agnosticized with detailed onboarding instructions in the README. This template repo will evolve and mature. The goal of maintaining this is to two fold, decrease the time it takes to build new SPA UI's and increase uniformity across our front-end ecosystem. As it matures, more and more configuration, utilities, and logic which embodies what our application specific "standards" are as a team. To update this repository, this question needs to be answered as true:
 
@@ -95,7 +88,7 @@ Related links:
 ## Getting Started
 
 ```bash
-git clone https://github.com/Andrews-McMeel-Universal/appname.git
+git clone https://github.com/Andrews-McMeel-Universal/appname
 ```
 
 ### Prerequisites
@@ -112,11 +105,11 @@ You will need:
   - MacOS: `brew install --cask powershell`
   - Windows: `choco install powershell-core`
 
-If you have never setup PowerShell Core on your computer before, you will need to do the following:
+If you have never set up PowerShell Core on your computer before, you will need to do the following:
 
-1.  After you install PowerShell Core, open a terminal and type `pwsh` to to start PowerShell.
-2.  From a PowerShell session, type `Install-Module Az`. Once the Azure module is installed, type `Import-Module Az`.
-3.  Type `Connect-AzAccount` to log into Azure. Every 30 days or so you may be required to run `Connect-AzAccount` to login.
+1. After you install PowerShell Core, open a terminal and type `pwsh` to to start PowerShell.
+2. From a PowerShell session, type `Install-Module Az`. Once the Azure module is installed, type `Import-Module Az`.
+3. Type `Connect-AzAccount` to log into Azure. Every 30 days or so you may be required to run `Connect-AzAccount` to login.
 
 ---
 
@@ -124,11 +117,10 @@ If you have never setup PowerShell Core on your computer before, you will need t
 
 To start the service locally:
 
-1. Retrieve KeyVaults: `yarn keys:get gamename-environment`
+1. Retrieve Secrets: `yarn keys:get gamename-environment`
 2. Set up packages on your local machine: `yarn setup:os`
 3. Install dependencies: `yarn install`
-4. Start app for development: `yarn dev`
-5. Start app for production: `yarn build && yarn start`
+4. Start app for development, `yarn dev`, or start app for production, `yarn build && yarn start`
 6. Open app in browser: `http://localhost:3000/`
 
 ---
@@ -192,6 +184,35 @@ To access environment variables in **server-side code**:`process.env.VARIABLE_NA
 To access environment variables in **client-side code**: `process.env.NEXT_PUBLIC_VARIABLE_NAME`
 
 ---
+
+### Docker
+
+We use the Docker container to build and deploy this project. The Docker container is also a useful local development tool, because by building and then running it locally, it automatically builds for `production` and can help simulate that environment. When running it, be aware that hot reloading will not work, and any changes you make will not be reflected until the Docker container is stopped and rebuilt.
+
+You can check the [Example Dockerfile for a Node.js project](https://github.com/mhart/alpine-node/tree/43ca9e4bc97af3b1f124d27a2cee002d5f7d1b32#example-dockerfile-for-your-own-nodejs-project) section in [mhart/alpine-node](https://github.com/mhart/alpine-node) for more details.
+
+#### How to use
+
+**Build** the image with Docker: `yarn docker:build`
+
+or
+
+**Build and Run** `docker compose up --build ui`
+
+**Run** `docker compose up`
+
+**Exit** the running Docker container: `ctrl+c`
+
+It is a good idea to use docker compose to test your branch against different environments before merging your branch.
+For example, to test against staging:
+
+1. `Get-Secrets.ps1 -KeyVaultName codex-staging`
+2. `docker compose up --build ui`
+
+To test against production services:
+
+1. `Get-Secrets.ps1 -KeyVaultName codex-production`
+2. `docker compose up --build ui`
 
 ## Updating the Node Version
 
@@ -480,7 +501,7 @@ Custom theme file: `src/scss/_custom.scss`
 
 ## Testing
 
-Test files should be stored in the same location as the original file they are testing, with the exception of Cypress tests (see below).
+Test files should be stored in the same location as the original file they are testing, with the exception of Playwright tests (see below).
 
 Run tests with: `yarn test`
 
@@ -496,15 +517,14 @@ For more information about working with Jest, this is a [friendly and useful gui
 
 [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) covers component tests in way more like how a user would interact with the component. We use `data-testid` within components as a convenient method for identifying DOM elements with React Testing Library.
 
-### Cypress
+### Playwright
 
-We use [Cypress](https://www.cypress.io/) as our end-to-end testing framework. We also use `data-testid` in these tests for targeting. All Cypress tests are contained in `cypress/integration/` directory as `.spec.js` files.
+We use [Playwright](https://playwright.dev/) as our end-to-end testing framework. We also use `data-testid` in these tests for targeting. All Playwright tests are contained in `playwright` directory as `.spec.js` files.
 
-Cypress tests can be run headless by running `yarn cy:headless`, or you can run the Cypress ui locally with `yarn cy:ui`.
+Playwright tests can be run with `yarn pw:test`
 
-- Reference: <https://docs.cypress.io/guides/core-concepts/introduction-to-cypress>
-- Reference: <https://docs.cypress.io/guides/references/best-practices>
-- Reference: <https://www.cypress.io/blog/2021/01/20/running-cypress-on-the-apple-m1-silicon-arm-architecture-using-rosetta-2/#running-cypress-under-rosetta-2>
+- Reference: <https://playwright.dev/docs/writing-tests>
+- It is recommended, but not mandatory, to also download the VSCode extension for Playwright for easier debugging <https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright>
 
 ---
 
@@ -675,6 +695,14 @@ Within this application, there are two locations that are updated to denote what
 
 - `/package.json`
 - `/deployments/charts/Chart.yaml` (update `appVersion`)
+
+You can use the `bump-versions.yml` workflow to automatically increment the version number in both of these files. To run the workflow
+1. Go to the Actions tab in this repository.
+2. Select the Bump Versions workflow
+3. On the right side, click "Run workflow" and specify how you would want to increment the version number.
+4. Click "Run workflow"/.
+
+This will create a PR with the changes that should already be approved.
 
 _NOTE: We do not use the vx.x.x pattern for version naming. We simply have the semantic release version number like this: x.x.x_
 

@@ -31,7 +31,6 @@ tools:
 
 test-integration:
   - 'playwright/**'
-  - 'cypress/**'
   - '**/.spec.*'
   - '**/*.test.js'
 

@@ -4,7 +4,6 @@
 .next/
 .storybook/
 build/
-cypress/
 jest/
 node_modules/
 public/robots.*
