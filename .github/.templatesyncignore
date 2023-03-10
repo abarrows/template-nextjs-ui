@@ -6,3 +6,4 @@ Secrets-example.json
 README.md
 .github/workflows/template-sync.yml
 .prettierignore
+.github/workflows/aks-*.yml

@@ -1,9 +1,14 @@
-name: 'Sync with k8sapp_template'
+name: '🔄 Sync with k8sapp_template'
 
 on:
   schedule:
     - cron: '0 9 * * 1'
   workflow_dispatch:
+    inputs:
+      isdryrun:
+        type: boolean
+        description: Dry run
+        default: false
 
 jobs:
   repo-sync:
@@ -22,6 +27,7 @@ jobs:
           source_repo_path: Andrews-McMeel-Universal/k8sapp_template
           upstream_branch: main
           pr_labels: maintenance
-          pr_commit_msg: Synchronize with @Andrews-McMeel-Universal/k8sapp_template
-          pr_title: Sync with @Andrews-McMeel-Universal/k8sapp_template
+          pr_commit_msg: 🔄 Synchronize with @Andrews-McMeel-Universal/k8sapp_template
+          pr_title: 🔄 Sync with @Andrews-McMeel-Universal/k8sapp_template
           pr_branch_name_prefix: sync/k8sapp_template/
+          is_dry_run: ${{ inputs.isdryrun || 'false' }}
