@@ -691,16 +691,17 @@ Once approved and an AMU software engineer has merged this pull request in, the 
 
 ### Semantic Versioning
 
-Within this application, there are two locations that are updated to denote what the current version is. These three values should always match each other:
+Within this application, there are files that need to be updated to denote what the current version is. These values should always match each other:
 
-- `/package.json`
+- `/package.json` (update `version`)
 - `/deployments/charts/Chart.yaml` (update `appVersion`)
 
 You can use the `bump-versions.yml` workflow to automatically increment the version number in both of these files. To run the workflow
+
 1. Go to the Actions tab in this repository.
-2. Select the Bump Versions workflow
-3. On the right side, click "Run workflow" and specify how you would want to increment the version number.
-4. Click "Run workflow"/.
+2. Select the "Bump Versions" action on the left hand side
+3. On the right side on the "Bump Versions" action page, click "Run workflow" and specify how you would want to increment the version number.
+4. Click "Run workflow".
 
 This will create a PR with the changes that should already be approved.
 
