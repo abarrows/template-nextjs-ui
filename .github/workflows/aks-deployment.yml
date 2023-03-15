@@ -63,7 +63,7 @@ jobs:
       webAuthenticationUsername: ${{ secrets.WEB_AUTHENTICATION_USERNAME }}
 
   update-boley-dns:
-    needs: [execute-deployment]
+    needs: [prepare-deployment,execute-deployment]
     name: Update Boley DNS
     uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2.2.4
     with:
