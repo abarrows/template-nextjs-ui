@@ -2,10 +2,7 @@ name: AKS Deployment
 
 on:
   push:
-    branches:
-      - main
-      # Filter out Dependabot PRs
-      - '!dependabot/**'
+    branches: [main]
   release:
     types: [released, prereleased]
 
@@ -15,6 +12,7 @@ concurrency:
 
 jobs:
   prepare-deployment:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Prepare for AKS deployment
     runs-on: ubuntu-latest
     timeout-minutes: 2
@@ -63,7 +61,7 @@ jobs:
       webAuthenticationUsername: ${{ secrets.WEB_AUTHENTICATION_USERNAME }}
 
   update-boley-dns:
-    needs: [prepare-deployment,execute-deployment]
+    needs: [prepare-deployment, execute-deployment]
     name: Update Boley DNS
     uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2.2.4
     with:
