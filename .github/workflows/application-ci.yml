@@ -3,10 +3,7 @@ name: Application CI
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    branches:
-      - main
-      # Filter out Dependabot PRs
-      - '!dependabot/**'
+    branches: [main]
     paths-ignore:
       - '**/*.md'
       - '**/*.ps1'
@@ -30,6 +27,7 @@ env:
 jobs:
   # Sets up dependencies and initial cache
   setup-and-build:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Setup and Build Application
     runs-on: ubuntu-latest
     timeout-minutes: 10
