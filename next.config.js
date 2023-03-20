@@ -12,9 +12,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const redirects = require('./redirects');
 
-// The eslint ignoreDuringBuilds boolean allows production builds to successfully complete even if
-// the project has ESLint errors. This is set to true because we already have ESLint configured to
-// run in a separate workflow
 const customConfig = {
   // TODO: remove optimizeFonts: false after this issue is resolved
   // https://github.com/vercel/next.js/issues/36498
@@ -45,7 +42,7 @@ const customConfig = {
     const prodRedirects = [];
     if (process.env.DEPLOY_ENV === 'production') {
       // prodRedirects.push({
-      //   source: '/TODO',
+      //   source: 'url to disable',
       //   destination: '/',
       //   permanent: false,
       // });

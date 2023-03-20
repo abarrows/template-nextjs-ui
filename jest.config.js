@@ -1,5 +1,8 @@
 const nextJest = require('next/jest');
 
+// Set the time zone to UTC because that's what GH Actions and just about everything else will use
+process.env.TZ = 'UTC';
+
 // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
 const createJestConfig = nextJest({
   dir: './',
@@ -10,6 +13,9 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testEnvironment: 'jest-environment-jsdom',
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(test).[jt]s?(x)'],
+  // TODO: add coverage badge too
+  collectCoverage: true,
 };
 
 // Additional overrides to the Next.js Jest config

@@ -1,27 +1,22 @@
 import { getServerSideSitemap } from 'next-sitemap';
 
 export async function getServerSideProps(context) {
-  // Retrieve the content data from the server endpoint
+  // 1. Retrieve the content data from the server endpoint
+  // 2. Filter out just active brands
+  // 3. Iterate over the active items and populate the sitemap entries
 
-  // Filter out just active brands
-
-  // Iterate over the active items and populate the sitemap entries
   // TODO-REVIEW: Need to discuss with the team.
   // TODO-ONBOARDING: Need to add in the proper UI structure.
-  // const itemSlugs = activeitems.map((item) => {
-  //   const field = {
-  //     loc: `${process.env.NEXT_PUBLIC_BASE_URL}/${item.categorySlug}/${item.slug}`,
-  //     lastmod: item.updatedAt,
-  //     changefreq: 'daily',
-  //     priority: 0.9,
-  //   };
+  // const activePages = activeItems.map((item) => ({
+  //   changefreq: item.changefreq || 'daily',
+  //   priority: item.priority || 0.7,
+  //   path: `${process.env.BASE_URL}/${item.slug}`,
+  // }));
 
-  //   return field;
-  // });
-
-  // return getServerSideSitemap(context, itemSlugs);
-  return getServerSideSitemap(context);
+  const activePages = [];
+  return getServerSideSitemap(context, activePages);
 }
 
-// Default export to prevent next.js errors
-export default () => {};
+export default function Sitemap() {
+  return null;
+}

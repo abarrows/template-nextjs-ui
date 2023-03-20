@@ -1,0 +1,71 @@
+name: AKS Deployment
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [released, prereleased]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prepare-deployment:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Prepare for AKS deployment
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Retrieve Environment
+        id: output-environment
+        run: |
+          if [ ${{ github.ref == 'refs/heads/main' }} == true ]; then
+              echo "deployment-environment=development" >> $GITHUB_ENV
+              echo "maximumreplicas=2" >> $GITHUB_ENV
+          elif [[ ${{ github.event_name == 'release' && github.event.release.prerelease }} == true ]]; then
+              echo "deployment-environment=staging" >> $GITHUB_ENV
+              echo "maximumreplicas=2" >> $GITHUB_ENV
+              echo "webauthentication=true" >> $GITHUB_ENV
+          elif [[ ${{ github.event_name == 'release' && !github.event.release.prerelease }} == true ]]; then
+              echo "deployment-environment=production" >> $GITHUB_ENV
+              echo "maximumreplicas=30" >> $GITHUB_ENV
+              echo "environmentingress=false" >> $GITHUB_ENV
+              echo "ingresswhitelist=0.0.0.0/0" >> $GITHUB_ENV
+          fi
+    outputs:
+      deployment-environment: ${{ env.deployment-environment }}
+      maximumreplicas: ${{ env.maximumreplicas }}
+      environmentingress: ${{ env.environmentingress }}
+      ingresswhitelist: ${{ env.ingresswhitelist }}
+      webauthentication: ${{ env.webauthentication }}
+
+  execute-deployment:
+    needs: [prepare-deployment]
+    name: Execute AKS Deployment
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2.2.4
+    with:
+      environment: ${{ needs.prepare-deployment.outputs.deployment-environment }}
+      environmentKeyVault: 'appname-${{ needs.prepare-deployment.outputs.deployment-environment }}'
+      webAuthentication: ${{ needs.prepare-deployment.outputs.webauthentication || 'false' }}
+      environmentIngress: ${{ needs.prepare-deployment.outputs.environmentingress || 'true' }}
+      maximumReplicas: ${{ needs.prepare-deployment.outputs.maximumreplicas || '2' }}
+      adminIngressWhitelist: '207.67.20.252'
+      ingressWhitelist: ${{ needs.prepare-deployment.outputs.ingresswhitelist || '207.67.20.252' }}
+    secrets:
+      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+      registryUserName: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
+      registryPassword: ${{ secrets.AMUAPPIMAGES201_PASSWORD }}
+      storageAccountKey: ${{ secrets.AMUCLOUDAPPS_KEY }}
+      webAuthenticationPassword: ${{ secrets.WEB_AUTHENTICATION_PASSWORD }}
+      webAuthenticationUsername: ${{ secrets.WEB_AUTHENTICATION_USERNAME }}
+
+  update-boley-dns:
+    needs: [prepare-deployment, execute-deployment]
+    name: Update Boley DNS
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2.2.4
+    with:
+      environment: ${{ needs.prepare-deployment.outputs.deployment-environment }}
+    secrets:
+      domainController: ${{ secrets.BOLEY_DC }}
+      storageAccountKey: ${{ secrets.AMUCLOUDAPPS_KEY }}

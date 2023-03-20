@@ -1,9 +1,12 @@
-![Production](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-production.yml/badge.svg)
-![Staging](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-staging.yml/badge.svg)
+![Deployment](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml/badge.svg)
 ![Pull Requests](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/pull-request.yml/badge.svg)
 ![Storybook](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/chromatic.yml/badge.svg)
 
-# k8sapp_ui_template
+# AppName
+
+App responsible for all appname related data.
+
+Detailed information about how to prepare an app to deploy to K8s is here: (<https://amuniversal.atlassian.net/l/c/AV1H0Sbf>)
 
 This UI template repository serves as a boilerplate/blueprint for any "New World" front-end UI application for our department. All product string references have been agnosticized with detailed onboarding instructions in the README. This template repo will evolve and mature. The goal of maintaining this is to two fold, decrease the time it takes to build new SPA UI's and increase uniformity across our front-end ecosystem. As it matures, more and more configuration, utilities, and logic which embodies what our application specific "standards" are as a team. To update this repository, this question needs to be answered as true:
 
@@ -17,7 +20,7 @@ Below is a high level list of things brought over:
    - Staging
    - Production
 1. NVM (Node Version Manager)
-1. Docker UI Image (Docker-Compose coming soon!)
+1. Docker Build and Docker Compose
 1. .github configuration
 
 - PR template
@@ -82,56 +85,55 @@ Related links:
 
 ---
 
-## Install
+## Getting Started
 
 ```bash
-git clone https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template.git
+git clone https://github.com/Andrews-McMeel-Universal/appname
 ```
+
+### Prerequisites
 
 You will need:
 
-- [Homebrew](https://brew.sh/) #For Macs
-- [Chocolatey](https://chocolatey.org/install) #For Windows
-- [NVM & Node](https://github.com/creationix/nvm)
-  - Install Node v14.1.0 or above, preferably the version listed in the `.nvmrc` file
-- [Yarn](https://yarnpkg.com/): `brew install yarn`
-- [Docker](https://www.docker.com/): `brew cask install docker` #For Macs or `choco install docker-desktop` #For Windows
-- [Powershell_7]: `brew install --cask powershell` #For Macs or `choco install powershell-core` #For Windows
+- An OS package manager
+  - MacOS: [Homebrew](https://brew.sh/)
+  - Windows: [Chocolatey](https://chocolatey.org/install)
+- [Docker](https://www.docker.com/)
+  - MacOS: `brew cask install docker`
+  - Windows: `choco install docker-desktop`
+- [Powershell](https://docs.microsoft.com/en-us/powershell)
+  - MacOS: `brew install --cask powershell`
+  - Windows: `choco install powershell-core`
 
-If you have never setup PowerShell Core on your computer before, you will need to do the following:
+If you have never set up PowerShell Core on your computer before, you will need to do the following:
 
-1. After you install PowerShell Core, open a terminal and type `pwsh` to to start powershell.
-2. From a PowerShell session, type `Install-Module Az`.   Once the Azure module is installed, type `Import-Module Az`.
-3. Type `Connect-AzAccount` to log into Azure.   Every 30 days or so you may be required to run `Connect-AzAccount` to login.
+1. After you install PowerShell Core, open a terminal and type `pwsh` to to start PowerShell.
+2. From a PowerShell session, type `Install-Module Az`. Once the Azure module is installed, type `Import-Module Az`.
+3. Type `Connect-AzAccount` to log into Azure. Every 30 days or so you may be required to run `Connect-AzAccount` to login.
 
-## Azure Key Vaults
-
-appname-development
-appname-staging
-appname-production
-
-Azure Key Vaults are created or updated with the Create-KeyVaults.ps1 script.   This script contains sensitive information and thus should never be checked into GitHub without being
-encrypted first.   For Mac and Linux users (Including Windows Subsystem for Linux), you can use the encryptkeyvaults.sh and decryptkeyvaults.sh to encrypt and unencrypt the
-Create-KeyVaults.ps1 PowerShell script.  For Windows, you will need to download and install <https://gpg4win.org/download.html>.   The secret for encrypting and unencrypting the file is
-in 1Password under the .env files encryption secret
 ---
 
-## Usage
+## Local Development
 
-- Install dependencies: `yarn install`
-- Start app for development: `yarn dev`
-- Start app for production: `yarn build && yarn start`
-- Open app in browser: `open http://localhost:3000/`
+To start the service locally:
 
-### Environment Variables
+1. Retrieve Secrets: `yarn keys:get gamename-environment`
+2. Set up packages on your local machine: `yarn setup:os`
+3. Install dependencies: `yarn install`
+4. Start app for development, `yarn dev`, or start app for production, `yarn build && yarn start`
+6. Open app in browser: `http://localhost:3000/`
 
-> Sensitive information should **ALWAYS** be stored in a safe place, such as in GitHub Secrets or in Azure Secrets.
+---
 
-#### About .env
+## Environment Variables
+
+A guide that explains the different types of Environmental Variables that we use in our environments: <https://vsupalov.com/docker-arg-env-variable-guide/>
+
+### About `.env`
 
 The `.env` file should not be checked into version control.
-To generate a local `.env` file, from the root of the project directory start a PowerShell terminal by typing pwsh and hitting enter.  Run the Get-LocalEnv.ps1 script and specify the keyvault to generate local environmental
-variables from.  Example: ./Get-LocalEnv.ps1 -KeyVaultName 'appname-development'
+
+By default, the `.env` file is what is read for local development. You can specify different .env files in the `docker-compose.yaml` file (example: `.env.development` or `.env.test`).
 
 Next.js has [built-in support](https://nextjs.org/docs/basic-features/environment-variables) for environment variables. It will automatically load variables from one of the following files for the matching Node environment, which are used to set default values for **non-sensitive** information:
 
@@ -143,23 +145,45 @@ Next.js has [built-in support](https://nextjs.org/docs/basic-features/environmen
 
 These variables can be overridden with `.local` versions of those files, such as `.env.development.local`. Local versions should not be checked into source control, and are in our `.gitignore`. We similarly ignore `.env` as a convention, preferring to use more specific files for storing environment variables.
 
-#### Adding new variables
+To generate a local `.env` file, run the `Get-Secrets.ps1` script and specify the Azure Key Vault name to generate local environmental variables from. For example, `Get-Secrets.ps1 -KeyVaultName 'appname-staging'`
 
-Depending on where the variable is stored, additional steps may be needed to make it available to the app. If the variable is sourced from GitHub Secrets or Azure Secrets:
-Typically Environmental Variables should be stored in Azure KeyVaults with the Create-KeyVaults.ps1 script.   There should be one Key Vault for every environment for an app.
-Every secret stored in a Azure KeyVault should have a ContentType set for it.   ContentTypes can be: 'BuildArg', 'Env', or 'BuildArg Env'
+Here are the available Azure Key Vault names for this project:
 
-A ContentType of BuildArg means the secret is a Docker Build Argument.   A ContentType of Env means that the secret is an Environmental Variable.   A ContentType of BuildArg Env
-means the secret is both a Docker Build Argument and an Environmental Variable.   Azure requires secret names to be lowercase kebabcase (example: The secretname for a DB_CONNECTION_STRING should be db-connection-string).   When Env files are created or the application is deployed, the lowercase kebabcase secret name will be converted to
-Uppercase SnakeCase (example: the secret name db-connection-string gets converted to DB_CONNECTION_STRING).
+```
+appname-development
+appname-staging
+appname-production
+```
 
-- Reference: <https://www.saltycrane.com/blog/2021/04/buildtime-vs-runtime-environment-variables-nextjs-docker/>
+### Adding new variables to Azure Key Vaults
 
-#### Using variables
+Azure Key Vaults are created or updated with the `Set-Secrets.ps1` script. The Azure Key Vault names and values are stored in `Secrets.json`. This `Secrets.json` file can contain confidential information and thus should never be checked into GitHub without being encrypted first.
+
+To modify Key Vault names or values, you'll need to decrypt the Key Vaults file by running `Manage-SecretsFile.ps1 -Decrypt`.
+
+Once you're done editing the file, re-encrypt the file by running `Manage-SecretsFile.ps1 -Encrypt`. Please commit the new `Secrets.json` file back into the repository.
+
+#### General Rules when creating new variables
+
+- There should be one Key Vault for every environment for an app.
+- All environments should have the same variables made available.
+
+#### About each of the variable types
+
+Depending on where the variable is stored, additional steps may be needed to make it available to the app.
+Every secret stored in a Azure KeyVault should have a `ContentType` set for it. The available values for `ContentType` are: `BuildArg`, `Env`, or `BuildArg Env`
+
+- `BuildArg`: the secret is a Docker Build Argument.
+- `Env`: the secret is an Environmental Variable.
+- `BuildArg Env`: the secret is both a Docker Build Argument and an Environmental Variable.
+
+#### Using variables in this application
 
 To access environment variables in **server-side code**:`process.env.VARIABLE_NAME`
 
 To access environment variables in **client-side code**: `process.env.NEXT_PUBLIC_VARIABLE_NAME`
+
+---
 
 ### Docker
 
@@ -173,29 +197,24 @@ You can check the [Example Dockerfile for a Node.js project](https://github.com/
 
 or
 
-```bash
-# build
-docker build -t k8sapp_ui_template .
-```
+**Build and Run** `docker compose up --build ui`
 
-**Run** the Docker image: `yarn docker:run`
+**Run** `docker compose up`
 
-or
+**Exit** the running Docker container: `ctrl+c`
 
-```bash
-# run
-docker run --rm -it \
-  -p 3000:3000 \
-  k8sapp_ui_template
-```
+It is a good idea to use docker compose to test your branch against different environments before merging your branch.
+For example, to test against staging:
 
-**Exit** the running Docker container:
+1. `Get-Secrets.ps1 -KeyVaultName codex-staging`
+2. `docker compose up --build ui`
 
-1. Switch to [daemon mode instead of interactive mode](https://docs.docker.com/v1.7/articles/basics/#running-an-interactive-shell): `ctrl + P` then `ctrl + q`
-2. Get the Container ID: `docker ps`, then copy the CONTAINER_ID
-3. Stop the container: `docker stop [paste in the CONTAINER_ID]`
+To test against production services:
 
-#### Updating the Node Version
+1. `Get-Secrets.ps1 -KeyVaultName codex-production`
+2. `docker compose up --build ui`
+
+## Updating the Node Version
 
 Whenever the Node version is updated, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the Dockerfile's Node version is updated by [Dependabot](https://app.dependabot.com/accounts/Andrews-McMeel-Universal). When that pull request is created, pull down that branch, update the listed version in `.nvmrc` to match the new one in the `Dockerfile`, and push the change.
 
@@ -482,7 +501,7 @@ Custom theme file: `src/scss/_custom.scss`
 
 ## Testing
 
-Test files should be stored in the same location as the original file they are testing, with the exception of Cypress tests (see below).
+Test files should be stored in the same location as the original file they are testing, with the exception of Playwright tests (see below).
 
 Run tests with: `yarn test`
 
@@ -498,15 +517,14 @@ For more information about working with Jest, this is a [friendly and useful gui
 
 [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) covers component tests in way more like how a user would interact with the component. We use `data-testid` within components as a convenient method for identifying DOM elements with React Testing Library.
 
-### Cypress
+### Playwright
 
-We use [Cypress](https://www.cypress.io/) as our end-to-end testing framework. We also use `data-testid` in these tests for targeting. All Cypress tests are contained in `cypress/integration/` directory as `.spec.js` files.
+We use [Playwright](https://playwright.dev/) as our end-to-end testing framework. We also use `data-testid` in these tests for targeting. All Playwright tests are contained in `playwright` directory as `.spec.js` files.
 
-Cypress tests can be run headless by running `yarn cy:headless`, or you can run the Cypress ui locally with `yarn cy:ui`.
+Playwright tests can be run with `yarn pw:test`
 
-- Reference: <https://docs.cypress.io/guides/core-concepts/introduction-to-cypress>
-- Reference: <https://docs.cypress.io/guides/references/best-practices>
-- Reference: <https://www.cypress.io/blog/2021/01/20/running-cypress-on-the-apple-m1-silicon-arm-architecture-using-rosetta-2/#running-cypress-under-rosetta-2>
+- Reference: <https://playwright.dev/docs/writing-tests>
+- It is recommended, but not mandatory, to also download the VSCode extension for Playwright for easier debugging <https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright>
 
 ---
 
@@ -581,30 +599,6 @@ have some logic in the: 1.[header.hbs](https://support.amuproduct.com/theming/ed
   - This logic retrieves the local storage values and injects them into the
     fields, then hides them from the user.
 
-#### Jira Ingestion
-
-If customer support deems the user's request as important enough,
-they can use all this information to generate a JIRA Issue. All the fields gets
-passed in so the producer can further groom the issue. Within the sidebar of
-any ticket in JIRA, you'll have access to this information on the Zendesk side.
-
-## Releases
-
-### Versioning
-
-For each production release be sure to increment the version number in the following files:
-
-- package.json
-- deployments/charts/production-charts/Chart.yaml (update `appVersion`)
-
-### Deployment
-
-Once the versions are updated create a [Release in
-GitHub](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/releases/new),
-target the `production` branch and use the version for the `tag version` and
-release title. Include a link to the related Jira release in the description.
-Publish the GitHub Release to trigger a deploy through GitHub Actions.
-
 #### Sitemap and Robots.txt generation
 
 We use a package called [next-sitemap](https://www.npmjs.com/package/next-sitemap#installation) for which is responsible for generating our
@@ -642,25 +636,6 @@ supplement the normal sitemap generation that happens during the deploy to produ
 
 ## Contributing
 
-New branches should always be related to a Jira ticket. It should be prefixed with the issue key and a short description, like AMUPRODUCT-123-sample-branch. To merge the development branch into `staging`, create a Pull Request and fill out the description according to the supplied template. Using your best judgement, tag as a reviewer anyone who might have interest in or should otherwise be informed of the work, and allow them time to effectively review the work. Once the PR is approved, merge commit into `staging`. That branch will automatically be deleted after merging.
-
-On every PR, we do run tests and automatically format the code with Prettier. A PR will not be able to be merged until at least 1 reviewer with write access has approved it and all tests are passing. If a PR is updated with a new commit, stale reviews will be dismissed.
-
----
-
-## License
-
-None
-
-## Local Development
-
-To start the service locally:
-
-1. From the root project directory, run docker-compose up
-   The brand can be seen at <https://localhost:3000>
-
-## Contributing
-
 ### Issue per Branch
 
 For any code changes in this repo, we ask that you create a branch per Jira Issue. This is a general best practice and promotes smaller/incremental changes that are easily deployed and debugged. Our default branch naming pattern for this is the following:
@@ -671,51 +646,29 @@ jiraIssueType/AMUPRODUCT-1234/hyphenated-issue-summary
 
 To illustrate this, if a simple copy change was raised by the product owner in JIRA. The issueType would be "maintenance" and we will use the example issue key: CAN-1234
 
-### Smart Commits
+### Jira Smart Commits
 
-There are certainly instances where the product owner may raise several very small issues and creating a seperate branch for each is not exactly feasible. As a fallback, you can still trigger our automation by using what are called [smart commits](https://confluence.atlassian.com/fisheye/using-smart-commits-960155400.html).
+Our projects are managed in Jira, and we use [smart commits](https://confluence.atlassian.com/fisheye/using-smart-commits-960155400.html) to link actions in GitHub to the relevant ticket in Jira, triggering automations that update ticket statuses.
 
-JIRA Smart commits automagically (a github integration) sends information back to the JIRA project that the product owner is working on. We have setup our workflows to automatically update the status for you on the ticket and provide development information in the ticket. All that is required is when you commit changes, you include the Jira issue key in this exact format:
+Smart commits are created by referencing the Jira issue key, such as `JIRA-1234`, in a commit, branch name, or PR description. If needed, multiple smart commits can be referenced at once.
 
-```
-[JIRA-1234]
-```
+### Branches
 
-To illustrate this, Say you had a single commit for four separate issues. Your commit message would appear like this:
+For any code changes in this repo, we prefer a single branch per Jira issue. This is a general best practice and promotes incremental changes that are easily deployed and debugged.
 
-```
-[AMUPRODUCTJIRAKEY-1234], [AMUPRODUCTJIRAKEY-1235], [AMUPRODUCTJIRAKEY-1236], [AMUPRODUCTJIRAKEY-1111] Knocked out the 4 copy edits needed within the brand instructions.
-```
-
-### Semantic Versioning
-
-Within this application, there are three locations that are updated to denote what the current version is. These three values should always match each other:
-
-```
-/package.json
-/deployments/charts/Chart.yaml
-```
+Our branch naming pattern is `jiraIssueType/JIRA-1234/hyphenated-issue-summary`.
 
 ### Pull Requests
 
-Once you have committed your effort in a separate branch, you will need to raise a pull request in github. **Please** follow the pull request template format and write a brief description of any technical details that should be known. Below are relevant links that give you an opportunity to include all JIRA issues that are contained within the PR. The recommended title for the pull request is typically just the branch name. Again, if a single issue per branch is not feasible, including a brief title of the effort is acceptable.
+Open a pull request when your changes are ready to merge into staging. Follow the PR template and write a brief description, and add relevant links, including the Jira issue key.
 
-To illustrate this, here would be the complete PR template filled out (based on our above examples):
+You do not need to fill in the reviewers or assignees. Our CODEOWNERS automation takes care of who will need to review it. An AMU software engineer will review it and handle merging it once it's ready.
 
-#### Pull Request Title
+---
 
-jiraIssueType/AMUPRODUCTJIRAKEY-1234/hyphenated-issue-summary
+## Deployment & Releases
 
-#### Description
-
-Completed the 4 copy edits needed within the amuproduct instructions
-
-#### Relevant Links
-
-- [AMUPRODUCTJIRAKEY-1234]
-- [AMUPRODUCTJIRAKEY-1235]
-- [AMUPRODUCTJIRAKEY-1236]
-- [AMUPRODUCTJIRAKEY-1111]
+Detailed information about how to prepare an app to deploy to K8s is here: (<https://amuniversal.atlassian.net/l/c/AV1H0Sbf>)
 
 ### Reviewers and Supportive information
 
@@ -726,22 +679,33 @@ You do not need to fill in the reviewers or assignees. Our CODEOWNERS automation
 Once approved and an AMU software engineer has merged this pull request in, the following will happen within our CI.
 
 1. Your branch will be merged into staging
-2. All jira tickets you have included in the branch names or commits will have their statuses automatically updated to **In QA Review**. This communicates to the product owner that it is QA testing.
-3. Once the product owner has reviewed these issues and marked each of their statuses as **Approved**, we will begin preparing a production release.
+2. A staging AKS deploy will occur
+3. All jira tickets you have included in the branch names or commits will have their statuses automatically updated to **In QA Review**. This communicates to the product owner that it is QA testing.
+4. Once the product owner has reviewed these issues and marked each of their statuses as **Approved**, we will begin preparing a production release.
 
 ### Deployment to Production
 
-1. When the product owner has all issues marked as approve, the AMU software engineer will take note of the package.json version in this repo's staging branch.
-2. Using this version, he/she will update the JIRA release to that noted version. IE: k8sapp_ui_template_1.0.2
-3. A pull request from staging to production will be raised with the following information.
+1. The AMU software engineer will take note of the ./codexGame/package.json version in this repo's main branch.
+2. They will update the necessary files (see Semantic Versioning below) and JIRA release and to that version.
+3. They will create a tagged release in GitHub. This will initiate a production AKS deploy.
 
-### Pull Request Title
+### Semantic Versioning
 
-1.0.2
+Within this application, there are files that need to be updated to denote what the current version is. These values should always match each other:
 
-### Description
+- `/package.json` (update `version`)
+- `/deployments/charts/Chart.yaml` (update `appVersion`)
 
-_AMU software engineer will copy over the JIRA release notes._
+You can use the `bump-versions.yml` workflow to automatically increment the version number in both of these files. To run the workflow
+
+1. Go to the Actions tab in this repository.
+2. Select the "Bump Versions" action on the left hand side
+3. On the right side on the "Bump Versions" action page, click "Run workflow" and specify how you would want to increment the version number.
+4. Click "Run workflow".
+
+This will create a PR with the changes that should already be approved.
+
+_NOTE: We do not use the vx.x.x pattern for version naming. We simply have the semantic release version number like this: x.x.x_
 
 ### Relevant Links
 
@@ -787,6 +751,6 @@ Below are the intended uses for them.
 5. Once all is finished, run the **preflight** command which executes all setup scripts,
    tests, linting, etc. to ensure that everything works correctly without errors:
 
-```javascript
+```shell
 yarn preflight
 ```

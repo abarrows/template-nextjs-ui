@@ -6,9 +6,11 @@ export default {
 };
 
 function Template(args) {
-  return <div style={{ textAlign: 'center' }}>
-    <PageWrapper {...args} />
-  </div>;
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <PageWrapper {...args} />
+    </div>
+  );
 }
 
 export const Default = Template.bind({});

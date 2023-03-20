@@ -1,0 +1,53 @@
+name: 'Storybook Deployment'
+
+on:
+  push:
+    branches-ignore:
+      # Avoids consuming limited Chromatic snapshots on dependabot PRs.
+      - dependabot/**/**
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Sets up dependencies and initial cache
+
+  deploy-storybook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/use-node-modules-cache
+
+      - name: 'Development - Publish Branch to Storybook'
+        uses: chromaui/action@v1
+        if: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/tags/**' }}
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: storybook:build
+          exitZeroOnChanges: true
+          allowConsoleErrors: true
+          onlyChanged: true
+          skip: true
+
+      - name: 'Staging - Propose Baseline Changes to Storybook'
+        uses: chromaui/action@v1
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: storybook:build
+          allowConsoleErrors: true
+          onlyChanged: true
+
+      - name: 'Production - Publish Baseline Changes to Storybook'
+        uses: chromaui/action@v1
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: storybook:build
+          autoAcceptChanges: true
+          onlyChanged: true

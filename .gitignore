@@ -193,6 +193,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+Secrets.json
 
 # Sentry
 .sentryclirc
@@ -200,4 +201,6 @@ yarn-error.log*
 
 # Sitemap
 public/robots.txt
-Create-KeyVaults.ps1
+
+# Key Vaults
+Secrets.json

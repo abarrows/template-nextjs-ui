@@ -1,4 +1,4 @@
-# Default values for amuproduct.
+# Default values for appname.
 replicaCount: 2
 
 image:
@@ -11,7 +11,7 @@ nameOverride: ''
 fullnameOverride: ''
 
 deployment:
-  secret: amuproduct-config-secret
+  secret: appname-secret
   healthCheckPath: '/'
 
 service:
@@ -22,8 +22,8 @@ service:
     service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
 
 ingress:
-  host: amuproduct.amuniversal.com
-  tlssecret: amuproduct-tls-secret
+  host: appname.amuniversal.com
+  tlssecret: appname-tls-secret
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod

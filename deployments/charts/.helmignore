@@ -4,11 +4,8 @@
 .DS_Store
 # Common VCS dirs
 .git/
-.gitignore
 .bzr/
-.bzrignore
 .hg/
-.hgignore
 .svn/
 # Common backup files
 *.swp
@@ -21,3 +18,13 @@
 .idea/
 *.tmproj
 .vscode/
+
+# DevOps files
+*KeyVaults*
+Secrets.json*
+*.ps1
+Dockerfile
+docker-compose.yml
+deployments/
+.github/
+.*ignore

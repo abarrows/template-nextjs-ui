@@ -1,6 +1,7 @@
-// TODO: add these
-// https://www.npmjs.com/package/stylelint-color-format
-
+// camelCase Reference
+// '([a-z]+[0-9]*)([A-Z][a-z0-9]+)*'
+const bemRegex =
+  /^([a-z]+[0-9]*)([A-Z][a-z0-9]+)*(?:__([a-z]+[0-9]*)([A-Z][a-z0-9]+)*)*(_([a-z]+[0-9]*)([A-Z][a-z0-9]+)*){0,1}$/;
 const kebabCaseRegex = /^([a-z][a-z0-9]*)(-[a-z0-9]+)*$/;
 
 /* eslint-disable max-len */
@@ -49,12 +50,10 @@ module.exports = {
     ],
     'property-no-vendor-prefix': true,
     'selector-class-pattern': [
-      '^((?!js-).)*$',
+      bemRegex,
       {
+        message: 'Expected class selector to be BEM camelCase',
         resolveNestedSelectors: true,
-        severity: 'error',
-        message:
-          "Don't style js- prefixed classes, those are reserved for JavaScript use only",
       },
     ],
     'selector-max-id': 0,
@@ -70,6 +69,7 @@ module.exports = {
 
     // scss rules
     // https://github.com/stylelint-scss/stylelint-scss/tree/master/src/rules
+    'scss/at-import-no-partial-leading-underscore': null,
     'scss/at-import-partial-extension': 'always',
     'scss/at-import-partial-extension-whitelist': ['scss', 'module.scss'],
     'scss/at-mixin-argumentless-call-parentheses': 'always',

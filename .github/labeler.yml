@@ -1,0 +1,44 @@
+dependencies:
+  - yarn.lock
+  - package.json
+
+docker:
+  - .dockerignore
+  - Dockerfile
+  - docker-compose.yml
+
+documentation:
+  - '**/*.md'
+
+javascript:
+  - '**/*.js'
+  - '**/*.js.html'
+  - '**/*.json'
+  - '**/*.jsx'
+  - '**/*.ts'
+  - '**/*.tsx'
+  - '!**/Secrets.json*'
+  - '!/.vscode'
+  - '!**/*.test.js'
+
+npm:
+  - yarn.lock
+  - package.json
+
+tools:
+  - '/.vscode'
+  - '/.devcontainer'
+
+test-integration:
+  - 'playwright/**'
+  - '**/.spec.*'
+  - '**/*.test.js'
+
+devops:
+  - '.github/**'
+  - 'deployments/**'
+  - '*.ps1'
+  - 'Secrets.json*'
+  - 'docker-compose.yml'
+  - 'Dockerfile'
+  - '.*ignore'
