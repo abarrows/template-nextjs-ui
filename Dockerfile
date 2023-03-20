@@ -1,5 +1,6 @@
 # Install dependencies only when needed
 FROM node:16.13.0-alpine AS deps
+
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 # RUN apk add --no-cache libc6-compat
 WORKDIR /
@@ -82,8 +83,8 @@ COPY --from=builder next.config.js ./next.config.js
 COPY --from=builder public ./public
 COPY --from=builder redirects.js ./redirects.js
 
-EXPOSE 3000
+EXPOSE 4000
 
-HEALTHCHECK CMD curl --fail http://localhost:3000/api/health || exit
+HEALTHCHECK CMD curl --fail http://localhost:4000/api/health || exit
 
-CMD ["node_modules/.bin/next", "start"]
+CMD node_modules/.bin/next start

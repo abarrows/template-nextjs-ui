@@ -3,8 +3,8 @@ services:
   ui:
     # .env is loaded automatically by Docker and can be used to easily set
     # local secrets. Alternatively, you can use the `--env-file` flag with
-    # the path to your secrets file during `docker compose up --build puzzlesocietyui`,
-    # like `docker compose --env-file .env.local up --build puzzlesocietyui`. These
+    # the path to your secrets file during `docker compose up --build ui`,
+    # like `docker compose --env-file .env.local up --build ui`. These
     # secrets can be used to dynamically supply the values for build args
     # and/or environment below.
     env_file:
@@ -28,7 +28,7 @@ services:
         - NEXT_PUBLIC_VINDICIA_REST_SERVER=${NEXT_PUBLIC_VINDICIA_REST_SERVER:?err}
         - NEXT_PUBLIC_SENTRY_DSN=${NEXT_PUBLIC_SENTRY_DSN:?err}
     ports:
-      - '3003:3000'
+      - '4000:4000'
     environment:
       # TODO-ONBOARDING: update and set envs
       # Set dynamic and/or secret env vars used during Next.js runtime. Env

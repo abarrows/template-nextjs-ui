@@ -120,7 +120,7 @@ To start the service locally:
 2. Set up packages on your local machine: `yarn setup:os`
 3. Install dependencies: `yarn install`
 4. Start app for development, `yarn dev`, or start app for production, `yarn build && yarn start`
-5. Open app in browser: `http://localhost:3000/`
+5. Open app in browser: `http://localhost:4000/`
 
 ---
 
@@ -184,13 +184,13 @@ To access environment variables in **client-side code**: `process.env.NEXT_PUBLI
 
 ---
 
-### Docker
+## Docker
 
 We use the Docker container to build and deploy this project. The Docker container is also a useful local development tool, because by building and then running it locally, it automatically builds for `production` and can help simulate that environment. When running it, be aware that hot reloading will not work, and any changes you make will not be reflected until the Docker container is stopped and rebuilt.
 
 You can check the [Example Dockerfile for a Node.js project](https://github.com/mhart/alpine-node/tree/43ca9e4bc97af3b1f124d27a2cee002d5f7d1b32#example-dockerfile-for-your-own-nodejs-project) section in [mhart/alpine-node](https://github.com/mhart/alpine-node) for more details.
 
-#### How to use
+### How to use
 
 **Build** the image with Docker: `yarn docker:build`
 
