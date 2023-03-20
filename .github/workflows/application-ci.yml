@@ -26,9 +26,9 @@ env:
 
 jobs:
   # Sets up dependencies and initial cache
-  setup-and-build:
+  install:
     if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Setup and Build Application
+    name: Setup Dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -38,15 +38,14 @@ jobs:
         with:
           azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: ./.github/actions/use-node-modules-cache
+      - uses: ./.github/actions/use-install-cache
 
-      - uses: ./.github/actions/use-build-cache
-
-  # Reformats code
-  lint-and-format:
-    name: Lint and Format
+  # Required status check
+  # Checks code quality
+  lint:
+    name: Run linter
     runs-on: ubuntu-latest
-    needs: [setup-and-build]
+    needs: [install]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
@@ -55,9 +54,7 @@ jobs:
 
       - uses: ./.github/actions/use-build-args-cache
 
-      - uses: ./.github/actions/use-node-modules-cache
-
-      - uses: ./.github/actions/use-build-cache
+      - uses: ./.github/actions/use-install-cache
 
       - name: Lint javascript
         run: yarn lint:js
@@ -65,74 +62,51 @@ jobs:
       - name: Lint scss
         run: yarn lint:styles
 
-      # This step must be after other jobs or steps that might add or change files
-      - name: Format all
-        run: yarn format-all
-
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_user_name: amutechtest
-          commit_user_email: amu_deploy@amuniversal.com
-          commit_message: Apply prettier changes
-
-  # Run Jest Unit tests
-  unit-tests:
-    name: Run Unit Tests
+  # Required status check
+  # Build the app and cache it
+  build:
+    name: Build application
     runs-on: ubuntu-latest
-    needs: [lint-and-format]
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: ./.github/actions/use-build-args-cache
-
-      - uses: ./.github/actions/use-node-modules-cache
-
-      - uses: ./.github/actions/use-build-cache
-
-      - name: Run Jest tests
-        run: yarn test:unit:ci
-
-  # Runs Playwright integration tests
-  integration-tests:
-    name: Run Integration Tests
-    runs-on: ubuntu-latest
-    # needs: [build, check-linters]
-    needs: [lint-and-format]
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: ./.github/actions/use-build-args-cache
-
-      - uses: ./.github/actions/use-node-modules-cache
-
-      - uses: ./.github/actions/use-build-cache
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright tests
-        run: yarn test:integration:ci
-
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report
-          retention-days: 30
-
-  check-links:
-    name: Check Application Links
-    runs-on: ubuntu-latest
-    needs: [lint-and-format]
+    needs: [lint]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
 
       - uses: ./.github/actions/use-build-args-cache
 
-      - uses: ./.github/actions/use-node-modules-cache
+      - uses: ./.github/actions/use-install-cache
+
+      - uses: ./.github/actions/use-build-cache
+
+  # Required status check
+  test-in-ci:
+    name: Run CI tests
+    runs-on: ubuntu-latest
+    needs: [build]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/use-build-args-cache
+
+      - uses: ./.github/actions/use-install-cache
+
+      - uses: ./.github/actions/use-build-cache
+
+      - name: Run Jest tests
+        run: yarn test:ci
+
+  check-links:
+    name: Check Application Links
+    runs-on: ubuntu-latest
+    needs: [build]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/use-build-args-cache
+
+      - uses: ./.github/actions/use-install-cache
 
       - uses: ./.github/actions/use-build-cache
 
@@ -149,26 +123,30 @@ jobs:
   check-size:
     runs-on: ubuntu-latest
     name: Get File Sizes Limits
-    needs: [lint-and-format]
+    needs: [build]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
 
       - uses: ./.github/actions/use-build-args-cache
 
-      - uses: ./.github/actions/use-node-modules-cache
+      - uses: ./.github/actions/use-install-cache
 
       - uses: ./.github/actions/use-build-cache
 
-      - name: Run Size Limit Report
-        id: link-checker-report
-        continue-on-error: true
-        run: yarn test:size
+      - uses: andresz1/size-limit-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # The size-limit-action tries to run a
+          # redundant yarn build
+          skip_step: build
 
   required-checks:
     name: Required Checks
+    needs: [build, test-in-ci]
     runs-on: ubuntu-latest
-    needs: [integration-tests,unit-tests]
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3

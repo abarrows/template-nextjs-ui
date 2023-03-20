@@ -52,7 +52,6 @@ Below is a high level list of things brought over:
 6. Automated Tests and CI Checks
 
 - Jest (1 example passing test)
-- Cypress (1 example passing test)
 - Link Checker
 - Size Checker
 

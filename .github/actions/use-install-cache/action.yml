@@ -20,7 +20,7 @@ runs:
         path: |
           ./node_modules
           /home/runner/.cache/Cypress
-        key: ${{ runner.os }}-modules-${{ hashFiles('**/.env') }}-${{ hashFiles('yarn.lock') }}
+        key: ${{ runner.os }}-install-${{ hashFiles('**/.env') }}-${{ hashFiles('yarn.lock') }}
 
     # Installs dependencies from the cached packages in the global yarn cache if the cache was broken
     - name: Install dependencies
