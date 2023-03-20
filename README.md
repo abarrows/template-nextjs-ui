@@ -120,7 +120,7 @@ To start the service locally:
 2. Set up packages on your local machine: `yarn setup:os`
 3. Install dependencies: `yarn install`
 4. Start app for development, `yarn dev`, or start app for production, `yarn build && yarn start`
-6. Open app in browser: `http://localhost:3000/`
+5. Open app in browser: `http://localhost:3000/`
 
 ---
 
