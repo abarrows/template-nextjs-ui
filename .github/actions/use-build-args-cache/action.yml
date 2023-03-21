@@ -48,6 +48,9 @@ runs:
     - name: Source Build Args .env file
       shell: sh
       run: |
-        while read -r buildArg; do
+        while read -r buildArg; do        
+          if [ $(echo "${buildArg}" | grep -Ei "SECRET|TOKEN|KEY|PASS") ]; then
+            echo "::add-mask::$(echo ${buildArg} | awk -F '=' '{print $2}')"
+          fi
           echo "$buildArg" >> $GITHUB_ENV
         done < ${{ github.workspace }}/.env

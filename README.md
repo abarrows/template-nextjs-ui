@@ -1,6 +1,6 @@
-![Deployment](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml/badge.svg)
-![Pull Requests](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/pull-request.yml/badge.svg)
-![Storybook](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/chromatic.yml/badge.svg)
+![Deployment](https://github.com/Andrews-McMeel-Universal/appname/actions/workflows/aks-deployment.yml/badge.svg)
+![Pull Requests](https://github.com/Andrews-McMeel-Universal/appname/actions/workflows/pull-request.yml/badge.svg)
+![Storybook](https://github.com/Andrews-McMeel-Universal/appname/actions/workflows/chromatic.yml/badge.svg)
 
 # AppName
 
@@ -116,11 +116,11 @@ If you have never set up PowerShell Core on your computer before, you will need 
 
 To start the service locally:
 
-1. Retrieve Secrets: `yarn keys:get gamename-environment`
+1. Retrieve the `.env` file by running: `yarn keys:get gamename-environment`
 2. Set up packages on your local machine: `yarn setup:os`
 3. Install dependencies: `yarn install`
 4. Start app for development, `yarn dev`, or start app for production, `yarn build && yarn start`
-5. Open app in browser: `http://localhost:4000/`
+5. Open app in browser: <localhost:4000>
 
 ---
 
@@ -565,7 +565,7 @@ Sentry.captureException(new Error(`this is broken`));
 #### Support Link Creation
 
 Within
-[/src/helpers/utils/generateSupportUrl.js](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/blob/staging/src/helpers/utils/generateSupportUrl.js)
+[/src/helpers/utils/generateSupportUrl.js](https://github.com/Andrews-McMeel-Universal/appname/blob/staging/src/helpers/utils/generateSupportUrl.js)
 we have created a helper to generate any links that navigate to our support
 knowledge base. The following data is appended using query string parameters:
 
@@ -579,7 +579,7 @@ knowledge base. The following data is appended using query string parameters:
 6. device_type - The current device type being used by the user
 7. operating_system - The current operating_system being used by the user
 8. browser - The current browser being used by the user
-9. affects_versions - The current Release Version of the application. See [Releases](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/releases)
+9. affects_versions - The current Release Version of the application. See [Releases](https://github.com/Andrews-McMeel-Universal/appname/releases)
 
 _An example of this URL in practice is the help link under \_My Account_:\_
 
@@ -679,14 +679,14 @@ Once approved and an AMU software engineer has merged this pull request in, the 
 
 1. Your branch will be merged into staging
 2. A staging AKS deploy will occur
-3. All jira tickets you have included in the branch names or commits will have their statuses automatically updated to **In QA Review**. This communicates to the product owner that it is QA testing.
-4. Once the product owner has reviewed these issues and marked each of their statuses as **Approved**, we will begin preparing a production release.
+3. All Jira tickets referenced via smart commits will have their statuses automatically updated
+4. AMU QA team will begin testing
 
 ### Deployment to Production
 
-1. The AMU software engineer will take note of the ./codexGame/package.json version in this repo's main branch.
+1. The AMU software engineer will take note of the ./deployments/charts/Chart.yaml version in this repo's main branch.
 2. They will update the necessary files (see Semantic Versioning below) and JIRA release and to that version.
-3. They will create a tagged release in GitHub. This will initiate a production AKS deploy.
+3. They will create a tagged release in GitHub, which initiates a production deploy.
 
 ### Semantic Versioning
 
@@ -704,21 +704,23 @@ You can use the `bump-versions.yml` workflow to automatically increment the vers
 
 This will create a PR with the changes that should already be approved.
 
-_NOTE: We do not use the vx.x.x pattern for version naming. We simply have the semantic release version number like this: x.x.x_
-
-### Relevant Links
-
-Jira Release: <https://amuniversal.atlassian.net/projects/AMUPRODUCTJIRAKEY/versions/12711/tab/release-report-all-issues>
+> NOTE: We do not use the vx.x.x pattern for version naming. We simply have the semantic release version number like this: x.x.x
 
 ### Creating an Official Release
 
-Once a pull request is merged into _staging_, it passes all CI checks and passes
-QA, it will be ready for being released to production. The AMU software engineer **must** create a tagged version. Navigate to the
-[product releases in
-github](https://github.com/Andrews-McMeel-Universal/AMUPRODUCTJIRAKEY/releases)
-Click the button for "Draft a New Release" and then click "Auto-generated
-Release Notes". _NOTE: We do not use the vx.x.x pattern for version naming. We
-simply have the semantic release version number like this: x.x.x_
+Jira Release: <https://amuniversal.atlassian.net/projects/PUZSOC?selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page>
+
+Once a pull request is merged into _main_, it passes all CI checks and passes QA, it will be ready for being released to production.
+
+> The AMU software engineer **must** create a tagged version.
+
+1. Navigate to the [Releases](https://github.com/Andrews-McMeel-Universal/thematik_game/releases) tab
+2. Click the button for "Draft a New Release" and then .
+3. Click "Choose a tag" and enter in the version that you updated in the files in the "Semantic Versioning" step above.
+4. Enter in the same version number for the "Release Title"
+5. Click "Generate Release Notes"
+6. Make sure "Set as the latest release" is set
+7. Click "Publish release"
 
 ### Template References
 

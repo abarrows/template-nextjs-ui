@@ -3,51 +3,51 @@
 
 version: 2
 updates:
-  - package-ecosystem: 'npm' # for yarn
-    directory: '/' # Look for `package.json` and `lock` files in the `root` directory
+  - package-ecosystem: "npm" # for yarn
+    directory: "/" # Look for `package.json` and `lock` files in the `root` directory
     schedule:
-      interval: 'monthly'
-      day: 'monday'
+      interval: "monthly"
+      day: "monday"
     labels:
-      - 'npm'
-      - 'dependencies'
+      - "npm"
+      - "dependencies"
     reviewers:
-      - 'Andrews-McMeel-Universal/front-end-engineers-puzzle-society'
+      - "Andrews-McMeel-Universal/front-end-engineers-puzzle-society"
     versioning-strategy: increase
     open-pull-requests-limit: 10
     commit-message:
       # Prefix all commit messages with "npm"
-      prefix: 'npm'
+      prefix: "npm"
 
-  - package-ecosystem: 'docker'
-    directory: '/'
+  - package-ecosystem: "docker"
+    directory: "/"
     ignore:
-      - dependency-name: 'node'
+      - dependency-name: "node"
     schedule:
-      interval: 'weekly'
-      day: 'monday'
+      interval: "weekly"
+      day: "monday"
     labels:
-      - 'devops'
-      - 'dependencies'
-      - 'docker'
+      - "devops"
+      - "dependencies"
+      - "docker"
     reviewers:
-      - 'Andrews-McMeel-Universal/devops-engineers'
+      - "Andrews-McMeel-Universal/devops-engineers"
     open-pull-requests-limit: 10
     commit-message:
       # Prefix all commit messages with "docker"
-      prefix: 'docker'
+      prefix: "docker"
 
-  - package-ecosystem: 'github-actions'
-    directory: '.github/'
+  - package-ecosystem: "github-actions"
+    directory: ".github/"
     schedule:
-      interval: 'monthly'
-      day: 'monday'
+      interval: "monthly"
+      day: "monday"
     labels:
-      - 'devops'
-      - 'dependencies'
+      - "devops"
+      - "dependencies"
     reviewers:
-      - 'Andrews-McMeel-Universal/devops-engineers'
+      - "Andrews-McMeel-Universal/devops-engineers"
     open-pull-requests-limit: 10
     commit-message:
       # Prefix all commit messages with "github-actions"
-      prefix: 'github-actions'
+      prefix: "github-actions"

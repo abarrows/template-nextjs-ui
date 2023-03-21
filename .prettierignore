@@ -7,3 +7,4 @@
 build/
 storybook-static
 deployments/charts/templates/
+docker-compose.yml

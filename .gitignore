@@ -203,3 +203,7 @@ public/robots.txt
 
 # Key Vaults
 Secrets.json
+
+#History directory
+./history/
+*.history
