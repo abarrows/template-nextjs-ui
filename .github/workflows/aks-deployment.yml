@@ -46,7 +46,6 @@ jobs:
     uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2.2.5
     with:
       environment: ${{ needs.prepare-deployment.outputs.deployment-environment }}
-      environmentKeyVault: 'appname-${{ needs.prepare-deployment.outputs.deployment-environment }}'
       webAuthentication: ${{ needs.prepare-deployment.outputs.webauthentication || 'false' }}
       environmentIngress: ${{ needs.prepare-deployment.outputs.environmentingress || 'true' }}
       maximumReplicas: ${{ needs.prepare-deployment.outputs.maximumreplicas || '2' }}
