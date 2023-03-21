@@ -43,7 +43,7 @@ jobs:
   execute-deployment:
     needs: [prepare-deployment]
     name: Execute AKS Deployment
-    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2.2.4
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2.2.5
     with:
       environment: ${{ needs.prepare-deployment.outputs.deployment-environment }}
       environmentKeyVault: 'appname-${{ needs.prepare-deployment.outputs.deployment-environment }}'
@@ -63,7 +63,7 @@ jobs:
   update-boley-dns:
     needs: [prepare-deployment, execute-deployment]
     name: Update Boley DNS
-    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2.2.4
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2.2.5
     with:
       environment: ${{ needs.prepare-deployment.outputs.deployment-environment }}
     secrets:
