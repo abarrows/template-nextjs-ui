@@ -1,18 +1,46 @@
-.cache/
-.git/
-.github/
-.next/
-.storybook/
-build/
-jest/
-node_modules/
+# General
 public/robots.*
 public/sitemap.*
-*KeyVaults*
-**.gpg
-*.ps1
+.git/
+.cache/
+.storybook/
+LICENSE
+README.md
+
+# Integration Tests
+playwright/
+jest/
+
+# Next.JS
+.next/
+node_modules/
+build/
+**/npm-debug.log
+
+# DevOps
+.github/
 Dockerfile
 docker-compose.yml
 deployments/
 .*ignore
 Secrets*.json
+*KeyVaults*
+**.gpg
+*.ps1
+
+# Games
+*Game/node_modules/
+*Game/dist/
+
+# VS Code
+**/.project
+**/.settings
+**/.toolstarget
+**/.vs
+**/.vscode
+**/*.*proj.user
+**/obj
+**/*.dbmdl
+**/*.jfm
+**/azds.yaml
+**/.classpath

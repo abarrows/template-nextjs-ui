@@ -1,3 +1,6 @@
+// TODO: In nextjs 12 they switched from babel to swc HOWEVER, eslint has not
+// caught up yet so the temporary work-around is to add requireConfigFile:
+// false, to our eslint config.
 module.exports = {
   root: true,
   plugins: ['babel', 'chai-friendly', 'react', 'jsx-a11y'],
@@ -19,6 +22,7 @@ module.exports = {
       presets: ['@babel/preset-react'],
     },
   },
+  ignorePatterns: ['src/design-system-package/dist/**', '**/_design_tokens.js'],
   env: {
     jest: true,
     browser: true,
@@ -28,9 +32,16 @@ module.exports = {
   },
   rules: {
     'max-len': [
-      'error',
+      'warn',
       {
         code: 120,
+        // This regex excludes only .svg files from max-length rule.
+        ignoreComments: false,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        // ignoreTemplateLiterals: true,
+        ignoreRegExpLiterals: true,
+        ignorePattern: 'd="([\\s\\S]*?)"',
       },
     ],
     semi: 2,
@@ -51,6 +62,9 @@ module.exports = {
         sortShapeProp: true,
       },
     ],
+    // Remember to use the AMU consoleLogger(message, object) utility helper instead of console.log.
+    'no-console': ['error'],
+
     // Require that any module used for application code is declared as a
     // `dependencies`
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
@@ -60,7 +74,8 @@ module.exports = {
       // globs allow using devDependencies in story and test files
       {
         devDependencies: [
-          '**/*.{spec,test}.js*',
+          '{jest,.storybook,src/stories}/**/*',
+          '**/*.{spec,stories,test}.js*',
           'jest.*.js',
           'webpack.config.js',
         ],
@@ -70,8 +85,26 @@ module.exports = {
   overrides: [
     {
       // Jest overrides
-      files: ['./__tests__/**', '**.test.jsx'],
+      files: ['./__tests__/**', '**.test.jsx', './src/components/commons/**'],
       rules: {
+        'react/jsx-props-no-spreading': 'off',
+      },
+    },
+    {
+      // Commons overrides
+      files: ['./src/components/commons**'],
+      rules: {
+        'react/jsx-props-no-spreading': 'warn',
+      },
+    },
+    {
+      // Storybook overrides
+      files: ['./src/stories/**', '**.stories.jsx', '**.stories_skip.jsx'],
+      rules: {
+        'max-len': 'off',
+        'react/forbid-prop-types': 'off',
+        'react/no-unescaped-entities': 'off',
+        'react/require-default-props': 'off',
         'react/jsx-props-no-spreading': 'off',
       },
     },

@@ -27,7 +27,7 @@ export const applyStyles = ({ backgroundColor, color }) => {
 export const createHeader = (type) => {
   const { header, backgroundColor, color } = types[type || 'default'];
 
-  return [`%cAmuProduct ${header}`, applyStyles({ backgroundColor, color })];
+  return [`%cAppName ${header}`, applyStyles({ backgroundColor, color })];
 };
 
 const outputToConsole = ({ type, message, payload }) => {

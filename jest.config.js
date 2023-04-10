@@ -15,7 +15,14 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-jsdom',
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(test).[jt]s?(x)'],
   // TODO: add coverage badge too
+  // TODO: Make a concerted effort to get coverage up to over 90%
   collectCoverage: true,
+  // coverageDirectory: '<rootDir>/coverage/unit',
+  coverageThreshold: {
+    global: {
+      lines: 75,
+    },
+  },
 };
 
 // Additional overrides to the Next.js Jest config

@@ -1,38 +1,72 @@
 dependencies:
   - yarn.lock
   - package.json
-
-docker:
-  - .dockerignore
-  - Dockerfile
-  - docker-compose.yml
+  - '**/package-lock.json'
+  - Gemfile.lock
+  - Gemfile
+  - '.ruby-version'
+  - '**/*.csproj'
+  - '**/pnpm-lock.yaml'
 
 documentation:
   - '**/*.md'
 
-javascript:
+front-end:
   - '**/*.js'
   - '**/*.js.html'
   - '**/*.json'
   - '**/*.jsx'
   - '**/*.ts'
   - '**/*.tsx'
+  - '**/*.html'
+  - '**/*.css'
+  - '**/*.less'
+  - '**/*.scss'
+  - '**/*.sass'
+  - '**/*.otf'
+  - '**/*.eot'
+  - '**/*.ttf'
+  - '**/*.woff*'
+  - '**/*.svg'
+  - '**/*.jpg'
+  - '**/*.jpeg'
+  - '**/*.gif'
+  - '**/*.png'
+  - '**/*.ico'
+  - 'public/**'
+  - 'src/**'
+  - .storybook/**
+  - package.json
+  - wp-content/
   - '!**/Secrets.json*'
   - '!/.vscode'
   - '!**/*.test.js'
+  - '!.github/**'
 
-npm:
-  - yarn.lock
-  - package.json
+back-end:
+  - '**/*.cs'
+  - '**/*.csproj'
+  - '**/*.sln'
+  - '**/**.json'
+  - 'bin/'
+  - '**/*.rb'
+  - 'Rakefile'
+  - '**/*.yml'
+  - '**/*.ru'
+  - '!**/Secrets.json*'
+  - '!.github/**'
 
 tools:
   - '/.vscode'
   - '/.devcontainer'
 
-test-integration:
+tests:
   - 'playwright/**'
+  - 'cypress/**'
   - '**/.spec.*'
   - '**/*.test.js'
+  - '.github/workflows/workflow-linter.yaml'
+  - '.github/actionlint.yaml'
 
 devops:
   - '.github/**'

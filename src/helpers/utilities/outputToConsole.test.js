@@ -20,7 +20,7 @@ describe('createHeader', () => {
   it('outputs a header with default styles', () => {
     const header = createHeader();
 
-    expect(header).toContain(`%cAmuProduct Debug`);
+    expect(header).toContain(`%cAppName Debug`);
     expect(header).toContain(
       'color: #00233d;background-color: #fffcf2;padding: 2px 4px;border-radius: 2px;'
     );

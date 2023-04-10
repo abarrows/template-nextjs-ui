@@ -8,6 +8,7 @@ spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
+  progressDeadlineSeconds: {{ .Values.deployment.progressDeadlineSeconds }}
   selector:
     matchLabels:
       {{- include "charts.selectorLabels" . | nindent 6 }}
@@ -35,10 +36,12 @@ spec:
             httpGet:
               path: {{ .Values.deployment.healthCheckPath }}
               port: http
+            initialDelaySeconds: {{ .Values.deployment.initialDelaySeconds }}
           readinessProbe:
             httpGet:
               path: {{ .Values.deployment.healthCheckPath }}
               port: http
+            initialDelaySeconds: {{ .Values.deployment.initialDelaySeconds }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:

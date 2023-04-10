@@ -1,9 +1,7 @@
-.github/CODEOWNERS
-.github/labeler.yml
 .github/dependabot.yml
-.github/release.yml
-Secrets-example.json
-README.md
-.github/workflows/template-sync.yml
-.prettierignore
+.github/labeler.yml
 .github/workflows/aks-*.yml
+.github/workflows/template-sync.yml
+**/values.yaml
+README.md
+Secrets-example.json

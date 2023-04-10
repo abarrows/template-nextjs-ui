@@ -1,39 +1,39 @@
 param (
-    [parameter(Mandatory = $true, ValueFromPipeline = $true)]
-    $KeyVaultName,
-    [parameter(Mandatory = $false, ValueFromPipeline = $true)]
-    [string][ValidateSet(".env", ".env.development", ".env.staging", ".env.production")]$EnvFileName = '.env'
+    [string]$KeyVaultName,
+    [string]$File = '.env',
+    [string]$RepositoryName = ((git remote get-url origin).Split("/")[-1].Replace(".git","")),
+    [string]$Environment = "development"
 )
 
-#Check to see if Az module is installed 
-if (Get-Module -ListAvailable Az) {
-    #It's installed, this would be if you are running locally. 
-}
-else {
+#Check to see if Az module is installed
+if (!(Get-Module -ListAvailable Az)) {
     Write-Host "Installing Azure Powershell Module."
-    Install-Module -Name Az -Confirm:$false -Force
+    Install-Module -Name Az -Confirm:$false
 }
 
 Import-Module Az -ErrorAction SilentlyContinue
+Clear-Content -Path $File -ErrorAction SilentlyContinue
+
+if (!$PSBoundParameters.ContainsKey('Environment')) {
+    Write-Host "Environment missing. Defaulting to development." -ForegroundColor DarkGray
+}
+
+if (!"$KeyVaultName") {
+    Write-Host "Searching for Key Vault..." -ForegroundColor DarkGray
+    $KeyVaultName = (Get-AzKeyVault -Tag @{"environment" = "$Environment" } | Get-AzKeyVault -Tag @{"repository-name" = "$RepositoryName" }).VaultName
+    Write-Host "Key Vault found: $KeyVaultName" -ForegroundColor DarkGray
+}
 
 $Secrets = (Get-AzKeyVaultSecret -VaultName $KeyVaultName).Name
-
-try {
-    Clear-Content -Path $EnvFileName -ErrorAction SilentlyContinue
+if ($Secrets) {
+    Write-Host "Retrieving Secrets..." -ForegroundColor DarkGray
 }
-catch {
-    #Do nothing, the file doesn't exist yet. 
-}
-
-
 $Secrets | ForEach-Object {
-    $argName = $_.ToUpper() 
-    $argName = $argName.Replace("-", "_")
-    $argName = $argName.Replace("`"", "")
-    $argSecret = (Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $_).secretvalue | ConvertFrom-SecureString -AsPlainText
-    $buildArg = $argName + "=" + $argSecret 
-    Add-Content -Path $EnvFileName -Value $buildArg
+    $SecretName = $_.ToUpper().Replace("-", "_").Replace("`"", "")
+    $SecretValue = (Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $_).SecretValue | ConvertFrom-SecureString -AsPlainText
+    $Secret = $SecretName + "=" + $SecretValue
+    Add-Content -Path $File -Value $Secret
 }
 
-Write-Host "Environment file $EnvFileName generated.  Content is:" -ForegroundColor Green
-Get-Content $EnvFileName 
+Write-Host "Environment file $File generated.  Content is:" -ForegroundColor Green
+Get-Content $File

@@ -13,6 +13,8 @@ fullnameOverride: ''
 deployment:
   secret: appname-secret
   healthCheckPath: '/'
+  progressDeadlineSeconds: 600
+  initialDelaySeconds: 0
 
 service:
   type: LoadBalancer
@@ -28,6 +30,17 @@ ingress:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/whitelist-source-range: '0.0.0.0/0'
+    #Header size
+    nginx.ingress.kubernetes.io/proxy-buffer-size: '16k'
+    #rate limiting for ddos protection
+    nginx.ingress.kubernetes.io/limit-connections: '100'
+    nginx.ingress.kubernetes.io/limit-rps: '10'
+    nginx.ingress.kubernetes.io/limit-rpm: '60'
+    nginx.ingress.kubernetes.io/limit-conn-status-code: '429'
+    nginx.ingress.kubernetes.io/limit-whitelist: '207.67.20.252'
+    #CORS
+    nginx.ingress.kubernetes.io/enable-cors: 'true'
+    nginx.ingress.kubernetes.io/cors-allow-origin: '*'
 
 resources:
   limits:
