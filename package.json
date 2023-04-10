@@ -110,7 +110,7 @@
     "prettier": "^2.8.7",
     "react-test-renderer": "^18.2.0",
     "size-limit": "^8.2.4",
-    "start-server-and-test": "1.15.4",
+    "start-server-and-test": "2.0.0",
     "storybook-addon-grid": "^0.3.1",
     "storybook-addon-mock": "^3.2.0",
     "storybook-addon-next": "^1.7.3",
