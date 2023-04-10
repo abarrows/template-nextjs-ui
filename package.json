@@ -107,7 +107,7 @@
     "mega-linter-runner": "^6.20.0",
     "mockdate": "^3.0.5",
     "postcss": "^8.4.21",
-    "prettier": "^2.8.4",
+    "prettier": "^2.8.7",
     "react-test-renderer": "^18.2.0",
     "size-limit": "^8.2.4",
     "start-server-and-test": "1.15.4",
