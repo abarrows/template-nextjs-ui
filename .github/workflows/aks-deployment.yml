@@ -48,11 +48,12 @@ jobs:
     uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2
     with:
       environment: ${{ needs.vars.outputs.environment }}
+      environmentKeyVault: ${{ vars.AZURE_KEYVAULT_PREFIX }}-${{ needs.vars.outputs.environment }}
       chartsPath: ./deployments/${{ needs.vars.outputs.environment }}-charts
-      webAuthentication: ${{ needs.vars.outputs.webAuthentication }}
-      environmentIngress: ${{ needs.vars.outputs.environmentIngress }}
-      maximumReplicas: ${{ needs.vars.outputs.maximumReplicas }}
-      ingressWhitelist: ${{ needs.vars.outputs.ingressWhitelist }}
+      webAuthentication: ${{ needs.vars.outputs.webAuthentication || 'false' }}
+      environmentIngress: ${{ needs.vars.outputs.environmentIngress || 'true' }}
+      maximumReplicas: ${{ needs.vars.outputs.maximumReplicas || '30' }}
+      ingressWhitelist: ${{ needs.vars.outputs.ingressWhitelist || '207.67.20.252' }}
     secrets:
       azureClusterName: ${{ secrets.AKS_CLUSTER_NAME }}
       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
@@ -62,13 +63,3 @@ jobs:
       storageAccountKey: ${{ secrets.AMUCLOUDAPPS_KEY }}
       webAuthenticationPassword: ${{ secrets.WEB_AUTHENTICATION_PASSWORD }}
       webAuthenticationUsername: ${{ secrets.WEB_AUTHENTICATION_USERNAME }}
-
-  update-boley-dns:
-    needs: [vars, deploy]
-    name: Update Boley DNS
-    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/update-addns.yaml@2
-    with:
-      environment: ${{ needs.vars.outputs.environment }}
-    secrets:
-      domainController: ${{ secrets.BOLEY_DC }}
-      storageAccountKey: ${{ secrets.AMUCLOUDAPPS_KEY }}

@@ -50,12 +50,17 @@ Below are the intended uses for them.
   - [Development](https://development.appname.com/)
   - [Staging](https://staging.appname.com/)
   - [Production](https://www.appname.com/)
+- Swagger docs for AppName Service
+  - [Development](https://development.service.appname.com/swagger/index.html)
+  - [Staging](https://staging.service.appname.com/swagger/index.html)
+  - [Production](https://service.appname.com/swagger/index.html)
 - Strapi CMS Login
   - [Staging](https://staging.appname-cms.amuniversal.com/admin/auth/login)
   - [Production](https://appname-cms.amuniversal.com/admin/auth/login)
 - [Storybook](https://www.chromatic.com/library?appId=TODO-ONBOARDING:input-storybook-instance)
 - [Jira Project](https://amuniversal.atlassian.net/browse/TODO-ONBOARDING:input-jira-instance)
 - [Confluence Space](https://amuniversal.atlassian.net/l/c/TODO-ONBOARDING:input-confluence-space)
+- [Sharepoint Group](https://amutechnology.sharepoint.com/sites/TODO-ONBOARDING:sharepoint-group)
 - [Sentry Error Reporting](https://sentry.io/organizations/andrews-mcmeel-universal/issues/?project=TODO-ONBOARDING:input-sentry-project-id)
 
 ---
@@ -172,7 +177,7 @@ This app is built with Next.js and is Server Side Rendered (SSR). There are many
 - [Data Fetching](https://nextjs.org/docs/basic-features/data-fetching)
 - [API Routes](https://nextjs.org/docs/api-routes/introduction)
 - [Dynamic Import](https://nextjs.org/docs/advanced-features/dynamic-import)
-- [Next Image](https://nextjs.org/docs/api-reference/next/image)
+- [Image Component](https://nextjs.org/docs/api-reference/next/image)
 
 ## Updating the Node Version
 
@@ -400,6 +405,12 @@ SCSS variables can be exported for use in Components. These variables are compil
 :export {
   var_navHeight: 84px;
   var_burgerSize: $burger-size;
+  var_gridBreakpointXS: map-get($grid-breakpoints, 'xs');
+  var_gridBreakpointSM: map-get($grid-breakpoints, 'sm');
+  var_gridBreakpointMD: map-get($grid-breakpoints, 'md');
+  var_gridBreakpointLG: map-get($grid-breakpoints, 'lg');
+  var_gridBreakpointXL: map-get($grid-breakpoints, 'xl');
+  var_gridBreakpointXXL: map-get($grid-breakpoints, 'xxl');
 }
 ```
 
@@ -407,6 +418,12 @@ SCSS variables can be exported for use in Components. These variables are compil
 // ComponentName.jsx or file.js
 const navHeight = styles.var_navHeight;
 const burgerSize = styles.var_burgerSize;
+const breakpointXS = styles.var_gridBreakpointXS;
+const breakpointSM = styles.var_gridBreakpointSM;
+const breakpointMD = styles.var_gridBreakpointMD;
+const breakpointLG = styles.var_gridBreakpointLG;
+const breakpointXL = styles.var_gridBreakpointXL;
+const breakpointXXL = styles.var_gridBreakpointXXL;
 ```
 
 - Reference: <https://medium.com/clover-platform-blog/modular-scss-and-why-you-need-it-6bb2d8c40fd8>
@@ -472,6 +489,16 @@ For more information about working with Jest, this is a [friendly and useful gui
 ### React Testing Library
 
 [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) covers component tests in way more like how a user would interact with the component. We use `data-testid` within components as a convenient method for identifying DOM elements with React Testing Library.
+
+Debugging Tools:
+
+- The [screen](https://testing-library.com/docs/queries/about/#screen) object allows us to interact with the component we have rendered and find elements. Screen provides a [debug](https://testing-library.com/docs/queries/about/#screendebug) method that will print the document or specified elements.
+- Screen provides another method called [logTestingPlaygroundURL](https://testing-library.com/docs/queries/about/#screenlogtestingplaygroundurl). This method will print a url in your terminal for you to copy and paste in your browser where you can further test the entire document or an element.
+- Commonly used screen methods:
+  - Reference: [Screen Methods Table](https://testing-library.com/docs/queries/about/#types-of-queries)
+  - GET - Used most of the time
+  - FIND - Only method that can be used asynchronously
+  - QUERY - won’t throw an error but will instead return null. Good for testing the lack of existence of an element. You can assert that it returns null to confirm an element does not exist thus passing the test.
 
 ### Playwright
 

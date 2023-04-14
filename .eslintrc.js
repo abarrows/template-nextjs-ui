@@ -1,6 +1,3 @@
-// TODO: In nextjs 12 they switched from babel to swc HOWEVER, eslint has not
-// caught up yet so the temporary work-around is to add requireConfigFile:
-// false, to our eslint config.
 module.exports = {
   root: true,
   plugins: ['babel', 'chai-friendly', 'react', 'jsx-a11y'],
@@ -31,6 +28,23 @@ module.exports = {
     jquery: false,
   },
   rules: {
+    // Require that any module used for application code is declared as a
+    // `dependencies`
+    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
+    // paths are treated both as absolute paths, and relative to process.cwd()
+    'import/no-extraneous-dependencies': [
+      'error',
+      // globs allow using devDependencies in story and test files
+      {
+        devDependencies: [
+          '{jest,.storybook,src/stories}/**/*',
+          '**/*.{playwright,spec,stories,test}.js*',
+          'jest.*.js',
+          'playwright.*.js',
+          'webpack.config.js',
+        ],
+      },
+    ],
     'max-len': [
       'warn',
       {

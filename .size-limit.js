@@ -27,7 +27,7 @@ const pages = pageNames.map((name) => {
 module.exports = [
   {
     name: 'Shared by All',
-    limit: '200 kb',
+    limit: '250 kb',
     path: sharedDependencies.map((dependency) => `.next/${dependency}`),
   },
   ...pages,

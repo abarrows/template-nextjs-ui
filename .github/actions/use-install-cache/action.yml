@@ -20,7 +20,7 @@ runs:
       with:
         path: |
           ./node_modules
-        key: install-${{ hashFiles('**/.env','**/*.lock') }}
+        key: install-${{ hashFiles('**/.env','**/*lock*') }}
 
     # Installs dependencies from the cached packages
     # in the global yarn cache if the cache was broken
