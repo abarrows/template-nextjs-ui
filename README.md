@@ -179,7 +179,7 @@ This app is built with Next.js and is Server Side Rendered (SSR). There are many
 - [Dynamic Import](https://nextjs.org/docs/advanced-features/dynamic-import)
 - [Image Component](https://nextjs.org/docs/api-reference/next/image)
 
-## Updating the Node Version
+### Updating the Node Version
 
 Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/Andrews-McMeel-Universal). When a pull request is created, pull down the branch, and update the listed versionin `.nvmrc` to match it.
 

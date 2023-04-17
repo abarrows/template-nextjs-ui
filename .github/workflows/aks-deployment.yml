@@ -49,8 +49,8 @@ jobs:
     with:
       environment: ${{ needs.vars.outputs.environment }}
       environmentKeyVault: ${{ vars.AZURE_KEYVAULT_PREFIX }}-${{ needs.vars.outputs.environment }}
-      chartsPath: ./deployments/${{ needs.vars.outputs.environment }}-charts
       webAuthentication: ${{ needs.vars.outputs.webAuthentication || 'false' }}
+      chartsPath: ./deployments/${{ needs.vars.outputs.environment }}-charts
       environmentIngress: ${{ needs.vars.outputs.environmentIngress || 'true' }}
       maximumReplicas: ${{ needs.vars.outputs.maximumReplicas || '30' }}
       ingressWhitelist: ${{ needs.vars.outputs.ingressWhitelist || '207.67.20.252' }}

@@ -78,23 +78,6 @@ module.exports = {
     ],
     // Remember to use the AMU consoleLogger(message, object) utility helper instead of console.log.
     'no-console': ['error'],
-
-    // Require that any module used for application code is declared as a
-    // `dependencies`
-    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
-    // paths are treated both as absolute paths, and relative to process.cwd()
-    'import/no-extraneous-dependencies': [
-      'error',
-      // globs allow using devDependencies in story and test files
-      {
-        devDependencies: [
-          '{jest,.storybook,src/stories}/**/*',
-          '**/*.{spec,stories,test}.js*',
-          'jest.*.js',
-          'webpack.config.js',
-        ],
-      },
-    ],
   },
   overrides: [
     {
