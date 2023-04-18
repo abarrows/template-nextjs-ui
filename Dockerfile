@@ -46,7 +46,6 @@ RUN adduser -S nextjs -u 1001
 COPY --from=builder --chown=nextjs:nodejs /build/.env /build/next.config.js /build/package.json ./
 COPY --from=builder --chown=nextjs:nodejs /build/redirects.js ./
 COPY --from=builder --chown=nextjs:nodejs /build/.next ./.next
-COPY --from=builder --chown=nextjs:nodejs /build/next.config.js ./
 COPY --from=builder --chown=nextjs:nodejs /build/public ./public
 COPY --from=builder --chown=nextjs:nodejs /build/node_modules ./node_modules
 

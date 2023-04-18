@@ -27,7 +27,7 @@ jobs:
           elif [[ ${{ github.event_name == 'release' && github.event.release.prerelease }} == true ]]; then
               # Staging Environment
               echo "environment=staging" >> $GITHUB_ENV
-              echo "maximumReplicas=2" >> $GITHUB_ENV
+              echo "maximumReplicas=4" >> $GITHUB_ENV
               echo "webAuthentication=true" >> $GITHUB_ENV
               echo "ingressWhitelist=207.67.20.252" >> $GITHUB_ENV
           elif [[ ${{ github.event_name == 'release' && !github.event.release.prerelease }} == true ]]; then

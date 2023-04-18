@@ -4,3 +4,4 @@
 /deployments
 build
 **/node_modules/**
+**/vendor

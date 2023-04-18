@@ -99,6 +99,7 @@ To start the service locally:
    > _OPTIONAL:_ Append this command with the environment of your choosing: `yarn setup staging` This will retrieve all the staging secrets and override what is currently in your .env file.
 1. Start app for development, `yarn dev`, or start app for production, `yarn build && yarn start`
 1. Open app in browser: <http://localhost:3000>
+1. Run Jest tests: `yarn test`
 
 ---
 
@@ -136,13 +137,13 @@ Below outlines more detail as to what each of the called scripts actually do:
   yarn keys:get (development|staging|production)
   ```
 
-- This decrypts the `Secrets.json.gpg` file that holds the secret configs that are stored in Azure. If you choose to make edits to this file, please make sure to run `yarn keys:save` afterwards to re-encrypt the file and update the Secrets in Azure.
+- This retrieves the `Secrets.json` file that holds the secret configs that are stored in Azure. If you choose to make edits to this file, please make sure to run `yarn keys:save` afterwards to update the Secrets in Azure.
 
   ```bash
   yarn keys:edit
   ```
 
-- This command re-recrypts the `Secrets.json` file and then updates the Secrets values in the Azure Key Vault.
+- This command updates the Secrets values in the Azure Key Vault.
 
   ```bash
   yarn keys:save
@@ -564,7 +565,7 @@ Sentry.captureException(new Error(`this is broken`));
 The general process is as follows:
 
 We use the freestar npm package for SPA integration
-[https://www.npmjs.com/package/@freestar/pubfig-adslot-react-component](https://www.npmjs.com/package/@freestar/pubfig-adslot-react-component) There is an admin for this application's instance of ads located [here](https://dashboard.freestar.io/dashboard). To gain access, you will need to ask our Advertising Operations department.
+[https://www.npmjs.com/package/@freestar/pubfig-adslot-react-component](https://www.npmjs.com/package/@freestar/pubfig-adslot-react-component). There is an admin for this application's instance of ads located [here](https://dashboard.freestar.io/dashboard). To gain access, you will need to ask our Advertising Operations department.
 
 ### Implementation Details
 
@@ -639,34 +640,6 @@ Upon execution, the root folder contains a configuration file called next-sitema
 ```javascript
 getServerSideProps;
 ```
-
----
-
-## Contributing
-
-New branches should always be associated with a Jira ticket. The branch should be prefixed with the issue key and a short description, like so: `jiraIssueType/AMUPRODUCT-1234/hyphenated-issue-summary`.
-
-### Jira Smart Commits
-
-In scenarios where creating a separate branch for each Jira ticket is not exactly feasible, you can still trigger our automation by using what are called [smart commits](https://confluence.atlassian.com/fisheye/using-smart-commits-960155400.html).
-
-To use Jira smart commits, you would include the Jira issue key for each commit like so: `[AMUPRODUCT-1234], [AMUPRODUCT-1235] Knocked out the 4 copy edits needed`
-
-### Creating Pull Requests
-
-Once you have committed your effort in a separate branch, you will need to raise a pull request in Github. While filling out the Pull Request, **Please** follow the pull request template format and write a brief description of any technical details and Jira tickets that are related to the PR.
-
-The recommended title for the pull request is typically just the branch name. Again, if a single issue per branch is not feasible, including a brief title of the effort is acceptable.
-
-You do not need to fill in the reviewers or assignees. Our CODEOWNERS automation takes care of who will need to review it. As long as a AMU software engineer reviews it and the other checks pass, they will take care of merging the pull request into staging and production.
-
-> NOTE: On every PR, we do run tests and automatically format the code with Prettier.
-
-> NOTE: A PR will not be able to be merged until at least 1 reviewer with write access has approved it and all tests are passing. If a PR is updated with a new commit, stale reviews will be dismissed.
-
-> _NOTE:_ Before publishing a pull request, run `yarn preflight` which
-> executes all build scripts, tests, linting, etc. to ensure that everything will
-> work correctly and pass the pull request checks.
 
 ---
 
