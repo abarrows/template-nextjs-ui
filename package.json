@@ -12,8 +12,8 @@
   },
   "scripts": {
     "keys:get": "pwsh -c \"./Get-Secrets.ps1 -Environment ${1}\"",
-    "keys:edit": "pwsh -c \"./Manage-SecretsFile.ps1 -Decrypt\"",
-    "keys:save": "pwsh -c \"./Manage-SecretsFile.ps1 -Encrypt && ./Set-Secrets.ps1\"",
+    "keys:edit": "pwsh -c \"./Edit-Secrets.ps1\"",
+    "keys:save": "pwsh -c \"./Set-Secrets.ps1\"",
     "setup": "yarn install && yarn keys:get ${1}",
     "dev": "next dev",
     "build": "next build",
