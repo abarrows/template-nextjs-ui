@@ -92,7 +92,7 @@
     "@trivago/prettier-plugin-sort-imports": "^3.4.0",
     "babel-jest": "^29.5.0",
     "babel-loader": "^9.1.2",
-    "chromatic": "^6.17.1",
+    "chromatic": "^6.17.3",
     "eslint": "^8.38.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
