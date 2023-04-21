@@ -6,6 +6,8 @@ public/sitemap.*
 .storybook/
 LICENSE
 README.md
+tmp/
+log/
 
 # Integration Tests
 playwright/
@@ -27,6 +29,12 @@ Secrets*.json
 *KeyVaults*
 **.gpg
 *.ps1
+jenkins/
+
+# Ruby on Rails
+public/packs
+**/.keep
+**/.gitkeep
 
 # Games
 *Game/node_modules/
