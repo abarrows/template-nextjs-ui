@@ -1,0 +1,39 @@
+name: Staging AKS Deploy
+
+on:
+  push:
+    branches: [main, staging]
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.ps1"
+      - "**/Secrets.json*"
+      - ".*ignore"
+      - ".devcontainer/"
+      - ".vscode/"
+      - ".github/"
+      - "!.github/workflows/aks-staging.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # Do not cancel in-progress deploys, allow one pending run of the most recent changes
+
+jobs:
+  deploy:
+    name: Execute AKS Deployment
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2
+    with:
+      environment: staging
+      environmentKeyVault: ${{ vars.AZURE_KEYVAULT_PREFIX }}-staging
+      chartsPath: ./deployments/charts/staging-charts
+      maximumReplicas: 4
+      webAuthentication: true
+    secrets:
+      azureClusterName: ${{ secrets.AKS_CLUSTER_NAME }}
+      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+      registryHostName: ${{ secrets.AMUAPPIMAGES201_HOSTNAME }}
+      registryUserName: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
+      registryPassword: ${{ secrets.AMUAPPIMAGES201_PASSWORD }}
+      storageAccountKey: ${{ secrets.AMUCLOUDAPPS_KEY }}
+      webAuthenticationPassword: ${{ secrets.WEB_AUTHENTICATION_PASSWORD }}
+      webAuthenticationUsername: ${{ secrets.WEB_AUTHENTICATION_USERNAME }}
