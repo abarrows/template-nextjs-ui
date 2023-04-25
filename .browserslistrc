@@ -1,4 +1,11 @@
 >= 1% and last 3 major versions
+Chrome >= 85
+Firefox >= 86
+Safari >= 13
+iOS >= 13
+Android >= 11
+Edge >= 85
+Opera >= 70
 not IE 11
 not op_mini all
 not dead

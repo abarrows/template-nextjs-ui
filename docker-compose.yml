@@ -1,50 +1,11 @@
 version: '3.8'
 services:
-  ui:
-    # .env is loaded automatically by Docker and can be used to easily set
-    # local secrets. Alternatively, you can use the `--env-file` flag with
-    # the path to your secrets file during `docker compose up --build puzzlesocietyui`,
-    # like `docker compose --env-file .env.local up --build puzzlesocietyui`. These
-    # secrets can be used to dynamically supply the values for build args
-    # and/or environment below.
+  app:
     env_file:
-      # Provide static and non-secret env values to be used during Next.js
-      # runtime. Do not duplicate these values elsewhere or set them
-      # dynamically from other values.
-      - .env.production
+      - .env
     build:
       context: .
       args:
-        # TODO-ONBOARDING: update and set envs
-        # Set dynamic and/or secret env vars used during Next.js + Dockerfile
-        # build processes. They are NOT available during runtime.
-        - BASE_URL=${BASE_URL:?err}
-        - DEPLOY_ENV=${DEPLOY_ENV:?err}
-        - NEXT_PUBLIC_DEPLOY_ENV=${NEXT_PUBLIC_DEPLOY_ENV:?err}
-        - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL:?err}
-        - NEXT_PUBLIC_B2C_TENANT_NAME=${NEXT_PUBLIC_B2C_TENANT_NAME:?err}
-        - NEXT_PUBLIC_VINDICIA_AUTH_ID=${NEXT_PUBLIC_VINDICIA_AUTH_ID:?err}
-        - NEXT_PUBLIC_VINDICIA_SERVER=${NEXT_PUBLIC_VINDICIA_SERVER:?err}
-        - NEXT_PUBLIC_VINDICIA_REST_SERVER=${NEXT_PUBLIC_VINDICIA_REST_SERVER:?err}
-        - NEXT_PUBLIC_SENTRY_DSN=${NEXT_PUBLIC_SENTRY_DSN:?err}
+        NODE_ENV: ${NODE_ENV:-production}
     ports:
-      - '3003:3000'
-    environment:
-      # TODO-ONBOARDING: update and set envs
-      # Set dynamic and/or secret env vars used during Next.js runtime. Env
-      # vars needed during both build and runtime need to be duplicated here.
-      # Build + runtime:
-      BASE_URL: ${BASE_URL:?err}
-      DEPLOY_ENV: ${DEPLOY_ENV:?err}
-      NEXTAUTH_URL: ${NEXTAUTH_URL:?err}
-      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:?err}
-      API_SERVICE_URL: ${API_SERVICE_URL:?err}
-      API_SERVICE_KEY: ${API_SERVICE_KEY:?err}
-      VINDICIA_PRIVATE_KEY: ${VINDICIA_PRIVATE_KEY:?err}
-      B2C_CLIENT_ID: ${B2C_CLIENT_ID:?err}
-      B2C_CLIENT_SECRET: ${B2C_CLIENT_SECRET:?err}
-      SENTRY_PROJECT: ${SENTRY_PROJECT}
-      SENTRY_ORG: ${SENTRY_ORG}
-      SENTRY_DSN: ${SENTRY_DSN}
-      SENTRY_URL: ${SENTRY_URL}
-      APP_VERSION: ${APP_VERSION}
+      - '3000:3000'

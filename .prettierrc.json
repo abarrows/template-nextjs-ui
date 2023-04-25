@@ -1,5 +1,5 @@
 {
-  "singleQuote": true,
+  "singleQuote": false,
   "importOrder": [
     "^react$",
     "<THIRD_PARTY_MODULES>",
@@ -17,4 +17,3 @@
   "importOrderSeparation": true,
   "importOrderCaseInsensitive": true
 }
-  

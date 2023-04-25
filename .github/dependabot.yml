@@ -1,45 +1,77 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
 version: 2
 updates:
-  - package-ecosystem: 'npm' # for yarn
-    directory: '/' # Look for `package.json` and `lock` files in the `root` directory
+  - package-ecosystem: "github-actions"
+    directory: ".github/"
     schedule:
-      interval: 'weekly'
-      day: 'monday'
+      interval: "monthly"
+      day: "monday"
     labels:
-      - 'npm'
-      - 'dependencies'
-    reviewers:
-      - 'Andrews-McMeel-Universal/front-end-engineers-puzzle-society'
+      - "devops"
+      - "dependencies"
+    open-pull-requests-limit: 10
+    commit-message:
+      # Prefix all commit messages with 'github-actions'
+      prefix: "github-actions"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    ignore:
+      - dependency-name: node
+      - dependency-name: ruby
+      - dependency-name: dotnet/sdk
+    schedule:
+      interval: "monthly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "devops"
+    open-pull-requests-limit: 10
+    commit-message:
+      # Prefix all commit messages with 'docker'
+      prefix: "docker"
+
+  - package-ecosystem: "npm" # for yarn
+    directory: "/" # Look for `package.json` and `lock` files in the `root` directory
+    schedule:
+      interval: "monthly"
+      day: "monday"
+    labels:
+      - "front-end"
+      - "dependencies"
     versioning-strategy: increase
     open-pull-requests-limit: 10
+    commit-message:
+      # Prefix all commit messages with 'npm'
+      prefix: "npm"
 
-  - package-ecosystem: 'docker'
-    directory: '/'
+  - package-ecosystem: bundler
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "monday"
     ignore:
-      - dependency-name: 'node'
-    schedule:
-      interval: 'weekly'
-      day: 'monday'
+      - dependency-name: nokogiri
+        versions:
+          - "> 1.12.0"
     labels:
-      - 'dependencies'
-      - 'docker'
-    reviewers:
-      - 'Andrews-McMeel-Universal/devops-engineers'
+      - "dependencies"
     open-pull-requests-limit: 10
+    commit-message:
+      # Prefix all commit messages with 'bundler'
+      prefix: "bundler"
 
-  - package-ecosystem: 'github-actions'
-    directory: '.github'
+  - package-ecosystem: "nuget"
+    directory: "/"
     schedule:
-      interval: 'weekly'
-      day: 'monday'
+      interval: "monthly"
+      day: "monday"
     labels:
-      - 'devops'
-      - 'dependencies'
-    reviewers:
-      - 'Andrews-McMeel-Universal/devops-engineers'
+      - "back-end"
+      - "dependencies"
     open-pull-requests-limit: 10
+    commit-message:
+      # Prefix all commit messages with 'nuget'
+      prefix: "nuget"

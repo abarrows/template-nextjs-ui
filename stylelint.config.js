@@ -1,32 +1,33 @@
 // camelCase Reference
-// '([a-z]+[0-9]*)([A-Z][a-z0-9]+)*'
 const bemRegex =
   /^([a-z]+[0-9]*)([A-Z][a-z0-9]+)*(?:__([a-z]+[0-9]*)([A-Z][a-z0-9]+)*)*(_([a-z]+[0-9]*)([A-Z][a-z0-9]+)*){0,1}$/;
 const kebabCaseRegex = /^([a-z][a-z0-9]*)(-[a-z0-9]+)*$/;
 
-/* eslint-disable max-len */
 module.exports = {
-  extends: [
-    'stylelint-a11y/recommended',
-    'stylelint-config-recess-order',
-    'stylelint-config-standard-scss',
-    /**
-     * Note: We previously used stylelint-config-prettier, but that package
-     * removed scss rules in v9. stylelint-config-prettier-scss is a new
-     * config that brings back the scss rules, but is _brand_ new. If we have
-     * issues, switch back to the original package and reference the affected
-     * rules here:
-     * https://github.com/prettier/stylelint-config-prettier/pull/124/files#diff-bfe9874d239014961b1ae4e89875a6155667db834a410aaaa2ebe3cf89820556
-     */
-    'stylelint-config-prettier-scss',
-  ],
+  extends: ['stylelint-config-standard-scss', 'stylelint-config-prettier-scss'],
+  ignoreFiles: ['**/*.js', '**/*_design-tokens.scss'],
   plugins: [
-    'stylelint-color-format',
     'stylelint-no-unsupported-browser-features',
+    'stylelint-a11y',
+    'stylelint-color-format',
   ],
+  // https://github.com/stylelint-scss/stylelint-scss/tree/master/src/rules
   rules: {
-    // standard rules
-    // https://github.com/stylelint/stylelint/blob/main/docs/user-guide/rules/list.md
+    'declaration-no-important': [
+      true,
+      {
+        message: 'Avoid usage of !important',
+        severity: 'warning',
+      },
+    ],
+    // plugin rules
+    'plugin/no-unsupported-browser-features': [
+      true,
+      {
+        severity: 'warning',
+        ignore: ['css-gradients', 'multicolumn'],
+      },
+    ],
     'at-rule-disallowed-list': [
       'extend',
       {
@@ -34,14 +35,9 @@ module.exports = {
         message: 'No @extend',
       },
     ],
-    'custom-property-pattern': kebabCaseRegex,
-    'declaration-no-important': [
-      true,
-      {
-        severity: 'warning',
-        message: 'Avoid usage of !important',
-      },
-    ],
+    'color-format/format': {
+      format: 'rgb',
+    },
     'property-no-unknown': [
       true,
       {
@@ -52,46 +48,42 @@ module.exports = {
     'selector-class-pattern': [
       bemRegex,
       {
-        message: 'Expected class selector to be BEM camelCase',
         resolveNestedSelectors: true,
+        severity: 'warning',
+        message:
+          'USE AMU variant of BEM naming for class selectors. Remember: Only underscores.  IE: .blockName_modifierName and .blockName__elementName',
       },
     ],
-    'selector-max-id': 0,
     'selector-pseudo-element-colon-notation': 'single',
+    'selector-max-id': 0,
     'selector-pseudo-class-no-unknown': [
       true,
       {
-        ignorePseudoClasses: ['export'],
+        ignorePseudoClasses: ['export', 'global', 'local', 'root'],
       },
     ],
     'shorthand-property-no-redundant-values': true,
     'value-no-vendor-prefix': true,
-
-    // scss rules
-    // https://github.com/stylelint-scss/stylelint-scss/tree/master/src/rules
+    // 'scss/at-import-partial-extension-whitelist': ['module'],
     'scss/at-import-no-partial-leading-underscore': null,
-    'scss/at-import-partial-extension': 'always',
-    'scss/at-import-partial-extension-whitelist': ['scss', 'module.scss'],
+
+    // Front-end Consensus Agreed Rules
+    // they were introduced during version upgrades and affect many files
+    'comment-empty-line-before': 'never',
+    'custom-property-no-missing-var-function': true,
+    'custom-property-pattern': kebabCaseRegex,
+    'declaration-block-no-redundant-longhand-properties': true,
+    'declaration-empty-line-before': 'never', // conflicts with prettier
+    'rule-empty-line-before': [
+      'always',
+      { except: ['first-nested', 'after-single-line-comment'] },
+    ], // conflicts with prettier
+    'scss/at-import-partial-extension': 'always', // 'DISCUSS'
     'scss/at-mixin-argumentless-call-parentheses': 'always',
     'scss/at-mixin-pattern': kebabCaseRegex,
+    'scss/dollar-variable-empty-line-before': 'never',
     'scss/dollar-variable-pattern': kebabCaseRegex,
-
-    // plugin rules
-    'plugin/no-unsupported-browser-features': [
-      true,
-      {
-        severity: 'warning',
-        ignore: [
-          'css-gradients',
-          'flexbox',
-          'multicolumn',
-          'user-select-none',
-          'viewport-units',
-        ],
-      },
-    ],
-    'color-format/format': {
-      format: 'rgb',
-    },
+    'scss/double-slash-comment-empty-line-before': 'never', // conflicts with prettier
+    'scss/no-global-function-names': true,
   },
 };

@@ -1,0 +1,28 @@
+name: Production AKS Deploy
+
+on:
+  release:
+    types: [released]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  # Cancel an in-progress deploy if a newer one is pending
+
+jobs:
+  deploy:
+    name: Execute AKS Deployment
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/aks-deploy.yaml@2
+    with:
+      environment: production
+      environmentKeyVault: ${{ vars.AZURE_KEYVAULT_PREFIX }}-production
+      chartsPath: ./deployments/charts/production-charts
+      environmentIngress: false
+    secrets:
+      azureClusterName: ${{ secrets.AKS_CLUSTER_NAME }}
+      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+      registryHostName: ${{ secrets.AMUAPPIMAGES201_HOSTNAME }}
+      registryUserName: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
+      registryPassword: ${{ secrets.AMUAPPIMAGES201_PASSWORD }}
+      storageAccountKey: ${{ secrets.AMUCLOUDAPPS_KEY }}

@@ -3,7 +3,7 @@ name: Dependabot Automations
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
-    branches: [main]
+    branches: [main, development]
 
 permissions:
   pull-requests: write
@@ -18,7 +18,10 @@ jobs:
   dependabot-automations:
     if: ${{ github.actor == 'dependabot[bot]' }}
     name: Dependabot PR Automations
-    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/dependabot-automations.yaml@2.2.4
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/dependabot-automations.yaml@2
+    with:
+      autoApprove: true
+      autoMerge: false
 
   required-checks:
     name: Required Checks

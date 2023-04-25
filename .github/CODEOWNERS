@@ -1,14 +1,9 @@
-# General Front-end Engineering
-*                               @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
+# General
+*                               @Andrews-McMeel-Universal/devops-engineers
 
-# Product Specific Front-end Engineering
-# TODO-ONBOARDING: Update below to target the product specific github team
-# that will be the ones to review.  IE: If this were for GoComics, you would
-# update the @front-end-engineers below to be @front-end-engineers-gocomics
-
+# Front-end Engineering
 *.html                          @Andrews-McMeel-Universal/front-end-engineers
 *.lock                          @Andrews-McMeel-Universal/front-end-engineers
-*.json                          @Andrews-McMeel-Universal/front-end-engineers
 *.js                            @Andrews-McMeel-Universal/front-end-engineers
 *.jsx                           @Andrews-McMeel-Universal/front-end-engineers
 *.ts                            @Andrews-McMeel-Universal/front-end-engineers
@@ -35,14 +30,26 @@ src/**                          @Andrews-McMeel-Universal/front-end-engineers
 **jest**                        @Andrews-McMeel-Universal/front-end-engineers
 **prettier**                    @Andrews-McMeel-Universal/front-end-engineers
 **stylelint**                   @Andrews-McMeel-Universal/front-end-engineers
+**/src/assets/**                @Andrews-McMeel-Universal/front-end-engineers
+**/src/src/**                   @Andrews-McMeel-Universal/front-end-engineers
+**/src/amu/**                   @Andrews-McMeel-Universal/front-end-engineers
 
 # Back-end Engineering
-data/**                         @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/back-end-engineers
+**.cs                           @Andrews-McMeel-Universal/back-end-engineers
+**.csproj                       @Andrews-McMeel-Universal/back-end-engineers
+**.sln                          @Andrews-McMeel-Universal/back-end-engineers
+data/**                         @Andrews-McMeel-Universal/back-end-engineers
+*.Library/                      @Andrews-McMeel-Universal/back-end-engineers
+*.Tests/                        @Andrews-McMeel-Universal/back-end-engineers
+*.WebAPI/                       @Andrews-McMeel-Universal/back-end-engineers
+*.UnitTests/                    @Andrews-McMeel-Universal/back-end-engineers
+
 # DevOps
-/.github/**                     @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-/deployments/**                 @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-*.ps1                           @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-Dockerfile                      @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-docker-compose.yml              @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-.*ignore                        @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
-.nvmrc*                         @Andrews-McMeel-Universal/front-end-engineers @Andrews-McMeel-Universal/devops-engineers
+/.github/**                     @Andrews-McMeel-Universal/devops-engineers
+/deployments/**                 @Andrews-McMeel-Universal/devops-engineers
+*.ps1                           @Andrews-McMeel-Universal/devops-engineers
+Dockerfile                      @Andrews-McMeel-Universal/devops-engineers
+docker-compose.yml              @Andrews-McMeel-Universal/devops-engineers
+.*ignore                        @Andrews-McMeel-Universal/devops-engineers
+Secrets.json*                   @Andrews-McMeel-Universal/devops-engineers
+.nvmrc*                         @Andrews-McMeel-Universal/devops-engineers
