@@ -1,6 +1,8 @@
 version: '3.8'
 services:
   app:
+    # M1 Compatibility
+    # platform: linux/amd64
     env_file:
       - .env
     build:

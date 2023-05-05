@@ -35,14 +35,14 @@ src/**                          @Andrews-McMeel-Universal/front-end-engineers
 **/src/amu/**                   @Andrews-McMeel-Universal/front-end-engineers
 
 # Back-end Engineering
-**.cs                           @Andrews-McMeel-Universal/back-end-engineers
-**.csproj                       @Andrews-McMeel-Universal/back-end-engineers
-**.sln                          @Andrews-McMeel-Universal/back-end-engineers
-data/**                         @Andrews-McMeel-Universal/back-end-engineers
-*.Library/                      @Andrews-McMeel-Universal/back-end-engineers
-*.Tests/                        @Andrews-McMeel-Universal/back-end-engineers
-*.WebAPI/                       @Andrews-McMeel-Universal/back-end-engineers
-*.UnitTests/                    @Andrews-McMeel-Universal/back-end-engineers
+# **.cs                           @Andrews-McMeel-Universal/back-end-engineers
+# **.csproj                       @Andrews-McMeel-Universal/back-end-engineers
+# **.sln                          @Andrews-McMeel-Universal/back-end-engineers
+# data/**                         @Andrews-McMeel-Universal/back-end-engineers
+# *.Library/                      @Andrews-McMeel-Universal/back-end-engineers
+# *.Tests/                        @Andrews-McMeel-Universal/back-end-engineers
+# *.WebAPI/                       @Andrews-McMeel-Universal/back-end-engineers
+# *.UnitTests/                    @Andrews-McMeel-Universal/back-end-engineers
 
 # DevOps
 /.github/**                     @Andrews-McMeel-Universal/devops-engineers

@@ -33,6 +33,8 @@ jenkins/
 
 # Ruby on Rails
 public/packs
+public/uploads
+public/cache
 **/.keep
 **/.gitkeep
 

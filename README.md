@@ -9,17 +9,11 @@
 
 App responsible for all appname related data.
 
+## Setting up your repository
+
 This template repository serves as a boilerplate/blueprint for any "New World" application for our department. All product string references have been agnosticized with detailed onboarding instructions in the README. This template repo will evolve and mature.
 
-The goal of maintaining this is to two fold, decrease the time it takes to build
-new SPA UI's and increase uniformity across our front-end ecosystem. As it
-matures, more and more configuration, utilities, and logic which embodies what
-our application specific "standards" are as a team.
-
-Detailed information about how to prepare an app to deploy to K8s is here:
-(<https://amuniversal.atlassian.net/l/c/AV1H0Sbf>)
-
-<blockquote>At this very moment does the team agree that we would we want PROPOSED FEATURE on at least 80% of our "new world" SPA UI applications.</blockquote>
+The goal of maintaining this is to two fold, decrease the time it takes to build new SPA UI's and increase uniformity across our front-end ecosystem. As it matures, more and more configuration, utilities, and logic which embodies what our application specific "standards" are as a team.
 
 ### Template References
 
@@ -105,7 +99,7 @@ To start the service locally:
    > _OPTIONAL:_ Append this command with the environment of your choosing: `yarn setup staging` This will retrieve all the staging secrets and override what is currently in your .env file.
 1. Start app for development, `yarn dev`, or start app for production, `yarn build && yarn start`
 1. Open app in browser: <http://localhost:3000>
-1. Run Jest tests: `yarn test`
+1. Run Jest tests: `yarn test:unit`
 
 ---
 
@@ -127,38 +121,32 @@ These variables can be overridden with `.local` versions of those files, such as
 
 ### Retrieving Secrets
 
-This project utilizes Yarn scripts to automate common tasks that an engineer would need to execute to start up the application. All Yarn scripts are stored in the `package.json` file.
+You can use the Yarn scripts provided by the `package.json` file:
 
-Below outlines more detail as to what each of the called scripts actually do:
-
-- This is the master command to install all dependencies and provision the UI with key vault secrets. It defaults to the development environment.
+- Runs `yarn install` and generates the `.env` file. Optionally, you can specify the environment for the first argument (defaults to the development environment).
 
   ```bash
-  yarn setup (development|staging|production)
+  yarn setup [ENVIRONMENT]
   ```
-
-- This command retrieves the .env file and saves it to your root directory. Once retrieve, the values are logged to your terminal so you can easily verify their accuracy. It defaults to the development environment.
+- Generates the `.env` file. Optionally, you can specify the environment for the first argument (defaults to the development environment).
 
   ```bash
-  yarn keys:get (development|staging|production)
+  yarn keys:get [ENVIRONMENT]
   ```
 
-- This retrieves the `Secrets.json` file that holds the secret configs that are stored in Azure. If you choose to make edits to this file, please make sure to run `yarn keys:save` afterwards to update the Secrets in Azure.
+You can also call the Azure Key Vault scripts directly like so:
 
-  ```bash
-  yarn keys:edit
+- Generates the `.env` file. To specify an environment, use the `-Environment` option (defaults to the development environment).
+
+  ```PowerShell
+  Get-Secrets.ps1 -Environment [ENVIRONMENT]
   ```
 
-- This command updates the Secrets values in the Azure Key Vault.
+- Generates the `.env` file. To specify an environment, use the `-KeyVaultName` option.
 
-  ```bash
-  yarn keys:save
+  ```PowerShell
+  Get-Secrets.ps1 -KeyVaultName [KEY VAULT NAME]
   ```
-
-You can also use the Azure Key Vault scripts directly like so:
-
-- For a specific environment, run `Get-Secrets.ps1 -Environment [ENVIRONMENT]` with the environment of your choosing. By default, the environment is set to "development".
-- To specify an Azure Key Vault, run `Get-Secrets.ps1 -KeyVaultName [KEY VAULT NAME]`
 
 More information on how to use environment variables and how to edit them in an application, here: [Application Environment Variables](https://amuniversal.atlassian.net/wiki/spaces/DEVOps/pages/2796191745/Application+Environment+Variables)
 
@@ -651,66 +639,16 @@ getServerSideProps;
 
 ## Deployments & Releases
 
-### Issue per Branch
-
-For any code changes in this repo, we ask that you create a branch per Jira Issue. This is a general best practice and promotes smaller/incremental changes that are easily deployed and debugged. Our default branch naming pattern for this is the following:
-
-```
-jiraIssueType/AMUPRODUCT-1234/hyphenated-issue-summary
-```
-
-To illustrate this, if a simple copy change was raised by the product owner in JIRA. The issueType would be "maintenance" and we will use the example issue key: CAN-1234
-
-### Jira Smart Commits
-
-Our projects are managed in Jira, and we use [smart commits](https://confluence.atlassian.com/fisheye/using-smart-commits-960155400.html) to link actions in GitHub to the relevant ticket in Jira, triggering automations that update ticket statuses.
-
-Smart commits are created by referencing the Jira issue key, such as `JIRA-1234`, in a commit, branch name, or PR description. If needed, multiple smart commits can be referenced at once.
-
-### Branches
-
-For any code changes in this repo, we prefer a single branch per Jira issue. This is a general best practice and promotes incremental changes that are easily deployed and debugged.
-
-Our branch naming pattern is `jiraIssueType/JIRA-1234/hyphenated-issue-summary`.
-
-### Pull Requests
-
-Open a pull request when your changes are ready to merge into staging. Follow the PR template and write a brief description, and add relevant links, including the Jira issue key.
-
-You do not need to fill in the reviewers or assignees. Our CODEOWNERS automation takes care of who will need to review it. An AMU software engineer will review it and handle merging it once it's ready.
-
----
-
-## Deployment & Releases
-
 Detailed information about how to prepare an app to deploy to K8s is here: (<https://amuniversal.atlassian.net/l/c/AV1H0Sbf>)
-
-### Reviewers and Supportive information
-
-You do not need to fill in the reviewers or assignees. Our CODEOWNERS automation takes care of who will need to review it. As long as a AMU software engineer reviews it and the other checks pass, we will take care of merging the pull request into staging and production.
-
-### Deployment to Staging
-
-Once approved and an AMU software engineer has merged this pull request in, the following will happen within our CI.
-
-1. Your branch will be merged into staging
-2. A staging AKS deploy will occur
-3. All jira tickets you have included in the branch names or commits will have their statuses automatically updated to **In QA Review**. This communicates to the product owner that it is QA testing.
-4. Once the product owner has reviewed these issues and marked each of their statuses as **Approved**, we will begin preparing a production release.
-
-### Deployment to Production
-
-1. The AMU software engineer will take note of the ./codexGame/package.json version in this repo's main branch.
-2. They will update the necessary files (see Semantic Versioning below) and JIRA release and to that version.
-3. They will create a tagged release in GitHub. This will initiate a production AKS deploy.
-   Detailed information about how to prepare an app to deploy to K8s is here: (<https://amuniversal.atlassian.net/l/c/AV1H0Sbf>)
 
 ### Semantic Versioning
 
 Within this application, there are files that need to be updated to denote what the current version is. These values should always match each other:
 
 - `/package.json` (update `version`)
-- `/deployments/charts/Chart.yaml` (update `appVersion`)
+- `/deployments/development-charts/Chart.yaml` (update `appVersion`)
+- `/deployments/staging-charts/Chart.yaml` (update `appVersion`)
+- `/deployments/production-charts/Chart.yaml` (update `appVersion`)
 
 You can use the `bump-versions.yml` workflow to automatically increment the version number in any related files. To run the workflow:
 

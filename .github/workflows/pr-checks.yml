@@ -5,6 +5,16 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
+  application-ci:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Application CI
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/next-ci.yaml@2
+    with:
+      environment: development
+    secrets:
+      PAT_ACTION_CI: ${{ secrets.PAT_ACTION_CI }}
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+
   pr-labels:
     if: ${{ github.actor != 'dependabot[bot]' }}
     name: PR Labels
@@ -35,3 +45,11 @@ jobs:
     uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/simple-lint.yaml@2
     secrets:
       PAT_ACTION_CI: ${{ secrets.PAT_ACTION_CI }}
+
+  required-checks:
+    name: Required Checks
+    runs-on: ubuntu-latest
+    needs: [application-ci]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
