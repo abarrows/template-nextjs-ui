@@ -1,5 +1,5 @@
 {
-  "singleQuote": false,
+  "singleQuote": true,
   "importOrder": [
     "^react$",
     "<THIRD_PARTY_MODULES>",
