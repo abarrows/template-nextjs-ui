@@ -2,8 +2,6 @@
 ![Staging](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=prerelease)
 ![Development](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=push&branch=main)
 ![Application CI](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/application-ci.yml/badge.svg)
-![PR Checks](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/pr-checks.yml/badge.svg)
-![Dependabot](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/dependabot-automations.yml/badge.svg)
 
 # AppName
 
@@ -641,6 +639,8 @@ getServerSideProps;
 
 Detailed information about how to prepare an app to deploy to K8s is here: (<https://amuniversal.atlassian.net/l/c/AV1H0Sbf>)
 
+Jira Release: <https://amuniversal.atlassian.net/projects/PUZSOC?selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page>
+
 ### Semantic Versioning
 
 Within this application, there are files that need to be updated to denote what the current version is. These values should always match each other:
@@ -659,21 +659,16 @@ You can use the `bump-versions.yml` workflow to automatically increment the vers
 
 This will create a PR with the changes that should already be approved.
 
-> NOTE: We do not use the vx.x.x pattern for version naming. We simply have the semantic release version number like this: x.x.x
-
 ### Deploying to Staging
 
-Once approved and an AMU software engineer has merged this pull request in, the following will happen within our CI.
+Once the "development" branch has been updated, it will be ready for a staging deployment.
 
-1. Your branch will be merged into staging and a staging AKS deploy will occur
-2. All jira tickets you have included in the branch names or commits will have their statuses automatically updated to **In QA Review**. This communicates to the product owner that it is QA testing.
-3. Once the product owner has reviewed these issues and marked each of their statuses as **Approved**, we will begin preparing a production release.
+1. Create a pull request to merge the "development" branch into the "main" branch.
+1. Once the pull request is approved and merged in, it'll trigger a staging deployment.
 
 ### Deploying to Production
 
-Jira Release: <https://amuniversal.atlassian.net/projects/PUZSOC?selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page>
-
-Once a pull request is merged into _main_, it passes all CI checks and passes QA, it will be ready for being released to production.
+Once a pull request is merged into _main_, it passes all CI checks and passes QA, it will be ready for a production deployment.
 
 > The AMU software engineer **must** create a tagged version.
 
