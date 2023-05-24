@@ -1,7 +1,6 @@
 module.exports = {
   root: true,
-  // plugins: ['babel', 'chai-friendly', 'react', 'jsx-a11y'],
-  plugins: ['babel', 'react', 'jsx-a11y'],
+  plugins: ['babel', 'chai-friendly', 'react', 'jsx-a11y'],
   extends: [
     'next/core-web-vitals',
     'airbnb',
@@ -62,9 +61,8 @@ module.exports = {
     ],
     semi: 2,
     'jsx-a11y/anchor-is-valid': 'off',
-    // https://nextjs.org/docs/api-reference/next/link
     'no-unused-expressions': 0,
-    // 'chai-friendly/no-unused-expressions': 2,
+    'chai-friendly/no-unused-expressions': 2,
     'react/jsx-sort-props': [
       1,
       {
@@ -109,11 +107,11 @@ module.exports = {
     },
   ],
   settings: {
-    // 'import/resolver': {
-    //   node: {
-    //     moduleDirectory: ['node_modules', '.'],
-    //   },
-    // },
+    'import/resolver': {
+      node: {
+        moduleDirectory: ['node_modules', '.'],
+      },
+    },
     // react: {
     //   createClass: 'createReactClass',
     //   // Regex for Component Factory to use,
