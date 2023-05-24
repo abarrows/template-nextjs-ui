@@ -16,11 +16,11 @@
     "keys:get": "pwsh -c \"./Get-Secrets.ps1 -Environment ${1}\"",
     "keys:save": "pwsh -c \"./Set-Secrets.ps1\"",
     "setup": "yarn install && yarn keys:setup ${1:-development}",
-    "dev": "next dev -p 3000",
+    "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
     "build:analyze": "ANALYZE=true yarn build",
-    "start": "next start -p 3000",
+    "start": "next start",
     "docker:build": "docker compose up --build",
     "docker:run": "docker compose up",
     "lint:container": "npx mega-linter-runner",
@@ -44,9 +44,14 @@
     "preflight": "yarn run browserslist --update-db && yarn lint:js && yarn lint:styles && yarn format && yarn test:unit:ci && yarn build && yarn test:integration:ci && yarn test:size && yarn test:integration:report"
   },
   "dependencies": {
-    "npm-run-all": "^4.1.5"
+    "next": "13.4.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.3",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8"
   }
 }

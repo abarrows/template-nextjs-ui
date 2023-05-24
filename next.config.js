@@ -1,21 +1,21 @@
 // Add timestamps to console logs
-require('console-stamp')(console);
+// require('console-stamp')(console);
 
 // Use the SentryWebpack plugin to upload the source maps during build step
-const { withSentryConfig } = require('@sentry/nextjs');
+// const { withSentryConfig } = require('@sentry/nextjs');
 
 // Optionally analyze client and server bundle sizes,
 // can be run with `yarn build:analyze` or`ANALYZE=true yarn build`
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// });
 
-const redirects = require('./redirects');
+// const redirects = require('./redirects');
 
 const customConfig = {
   // TODO: remove optimizeFonts: false after this issue is resolved
   // https://github.com/vercel/next.js/issues/36498
-  optimizeFonts: false,
+  // optimizeFonts: false,
   eslint: {
     // The eslint ignoreDuringBuilds boolean allows production builds to
     // successfully complete even if the project has ESLint errors. This is
@@ -48,24 +48,26 @@ const customConfig = {
       // });
     }
 
-    return [...prodRedirects, ...redirects];
+    // return [...prodRedirects, ...redirects];
+    return [...prodRedirects];
   },
 
-  webpack: (config) => {
-    const newConfig = config;
+  // webpack: (config) => {
+  //   const newConfig = config;
 
-    // SVG support
-    newConfig.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
+  //   // SVG support
+  //   newConfig.module.rules.push({
+  //     test: /\.svg$/,
+  //     use: ['@svgr/webpack'],
+  //   });
 
-    return newConfig;
-  },
+  //   return newConfig;
+  // },
 };
 
-const withSentry = process.env.SENTRY_AUTH_TOKEN
-  ? withSentryConfig(customConfig, { silent: true })
-  : customConfig;
+// const withSentry = process.env.SENTRY_AUTH_TOKEN
+//   ? withSentryConfig(customConfig, { silent: true })
+//   : customConfig;
 
-module.exports = withBundleAnalyzer(withSentry);
+// module.exports = withBundleAnalyzer(withSentry);
+module.exports = customConfig;
