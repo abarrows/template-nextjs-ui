@@ -1,7 +1,9 @@
 module.exports = {
   root: true,
-  plugins: ['babel', 'chai-friendly', 'react', 'jsx-a11y'],
+  // plugins: ['babel', 'chai-friendly', 'react', 'jsx-a11y'],
+  plugins: ['babel', 'react', 'jsx-a11y'],
   extends: [
+    'next/core-web-vitals',
     'airbnb',
     'airbnb/hooks',
     'plugin:react/recommended',
@@ -19,7 +21,7 @@ module.exports = {
       presets: ['@babel/preset-react'],
     },
   },
-  ignorePatterns: ['src/design-system-package/dist/**', '**/_design_tokens.js'],
+  // ignorePatterns: ['src/design-system-package/dist/**', '**/_design_tokens.js'],
   env: {
     jest: true,
     browser: true,
@@ -62,7 +64,7 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 'off',
     // https://nextjs.org/docs/api-reference/next/link
     'no-unused-expressions': 0,
-    'chai-friendly/no-unused-expressions': 2,
+    // 'chai-friendly/no-unused-expressions': 2,
     'react/jsx-sort-props': [
       1,
       {
@@ -77,12 +79,12 @@ module.exports = {
       },
     ],
     // Remember to use the AMU consoleLogger(message, object) utility helper instead of console.log.
-    'no-console': ['error'],
+    // 'no-console': ['error'],
   },
   overrides: [
     {
       // Jest overrides
-      files: ['./__tests__/**', '**.test.jsx', './src/components/commons/**'],
+      files: ['./__tests__/**', '**.test.jsx'],
       rules: {
         'react/jsx-props-no-spreading': 'off',
       },
@@ -107,39 +109,39 @@ module.exports = {
     },
   ],
   settings: {
-    'import/resolver': {
-      node: {
-        moduleDirectory: ['node_modules', '.'],
-      },
-    },
-    react: {
-      createClass: 'createReactClass',
-      // Regex for Component Factory to use,
-      // default to "createReactClass"
-      pragma: 'React',
-      // Pragma to use, default to "React"
-      version: 'detect', // React version. "detect" automatically picks the version you have installed.
-    },
-    propWrapperFunctions: [
-      // The names of any function used to wrap propTypes,
-      // e.g. `forbidExtraProps`.If this isn't set, any propTypes
-      // wrapped in a function will be skipped.
-      'forbidExtraProps',
-      {
-        property: 'freeze',
-        object: 'Object',
-      },
-      {
-        property: 'myFavoriteWrapper',
-      },
-    ],
-    linkComponents: [
-      // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
-      'Hyperlink',
-      {
-        name: 'Link',
-        linkAttribute: 'to',
-      },
-    ],
+    // 'import/resolver': {
+    //   node: {
+    //     moduleDirectory: ['node_modules', '.'],
+    //   },
+    // },
+    // react: {
+    //   createClass: 'createReactClass',
+    //   // Regex for Component Factory to use,
+    //   // default to "createReactClass"
+    //   pragma: 'React',
+    //   // Pragma to use, default to "React"
+    //   version: 'detect', // React version. "detect" automatically picks the version you have installed.
+    // },
+    // propWrapperFunctions: [
+    //   // The names of any function used to wrap propTypes,
+    //   // e.g. `forbidExtraProps`.If this isn't set, any propTypes
+    //   // wrapped in a function will be skipped.
+    //   'forbidExtraProps',
+    //   {
+    //     property: 'freeze',
+    //     object: 'Object',
+    //   },
+    //   {
+    //     property: 'myFavoriteWrapper',
+    //   },
+    // ],
+    // linkComponents: [
+    //   // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
+    //   'Hyperlink',
+    //   {
+    //     name: 'Link',
+    //     linkAttribute: 'to',
+    //   },
+    // ],
   },
 };
