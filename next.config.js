@@ -1,5 +1,5 @@
 // Add timestamps to console logs
-// require('console-stamp')(console);
+require('console-stamp')(console);
 
 // Optionally analyze client, server, and edge/middleware bundle sizes,
 // Run with `yarn build:analyze`
@@ -7,7 +7,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-// const redirects = require('./redirects');
+// Permanent site redirects file, see that for adding new redirects
+const redirects = require('./redirects');
 
 const customConfig = {
   // TODO: remove optimizeFonts: false after this issue is resolved
@@ -45,8 +46,7 @@ const customConfig = {
       // });
     }
 
-    // return [...prodRedirects, ...redirects];
-    return [...prodRedirects];
+    return [...prodRedirects, ...redirects];
   },
 
   // webpack: (config) => {
