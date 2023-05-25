@@ -40,7 +40,6 @@
     "test:size": "size-limit",
     "test:unit": "jest src --verbose",
     "test:unit:ci": "jest src --ci",
-    "test:unit:report": "jest",
     "test:unit:watch": "jest --watch --detectOpenHandles",
     "preflight": "yarn run browserslist --update-db && yarn lint:js && yarn lint:styles && yarn format && yarn test:unit:ci && yarn build && yarn test:integration:ci && yarn test:size && yarn test:integration:report"
   },
