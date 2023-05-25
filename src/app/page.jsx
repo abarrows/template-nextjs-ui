@@ -12,32 +12,15 @@ export default function Home() {
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.js</code>
         </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            By{' '}
-            <Image
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              height={24}
-              priority
-              src="/vercel.svg"
-              width={100}
-            />
-          </a>
-        </div>
       </div>
 
       <div className={styles.center}>
         <Image
-          alt="Next.js Logo"
+          alt="AMU Logo"
           className={styles.logo}
-          height={37}
+          height={180}
           priority
-          src="/next.svg"
+          src="/images/AMU_master_logo_U.svg"
           width={180}
         />
       </div>
