@@ -1,8 +1,7 @@
 # General
 .cache/
 .git/
-storybook-static
-src/helpers/utilities/tokens/_design_tokens.js
+
 
 # Helm
 deployments/**/templates/
@@ -13,8 +12,13 @@ docker-compose.yml
 # Node.js
 .next
 build/
+coverage/
+playwright-report/
+test-results/
 **.js.map
 **.bundle.js
+storybook-static
+src/helpers/utilities/tokens/_design_tokens.js
 
 # WordPress
 wp-content/

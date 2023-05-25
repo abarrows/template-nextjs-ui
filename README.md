@@ -126,6 +126,7 @@ You can use the Yarn scripts provided by the `package.json` file:
   ```bash
   yarn setup [ENVIRONMENT]
   ```
+
 - Generates the `.env` file. Optionally, you can specify the environment for the first argument (defaults to the development environment).
 
   ```bash
@@ -398,12 +399,12 @@ SCSS variables can be exported for use in Components. These variables are compil
 :export {
   var_navHeight: 84px;
   var_burgerSize: $burger-size;
-  var_gridBreakpointXS: map-get($grid-breakpoints, "xs");
-  var_gridBreakpointSM: map-get($grid-breakpoints, "sm");
-  var_gridBreakpointMD: map-get($grid-breakpoints, "md");
-  var_gridBreakpointLG: map-get($grid-breakpoints, "lg");
-  var_gridBreakpointXL: map-get($grid-breakpoints, "xl");
-  var_gridBreakpointXXL: map-get($grid-breakpoints, "xxl");
+  var_gridBreakpointXS: map-get($grid-breakpoints, 'xs');
+  var_gridBreakpointSM: map-get($grid-breakpoints, 'sm');
+  var_gridBreakpointMD: map-get($grid-breakpoints, 'md');
+  var_gridBreakpointLG: map-get($grid-breakpoints, 'lg');
+  var_gridBreakpointXL: map-get($grid-breakpoints, 'xl');
+  var_gridBreakpointXXL: map-get($grid-breakpoints, 'xxl');
 }
 ```
 
@@ -541,7 +542,7 @@ Along with all the great features that storybook brings out of the box, we emplo
 To capture an exception:
 
 ```js
-import * as Sentry from "@sentry/nextjs";
+import * as Sentry from '@sentry/nextjs';
 
 // send an error returned from something else
 Sentry.captureException(error);

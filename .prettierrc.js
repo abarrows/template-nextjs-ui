@@ -4,7 +4,7 @@ module.exports = {
     '^react$',
     '<THIRD_PARTY_MODULES>',
     '^src/pages/api/(.*)$',
-    '^src/constants(.*)$',
+    '^src/(constants|data)(.*)$',
     '^src/helpers/(.*)$',
     '^src/(contexts|store)/(.*)$',
     '^src/store/(.*)$',
