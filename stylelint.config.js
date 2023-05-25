@@ -30,7 +30,7 @@ module.exports = {
     'custom-property-no-missing-var-function': true,
     'custom-property-pattern': kebabCaseRegex,
     'declaration-block-no-redundant-longhand-properties': true,
-    'declaration-empty-line-before': 'never', // TODO: conflicts with prettier
+    'declaration-empty-line-before': 'never',
     'declaration-no-important': [
       true,
       {
@@ -48,9 +48,10 @@ module.exports = {
     'rule-empty-line-before': [
       'always',
       {
-        except: ['first-nested', 'after-single-line-comment'],
+        except: ['after-single-line-comment'],
+        ignore: ['first-nested'],
       },
-    ], // TODO: conflicts with prettier
+    ],
     'selector-class-pattern': [
       bemRegex,
       {

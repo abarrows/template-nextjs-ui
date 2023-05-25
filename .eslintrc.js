@@ -59,7 +59,6 @@ module.exports = {
         ignorePattern: 'd="([\\s\\S]*?)"',
       },
     ],
-    semi: 2,
     'jsx-a11y/anchor-is-valid': 'off',
     'no-unused-expressions': 0,
     'chai-friendly/no-unused-expressions': 2,
