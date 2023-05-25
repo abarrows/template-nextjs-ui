@@ -1,6 +1,5 @@
-// camelCase Reference
 const bemRegex =
-  /^([a-z]+[0-9]*)([A-Z][a-z0-9]+)*(?:__([a-z]+[0-9]*)([A-Z][a-z0-9]+)*)*(_([a-z]+[0-9]*)([A-Z][a-z0-9]+)*){0,1}$/;
+  /^([a-z]+[0-9]*)([A-Z][a-z0-9]+)*(?:__([a-z]+[0-9]*)([A-Z][a-z0-9]+)*){0,1}(_([a-z]+[0-9]*)([A-Z][a-z0-9]+)*){0,1}$/;
 const kebabCaseRegex = /^([a-z][a-z0-9]*)(-[a-z0-9]+)*$/;
 
 module.exports = {
@@ -51,7 +50,7 @@ module.exports = {
         resolveNestedSelectors: true,
         severity: 'warning',
         message:
-          'USE AMU variant of BEM naming for class selectors. Remember: Only underscores.  IE: .blockName_modifierName and .blockName__elementName',
+          'Use AMU variant of BEM naming for class selectors. Remember: Only underscores. IE: .blockName_modifierName and .blockName__elementName',
       },
     ],
     'selector-pseudo-element-colon-notation': 'single',
