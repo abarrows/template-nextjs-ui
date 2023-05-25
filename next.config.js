@@ -1,9 +1,6 @@
 // Add timestamps to console logs
 // require('console-stamp')(console);
 
-// Use the SentryWebpack plugin to upload the source maps during build step
-// const { withSentryConfig } = require('@sentry/nextjs');
-
 // Optionally analyze client, server, and edge/middleware bundle sizes,
 // Run with `yarn build:analyze`
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -64,9 +61,5 @@ const customConfig = {
   //   return newConfig;
   // },
 };
-
-// const withSentry = process.env.SENTRY_AUTH_TOKEN
-//   ? withSentryConfig(customConfig, { silent: true })
-//   : customConfig;
 
 module.exports = withBundleAnalyzer(customConfig);
