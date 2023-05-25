@@ -19,7 +19,7 @@ const pages = pageNames.map((name) => {
 
   return {
     name,
-    limit: '500 kb',
+    limit: '100 kb',
     path: uniqueChunks.map((chunk) => `.next/${chunk}`),
   };
 });
@@ -27,7 +27,7 @@ const pages = pageNames.map((name) => {
 module.exports = [
   {
     name: 'Shared by All',
-    limit: '250 kb',
+    limit: '100 kb',
     path: sharedDependencies.map((dependency) => `.next/${dependency}`),
   },
   ...pages,
