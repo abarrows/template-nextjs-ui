@@ -4,11 +4,11 @@
 // Use the SentryWebpack plugin to upload the source maps during build step
 // const { withSentryConfig } = require('@sentry/nextjs');
 
-// Optionally analyze client and server bundle sizes,
-// can be run with `yarn build:analyze` or`ANALYZE=true yarn build`
-// const withBundleAnalyzer = require('@next/bundle-analyzer')({
-//   enabled: process.env.ANALYZE === 'true',
-// });
+// Optionally analyze client, server, and edge/middleware bundle sizes,
+// Run with `yarn build:analyze`
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 // const redirects = require('./redirects');
 
@@ -69,5 +69,4 @@ const customConfig = {
 //   ? withSentryConfig(customConfig, { silent: true })
 //   : customConfig;
 
-// module.exports = withBundleAnalyzer(withSentry);
-module.exports = customConfig;
+module.exports = withBundleAnalyzer(customConfig);

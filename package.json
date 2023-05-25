@@ -18,7 +18,6 @@
     "setup": "yarn install && yarn keys:setup ${1:-development}",
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap",
     "build:analyze": "ANALYZE=true yarn build",
     "start": "next start",
     "docker:build": "docker compose up --build",
@@ -46,6 +45,7 @@
     "preflight": "yarn run browserslist --update-db && yarn lint:js && yarn lint:styles && yarn format && yarn test:unit:ci && yarn build && yarn test:integration:ci && yarn test:size && yarn test:integration:report"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^13.4.3",
     "next": "13.4.3",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
