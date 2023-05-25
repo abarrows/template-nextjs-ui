@@ -4,9 +4,9 @@ import Image from 'next/image';
 
 import SiteLink from 'src/components/commons/SiteLink';
 
-import styles from './page.module.scss';
+import styles from '../page.module.scss';
 
-function HomePage() {
+function OtherPage() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -28,7 +28,12 @@ function HomePage() {
       </div>
 
       <div className={styles.grid}>
-        <SiteLink className={styles.card} href="/other-page">
+        <SiteLink
+          className={styles.card}
+          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           <h2>
             Docs <span>-&gt;</span>
           </h2>
@@ -77,4 +82,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default OtherPage;
