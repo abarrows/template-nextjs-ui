@@ -7,6 +7,7 @@ module.exports = {
     'airbnb/hooks',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:storybook/recommended',
     'prettier',
   ],
   parser: '@babel/eslint-parser',

@@ -1,12 +1,15 @@
-/** @type { import('@storybook/nextjs').StorybookConfig } */
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/addon-links',
+    // Essentials addon provides several addons, see the list before adding more
+    // https://storybook.js.org/integrations/tag/essentials/
     '@storybook/addon-essentials',
+    '@storybook/addon-links',
     '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
   ],
   framework: {
+    // https://storybook.js.org/recipes/next/
     name: '@storybook/nextjs',
     options: {},
   },
