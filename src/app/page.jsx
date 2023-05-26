@@ -11,8 +11,18 @@ function HomePage() {
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
-          Get started by editing&nbsp;
+          Get started by editing{' '}
           <code className={styles.code}>src/app/page.jsx</code>
+        </p>
+        <p>
+          See the project&apos;s{' '}
+          <SiteLink
+            href="https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template#readme"
+            openInNewTab
+          >
+            README
+          </SiteLink>{' '}
+          for more information and links to additional documentation.
         </p>
       </div>
 
@@ -25,53 +35,6 @@ function HomePage() {
           src="/images/AMU_master_logo_U.svg"
           width={180}
         />
-      </div>
-
-      <div className={styles.grid}>
-        <SiteLink className={styles.card} href="/other-page">
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </SiteLink>
-
-        <SiteLink
-          className={styles.card}
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </SiteLink>
-
-        <SiteLink
-          className={styles.card}
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </SiteLink>
-
-        <SiteLink
-          className={styles.card}
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </SiteLink>
       </div>
     </main>
   );
