@@ -1,0 +1,15 @@
+@use '/src/styles/variables';
+
+.header {
+  display: grid;
+  gap: variables.$gap-md;
+  justify-items: center;
+  padding: variables.$gap-lg;
+  background-color: variables.$color-white;
+  box-shadow: variables.$box-shadow;
+}
+
+.header__text {
+  font-family: variables.$font-family-serif;
+  font-size: variables.$font-size-xl;
+}

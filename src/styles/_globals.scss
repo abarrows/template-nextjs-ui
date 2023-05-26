@@ -1,10 +1,19 @@
 @use '/src/styles/variables';
 
+// This variable is to only be used to reset the overall font-size at root.
+// 16px is the default font-size in most browsers, calculating 62.5% of that value
+// allows for us to reference all font-sizes by rems expecting 1rem = 10px.
+// This however, does still honor user's browser settings, this could reasonably resize
+// all text by 50% over or under.
+$font-size-reset: 62.5%;
+
 html,
 :root {
-  font-size: variables.$font-size-reset;
+  font-size: $font-size-reset;
 }
 
 body {
-  font-size: 1.6rem;
+  font-family: variables.$font-family-sans-serif;
+  font-size: variables.$font-size-base;
+  background-color: variables.$color-yellow;
 }

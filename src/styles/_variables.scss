@@ -1,9 +1,34 @@
 // Import this file with: @use '/src/styles/variables';
 // Reference variables with: variables.$variable-name
 
-// This variable is to only be used to reset the overall font-size at root.
-// 16px is the default font-size in most browsers, calculating 62.5% of that value
-// allows for us to reference all font-sizes by rems expecting 1rem = 10px.
-// This however, does still honor user's browser settings, this could reasonably resize
-// all text by 50% over or under.
-$font-size-reset: 62.5%;
+// Colors
+$color-black: rgb(0 0 0);
+$color-gray: rgb(153 152 153);
+$color-green: rgb(151 215 0);
+$color-purple: rgb(78 0 142);
+$color-red: rgb(220 68 5);
+$color-teal: rgb(0 191 179);
+$color-yellow: rgb(255 198 0);
+$color-white: rgb(255 255 255);
+
+// Fonts
+$font-family-sans-serif: var(--font-source-sans-pro), sans-serif;
+$font-family-serif: var(--font-carter-one), serif;
+$font-size-xs: 1.4rem;
+$font-size-sm: 1.6rem;
+$font-size-md: 1.8rem;
+$font-size-lg: 2rem;
+$font-size-xl: 2.4rem;
+$font-size-xxl: 3.2rem;
+$font-size-base: $font-size-sm;
+
+// Grid
+$gap-xs: 4px;
+$gap-sm: 8px;
+$gap-md: 16px;
+$gap-lg: 32px;
+$gap-xl: 64px;
+$gap-xxl: 128px;
+
+// Decorations
+$box-shadow: 0 5px 10px rgba($color-black, 0.15);

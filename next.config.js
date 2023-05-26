@@ -11,9 +11,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const redirects = require('./redirects');
 
 const customConfig = {
-  // TODO: remove optimizeFonts: false after this issue is resolved
-  // https://github.com/vercel/next.js/issues/36498
-  // optimizeFonts: false,
   eslint: {
     // The eslint ignoreDuringBuilds boolean allows production builds to
     // successfully complete even if the project has ESLint errors. This is
