@@ -89,7 +89,7 @@ module.exports = {
     'scss/at-mixin-pattern': kebabCaseRegex,
     'scss/dollar-variable-empty-line-before': 'never',
     'scss/dollar-variable-pattern': kebabCaseRegex,
-    'scss/double-slash-comment-empty-line-before': 'never', // conflicts with prettier
+    // 'scss/double-slash-comment-empty-line-before': 'never', // TODO: discuss
     'scss/no-global-function-names': true,
   },
 };

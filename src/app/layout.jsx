@@ -1,11 +1,8 @@
 import React from 'react';
 
-import { Inter } from 'next/font/google';
 import PropTypes from 'prop-types';
 
-import './globals.scss';
-
-const inter = Inter({ subsets: ['latin'] });
+import 'src/styles/index.scss';
 
 export const metadata = {
   title: 'AMU Next.js Template',
@@ -15,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
