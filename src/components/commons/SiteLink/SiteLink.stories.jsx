@@ -4,6 +4,7 @@ import SiteLink from './SiteLink';
 
 export default {
   component: SiteLink,
+  tags: ['autodocs'],
 };
 
 function Template(args) {
