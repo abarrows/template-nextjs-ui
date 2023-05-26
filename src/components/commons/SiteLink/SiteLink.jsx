@@ -66,7 +66,7 @@ SiteLink.propTypes = {
   /** Optional class for this link. */
   className: PropTypes.string,
 
-  /** The path or URL the link points to. */
+  /** The path or URL the link points to for the anchor tag. */
   href: PropTypes.string,
 
   /** Next Link has several props it accepts, they can be passed
