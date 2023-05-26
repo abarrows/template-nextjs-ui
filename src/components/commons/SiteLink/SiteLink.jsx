@@ -78,9 +78,9 @@ SiteLink.propTypes = {
   /** Optional flag to open the link in a new tab/window. */
   openInNewTab: PropTypes.bool,
 
-  /** Optional onClick function triggered when clicking the link. Note: the
-   * onClick event on links is also triggered with keyboard navigation, so
-   * onKeyUp and similar events are not needed. */
+  /** Optional `onClick` function triggered when clicking the link. Note: the
+   * `onClick` event on links is also triggered with keyboard navigation, so
+   * `onKeyUp` and similar events are not needed. */
   onClick: PropTypes.func,
 };
 
