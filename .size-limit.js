@@ -36,7 +36,6 @@ const appChunks = appRoutes.map((name) => {
     path: uniqueChunks.map((chunk) => `.next/${chunk}`),
   };
 });
-
 const pagesChunks = pagesRoutes.map((name) => {
   const uniqueChunks = pagesBundle.pages[name].filter(
     (dependency) => !sharedDependencies.includes(dependency)
