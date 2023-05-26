@@ -15,7 +15,7 @@ function SiteLink({
   openInNewTab,
   ...props
 }) {
-  // Support situations where no href can be sent and link needs to be disabled
+  // Support situations where no href can be sent and the link needs to be disabled
   if (!href) {
     return (
       <div className={className} data-testid="site-link-disabled" {...props}>
@@ -24,12 +24,9 @@ function SiteLink({
     );
   }
 
-  // This appeases the linter and keeps these attributes together
+  // Bundle these attributes together for consistent usage
   const newTab = openInNewTab
-    ? {
-        rel: 'noopener noreferrer',
-        target: '_blank',
-      }
+    ? { rel: 'noopener noreferrer', target: '_blank' }
     : null;
 
   if (isUrl(href)) {
@@ -48,15 +45,14 @@ function SiteLink({
   }
 
   return (
-    // Note: onClick on links is also triggered with keyboard navigation.
     <Link
       className={className}
       data-testid="site-link"
       href={href}
       onClick={onClick}
+      {...nextLinkProps}
       {...newTab}
       {...props}
-      {...nextLinkProps}
     >
       {children}
     </Link>
@@ -82,7 +78,9 @@ SiteLink.propTypes = {
   /** Optional flag to open the link in a new tab/window. */
   openInNewTab: PropTypes.bool,
 
-  /** Optional onClick function triggered when clicking the link. */
+  /** Optional onClick function triggered when clicking the link. Note: the
+   * onClick event on links is also triggered with keyboard navigation, so
+   * onKeyUp and similar events are not needed. */
   onClick: PropTypes.func,
 };
 
