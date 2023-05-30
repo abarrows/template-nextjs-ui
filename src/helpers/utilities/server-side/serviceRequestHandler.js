@@ -1,6 +1,11 @@
 const serviceRequestHandler = async (url, method = 'GET', body = null) => {
   let payload;
 
+  if (!process.env.API_SERVICE_KEY) {
+    // eslint-disable-next-line no-console
+    console.error('`API_SERVICE_KEY` is required.');
+  }
+
   if (typeof window === 'undefined') {
     // Required for any request to the service
     const subscriptionKey = {

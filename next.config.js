@@ -45,18 +45,6 @@ const customConfig = {
 
     return [...prodRedirects, ...redirects];
   },
-
-  // webpack: (config) => {
-  //   const newConfig = config;
-
-  //   // SVG support
-  //   newConfig.module.rules.push({
-  //     test: /\.svg$/,
-  //     use: ['@svgr/webpack'],
-  //   });
-
-  //   return newConfig;
-  // },
 };
 
 module.exports = withBundleAnalyzer(customConfig);
