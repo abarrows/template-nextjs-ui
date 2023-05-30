@@ -6,7 +6,7 @@ import styles from './WelcomeUser.module.scss';
 
 function WelcomeUser() {
   return (
-    <section className={styles.main}>
+    <section className={styles.welcome}>
       <p>
         Get started by editing <code>src/app/page.jsx</code>. See the
         project&apos;s{' '}

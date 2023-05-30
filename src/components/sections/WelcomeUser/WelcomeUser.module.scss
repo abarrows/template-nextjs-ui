@@ -1,6 +1,6 @@
 @use '/src/styles/variables';
 
-.main {
-  max-width: 50vw;
-  padding: variables.$gap-lg;
+.welcome {
+  width: min(80ch, 100vw - variables.$gap-xl);
+  margin: variables.$gap-lg auto;
 }
