@@ -1,9 +1,6 @@
-ARG NODE_VERSION=16.13.0
+ARG NODE_VERSION=18
 
 FROM node:${NODE_VERSION}-alpine AS deps
-
-# Set build environment
-ARG NODE_ENV=${NODE_ENV}
 
 # Sets the working directory
 WORKDIR /base
@@ -15,9 +12,6 @@ RUN yarn install --frozen-lockfile
 # Build the UI app
 FROM node:${NODE_VERSION}-alpine AS builder
 
-# Set build environment
-ARG NODE_ENV=${NODE_ENV}
-
 # Sets the working directory
 WORKDIR /build
 
@@ -25,15 +19,11 @@ COPY --from=deps base/node_modules ./node_modules
 COPY . .
 
 RUN yarn build
-RUN yarn postbuild
 
-# NextJS build will create generated JS and CSS in .next directory. 
+# NextJS build will create generated JS and CSS in .next directory.
 # We will need this for our application to run.
 # All public folder contents will be needed as well. This folder contains static assets.
 FROM node:${NODE_VERSION}-alpine AS runner
-
-# Set build environment
-ARG NODE_ENV=${NODE_ENV}
 
 # Sets the working directory
 WORKDIR /app

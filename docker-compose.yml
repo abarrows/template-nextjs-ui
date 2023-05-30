@@ -4,10 +4,19 @@ services:
     # M1 Compatibility
     # platform: linux/amd64
     env_file:
+      # KeyVault generated environment variables
       - .env
     build:
       context: .
       args:
-        NODE_ENV: ${NODE_ENV:-production}
+        # Local buildtime variables to override KeyVault values. They are NOT available during runtime.
+        BASE_URL: ${BASE_URL:-http://localhost:3000}
+        NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL:-http://localhost:3000}
+        DEPLOY_ENV: ${DEPLOY_ENV:-local}
+        NEXT_PUBLIC_DEPLOY_ENV: ${NEXT_PUBLIC_DEPLOY_ENV:-local}
+    environment:
+        # Local runtime variables to override KeyVault values.
+        BASE_URL: ${BASE_URL:-http://localhost:3000}
+        DEPLOY_ENV: ${DEPLOY_ENV:-local}
     ports:
       - '3000:3000'
