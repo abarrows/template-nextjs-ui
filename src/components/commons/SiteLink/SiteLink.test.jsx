@@ -9,7 +9,6 @@ describe('SiteLink', () => {
     render(<SiteLink href="/">Hello World</SiteLink>);
 
     const siteLink = screen.getByRole('link', { name: /hello world/i });
-    screen.debug(siteLink);
 
     expect(siteLink).toBeVisible();
     expect(siteLink.href).toContain('/');
