@@ -1,21 +1,6 @@
 @use '/src/styles/variables';
 
-.header {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: variables.$gap-lg;
-  align-items: center;
-  justify-items: end;
-  padding: variables.$gap-lg;
-  background-color: variables.$color-white;
-  box-shadow: variables.$box-shadow;
-}
-
-.header__text {
-  font-family: variables.$font-family-serif;
-  font-size: variables.$font-size-xl;
-}
-
 .main {
+  max-width: 50vw;
   padding: variables.$gap-lg;
 }

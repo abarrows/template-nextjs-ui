@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { Carter_One, Source_Sans_Pro } from 'next/font/google';
 import PropTypes from 'prop-types';
 
+import ShowSiteHeader from 'src/components/sections/ShowSiteHeader';
+
 import 'src/styles/index.scss';
 
 export const metadata = {
@@ -29,6 +31,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={classNames(carterOne.variable, sourceSansPro.variable)}>
+        <ShowSiteHeader />
         {children}
       </body>
     </html>
