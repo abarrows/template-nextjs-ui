@@ -17,8 +17,8 @@ function Template(args) {
             padding: 12px;
             font-family: sans-serif;
             font-weight: bold;
-            color: #00BFB3;
-            border: 1px solid #00BFB3;
+            color: rgb(220 68 5);
+            border: 1px solid rgb(220 68 5);
             border-radius: 5px;
             transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
           }
