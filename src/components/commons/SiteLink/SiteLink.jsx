@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 import { isUrl } from 'src/helpers/utilities/string-comparisons';
 
+import styles from './SiteLink.module.scss';
+
 /* eslint-disable react/jsx-props-no-spreading */
 function SiteLink({
   children,
@@ -18,7 +20,11 @@ function SiteLink({
   // Support situations where no href can be sent and the link needs to be disabled
   if (!href) {
     return (
-      <div className={className} data-testid="site-link-disabled" {...props}>
+      <div
+        className={className || styles.link}
+        data-testid="site-link-disabled"
+        {...props}
+      >
         {children}
       </div>
     );
@@ -32,7 +38,7 @@ function SiteLink({
   if (isUrl(href)) {
     return (
       <a
-        className={className}
+        className={className || styles.link}
         data-testid="site-link-external"
         href={href}
         onClick={onClick}
@@ -46,7 +52,7 @@ function SiteLink({
 
   return (
     <Link
-      className={className}
+      className={className || styles.link}
       data-testid="site-link"
       href={href}
       onClick={onClick}
@@ -63,7 +69,8 @@ SiteLink.propTypes = {
   /** The link content. */
   children: PropTypes.node.isRequired,
 
-  /** Optional class for this link. */
+  /** Optional class for this link. If a class is not provided, SiteLink will
+   * apply default styles. */
   className: PropTypes.string,
 
   /** The path or URL the link points to for the anchor tag. */

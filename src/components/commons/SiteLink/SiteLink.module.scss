@@ -1,0 +1,13 @@
+@use '/src/styles/mixins';
+@use '/src/styles/variables';
+
+.link {
+  font-weight: variables.$font-weight-bold;
+  color: variables.$color-teal;
+  text-decoration: none;
+  @include mixins.blink();
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

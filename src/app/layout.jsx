@@ -22,7 +22,7 @@ const sourceSansPro = Source_Sans_Pro({
   display: 'swap',
   subsets: ['latin'],
   variable: '--font-source-sans-pro',
-  weight: '400',
+  weight: ['400', '700'],
 });
 
 export default function RootLayout({ children }) {
