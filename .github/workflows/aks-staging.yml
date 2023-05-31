@@ -4,14 +4,14 @@ on:
   push:
     branches: [main, staging]
     paths-ignore:
-      - '**/*.md'
-      - '**/*.ps1'
-      - '**/Secrets.json*'
-      - '.*ignore'
-      - '.devcontainer/'
-      - '.vscode/'
-      - '.github/'
-      - '!.github/workflows/aks-staging.yml'
+      - "**/*.md"
+      - "**/*.ps1"
+      - "**/Secrets.json*"
+      - ".*ignore"
+      - ".devcontainer/"
+      - ".vscode/"
+      - ".github/"
+      - "!.github/workflows/aks-staging.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
