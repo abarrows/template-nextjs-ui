@@ -1,9 +1,9 @@
 .github/CODEOWNERS
-.github/dependabot.yml
-.github/labeler.yml
 .github/workflows/aks-*.yml
 .github/workflows/pr-checks.yml
 .github/workflows/template-sync.yml
 **/values.yaml
+docker-compose.yml
+Dockerfile
 README.md
 Secrets-example.json
