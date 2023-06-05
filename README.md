@@ -58,14 +58,29 @@ More notes on other helpful tools you can use in this project, here: [Basic Work
 
 ## Local Development
 
-We use Docker compose to build this project. You can read up more on some tips on how to use Docker, here: <https://amuniversal.atlassian.net/wiki/spaces/DEVOps/pages/3399024641/Tips+for+Using+Docker>
+To start a development server with hot reloading:
 
-To start the service locally:
+1. Retrieve the `.env` file by running one of the commands in the [Retrieving Environment Variables](#retrieving-environment-variables) section
+1. From the root project directory, run `yarn dev`
+1. Open app in browser: <http://localhost:3000>
 
-1. Retrieve the `.env` file by running one of the commands in the [Retrieving Secrets](#retrieving-secrets) section
+---
+
+## Building the Project
+
+We use Docker to build and deploy this project. You can read up more on some tips on how to use Docker, here: <https://amuniversal.atlassian.net/wiki/spaces/DEVOps/pages/3399024641/Tips+for+Using+Docker>
+
+To build and run the app locally using Docker Compose:
+
+1. Retrieve the `.env` file by running one of the commands in the [Retrieving Environment Variables](#retrieving-environment-variables) section
 1. From the root project directory, run `docker compose up --build`
 1. Open app in browser: <http://localhost:3000>
-1. Run Jest tests: `yarn test:unit`
+
+To build and run the app locally without using Docker:
+
+1. Retrieve the `.env` file by running one of the commands in the [Retrieving Environment Variables](#retrieving-environment-variables) section
+1. From the root project directory, run `yarn build && yarn start`
+1. Open app in browser: <http://localhost:3000>
 
 ---
 
