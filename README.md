@@ -56,30 +56,17 @@ More notes on other helpful tools you can use in this project, here: [Basic Work
 
 ---
 
-## Local Development
-
-To start a development server with hot reloading:
-
-1. Retrieve the `.env` file by running one of the commands in the [Retrieving Environment Variables](#retrieving-environment-variables) section
-1. From the root project directory, run `yarn dev`
-1. Open app in browser: <http://localhost:3000>
-
----
-
 ## Building the Project
 
 We use Docker to build and deploy this project. You can read up more on some tips on how to use Docker, here: <https://amuniversal.atlassian.net/wiki/spaces/DEVOps/pages/3399024641/Tips+for+Using+Docker>
 
-To build and run the app locally using Docker Compose:
+To start the app locally:
 
 1. Retrieve the `.env` file by running one of the commands in the [Retrieving Environment Variables](#retrieving-environment-variables) section
-1. From the root project directory, run `docker compose up --build`
-1. Open app in browser: <http://localhost:3000>
-
-To build and run the app locally without using Docker:
-
-1. Retrieve the `.env` file by running one of the commands in the [Retrieving Environment Variables](#retrieving-environment-variables) section
-1. From the root project directory, run `yarn build && yarn start`
+1. From the root project directory, run
+   - `yarn dev` to start a development server with hot reloading
+   - `yarn build && yarn start` to build and start a production server without hot reloading
+   - `docker compose up --build` to build and start the application using Docker
 1. Open app in browser: <http://localhost:3000>
 
 ---
@@ -92,23 +79,17 @@ The environment variables for this project are sourced from Azure Key Vault Secr
 
 ### Retrieving Environment Variables
 
-You can use the Yarn scripts provided by the `package.json` file:
+You have options when generating a local `.env` file:
 
-```bash
-yarn setup [ENVIRONMENT]
-```
-
-Runs `yarn install` and generates the `.env` file. Optionally, you can specify the environment for the first argument (defaults to the `development` environment).
-
-```bash
-yarn keys:get [ENVIRONMENT]
-```
-
-Generates the `.env` file. Optionally, you can specify the environment for the first argument (defaults to the `development` environment).
+- For a specific environment:
+  - `yarn setup [ENVIRONMENT]`: Replace `[ENVIRONMENT]` with the environment of your choosing. If no environment is provided, it defaults to the "development" environment. This command will also install project dependencies.
+  - `Get-Secrets.ps1 -Environment [ENVIRONMENT]`: Replace `[ENVIRONMENT]` with the environment of your choosing. If no environment is provided, it defaults to the "development" environment.
+- To specify an Azure Key Vault:
+  - `Get-Secrets.ps1 -KeyVaultName [KEY VAULT NAME]`: Replace `[KEY VAULT NAME]` with one of the key vault names under [Azure Key Vault Names](#azure-key-vault-names)
 
 ### Using Environment Variables
 
-These files are where you can find and manage environment variables.
+These files are where you can find and manage environment variables:
 
 - `Secrets-example.json` - sample variables for each Key Vault
 - `Secrets.json` - secrets config file for each Key Vault
