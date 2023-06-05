@@ -9,38 +9,7 @@ App responsible for all appname related data.
 
 ## Setting up your repository
 
-This template repository serves as a boilerplate/blueprint for any "New World" application for our department. All product string references have been agnosticized with detailed onboarding instructions in the README. This template repo will evolve and mature.
-
-The goal of maintaining this is to two fold, decrease the time it takes to build new SPA UI's and increase uniformity across our front-end ecosystem. As it matures, more and more configuration, utilities, and logic which embodies what our application specific "standards" are as a team.
-
-### Template References
-
-There are a few repeated commented slugs repeated throughout the application.
-Below are the intended uses for them.
-
-- _TODO-ONBOARDING:_ This denotes a todo task which should be done after a new UI repository has been created. _IE: Create sentry project and paste in token value._
-- _TODO-REVIEW:_ This denotes a sidebar discussion topic for frontend
-  engineering team. All scaffolded items which need to be discussed as a group
-  have this comment slug. To remove the comment, a consensus needs to be formed
-  around whether the scaffolded item is kept, made optional, or removed.
-- _Brand_ Across the templated UI, there are several references where the type
-  of product was used. IE: game or comic As we move away from the feature /
-  feature*item architecture, the generalized term \_brand* has been used to
-  signify any reference to this parent level terminology. It is adviseable to
-  globally search for all references of "brand" and replace as needed to a more
-  specific word.
-
-### Onboarding A New AMU Product
-
-1. _k8sapp_ui_template_ Find and replace all references of the template repository name and replace with the real product's name.
-2. _amuproduct_ Find and replace all references of **BOTH** (turn on match capitalization filter) "amuproduct" and "AmuProduct" with the real product's name, making sure to match the case.
-3. OPTIONAL: _:3000_ Find and replace all default port numbers for app with unique one. _IE: 3001_
-4. _AMUPRODUCT_ Find and replace all references of this with the real JIRA project key.
-5. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO instructions for the new product. If there is significant effort involved, change the TODO-SPECIFIC: label so it can be addressed later on. \_NOTE: Remove the TODO\'s as you complete them
-6. _DOTENV:_ Review the dotenv variables across all environments to ensure they are properly valued.
-7. Once all is finished, run the **preflight** command which executes all setup scripts,
-   tests, linting, etc. to ensure that everything works correctly without errors: `yarn preflight`
-8. Upgrade and update nvmrc (Node version) and all other dependencies/packages that are used out of the box within the project.
+You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://amuniversal.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template)
 
 ## Related links
 
@@ -103,9 +72,7 @@ To start the service locally:
 
 ## Environment Variables
 
-The environment variables for this project are sourced from Azure Key Vault Secrets.
-
-By default, the `.env` file is what is read for local development. You can specify different .env files in the `docker-compose.yaml` file (example: `.env.development` or `.env.test`).
+The environment variables for this project are sourced from Azure Key Vault Secrets. The `.env` file is what is read for local development.
 
 Next.js has [built-in support](https://nextjs.org/docs/basic-features/environment-variables) for environment variables. It will automatically load variables from one of the following files for the matching Node environment, which are used to set default values for **non-sensitive** information:
 
@@ -137,17 +104,12 @@ You can also call the Azure Key Vault scripts directly like so:
 
 - Generates the `.env` file. To specify an environment, use the `-Environment` option (defaults to the development environment).
 
-  ```PowerShell
-  Get-Secrets.ps1 -Environment [ENVIRONMENT]
-  ```
+- For a specific environment:
+  - `Get-Secrets.ps1 -Environment [ENVIRONMENT]`: Replace `[ENVIRONMENT]` with the environment of your choosing. If no environment is provided, it defaults to the "development" environment.
+- To specify an Azure Key Vault:
+  - `Get-Secrets.ps1 -KeyVaultName [KEY VAULT NAME]`: Replace `[KEY VAULT NAME]` with one of the key vault names under [Azure Key Vault Names](#azure-key-vault-names)
 
-- Generates the `.env` file. To specify an environment, use the `-KeyVaultName` option.
-
-  ```PowerShell
-  Get-Secrets.ps1 -KeyVaultName [KEY VAULT NAME]
-  ```
-
-More information on how to use environment variables and how to edit them in an application, here: [Application Environment Variables](https://amuniversal.atlassian.net/wiki/spaces/DEVOps/pages/2796191745/Application+Environment+Variables)
+More information on how to use environment variables and how to edit them in an application, here: [Application Environment Variables](https://amuniversal.atlassian.net/wiki/spaces/TD/pages/2796191745)
 
 ### Azure Key Vault Names
 
@@ -638,49 +600,4 @@ getServerSideProps;
 
 ## Deployments & Releases
 
-Detailed information about how to prepare an app to deploy to K8s is here: (<https://amuniversal.atlassian.net/l/c/AV1H0Sbf>)
-
-Jira Release: <https://amuniversal.atlassian.net/projects/PUZSOC?selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page>
-
-### Semantic Versioning
-
-Within this application, there are files that need to be updated to denote what the current version is. These values should always match each other:
-
-- `/package.json` (update `version`)
-- `/deployments/development-charts/Chart.yaml` (update `appVersion`)
-- `/deployments/staging-charts/Chart.yaml` (update `appVersion`)
-- `/deployments/production-charts/Chart.yaml` (update `appVersion`)
-
-You can use the `bump-versions.yml` workflow to automatically increment the version number in any related files. To run the workflow:
-
-1. Go to the Actions tab in this repository.
-1. Select the "Bump Versions" action on the left hand side
-1. On the right side on the "Bump Versions" action page, click "Run workflow" and specify how you would want to increment the version number.
-1. Click "Run workflow".
-
-This will create a PR with the changes that should already be approved.
-
-### Deploying to Staging
-
-Once the "development" branch has been updated, it will be ready for a staging deployment.
-
-1. Create a pull request to merge the "development" branch into the "main" branch.
-1. Once the pull request is approved and merged in, it'll trigger a staging deployment.
-
-### Deploying to Production
-
-Once a pull request is merged into _main_, it passes all CI checks and passes QA, it will be ready for a production deployment.
-
-> The AMU software engineer **must** create a tagged version.
-
-1. The AMU software engineer will take note of the `./deployments/charts/Chart.yaml` version in this repo's main branch.
-1. They will update the necessary files (see "Semantic Versioning") and JIRA release to that version.
-1. Navigate to the [Releases](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/releases) tab
-1. Click the button for "Draft a New Release" and then .
-1. Click "Choose a tag" and enter in the version that you updated in the files in the "Semantic Versioning" step above.
-1. Enter in the same version number for the "Release Title"
-1. Click "Generate Release Notes"
-1. Make sure "Set as the latest release" is set
-1. Click "Publish release", which will initiate a deploy.
-
-> NOTE: We do not use the vx.x.x pattern for version naming. We simply have the semantic release version number like this: x.x.x
+We use GitHub Actions to deploy this project. More information on how to deploy using GitHub Actions here: [GitHub Action Deployments](https://amuniversal.atlassian.net/wiki/spaces/TD/pages/3445784596/Deploying+a+New+Application#GitHub-Action-Deployments)

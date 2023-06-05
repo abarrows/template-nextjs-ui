@@ -4,14 +4,14 @@ on:
   push:
     branches: [development]
     paths-ignore:
-      - '**/*.md'
-      - '**/*.ps1'
-      - '**/Secrets.json*'
-      - '.*ignore'
-      - '.devcontainer/'
-      - '.vscode/'
-      - '.github/'
-      - '!.github/workflows/aks-development.yml'
+      - "**/*.md"
+      - "**/*.ps1"
+      - "**/Secrets.json*"
+      - ".*ignore"
+      - ".devcontainer/"
+      - ".vscode/"
+      - ".github/"
+      - "!.github/workflows/aks-development.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
