@@ -62,9 +62,8 @@ We use Docker compose to build this project. You can read up more on some tips o
 
 To start the service locally:
 
-1. Install dependencies and retrieve the `.env` file by running: `yarn setup`
-   > _OPTIONAL:_ Append this command with the environment of your choosing: `yarn setup staging` This will retrieve all the staging secrets and override what is currently in your .env file.
-1. Start app for development, `yarn dev`, or start app for production, `yarn build && yarn start`
+1. Retrieve the `.env` file by running one of the commands in the [Retrieving Secrets](#retrieving-secrets) section
+1. From the root project directory, run `docker compose up --build`
 1. Open app in browser: <http://localhost:3000>
 1. Run Jest tests: `yarn test:unit`
 
