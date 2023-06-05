@@ -1,23 +1,25 @@
 ARG NODE_VERSION=18
 
+# Set the base image
 FROM node:${NODE_VERSION}-alpine AS deps
 
-# Sets the working directory
+# Sets the app directory
 WORKDIR /base
 
 # Install dependencies
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-# Build the UI app
 FROM node:${NODE_VERSION}-alpine AS builder
 
-# Sets the working directory
+# Sets the app directory
 WORKDIR /build
 
+# Copy the application into the container
 COPY --from=deps base/node_modules ./node_modules
 COPY . .
 
+# Build the application
 RUN yarn build
 
 # NextJS build will create generated JS and CSS in .next directory.
@@ -25,7 +27,7 @@ RUN yarn build
 # All public folder contents will be needed as well. This folder contains static assets.
 FROM node:${NODE_VERSION}-alpine AS runner
 
-# Sets the working directory
+# Sets the app directory
 WORKDIR /app
 
 # Create Next JS user/group
@@ -47,5 +49,5 @@ USER nextjs
 EXPOSE 3000
 HEALTHCHECK CMD curl --fail http://localhost:3000/api/health || exit
 
-# Start webserver
+# Start the server
 CMD node_modules/.bin/next start

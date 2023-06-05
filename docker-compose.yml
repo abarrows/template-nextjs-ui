@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   app:
     # M1 Compatibility
@@ -19,4 +19,6 @@ services:
         BASE_URL: ${BASE_URL:-http://localhost:3000}
         DEPLOY_ENV: ${DEPLOY_ENV:-local}
     ports:
-      - '3000:3000'
+      - "3000:3000"
+    volumes:
+      - ./:/app
