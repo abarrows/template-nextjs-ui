@@ -1,0 +1,6 @@
+@use '/src/styles/variables';
+
+.welcome {
+  width: min(80ch, 100vw - variables.$gap-xl);
+  margin: variables.$gap-lg auto;
+}

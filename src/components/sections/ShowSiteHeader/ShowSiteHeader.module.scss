@@ -1,0 +1,12 @@
+@use '/src/styles/variables';
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: variables.$gap-lg;
+  align-items: center;
+  justify-items: end;
+  padding: variables.$gap-lg;
+  background-color: variables.$color-white;
+  box-shadow: variables.$box-shadow;
+}

@@ -1,21 +1,16 @@
 // Add timestamps to console logs
 require('console-stamp')(console);
 
-// Use the SentryWebpack plugin to upload the source maps during build step
-const { withSentryConfig } = require('@sentry/nextjs');
-
-// Optionally analyze client and server bundle sizes,
-// can be run with `yarn build:analyze` or`ANALYZE=true yarn build`
+// Optionally analyze client, server, and edge/middleware bundle sizes,
+// Run with `yarn build:analyze`
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+// Permanent site redirects file, see that for adding new redirects
 const redirects = require('./redirects');
 
 const customConfig = {
-  // TODO: remove optimizeFonts: false after this issue is resolved
-  // https://github.com/vercel/next.js/issues/36498
-  optimizeFonts: false,
   eslint: {
     // The eslint ignoreDuringBuilds boolean allows production builds to
     // successfully complete even if the project has ESLint errors. This is
@@ -26,7 +21,7 @@ const customConfig = {
   images: {
     // Breakpoints, plus 2x 1200 and 1400 for retina screens
     deviceSizes: [576, 768, 992, 1200, 1400, 2400, 2800],
-    // TODO-ONBOARDING: Set the correct CDN host
+    // TODO: ONBOARDING - Set the correct CDN host
     domains: ['cmsassets.amuproduct.com'],
     // TODO: allow avif once the Storybook addon supports it
     // https://github.com/RyanClementsHax/storybook-addon-next#avif
@@ -50,22 +45,6 @@ const customConfig = {
 
     return [...prodRedirects, ...redirects];
   },
-
-  webpack: (config) => {
-    const newConfig = config;
-
-    // SVG support
-    newConfig.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-
-    return newConfig;
-  },
 };
 
-const withSentry = process.env.SENTRY_AUTH_TOKEN
-  ? withSentryConfig(customConfig, { silent: true })
-  : customConfig;
-
-module.exports = withBundleAnalyzer(withSentry);
+module.exports = withBundleAnalyzer(customConfig);

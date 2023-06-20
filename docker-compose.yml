@@ -1,15 +1,14 @@
 version: "3.8"
 services:
   app:
-    # M1 Compatibility
-    # platform: linux/amd64
     env_file:
+      # Provide environment variables for local Docker use.
+      # During deployments, Docker Compose and .env* files are not used.
+      # Instead, environment variables are sourced from KeyVaults and sent as
+      # build args to the Dockerfile.
       - .env
+      - .env.production
     build:
       context: .
-      args:
-        NODE_ENV: ${NODE_ENV:-production}
     ports:
       - "3000:3000"
-    volumes:
-      - ./:/app

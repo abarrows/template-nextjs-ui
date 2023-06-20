@@ -1,0 +1,6 @@
+@use '/src/styles/variables';
+
+.heading {
+  font-family: variables.$font-family-serif;
+  font-size: variables.$font-size-xl;
+}
