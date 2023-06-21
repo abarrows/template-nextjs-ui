@@ -35,7 +35,7 @@ const customConfig = {
     // These are used as a quick feature flag when certain pages should be
     // temporarily excluded from the prod site.
     const prodRedirects = [];
-    if (process.env.DEPLOY_ENV === 'production') {
+    if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
       // prodRedirects.push({
       //   source: 'url to disable',
       //   destination: '/',

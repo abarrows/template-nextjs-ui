@@ -5,11 +5,11 @@ import SiteLink from 'src/components/commons/SiteLink';
 import styles from './WelcomeUser.module.scss';
 
 function WelcomeUser() {
+  // TODO: ONBOARDING - remove these debug variables while setting up a new project
   // Checking NEXT_PUBLIC_ vars in the client side is a good way to validate
   // if they were set properly during the build. If they are set during
   // runtime, then they will be undefined within the client side, but will be
   // accessible within the server side.
-  const envFile = process.env.NEXT_PUBLIC_IS_ENV_FILE || false;
   const devFile = process.env.NEXT_PUBLIC_IS_ENV_DEVELOPMENT_FILE || false;
   const prodFile = process.env.NEXT_PUBLIC_IS_ENV_PRODUCTION_FILE || false;
 
@@ -36,7 +36,6 @@ function WelcomeUser() {
         </li>
         <li>Using .env.development: {devFile.toString()}</li>
         <li>Using .env.production: {prodFile.toString()}</li>
-        <li>Using .env: {envFile.toString()}</li>
       </ul>
     </section>
   );

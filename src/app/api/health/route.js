@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 
-// eslint-disable-next-line import/prefer-default-export
 export async function GET() {
   // Verify that the basics are working by checking important URLs and logging any failures
-  const checkUrls = [process.env.BASE_URL, `${process.env.BASE_URL}/api/info`];
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const checkUrls = [baseUrl, `${baseUrl}/api/info`];
   const failedChecks = [];
   const results = checkUrls.map(async (url) => {
     const response = await fetch(url);
@@ -28,5 +28,8 @@ export async function GET() {
   });
 }
 
+// Do not precompile this route
 export const dynamic = 'force-dynamic';
+
+// Do not cache fetch responses
 export const fetchCache = 'force-no-store';
