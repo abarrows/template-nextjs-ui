@@ -15,7 +15,8 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  # Do not cancel in-progress deploys, allow one pending run of the most recent changes
+  cancel-in-progress: true
+  # Cancel an in-progress deploy if a newer one is pending
 
 jobs:
   deploy:
