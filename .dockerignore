@@ -3,13 +3,14 @@ public/robots.*
 public/sitemap.*
 .git/
 .cache/
+.storybook/
 LICENSE
 README.md
 tmp/
 log/
 
 # Integration Tests
-playwright*/
+playwright/
 jest/
 coverage/
 test*/
@@ -21,6 +22,7 @@ storybook-static/
 # Next.JS
 .next/
 node_modules/
+build/
 **/npm-debug.log
 
 # DevOps

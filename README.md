@@ -85,7 +85,15 @@ You have options when generating a local `.env` file:
   - `yarn setup [ENVIRONMENT]`: Replace `[ENVIRONMENT]` with the environment of your choosing. If no environment is provided, it defaults to the "development" environment. This command will also install project dependencies.
   - `Get-Secrets.ps1 -Environment [ENVIRONMENT]`: Replace `[ENVIRONMENT]` with the environment of your choosing. If no environment is provided, it defaults to the "development" environment.
 - To specify an Azure Key Vault:
-  - `Get-Secrets.ps1 -KeyVaultName [KEY VAULT NAME]`: Replace `[KEY VAULT NAME]` with one of the key vault names found in `Secrets-example.json`
+  - `Get-Secrets.ps1 -KeyVaultName [KEY VAULT NAME]`: Replace `[KEY VAULT NAME]` with one of the key vault names below
+
+Here are the available Azure Key Vault names for this project:
+
+```
+template-ui-development
+template-ui-staging
+template-ui-production
+```
 
 ### Using Environment Variables
 
