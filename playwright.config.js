@@ -99,7 +99,7 @@ const config = {
   // ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  // outputDir: 'test-results/',
+  // outputDir: 'coverage/integration',
 };
 
 module.exports = config;

@@ -28,8 +28,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Use Install Cache Action
-        uses: ./.github/actions/use-install-cache
+      - name: Use cache-next-install action
+        uses: Andrews-McMeel-Universal/cache-next-install@v1
 
       - name: Publish to Storybook
         uses: chromaui/action@v1
