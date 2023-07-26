@@ -3,9 +3,6 @@ changelog:
     - title: General Changes
       labels:
         - "*"
-      exclude:
-        labels:
-          - dependencies
     - title: DevOps Changes
       labels:
         - devops
