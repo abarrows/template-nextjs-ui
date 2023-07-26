@@ -10,8 +10,8 @@ changelog:
       labels:
         - devops
       exclude:
-        authors:
-          - dependabot
+        labels:
+          - dependencies
     - title: Dependencies
-      authors:
-        - dependabot
+      labels:
+        - dependencies
