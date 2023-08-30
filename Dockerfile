@@ -1,47 +1,47 @@
+# Set image version
 ARG NODE_VERSION=18
 
-# Set the base image
+## Dependencies ##
 FROM node:${NODE_VERSION}-alpine AS deps
 
-# Sets the app directory
-WORKDIR /base
+# Set container directory
+WORKDIR /app
 
 # Install dependencies
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
+## Builder ##
 FROM node:${NODE_VERSION}-alpine AS builder
 
-# Sets the app directory
-WORKDIR /build
+# Set container directory
+WORKDIR /app
 
-# Copy the application into the container
-COPY --from=deps base/node_modules ./node_modules
+# Copy application files
+COPY --from=deps /app/node_modules /app/node_modules
 COPY . .
 
-# Build the application and set all NEXT_PUBLIC_ environment variables
+# Build the application
 RUN yarn build
 
-# NextJS build will create generated JS and CSS in .next directory.
-# We will need this for our application to run.
-# All public folder contents will be needed as well. This folder contains static assets.
+## Runner ##
 FROM node:${NODE_VERSION}-alpine AS runner
 
-# Sets the app directory
+# Set container directory
 WORKDIR /app
 
 # Create Next JS user/group
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
-# Copy files from builder step
-COPY --from=builder --chown=nextjs:nodejs /build/.next ./.next
-COPY --from=builder --chown=nextjs:nodejs /build/public ./public
-COPY --from=builder --chown=nextjs:nodejs /build/node_modules ./node_modules
+# Copy application files
+COPY --from=builder --chown=nextjs:nodejs /app/.next /app/.next
+COPY --from=builder --chown=nextjs:nodejs /app/public /app/public
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules /app/node_modules
 
 # Expose the package.json so the version is accessible
 # TODO: remove this after addressing the TODO about version # in api/info/route.js
-COPY --from=deps --chown=nextjs:nodejs /base/package.json ./package.json
+COPY --from=deps --chown=nextjs:nodejs /app/package.json /app/package.json
 
 # Next.js needs this to set the port
 ENV PORT=3000

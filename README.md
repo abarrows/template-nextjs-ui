@@ -1,7 +1,6 @@
 ![Production](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=release)
 ![Staging](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=prerelease)
 ![Development](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=push&branch=main)
-![Application CI](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/application-ci.yml/badge.svg)
 
 # AppName
 
