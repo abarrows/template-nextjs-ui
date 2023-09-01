@@ -45,7 +45,7 @@
     "test:unit:watch": "jest --watch --detectOpenHandles"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^13.4.3",
+    "@next/bundle-analyzer": "^13.4.19",
     "classnames": "^2.3.2",
     "console-stamp": "^3.1.1",
     "next": "13.4.6",
