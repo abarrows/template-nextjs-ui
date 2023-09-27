@@ -25,6 +25,10 @@ node_modules/
 build/
 **/npm-debug.log
 
+# Yarn Package Management
+.yarn/cache
+.yarn/install-state.gz
+
 # DevOps
 .github/
 Dockerfile

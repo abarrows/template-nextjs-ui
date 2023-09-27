@@ -8,36 +8,33 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy-storybook:
+  deploy:
     name: Deploy to Storybook
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Retrieve Environment variables
-        run: |
-          if [[ "${{ github.ref }}" != 'refs/heads/main' ]] && [[ "${{ github.ref }}" != 'refs/tags/**' ]]; then
-            echo "environment=development" >> $GITHUB_ENV
-          elif [[ "${{ startsWith(github.ref, 'refs/tags/') }}" == "true" ]] && [[ "${{ contains(github.ref,'-rc') }}" == "true" ]]; then
-            echo "environment=staging" >> $GITHUB_ENV
-          elif [[ "${{ startsWith(github.ref, 'refs/tags/') }}" == "true"  ]]; then
-            echo "environment=production" >> $GITHUB_ENV
-          fi
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Use cache-next-install action
-        uses: Andrews-McMeel-Universal/cache-next-install@v1
+      - uses: pozetroninc/github-action-get-latest-release@v0.7.0
+        id: latest_release
+        with:
+          repository: ${{ github.repository }}
+          excludes: prerelease, draft
+          token: ${{ secrets.PAT_ACTION_CI }}
+
+      - name: Use cache-yarn-install action
+        uses: Andrews-McMeel-Universal/cache-yarn-install@v1
 
       - name: Publish to Storybook
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: storybook:build
-          exitZeroOnChanges: ${{ env.environment == 'development' }}
-          allowConsoleErrors: false
+          exitZeroOnChanges: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
+          allowConsoleErrors: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
           onlyChanged: true
-          skip: ${{ env.environment == 'development' }}
-          autoAcceptChanges: ${{ env.environment == 'production' }}
+          skip: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
+          autoAcceptChanges: ${{ contains(github.ref, steps.latest_release.outputs.release) }}

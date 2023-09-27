@@ -1,8 +1,8 @@
+# AppName
+
 ![Production](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=release)
 ![Staging](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=prerelease)
 ![Development](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=push&branch=main)
-
-# AppName
 
 App responsible for all appname related data.
 
@@ -88,11 +88,9 @@ You have options when generating a local `.env` file:
 
 Here are the available Azure Key Vault names for this project:
 
-```
-template-ui-development
-template-ui-staging
-template-ui-production
-```
+- `template-ui-development`
+- `template-ui-staging`
+- `template-ui-production`
 
 ### Using Environment Variables
 
