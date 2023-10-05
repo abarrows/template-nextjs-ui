@@ -8,7 +8,7 @@ FROM node:${NODE_VERSION}-alpine AS deps
 WORKDIR /app
 
 # Install dependencies
-COPY package.json yarn.lock ./
+COPY package.json *-lock.* *.lock ./
 RUN yarn install --frozen-lockfile
 
 ## Builder ##
@@ -18,8 +18,15 @@ FROM node:${NODE_VERSION}-alpine AS builder
 WORKDIR /app
 
 # Copy application files
-COPY --from=deps /app/node_modules /app/node_modules
-COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+COPY data ./data
+COPY client ./client
+COPY public ./public
+COPY src ./src
+COPY *.js *.json .env .browserslistrc .nvmrc .npmrc *-lock.* *.lock ./
+
+# Rebuild yarn binaries
+RUN yarn rebuild
 
 # Build the application
 RUN yarn build
@@ -34,16 +41,19 @@ WORKDIR /app
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
+# Copy static files into the container
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --chown=nextjs:nodejs .env* next.config.js redirects.js yarn.lock package.json ./
+
 # Copy application files
-COPY --from=builder --chown=nextjs:nodejs /app/.next /app/.next
-COPY --from=builder --chown=nextjs:nodejs /app/public /app/public
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules /app/node_modules
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 
-# Expose the package.json so the version is accessible
-# TODO: remove this after addressing the TODO about version # in api/info/route.js
-COPY --from=deps --chown=nextjs:nodejs /app/package.json /app/package.json
+# Rebuild yarn binaries
+RUN rm -rf /app/.yarn/unplugged && yarn rebuild
 
-# Next.js needs this to set the port
+# Set Next.js properties
+ENV NEXT_TELEMETRY_DISABLED 1
 ENV PORT=3000
 
 # Set container properties
@@ -52,4 +62,4 @@ EXPOSE 3000
 HEALTHCHECK CMD curl --fail http://localhost:3000/api/health || exit
 
 # Start the server
-CMD node_modules/.bin/next start
+CMD yarn start
