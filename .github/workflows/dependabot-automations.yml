@@ -1,4 +1,4 @@
-name: Dependabot Automations
+name: 🤖 Dependabot Automations
 
 on:
   pull_request_target:

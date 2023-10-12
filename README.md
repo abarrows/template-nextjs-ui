@@ -1,8 +1,8 @@
 # AppName
 
-![Production](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=release)
-![Staging](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=prerelease)
-![Development](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deploy.yml/badge.svg?event=push&branch=main)
+[![Production](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml/badge.svg?event=release)](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml)
+[![Staging](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml/badge.svg?event=prerelease)](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml)
+[![Development](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml/badge.svg?event=push&branch=main)](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml)
 
 App responsible for all appname related data.
 
