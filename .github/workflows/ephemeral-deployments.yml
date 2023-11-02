@@ -1,0 +1,52 @@
+name: Deploy Ephemeral Environment
+
+on:
+  pull_request:
+    types: [labeled, opened, synchronize, reopened, closed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  get-environment:
+    name: Get Environment from Comments
+    if: ${{ github.event.action == 'labeled' && github.event.label.name == 'ephemeral-deployment' && github.actor != 'dependabot[bot]' || contains( github.event.pull_request.labels.*.name, 'ephemeral-deployment') && github.event_name == 'pull_request' && github.event.action != 'labeled' && github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: comment
+        with:
+          issue-number: ${{ github.event.number }}
+          body-includes: /deploy
+          direction: last
+
+      - name: Get Environment
+        id: environment
+        shell: bash
+        run: |
+          COMMENT_BODY="${{ steps.comment.outputs.comment-body }}"
+          ENVIRONMENT="${COMMENT_BODY#/deploy }"
+          if [ -n "${ENVIRONMENT}" ]; then
+            echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
+          else
+            echo "::error::Deployment environment not found. Please post a comment with '/deploy [ENVIRONMENT]'"
+            exit 1
+          fi
+    outputs:
+      environment: ${{ steps.environment.outputs.environment }}
+
+  ephemeral-deployment:
+    name: Ephemeral Deployments
+    needs: [get-environment]
+    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/ephemeral-deploy.yaml@2
+    with:
+      environment: ${{ needs.get-environment.outputs.environment }}
+      environmentKeyVault: ${{ vars.AZURE_KEYVAULT_PREFIX }}-${{ needs.get-environment.outputs.environment }}
+    secrets:
+      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+      registryHostName: ${{ secrets.AMUAPPIMAGES201_HOSTNAME }}
+      registryUserName: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
+      registryPassword: ${{ secrets.AMUAPPIMAGES201_PASSWORD }}
+      githubPAT: ${{ secrets.PAT_ACTION_CI }}
