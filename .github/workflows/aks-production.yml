@@ -17,7 +17,7 @@ jobs:
     with:
       environment: production
       environmentKeyVault: ${{ vars.AZURE_KEYVAULT_PREFIX }}-production
-      chartsPath: ./deployments/charts/production-charts
+      chartsPath: ./deployments/production-charts
       environmentIngress: false
     secrets:
       azureClusterName: ${{ secrets.AKS_CLUSTER_NAME }}

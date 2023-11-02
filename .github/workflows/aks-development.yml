@@ -26,7 +26,7 @@ jobs:
     with:
       environment: development
       environmentKeyVault: ${{ vars.AZURE_KEYVAULT_PREFIX }}-development
-      chartsPath: ./deployments/charts/development-charts
+      chartsPath: ./deployments/development-charts
       maximumReplicas: 4
       ingressWhitelist: '207.67.20.252'
     secrets:

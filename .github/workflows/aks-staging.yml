@@ -25,7 +25,7 @@ jobs:
     with:
       environment: staging
       environmentKeyVault: ${{ vars.AZURE_KEYVAULT_PREFIX }}-staging
-      chartsPath: ./deployments/charts/staging-charts
+      chartsPath: ./deployments/staging-charts
       maximumReplicas: 4
       webAuthentication: true
     secrets:
