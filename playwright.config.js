@@ -1,8 +1,5 @@
-// Use process.env.PORT by default and fallback to port 3000
-const PORT = process.env.PORT || 3000;
-
 // Set webServer.url and use.baseURL with the location of the WebServer respecting the correct set port
-const baseUrl = `http://localhost:${PORT}`;
+const baseUrl = `${process.env.NEXT_PUBLIC_LOCAL_URL}`;
 
 /**
  * @see https://playwright.dev/docs/test-configuration

@@ -10,8 +10,6 @@ function WelcomeUser() {
   // if they were set properly during the build. If they are set during
   // runtime, then they will be undefined within the client side, but will be
   // accessible within the server side.
-  const devFile = process.env.NEXT_PUBLIC_IS_ENV_DEVELOPMENT_FILE || false;
-  const prodFile = process.env.NEXT_PUBLIC_IS_ENV_PRODUCTION_FILE || false;
 
   return (
     <section className={styles.welcome}>
