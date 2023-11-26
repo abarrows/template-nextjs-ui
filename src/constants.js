@@ -14,5 +14,5 @@ export const B2C = {
 export const URLS = {
   TERMS_OF_SERVICE: 'https://www.andrewsmcmeel.com/terms-of-service',
   PRIVACY_POLICY: 'https://www.andrewsmcmeel.com/privacy-policy',
-  SUPPORT: `https://support.${process.env.PRODUCT_NAME}.com`, // TODO Update this with the real link once we hav it
+  SUPPORT: `https://support.${process.env.APPLICATION_NAME}.com`, // TODO Update this with the real link once we hav it
 };
