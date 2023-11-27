@@ -17,7 +17,7 @@ function WelcomeUser() {
         Get started by editing <code>src/app/page.jsx</code>. See the
         project&apos;s{' '}
         <SiteLink
-          href="https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template#readme"
+          href='https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template#readme'
           openInNewTab
         >
           README
@@ -26,14 +26,14 @@ function WelcomeUser() {
       </p>
       <ul>
         <li>
-          <SiteLink href="/api/health">health check</SiteLink>
+          <SiteLink href='/api/health'>health check</SiteLink>
         </li>
         <li>
-          <SiteLink href="/test-redirect">test redirect</SiteLink> (from
+          <SiteLink href='/test-redirect'>test redirect</SiteLink> (from
           /test-redirect to the homepage)
         </li>
-        <li>Using .env.development: {devFile.toString()}</li>
-        <li>Using .env.production: {prodFile.toString()}</li>
+        <li>NEXT_PUBLIC_DEPLOY_ENV: {process.env.NEXT_PUBLIC_DEPLOY_ENV}</li>
+        <li>NODE_ENV: {process.env.NODE_ENV}</li>
       </ul>
     </section>
   );
