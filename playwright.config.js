@@ -1,5 +1,7 @@
-// Set webServer.url and use.baseURL with the location of the WebServer respecting the correct set port
-const baseUrl = `${process.env.NEXT_PUBLIC_LOCAL_URL}`;
+/* eslint-disable import/no-import-module-exports */
+// @ts-check
+
+import consoleLogger from '@/utilities/consoleLogger';
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -32,17 +34,19 @@ const config = {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: baseUrl,
+    baseURL: 'http://127.0.0.1:3000',
     browserName: 'chromium',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     launchOptions: {
       logger: {
         isEnabled: (name) => name === 'browser',
-        log: (name, severity, message, args) =>
+        log: (name, severity, message, args) => {
           consoleLogger(
+            { type: 'integration' },
             `Playwright Launch: ${name} ${severity}: ${message} ${args}`,
-          ),
+          );
+        },
       },
       args: ['--disable-dev-shm-usage'],
     },
@@ -53,7 +57,7 @@ const config = {
   webServer: {
     command: process.env.CI ? 'yarn start' : 'yarn build && yarn start',
     timeout: 120 * 1000,
-    url: baseUrl,
+    url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
   },
 
