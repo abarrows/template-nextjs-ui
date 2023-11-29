@@ -67,11 +67,6 @@ module.exports = async () => {
     },
     productionBrowserSourceMaps: true,
     swcMinify: true,
-    // The eslint ignoreDuringBuilds boolean allows production builds to
-    // successfully complete even if the project has ESLint errors. This is
-    // set to true because we already have ESLint configured to run in a
-    // separate workflow.
-    ignoreDuringBuilds: true,
   };
   return withBundleAnalyzer(nextConfig);
 };
