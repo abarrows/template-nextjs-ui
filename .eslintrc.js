@@ -160,8 +160,6 @@ module.exports = {
         Button: 'button',
         ButtonClose: 'button',
         ContentDivider: 'hr',
-        Heading: 'h2',
-        SiteLink: 'a',
         DropdownToggle: 'button',
         Paragraph: 'p',
         Icon: 'svg',
