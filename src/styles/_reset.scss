@@ -1,16 +1,13 @@
 // Adapted opinionated reset from https://hankchizljaw.com/wrote/a-modern-css-reset/
-
 // If using a framework, it may already provide a reset that should be used
 // instead of this. For example, Bootstrap offers '~bootstrap/scss/root.scss'
 // and '~bootstrap/scss/reboot'.
-
 // Box sizing rules
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
-
 // Remove default margin
 body,
 h1,
@@ -28,7 +25,6 @@ dl,
 dd {
   margin: 0;
 }
-
 // Set core root defaults
 html {
   font-size: 62.5%; // 1rem = 10px
@@ -37,14 +33,12 @@ html {
     scroll-behavior: smooth;
   }
 }
-
 // Set core body defaults
 body {
   min-height: 100vh;
   text-rendering: optimizespeed;
   line-height: 1.5;
 }
-
 // Remove default padding
 // Remove list styles on ul, ol elements with a class attribute
 ul[class],
@@ -52,12 +46,10 @@ ol[class] {
   padding: 0;
   list-style: none;
 }
-
 // A elements that don't have a class get default styles
 a:not([class]) {
   text-decoration-skip-ink: auto;
 }
-
 // Inherit fonts for inputs and buttons
 input,
 button,
@@ -65,7 +57,6 @@ textarea,
 select {
   font: inherit;
 }
-
 // Remove all animations and transitions for people that prefer not to see them
 @media (prefers-reduced-motion: reduce) {
   /* stylelint-disable declaration-no-important */

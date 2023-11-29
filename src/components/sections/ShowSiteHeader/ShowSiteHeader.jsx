@@ -10,13 +10,13 @@ function ShowSiteHeader() {
   return (
     <header className={styles.header}>
       <Image
-        alt="AMU Logo"
+        alt='AMU Logo'
         height={50}
         priority
-        src="/images/AMU_master_logo_U.svg"
+        src='/images/AMU_master_logo_U.svg'
         width={38}
       />
-      <Heading>
+      <Heading as h1>
         Welcome to AMU&apos;s frontend template repo for Next.js powered apps.
       </Heading>
     </header>

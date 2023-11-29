@@ -29,7 +29,7 @@ const sourceCodePro = Source_Code_Pro({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={classNames(carterOne.variable, sourceCodePro.variable)}>
         <ShowSiteHeader />
         {children}

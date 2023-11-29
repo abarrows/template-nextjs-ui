@@ -19,6 +19,7 @@ function WelcomeUser() {
         <SiteLink
           href='https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template#readme'
           openInNewTab
+          title='View the Readme'
         >
           README
         </SiteLink>{' '}
@@ -26,11 +27,21 @@ function WelcomeUser() {
       </p>
       <ul>
         <li>
-          <SiteLink href='/api/health'>health check</SiteLink>
+          <SiteLink
+            href='/api/health'
+            title='View the application health check'
+          >
+            health check
+          </SiteLink>
         </li>
         <li>
-          <SiteLink href='/test-redirect'>test redirect</SiteLink> (from
-          /test-redirect to the homepage)
+          <SiteLink
+            href='/test-redirect'
+            title='Test the redirect functionality'
+          >
+            test redirect
+          </SiteLink>{' '}
+          (from /test-redirect to the homepage)
         </li>
         <li>NEXT_PUBLIC_DEPLOY_ENV: {process.env.NEXT_PUBLIC_DEPLOY_ENV}</li>
         <li>NODE_ENV: {process.env.NODE_ENV}</li>

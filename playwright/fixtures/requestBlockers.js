@@ -1,4 +1,4 @@
-import isInList from 'src/helpers/utilities/strings/comparison/isInList';
+import isInList from '@/utilities/string-comparisons/isInList';
 
 const blockList = [
   'https://**.googlesyndication.com',

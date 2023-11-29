@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 
 import styles from './Heading.module.scss';
 
-function Heading({ Element, children, className }) {
+export default function Heading({
+  Element = 'h1',
+  children,
+  className = null,
+}) {
   return <Element className={className || styles.heading}>{children}</Element>;
 }
 
@@ -13,10 +17,3 @@ Heading.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
-
-Heading.defaultProps = {
-  Element: 'h1',
-  className: null,
-};
-
-export default Heading;
