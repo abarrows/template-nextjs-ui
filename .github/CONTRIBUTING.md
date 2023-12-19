@@ -17,5 +17,4 @@ The recommended title for the pull request is typically just the branch name. Ag
 You do not need to fill in the reviewers or assignees. Our CODEOWNERS automation takes care of who will need to review it. As long as a AMU software engineer reviews it and the other checks pass, they will take care of merging the pull request into staging and production.
 
 > NOTE: On every PR, we do run tests and automatically format the code with Prettier.
-
 > NOTE: A PR will not be able to be merged until at least 1 reviewer with write access has approved it and all tests are passing. If a PR is updated with a new commit, stale reviews will be dismissed.
