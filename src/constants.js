@@ -16,3 +16,8 @@ export const URLS = {
   PRIVACY_POLICY: 'https://www.andrewsmcmeel.com/privacy-policy',
   SUPPORT: `https://support.${process.env.APPLICATION_NAME}.com`, // TODO Update this with the real link once we hav it
 };
+
+export const APPLICATION = {
+  NAME: 'APPLICATION_NAME',
+  ID: 'AMUPRODUCTJIRAKEY',
+};
