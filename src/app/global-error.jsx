@@ -7,8 +7,6 @@ import React from 'react';
 
 // import * as Sentry from '@sentry/nextjs';
 
-import Typography from '@/commons/Typography';
-
 /* eslint-disable react/prop-types */
 export default function Error({ error }) {
   // useEffect(() => {
@@ -19,9 +17,7 @@ export default function Error({ error }) {
   return (
     <html lang='en'>
       <body>
-        <Typography HtmlElement='h2' display='d2'>
-          Global Error
-        </Typography>
+        <h1>Global Error</h1>
         <p>This is a root level issue - {error}</p>
       </body>
     </html>
