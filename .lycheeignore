@@ -1,0 +1,6 @@
+yarn@*
+https://github.com/Andrews-McMeel-Universal/gocomics_ui
+http://localhost*
+.*-(cms|service)\.amuniversal\.com.*
+https://(development|staging|production).*
+https://amutechnology.sharepoint*

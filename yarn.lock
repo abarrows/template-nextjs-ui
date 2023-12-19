@@ -13544,7 +13544,6 @@ __metadata:
     size-limit: ^8.2.4
     storybook: ^7.0.17
     stylelint: ^15.6.2
-    stylelint-a11y: ^1.2.3
     stylelint-color-format: ^1.1.0
     stylelint-config-prettier-scss: ^1.0.0
     stylelint-config-recess-order: ^4.0.0
@@ -18021,15 +18020,6 @@ __metadata:
     babel-plugin-macros:
       optional: true
   checksum: 523a33b38603492547e861b98e29c873939b04e15fbe5ef16132c6f1e15958126647983c7d4675325038b428a5e91183d996e90141b18bdd1bbadf6e2c45b2fa
-  languageName: node
-  linkType: hard
-
-"stylelint-a11y@npm:^1.2.3":
-  version: 1.2.3
-  resolution: "stylelint-a11y@npm:1.2.3"
-  peerDependencies:
-    stylelint: ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0
-  checksum: e6548c53ed5f1a51240e924ef783821ac91def107df4c00a901a017277c72e9372dbd274bd8073032089be686132cf458415317039ca9ab1699e98a75bd6b42c
   languageName: node
   linkType: hard
 

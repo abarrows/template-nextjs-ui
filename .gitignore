@@ -54,7 +54,7 @@ id_rsa
 capybara-*.html
 .rspec
 /public/system
-/coverage/
+/coverage/**
 /spec/tmp
 *.orig
 rerun.txt

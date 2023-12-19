@@ -1,17 +1,19 @@
 // BEM Demo: https://regexr.com/7epma
+// Need to discuss on false flags NavigationMobile.
 const bemRegex =
   /^([a-z]+[0-9]*)([A-Z][a-z0-9]+)*(?:__([a-z0-9]+)([A-Z][a-z0-9]*)*){0,1}(_([a-z0-9]+)([A-Z][a-z0-9]*)*){0,1}$/;
+// const bemRegex = '^([a-z][a-z0-9]*)((_|__|[A-Z])[a-z0-9]+)*$';
 const kebabCaseRegex = /^([a-z][a-z0-9]*)(-[a-z0-9]+)*$/;
 
 module.exports = {
   extends: ['stylelint-config-standard-scss'],
   plugins: [
     'stylelint-no-unsupported-browser-features',
-    'stylelint-a11y',
     'stylelint-color-format',
   ],
   // https://github.com/stylelint-scss/stylelint-scss/tree/master/src/rules
   rules: {
+    // Ignored rules that are not supported by stylelint v15
     'scss/dollar-variable-colon-space-after': null,
     'declaration-block-no-duplicate-properties': true,
     'declaration-no-important': [
@@ -74,8 +76,8 @@ module.exports = {
     ],
     'shorthand-property-no-redundant-values': true,
     'value-no-vendor-prefix': true,
+    'scss/load-no-partial-leading-underscore': true,
     // 'scss/at-import-partial-extension-whitelist': ['module'],
-    'scss/at-import-no-partial-leading-underscore': null,
 
     // Front-end Consensus Agreed Rules
     // they were introduced during version upgrades and affect many files
@@ -96,5 +98,6 @@ module.exports = {
     'scss/double-slash-comment-empty-line-before': 'never', // conflicts with prettier
 
     'scss/no-global-function-names': true,
+    'media-query-no-invalid': null,
   },
 };
