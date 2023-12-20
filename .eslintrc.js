@@ -55,6 +55,7 @@ module.exports = {
     jquery: false,
   },
   rules: {
+    '@next/next/no-img-element': 2,
     'max-len': [
       'warn',
       {
@@ -88,6 +89,7 @@ module.exports = {
     ],
     // Remember to use the AMU consoleLogger(message, object) utility helper instead of console.log.
     'no-console': ['error'],
+    'no-unused-vars': ['off'],
 
     // Require that any module used for application code is declared as a
     // `dependencies`
