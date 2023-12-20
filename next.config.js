@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-// Importing sentry configuration
+// Importing consola for logging.
+const consola = require('consola');
 
+consola
+  .withDefaults({
+    // badge: true,
+    fancy: true,
+    formatOptions: {
+      date: true,
+      colors: true,
+      compact: true,
+      col: 0,
+    },
+  })
+  .wrapAll();
 // Importing package.json for app level values.
-const consoleFormat = require('console-stamp');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
-const packageJson = require('./package.json');
-// Reformat console logs to be cleaner and more readable
-consoleFormat(console, {
-  pattern: 'HH:MM:ss.l',
-  colors: {
-    stamp: 'yellow',
-    label: 'white',
-    metadata: 'green',
-  },
-  label: false,
-  metadata: `[${packageJson.name}]`,
-});
+
 // Optionally analyze client, server, and edge/middleware bundle sizes,
 // Run with `yarn build:analyze`
 

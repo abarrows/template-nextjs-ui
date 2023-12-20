@@ -8348,20 +8348,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"consola@npm:^3.2.3":
+  version: 3.2.3
+  resolution: "consola@npm:3.2.3"
+  checksum: 32ec70e177dd2385c42e38078958cc7397be91db21af90c6f9faa0b16168b49b1c61d689338604bbb2d64370b9347a35f42a9197663a913d3a405bb0ce728499
+  languageName: node
+  linkType: hard
+
 "console-browserify@npm:^1.2.0":
   version: 1.2.0
   resolution: "console-browserify@npm:1.2.0"
   checksum: 226591eeff8ed68e451dffb924c1fb750c654d54b9059b3b261d360f369d1f8f70650adecf2c7136656236a4bfeb55c39281b5d8a55d792ebbb99efd3d848d52
-  languageName: node
-  linkType: hard
-
-"console-stamp@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "console-stamp@npm:3.1.2"
-  dependencies:
-    chalk: ^4.1.2
-    dateformat: ^4.6.3
-  checksum: 5e9c40eaeec4d7e2d363eea86728feb48f4bc215a25f45d514acc457f4947b97d96229b923cf65d4b33f8ca54b3c637c32abb3e3537f24655c8e605522bd0b52
   languageName: node
   linkType: hard
 
@@ -8739,13 +8736,6 @@ __metadata:
   dependencies:
     "@babel/runtime": ^7.21.0
   checksum: f7be01523282e9bb06c0cd2693d34f245247a29098527d4420628966a2d9aad154bd0e90a6b1cf66d37adcb769cd108cf8a7bd49d76db0fb119af5cdd13644f4
-  languageName: node
-  linkType: hard
-
-"dateformat@npm:^4.6.3":
-  version: 4.6.3
-  resolution: "dateformat@npm:4.6.3"
-  checksum: c3aa0617c0a5b30595122bc8d1bee6276a9221e4d392087b41cbbdf175d9662ae0e50d0d6dcdf45caeac5153c4b5b0844265f8cd2b2245451e3da19e39e3b65d
   languageName: node
   linkType: hard
 
@@ -13869,7 +13859,7 @@ __metadata:
     babel-plugin-dynamic-import-node: ^2.3.3
     chromatic: ^9.1.0
     classnames: ^2.3.2
-    console-stamp: ^3.1.2
+    consola: ^3.2.3
     date-fns: ^2.30.0
     eslint: ^8.56.0
     eslint-config-airbnb: ^19.0.4

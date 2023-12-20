@@ -4,7 +4,7 @@ export const B2C = {
   // https://learn.microsoft.com/en-us/azure/active-directory-b2c/configure-tokens?pivots=b2c-custom-policy#token-lifetime-behavior
   REFRESH_TOKEN_AGE: 14 * 24 * 60 * 60, // 14 days
   ID_TOKEN_AGE: 60 * 60, // 60 minutes
-  PRODUCT_KEY: 'GC',
+  PRODUCT_KEY: 'AMU',
   TENANT_NAME: 'amub2c',
   POLICY_PREFIX: 'B2C_1A',
   POLICY_NAME: 'SIGNINSIGNOUT_POLICIES',
@@ -15,9 +15,4 @@ export const URLS = {
   TERMS_OF_SERVICE: 'https://www.andrewsmcmeel.com/terms-of-service',
   PRIVACY_POLICY: 'https://www.andrewsmcmeel.com/privacy-policy',
   SUPPORT: `https://support.${process.env.APPLICATION_NAME}.com`, // TODO Update this with the real link once we hav it
-};
-
-export const APPLICATION = {
-  NAME: 'APPLICATION_NAME',
-  ID: 'AMUPRODUCTJIRAKEY',
 };

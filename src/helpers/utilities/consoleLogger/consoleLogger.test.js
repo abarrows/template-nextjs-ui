@@ -1,4 +1,7 @@
-import { applyStyles, createHeader } from '@/utilities/consoleLogger';
+import {
+  applyStyles,
+  createHeader,
+} from '@/utilities/consoleLogger/consoleLogger';
 
 describe('applyStyles', () => {
   it('formats styles correctly', () => {
