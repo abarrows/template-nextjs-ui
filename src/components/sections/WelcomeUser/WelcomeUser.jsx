@@ -1,10 +1,18 @@
+'use client';
+
 import React from 'react';
+
+import { consola } from 'consola';
 
 import SiteLink from 'src/components/commons/SiteLink';
 
 import styles from './WelcomeUser.module.scss';
 
 function WelcomeUser() {
+  consola.log('WelcomeUser this is client side from a client component.');
+  consola.info(
+    'WelcomeUser this is a message for advertising on the client side from a client component.',
+  );
   // TODO: ONBOARDING - remove these debug variables while setting up a new project
   // Checking NEXT_PUBLIC_ vars in the client side is a good way to validate
   // if they were set properly during the build. If they are set during

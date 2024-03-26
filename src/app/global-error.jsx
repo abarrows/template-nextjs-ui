@@ -3,7 +3,9 @@
 // Error components must be Client Components
 import React, { useEffect } from 'react';
 
-import consoleLogger from '@/utilities/consoleLogger';
+import consola from 'consola';
+
+// import consoleLogger from '@/utilities/ConsoleLogger';
 
 // TODO: Determine a strategy for Sentry error reporting.
 
@@ -13,7 +15,7 @@ import consoleLogger from '@/utilities/consoleLogger';
 export default function Error({ error }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    consoleLogger('Error: ', error);
+    consola.error('Error: ', error);
   }, [error]);
 
   return (

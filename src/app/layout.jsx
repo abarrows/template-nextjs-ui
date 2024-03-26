@@ -9,6 +9,8 @@ import ShowSiteHeader from 'src/components/sections/ShowSiteHeader';
 
 import 'src/styles/index.scss';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 export const metadata = {
   title: 'AMU Next.js Template',
   description: 'Starter kit for new UI apps',
@@ -32,6 +34,7 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <body className={classNames(carterOne.variable, sourceCodePro.variable)}>
         <ShowSiteHeader />
+
         {children}
       </body>
     </html>
