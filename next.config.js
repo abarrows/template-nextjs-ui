@@ -4,16 +4,12 @@ const consola = require('consola');
 
 consola
   .withDefaults({
-    // badge: true,
     fancy: true,
-    formatOptions: {
-      date: true,
-      colors: true,
-      compact: true,
-      col: 0,
-    },
+    badge: true,
   })
-  .wrapAll();
+  .withTag('ChatGPT')
+  .wrapConsole();
+
 // Importing package.json for app level values.
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
