@@ -9,8 +9,9 @@ out/
 node_modules/**
 
 # Ignore coverage reports
-coverage/
+coverage/**
 test-results/
+code-quality/**
 playwright-report/
 
 # Ignore storybook build output

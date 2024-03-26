@@ -77,9 +77,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: MegaLinter reports
-          path: |
-            megalinter-reports
-            mega-linter.log
+          path: coverage/linting/megalinter-reports
           retention-days: 7
 
       # Create pull request if applicable (for now works only on PR from same repository, not from forks)

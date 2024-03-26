@@ -1,8 +1,6 @@
 /* eslint-disable import/no-import-module-exports */
 // @ts-check
 
-import consoleLogger from '@/utilities/consoleLogger';
-
 /**
  * @see https://playwright.dev/docs/test-configuration
  * @type {import('@playwright/test').PlaywrightTestConfig}
@@ -38,18 +36,6 @@ const config = {
     browserName: 'chromium',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    launchOptions: {
-      logger: {
-        isEnabled: (name) => name === 'browser',
-        log: (name, severity, message, args) => {
-          consoleLogger(
-            { type: 'integration' },
-            `Playwright Launch: ${name} ${severity}: ${message} ${args}`,
-          );
-        },
-      },
-      args: ['--disable-dev-shm-usage'],
-    },
     viewport: { width: 1280, height: 720 },
   },
   /* Run your local dev server before starting the tests */
