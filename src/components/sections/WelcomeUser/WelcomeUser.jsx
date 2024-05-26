@@ -19,7 +19,7 @@ function WelcomeUser() {
         Get started by editing <code>src/app/page.jsx</code>. See the
         project&apos;s{' '}
         <SiteLink
-          href="https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template#readme"
+          href="https://github.com/abarrows/template-nextjs-ui#readme"
           openInNewTab
         >
           README
