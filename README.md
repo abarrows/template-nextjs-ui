@@ -1,14 +1,21 @@
 # AppName
 
-[![Production](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml/badge.svg?event=release)](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml)
-[![Staging](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml/badge.svg?event=prerelease)](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml)
-[![Development](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml/badge.svg?event=push&branch=main)](https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template/actions/workflows/aks-deployment.yml)
+[![Production](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml/badge.svg?event=release)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml)
+[![Staging](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml/badge.svg?event=prerelease)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml)
+[![Development](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml/badge.svg?event=push&branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml)
 
 App responsible for all appname related data.
 
 ## Setting up your repository
 
-You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://amuniversal.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template)
+<!-- You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template) -->
+Upon cloning, fill in the values for the .env.example and save this as a new .env in the root directory.  Run the following:
+
+```
+corepack enable && yarn install
+```
+<!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
+<!-- TODO: Port over yarn setup script to work with AWS Secrets Manager. -->
 
 ## Related links
 
@@ -20,21 +27,18 @@ You can use this guide to figure out how to update your application using the te
   - [Development](https://development.service.appname.com/swagger/index.html)
   - [Staging](https://staging.service.appname.com/swagger/index.html)
   - [Production](https://service.appname.com/swagger/index.html)
-- Strapi CMS Login
-  - [Staging](https://staging.appname-cms.amuniversal.com/admin/auth/login)
-  - [Production](https://appname-cms.amuniversal.com/admin/auth/login)
 - [Storybook](https://www.chromatic.com/library?appId=TODO-ONBOARDING:input-storybook-instance)
-- [Jira Project](https://amuniversal.atlassian.net/browse/TODO-ONBOARDING:input-jira-instance)
-- [Confluence Space](https://amuniversal.atlassian.net/l/c/TODO-ONBOARDING:input-confluence-space)
-- [Sharepoint Group](https://amutechnology.sharepoint.com/sites/TODO-ONBOARDING:sharepoint-group)
-- [Sentry Error Reporting](https://sentry.io/organizations/andrews-mcmeel-universal/issues/?project=TODO-ONBOARDING:input-sentry-project-id)
+<!-- - [Jira Project](https://TODO_COMPANY_NAME.atlassian.net/browse/TODO-ONBOARDING:input-jira-instance)
+- [Confluence Space](https://TODO_COMPANY_NAME.atlassian.net/l/c/TODO-ONBOARDING:input-confluence-space)
+- [Sharepoint Group](https://TODO_COMPANY_NAME.sharepoint.com/sites/TODO-ONBOARDING:sharepoint-group) -->
+<!-- - [Sentry Error Reporting](https://sentry.io/organizations/andrews-mcmeel-universal/issues/?project=TODO-ONBOARDING:input-sentry-project-id) -->
 
 ---
 
 ## Getting Started
 
 ```bash
-git clone https://github.com/Andrews-McMeel-Universal/k8sapp_ui_template
+git clone https://github.com/abarrows/template-nextjs-ui
 ```
 
 ### Prerequisites
@@ -56,13 +60,15 @@ You will need:
   - MacOS: `brew install --cask powershell`
   - Windows: `choco install powershell-core`
 
-More notes on other helpful tools you can use in this project, here: [Basic Workstation Setup](https://amuniversal.atlassian.net/wiki/spaces/DEVOps/pages/3114369037/Basic+Workstation+Setup)
+<!-- More notes on other helpful tools you can use in this project, here: [Basic Workstation Setup](https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/DEVOps/pages/3114369037/Basic+Workstation+Setup) -->
+<!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 
 ---
 
 ## Building the Project
 
-We use Docker to build and deploy this project. You can read up more on some tips on how to use Docker, here: <https://amuniversal.atlassian.net/wiki/spaces/DEVOps/pages/3399024641/Tips+for+Using+Docker>
+<!-- We use Docker to build and deploy this project. You can read up more on some tips on how to use Docker, here: <https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/DEVOps/pages/3399024641/Tips+for+Using+Docker> -->
+<!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 
 To start the app locally:
 
@@ -77,9 +83,10 @@ To start the app locally:
 
 ## Environment Variables
 
-The environment variables for this project are sourced from Azure Key Vault Secrets.
+The environment variables for this project were previously sourced from Azure Key Vault Secrets.  WIP: I will create a branch soon to update this process so that it sources from either AWS Secret Manager.  Until then, simply replace the values with you personal situation's values..
 
-> :white_check_mark: Read about [Application Environment Variables](https://amuniversal.atlassian.net/l/cp/z7HWk0Ah) for information on how to use and edit environment variables in an application **before proceeding**.
+<!-- > :white_check_mark: Read about [Application Environment Variables](https://TODO_COMPANY_NAME.atlassian.net/l/cp/z7HWk0Ah) for information on how to use and edit environment variables in an application **before proceeding**. -->
+<!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 
 ### Retrieving Environment Variables
 
@@ -112,17 +119,35 @@ These files are where you can find and manage environment variables:
 
 ---
 
-## Updating the Node Version
+<!-- ## Updating the Node Version
 
-Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/Andrews-McMeel-Universal). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it.
+Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/Andrews-McMeel-Universal). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it. -->
+
+<!-- TODO: Bring over the dynamic node version that analyzes the .nvmrc version and uses it during the provisioning of containers. -->
+
+## Onboarding A New AMU Product
+
+1. _amuproduct_ Find and replace all references of this with the real
+   product's name.
+2. _AMUPRODUCTJIRAKEY_ Find and replace all references of this with the real
+   JIRA project key.
+3. _k8sapp_ui_template_ Find and replace all references of this with the real
+   repository name.
+4. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO
+   instructions for the new product.
+5. Once all is finished, run the `yarn validate` or the `yarn validate:ci` command which executes all setup scripts,
+   tests, linting, etc. to ensure that everything works correctly without errors:
+
+
 
 ---
 
 ## Development Essentials
 
-### Components
+<!-- ### Components -->
 
-Read about [React Component Composition](https://amuniversal.atlassian.net/l/cp/Z1Hx13R1) for information on how to build components in the UI.
+<!-- Read about [React Component Composition](https://TODO_COMPANY_NAME.atlassian.net/l/cp/Z1Hx13R1) for information on how to build components in the UI. -->
+<!-- TODO: Post composition to personal website or my github profile. -->
 
 ### Hooks
 
@@ -147,7 +172,7 @@ We use SCSS Modules to style components. SCSS Modules are CSS Modules, but with 
 .block-name__element-name
 .block-name__element-name--modifier-name
 
-// AMU BEM, uses camelCase and replaces -- with _
+// ACB BEM, uses camelCase and replaces -- with _
 .blockName
 .blockName_modifierName
 .blockName__elementName
@@ -194,22 +219,4 @@ We use [Storybook](https://storybook.js.org/) for component documentation and st
 ---
 
 ## Deployments & Releases
-
-We use GitHub Actions to deploy this project. More information on how to deploy using GitHub Actions here: [GitHub Action Deployments](https://amuniversal.atlassian.net/wiki/spaces/TD/pages/3445784596/Deploying+a+New+Application#GitHub-Action-Deployments)
-
-## Onboarding A New AMU Product
-
-1. _amuproduct_ Find and replace all references of this with the real
-   product's name.
-2. _AMUPRODUCTJIRAKEY_ Find and replace all references of this with the real
-   JIRA project key.
-3. _k8sapp_ui_template_ Find and replace all references of this with the real
-   repository name.
-4. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO
-   instructions for the new product.
-5. Once all is finished, run the **preflight** command which executes all setup scripts,
-   tests, linting, etc. to ensure that everything works correctly without errors:
-
-```javascript
-yarn preflight
-```
+We use GitHub Actions to deploy this project. More information on the reusable workflows I help setup, [here](https://github.com/Andrews-McMeel-Universal/reusable_workflows)

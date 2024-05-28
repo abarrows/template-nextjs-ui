@@ -69,8 +69,8 @@ module.exports = {
         ignorePattern: 'd="([\\s\\S]*?)"',
       },
     ],
-    semi: 2,
-    // https://nextjs.org/docs/api-reference/next/link
+    // Remember to use the ACB consoleLogger(message, object) utility helper instead of console.log.
+    // 'no-console': ['error'],
     'no-unused-expressions': 0,
     'chai-friendly/no-unused-expressions': 2,
     'react/require-default-props': [
