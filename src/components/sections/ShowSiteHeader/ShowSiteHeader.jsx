@@ -10,14 +10,15 @@ function ShowSiteHeader() {
   return (
     <header className={styles.header}>
       <Image
-        alt="AMU Logo"
+        alt="TODO_PRODUCT_NAME Logo"
         height={50}
         priority
-        src="/images/AMU_master_logo_U.svg"
+        src="/images/logo-transparent.svg"
         width={38}
       />
       <Heading>
-        Welcome to AMU&apos;s frontend template repo for Next.js powered apps.
+        Welcome to ACB&apos;s template UI repository frontend template repo for
+        Next.js powered apps.
       </Heading>
     </header>
   );

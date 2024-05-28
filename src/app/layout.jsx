@@ -10,7 +10,7 @@ import ShowSiteHeader from 'src/components/sections/ShowSiteHeader';
 import 'src/styles/index.scss';
 
 export const metadata = {
-  title: 'AMU Next.js Template',
+  title: 'Template Next.js UI',
   description: 'Starter kit for new UI apps',
 };
 

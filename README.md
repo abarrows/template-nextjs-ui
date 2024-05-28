@@ -8,7 +8,14 @@ App responsible for all appname related data.
 
 ## Setting up your repository
 
-You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://amuniversal.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template)
+<!-- You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template) -->
+Upon cloning, fill in the values for the .env.example and save this as a new .env in the root directory.  Run the following:
+
+```
+corepack enable && yarn install
+```
+<!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
+<!-- TODO: Port over yarn setup script to work with AWS Secrets Manager. -->
 
 ## Related links
 
@@ -20,13 +27,10 @@ You can use this guide to figure out how to update your application using the te
   - [Development](https://development.service.appname.com/swagger/index.html)
   - [Staging](https://staging.service.appname.com/swagger/index.html)
   - [Production](https://service.appname.com/swagger/index.html)
-- Strapi CMS Login
-  - [Staging](https://staging.appname-cms.amuniversal.com/admin/auth/login)
-  - [Production](https://appname-cms.amuniversal.com/admin/auth/login)
 - [Storybook](https://www.chromatic.com/library?appId=TODO-ONBOARDING:input-storybook-instance)
-- [Jira Project](https://amuniversal.atlassian.net/browse/TODO-ONBOARDING:input-jira-instance)
-- [Confluence Space](https://amuniversal.atlassian.net/l/c/TODO-ONBOARDING:input-confluence-space)
-- [Sharepoint Group](https://amutechnology.sharepoint.com/sites/TODO-ONBOARDING:sharepoint-group)
+<!-- - [Jira Project](https://TODO_COMPANY_NAME.atlassian.net/browse/TODO-ONBOARDING:input-jira-instance)
+- [Confluence Space](https://TODO_COMPANY_NAME.atlassian.net/l/c/TODO-ONBOARDING:input-confluence-space)
+- [Sharepoint Group](https://TODO_COMPANY_NAME.sharepoint.com/sites/TODO-ONBOARDING:sharepoint-group) -->
 <!-- - [Sentry Error Reporting](https://sentry.io/organizations/andrews-mcmeel-universal/issues/?project=TODO-ONBOARDING:input-sentry-project-id) -->
 
 ---
@@ -56,14 +60,14 @@ You will need:
   - MacOS: `brew install --cask powershell`
   - Windows: `choco install powershell-core`
 
-<!-- More notes on other helpful tools you can use in this project, here: [Basic Workstation Setup](https://amuniversal.atlassian.net/wiki/spaces/DEVOps/pages/3114369037/Basic+Workstation+Setup) -->
+<!-- More notes on other helpful tools you can use in this project, here: [Basic Workstation Setup](https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/DEVOps/pages/3114369037/Basic+Workstation+Setup) -->
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 
 ---
 
 ## Building the Project
 
-<!-- We use Docker to build and deploy this project. You can read up more on some tips on how to use Docker, here: <https://amuniversal.atlassian.net/wiki/spaces/DEVOps/pages/3399024641/Tips+for+Using+Docker> -->
+<!-- We use Docker to build and deploy this project. You can read up more on some tips on how to use Docker, here: <https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/DEVOps/pages/3399024641/Tips+for+Using+Docker> -->
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 
 To start the app locally:
@@ -81,7 +85,7 @@ To start the app locally:
 
 The environment variables for this project were previously sourced from Azure Key Vault Secrets.  WIP: I will create a branch soon to update this process so that it sources from either AWS Secret Manager.  Until then, simply replace the values with you personal situation's values..
 
-> :white_check_mark: Read about [Application Environment Variables](https://amuniversal.atlassian.net/l/cp/z7HWk0Ah) for information on how to use and edit environment variables in an application **before proceeding**.
+<!-- > :white_check_mark: Read about [Application Environment Variables](https://TODO_COMPANY_NAME.atlassian.net/l/cp/z7HWk0Ah) for information on how to use and edit environment variables in an application **before proceeding**. -->
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 
 ### Retrieving Environment Variables
@@ -127,7 +131,7 @@ Whenever we update our Node version, it needs to be updated to the same version 
 
 <!-- ### Components -->
 
-<!-- Read about [React Component Composition](https://amuniversal.atlassian.net/l/cp/Z1Hx13R1) for information on how to build components in the UI. -->
+<!-- Read about [React Component Composition](https://TODO_COMPANY_NAME.atlassian.net/l/cp/Z1Hx13R1) for information on how to build components in the UI. -->
 <!-- TODO: Post composition to personal website or my github profile. -->
 
 ### Hooks
@@ -153,7 +157,7 @@ We use SCSS Modules to style components. SCSS Modules are CSS Modules, but with 
 .block-name__element-name
 .block-name__element-name--modifier-name
 
-// AMU BEM, uses camelCase and replaces -- with _
+// ACB BEM, uses camelCase and replaces -- with _
 .blockName
 .blockName_modifierName
 .blockName__elementName

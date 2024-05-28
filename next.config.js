@@ -22,7 +22,7 @@ const customConfig = {
     // Breakpoints, plus 2x 1200 and 1400 for retina screens
     deviceSizes: [576, 768, 992, 1200, 1400, 2400, 2800],
     // TODO: ONBOARDING - Set the correct CDN host
-    domains: ['cmsassets.amuproduct.com'],
+    domains: ['assets.product.com'],
     // TODO: allow avif once the Storybook addon supports it
     // https://github.com/RyanClementsHax/storybook-addon-next#avif
     // formats: ['image/avif', 'image/webp'],

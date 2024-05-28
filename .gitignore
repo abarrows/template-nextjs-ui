@@ -1,4 +1,4 @@
-# AMU General Gitignore
+# ACB General Gitignore
 # Includes general ignores plus these specific ignores:
 # Rails, Node/JS, SCSS/Sass, JetBrains IDEs, Visual Studio, and VSCode
 
@@ -84,7 +84,7 @@ wp-content/advanced-cache.php
 wp-content/wp-cache-config.php
 wp-content/cache/*
 
-# Themes (AMU Specific)
+# Themes (ACB Specific)
 /wp-content/themes/twentynineteen
 /wp-content/themes/twentytwenty
 /wp-content/themes/twentytwentyone
@@ -96,12 +96,12 @@ wp-content/cache/*
 *.cvs
 *.swp
 
-# Plugins (AMU Specific)
+# Plugins (ACB Specific)
 wp-content/mu-plugins/
 wp-content/plugins/
 wp-content/shield/
 
-# WP Core (AMU Specific)
+# WP Core (ACB Specific)
 /db-config.php
 /wp-activate.php
 /wp-app.php

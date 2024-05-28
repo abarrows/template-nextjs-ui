@@ -52,7 +52,7 @@ module.exports = {
         ignoreUrls: true,
       },
     ],
-    // Remember to use the AMU consoleLogger(message, object) utility helper instead of console.log.
+    // Remember to use the ACB consoleLogger(message, object) utility helper instead of console.log.
     // 'no-console': ['error'],
     'no-unused-expressions': 0,
     'react/jsx-sort-props': [

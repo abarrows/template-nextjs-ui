@@ -1,6 +1,6 @@
 param (
-    [string]$TenantName = "Andrews McMeel Universal",
-    [string]$SubscriptionName = "AMU Pay-as-you-go",
+    [string]$TenantName = "TODO_CLOUD_TENANT",
+    [string]$SubscriptionName = "TODO_CLOUD_SUBSCRIPTION",
     [string]$KeyVaultName,
     [string]$File = '.env',
     [string]$RepositoryName = ((git remote get-url origin).Split("/")[-1].Replace(".git", "")),
