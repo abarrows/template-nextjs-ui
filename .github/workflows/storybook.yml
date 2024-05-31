@@ -1,7 +1,8 @@
 name: 📝 Storybook Deployment
 
 on:
-  push:
+  # push:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pozetroninc/github-action-get-latest-release@v0.7.0
+      - uses: pozetroninc/github-action-get-latest-release@v0.8.0
         id: latest_release
         with:
           repository: ${{ github.repository }}
