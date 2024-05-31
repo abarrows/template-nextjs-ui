@@ -1,4 +1,4 @@
-name: 🔄 Sync with k8sapp_template
+name: 🔄 Sync with template-nextjs-ui
 
 on:
   schedule:
@@ -24,13 +24,13 @@ jobs:
         uses: AndreasAugustin/actions-template-sync@v1.1.1
         with:
           github_token: ${{ secrets.PAT_ACTION_CI }}
-          source_repo_path: Andrews-McMeel-Universal/k8sapp_template
+          source_repo_path: abarrows/template-nextjs-ui
           upstream_branch: main
           pr_labels: sync
-          pr_commit_msg: 🔄 Synchronize with @Andrews-McMeel-Universal/k8sapp_template
-          pr_title: 🔄 Sync with @Andrews-McMeel-Universal/k8sapp_template
-          pr_branch_name_prefix: sync/k8sapp_template/
-          pr_reviewers: Andrews-McMeel-Universal/devops-engineers
+          pr_commit_msg: 🔄 Synchronize with abarrows/template-nextjs-ui
+          pr_title: 🔄 Sync with @abarrows/template-nextjs-ui
+          pr_branch_name_prefix: sync/template-nextjs-ui/
+          # pr_reviewers: abarrows
           is_dry_run: ${{ inputs.isdryrun || 'false' }}
-          git_user_name: amutechtest
-          git_user_email: amu_deploy@amuniversal.com
+          # git_user_name: abarrows
+          # git_user_email: mew@andybarrows.com

@@ -1,7 +1,7 @@
 param (
-    [string]$TenantName = "Andrews McMeel Universal",
-    [string]$SubscriptionName = "AMU Pay-as-you-go",
-    [string]$KeyVaultRG = "AMU_KeyVaults_RG",
+    [string]$TenantName = "TODO_CLOUD_TENANT",
+    [string]$SubscriptionName = "TODO_CLOUD_SUBSCRIPTION",
+    [string]$KeyVaultRG = "TODO_CLOUD_KEYVAULT",
     [string]$File = "Secrets.json",
     [string]$KeyVaultName = ".*",
     [string]$SecretName = ".*"
@@ -68,7 +68,7 @@ $KeyVaults | ForEach-Object {
         $ContentType = $_.ContentType
 
         # Get current ContentType and Value to compare
-        $CurrentContentType = (Get-AzKeyVaultSecret -VaultName $KeyVaultName -SecretName "$SecretNameLower").ContentType   
+        $CurrentContentType = (Get-AzKeyVaultSecret -VaultName $KeyVaultName -SecretName "$SecretNameLower").ContentType
         $CurrentValue = (Get-AzKeyVaultSecret -VaultName $KeyVaultName -SecretName "$SecretNameLower" -AsPlainText)
 
         # If value or ContentType is different, update the secret

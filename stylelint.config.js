@@ -63,7 +63,7 @@ module.exports = {
         resolveNestedSelectors: true,
         severity: 'warning',
         message:
-          'USE AMU variant of BEM naming for class selectors. Remember: Only underscores.  IE: .blockName_modifierName and .blockName__elementName',
+          'Use ACB variant of BEM naming for class selectors: camelCase names and underscores instead of dashes. IE: .blockName_modifierName and .blockName__elementName',
       },
     ],
     'selector-pseudo-element-colon-notation': 'single',

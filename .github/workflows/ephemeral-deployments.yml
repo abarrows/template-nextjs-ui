@@ -46,7 +46,7 @@ jobs:
       environmentKeyVault: ${{ vars.AZURE_KEYVAULT_PREFIX }}-${{ needs.get-environment.outputs.environment }}
     secrets:
       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
-      registryHostName: ${{ secrets.AMUAPPIMAGES201_HOSTNAME }}
-      registryUserName: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
-      registryPassword: ${{ secrets.AMUAPPIMAGES201_PASSWORD }}
+      registryHostName: ${{ secrets.TODO_IMAGE_NAME_HOSTNAME }}
+      registryUserName: ${{ secrets.TODO_IMAGE_NAME_USERNAME }}
+      registryPassword: ${{ secrets.TODO_IMAGE_NAME_PASSWORD }}
       githubPAT: ${{ secrets.PAT_ACTION_CI }}

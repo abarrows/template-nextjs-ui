@@ -57,9 +57,9 @@ jobs:
     secrets:
       azureClusterName: ${{ secrets.AKS_CLUSTER_NAME }}
       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
-      registryHostName: ${{ secrets.AMUAPPIMAGES201_HOSTNAME }}
-      registryUserName: ${{ secrets.AMUAPPIMAGES201_USERNAME }}
-      registryPassword: ${{ secrets.AMUAPPIMAGES201_PASSWORD }}
-      storageAccountKey: ${{ secrets.AMUCLOUDAPPS_KEY }}
+      registryHostName: ${{ secrets.TODO_IMAGE_NAME_HOSTNAME }}
+      registryUserName: ${{ secrets.TODO_IMAGE_NAME_USERNAME }}
+      registryPassword: ${{ secrets.TODO_IMAGE_NAME_PASSWORD }}
+      storageAccountKey: ${{ secrets.TODO_STORAGE_KEY }}
       webAuthenticationPassword: ${{ secrets.WEB_AUTHENTICATION_PASSWORD }}
       webAuthenticationUsername: ${{ secrets.WEB_AUTHENTICATION_USERNAME }}

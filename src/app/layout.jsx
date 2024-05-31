@@ -12,7 +12,7 @@ import 'src/styles/index.scss';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const metadata = {
-  title: 'AMU Next.js Template',
+  title: 'Template Next.js UI',
   description: 'Starter kit for new UI apps',
 };
 
