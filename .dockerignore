@@ -1,5 +1,5 @@
 # General
-public/robots.*
+**/robots.*
 public/sitemap.*
 .git/
 .cache/

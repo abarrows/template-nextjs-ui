@@ -1,0 +1,31 @@
+{
+  "name": "Existing Docker Compose",
+  "dockerComposeFile": [
+    //Override the first configuration with a second docker-compose.yml
+    "../docker-compose.yml",
+    "docker-compose.yml"
+  ],
+  "service": "app", //Specify the service name and Rails service to be started as described in docker-compse.yml
+  "workspaceFolder": "/app", //　The directory to connect to at startup
+  "initializeCommand": "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash; if ! az account list | grep -q 'AMU Pay-As-You-Go' && [ -n \"${AZURE_CREDENTIALS}\" ]; then az login --service-principal -u $(echo ${AZURE_CREDENTIALS} | jq -r '.clientId') -p $(echo ${AZURE_CREDENTIALS} | jq -r '.clientSecret') --tenant $(echo ${AZURE_CREDENTIALS} | jq -r '.tenantId'); az account set --subscription $(echo ${AZURE_CREDENTIALS} | jq -r '.subscriptionId'); elif [ -z \"${AZURE_CREDENTIALS}\" ]; then az login; fi; ./.devcontainer/get-secrets.sh ${ENVIRONMENT}",
+  "hostRequirements": {
+    "cpus": 4
+  },
+  "remoteEnv": {
+    "AZURE_CREDENTIALS": "${localEnv:AZURE_CREDENTIALS}",
+    "ENVIRONMENT": "${localEnv:AZURE_KEYVAULT_ENVIRONMENT}"
+  },
+  "secrets": {
+    "ENVIRONMENT": {
+      "description": "Key Vault Environment",
+      "documentationUrl": "https://amuniversal.atlassian.net/wiki/spaces/TD/pages/2796191745/Application+Environment+Variables"
+    }
+  },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Application UI",
+      "onAutoForward": "openPreview"
+    }
+  }
+}

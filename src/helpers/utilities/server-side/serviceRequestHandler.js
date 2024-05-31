@@ -1,15 +1,15 @@
 const serviceRequestHandler = async (url, method = 'GET', body = null) => {
   let payload;
 
-  if (!process.env.API_SERVICE_KEY) {
+  if (!process.env.SERVICE_ORCHESTRATOR_KEY) {
     // eslint-disable-next-line no-console
-    console.error('`API_SERVICE_KEY` is required.');
+    console.error('`SERVICE_ORCHESTRATOR_KEY` is required.');
   }
 
   if (typeof window === 'undefined') {
     // Required for any request to the service
     const subscriptionKey = {
-      'Ocp-Apim-Subscription-Key': process.env.API_SERVICE_KEY,
+      'Ocp-Apim-Subscription-Key': process.env.SERVICE_ONBOARDING_KEY,
     };
 
     // Common request headers for most methods

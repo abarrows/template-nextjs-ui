@@ -125,6 +125,21 @@ Whenever we update our Node version, it needs to be updated to the same version 
 
 <!-- TODO: Bring over the dynamic node version that analyzes the .nvmrc version and uses it during the provisioning of containers. -->
 
+## Onboarding A New AMU Product
+
+1. _amuproduct_ Find and replace all references of this with the real
+   product's name.
+2. _AMUPRODUCTJIRAKEY_ Find and replace all references of this with the real
+   JIRA project key.
+3. _k8sapp_ui_template_ Find and replace all references of this with the real
+   repository name.
+4. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO
+   instructions for the new product.
+5. Once all is finished, run the `yarn validate` or the `yarn validate:ci` command which executes all setup scripts,
+   tests, linting, etc. to ensure that everything works correctly without errors:
+
+
+
 ---
 
 ## Development Essentials
@@ -204,5 +219,4 @@ We use [Storybook](https://storybook.js.org/) for component documentation and st
 ---
 
 ## Deployments & Releases
-
 We use GitHub Actions to deploy this project. More information on the reusable workflows I help setup, [here](https://github.com/Andrews-McMeel-Universal/reusable_workflows)

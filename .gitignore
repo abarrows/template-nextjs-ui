@@ -54,7 +54,7 @@ id_rsa
 capybara-*.html
 .rspec
 /public/system
-/coverage/
+/coverage/**
 /spec/tmp
 *.orig
 rerun.txt
@@ -234,6 +234,7 @@ wp-content/shield/
 next.config.original.js
 next.config.wizardcopy.js
 /build
+public/sitemap*.xml
 
 # Runtime data
 pids
@@ -766,3 +767,4 @@ terraform/.terraform/
 terraform/*.tfstate*
 terraform/*.tfplan
 terraform/variables.tf
+terraform/*.key

@@ -1,6 +1,5 @@
 // Import this file with: @use '/src/styles/variables';
 // Reference variables with: variables.$variable-name
-
 // Colors
 $color-black: rgb(0 0 0);
 $color-gray: rgb(153 152 153);
@@ -10,7 +9,6 @@ $color-red: rgb(220 68 5);
 $color-teal: rgb(0 191 179);
 $color-yellow: rgb(255 198 0);
 $color-white: rgb(255 255 255);
-
 // Fonts
 $font-family-sans-serif: var(--font-source-code-pro), sans-serif;
 $font-family-serif: var(--font-carter-one), serif;
@@ -23,7 +21,6 @@ $font-size-lg: 2rem;
 $font-size-xl: 2.4rem;
 $font-size-xxl: 3.2rem;
 $font-size-base: $font-size-sm;
-
 // Grid
 $gap-xs: 4px;
 $gap-sm: 8px;
@@ -31,6 +28,5 @@ $gap-md: 16px;
 $gap-lg: 32px;
 $gap-xl: 64px;
 $gap-xxl: 128px;
-
 // Decorations
 $box-shadow: 0 5px 10px rgba($color-black, 0.15);

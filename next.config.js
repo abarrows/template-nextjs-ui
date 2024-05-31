@@ -1,11 +1,22 @@
-// Add timestamps to console logs
-require('console-stamp')(console);
+/* eslint-disable @typescript-eslint/no-var-requires */
+// Importing consola for logging.
+const consola = require('consola');
 
-// Optionally analyze client, server, and edge/middleware bundle sizes,
-// Run with `yarn build:analyze`
+consola
+  .withDefaults({
+    fancy: true,
+    badge: true,
+  })
+  .withTag('ChatGPT')
+  .wrapConsole();
+
+// Importing package.json for app level values.
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+
+// Optionally analyze client, server, and edge/middleware bundle sizes,
+// Run with `yarn build:analyze`
 
 // Permanent site redirects file, see that for adding new redirects
 const redirects = require('./redirects');
@@ -46,5 +57,5 @@ const customConfig = {
     return [...prodRedirects, ...redirects];
   },
 };
-
-module.exports = withBundleAnalyzer(customConfig);
+  
+return withBundleAnalyzer(nextConfig);

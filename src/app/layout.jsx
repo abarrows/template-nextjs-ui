@@ -9,6 +9,8 @@ import ShowSiteHeader from 'src/components/sections/ShowSiteHeader';
 
 import 'src/styles/index.scss';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 export const metadata = {
   title: 'Template Next.js UI',
   description: 'Starter kit for new UI apps',
@@ -29,9 +31,10 @@ const sourceCodePro = Source_Code_Pro({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={classNames(carterOne.variable, sourceCodePro.variable)}>
         <ShowSiteHeader />
+
         {children}
       </body>
     </html>

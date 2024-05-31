@@ -1,4 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const nextJest = require('next/jest');
+// USAGE: Required to track jest-environment-jsdom dependency
+require('jest-environment-jsdom');
 
 // Set the time zone to UTC because that's what GH Actions and just about everything else will use
 process.env.TZ = 'UTC';
@@ -15,7 +18,14 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-jsdom',
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(test).[jt]s?(x)'],
   // TODO: add coverage badge too
+  // TODO: Make a concerted effort to get coverage up to over 90%
   collectCoverage: true,
+  coverageDirectory: '<rootDir>/coverage/unit',
+  coverageThreshold: {
+    global: {
+      lines: 80,
+    },
+  },
 };
 
 // Additional overrides to the Next.js Jest config
