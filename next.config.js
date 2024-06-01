@@ -40,7 +40,11 @@ const customConfig = {
   },
   productionBrowserSourceMaps: true,
   swcMinify: true,
-
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   async redirects() {
     // Production-only redirects
     // These are used as a quick feature flag when certain pages should be
@@ -57,5 +61,5 @@ const customConfig = {
     return [...prodRedirects, ...redirects];
   },
 };
-  
-return withBundleAnalyzer(nextConfig);
+
+module.exports = withBundleAnalyzer(customConfig);

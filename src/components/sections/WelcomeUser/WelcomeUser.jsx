@@ -25,7 +25,7 @@ function WelcomeUser() {
         Get started by editing <code>src/app/page.jsx</code>. See the
         project&apos;s{' '}
         <SiteLink
-          href="https://github.com/abarrows/template-nextjs-ui#readme"
+          href='https://github.com/abarrows/template-nextjs-ui#readme'
           openInNewTab
           title='View the Readme'
         >

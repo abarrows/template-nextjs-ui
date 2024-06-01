@@ -10,16 +10,20 @@ function ShowSiteHeader() {
   return (
     <header className={styles.header}>
       <Image
-        alt="TODO_PRODUCT_NAME Logo"
-        height={50}
+        alt='TODO_PRODUCT_NAME Logo'
+        height={200}
         priority
-        src="/images/logo-transparent.svg"
-        width={38}
+        src='/images/logo-transparent.svg'
+        width={152}
       />
       <Heading>
         Welcome to ACB&apos;s template UI repository frontend template repo for
         Next.js powered apps.
       </Heading>
+      <p>
+        Note: This is a WIP! This needs typescript, Radix, Tailwind, and several
+        other patterns that are in my private repos at the moment.
+      </p>
     </header>
   );
 }
