@@ -6,10 +6,10 @@ on:
       environment:
         required: true
         type: string
-      YARN_INSTALL:
+      NPM_INSTALL:
         required: false
         type: string
-        default: ${{ vars.APPLICATION_CI_YARN_INSTALL || 'false' }}
+        default: ${{ vars.APPLICATION_CI_NPM_INSTALL || 'false' }}
       RUN_PLAYWRIGHT_TESTS:
         required: false
         type: string
@@ -49,16 +49,16 @@ jobs:
           fetch-depth: 0
 
       - name: Use cache-next-install action
-        if: ${{ inputs.YARN_INSTALL == 'false' }}
+        if: ${{ inputs.NPM_INSTALL == 'false' }}
         uses: Andrews-McMeel-Universal/cache-next-install@v1.2.0
 
       - name: Lint javascript
         if: ${{ inputs.LINT_JS == 'true' }}
-        run: yarn lint:js
+        run: npm run lint:js
 
       - name: Lint scss
         if: ${{ inputs.LINT_SCSS == 'true' }}
-        run: yarn lint:styles
+        run: npm run lint:styles
 
       - name: Push Linting Fixes
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -86,12 +86,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Use cache-next-install action
-        if: ${{ inputs.YARN_INSTALL == 'false' }}
+        if: ${{ inputs.NPM_INSTALL == 'false' }}
         uses: Andrews-McMeel-Universal/cache-next-install@v1
 
-      - name: Use cache-yarn-install action
-        if: ${{ inputs.YARN_INSTALL == 'true' }}
-        uses: Andrews-McMeel-Universal/cache-yarn-install@v1
 
       - name: Use .env cache action
         uses: Andrews-McMeel-Universal/get-envs@v1
@@ -104,7 +101,7 @@ jobs:
 
       - name: Run Jest tests
         if: ${{ inputs.RUN_JEST_TESTS == 'true' }}
-        run: yarn test:unit:ci
+        run: npm run test:unit:ci
 
   integration-tests:
     name: Integration Tests
@@ -117,16 +114,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Use cache-next-install action
-        if: ${{ inputs.YARN_INSTALL == 'false' }}
+        if: ${{ inputs.NPM_INSTALL == 'false' }}
         uses: Andrews-McMeel-Universal/cache-next-install@v1
-
-      - name: Use cache-yarn-install action
-        if: ${{ inputs.YARN_INSTALL == 'true' }}
-        uses: Andrews-McMeel-Universal/cache-yarn-install@v1
 
       - name: Install Playwright Browsers
         if: ${{ inputs.RUN_PLAYWRIGHT_TESTS == 'true' }}
-        run: yarn playwright install
+        run: npm run playwright install
 
       - name: Use .env cache action
         uses: Andrews-McMeel-Universal/get-envs@v1
@@ -139,7 +132,7 @@ jobs:
 
       - name: Run Playwright tests
         if: ${{ inputs.RUN_PLAYWRIGHT_TESTS == 'true' }}
-        run: yarn test:integration:ci
+        run: npm run test:integration:ci
 
       - uses: actions/upload-artifact@v4
         if: inputs.RUN_PLAYWRIGHT_TESTS == 'true' && always()
@@ -153,5 +146,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # The size-limit-action tries to run a
-          # redundant yarn build
+          # redundant npm run build
           skip_step: build

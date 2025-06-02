@@ -1,5 +1,5 @@
 # Set image version
-ARG NODE_VERSION=18.11.0
+ARG NODE_VERSION=18
 
 ## Dependencies ##
 FROM node:${NODE_VERSION}-alpine AS deps
@@ -18,8 +18,12 @@ FROM node:${NODE_VERSION}-alpine AS builder
 WORKDIR /app
 
 # Copy application files
-COPY --from=deps /app/.yarn ./.yarn
-COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+COPY data ./data
+COPY client ./client
+COPY public ./public
+COPY src ./src
+COPY *.js *.json .env .browserslistrc .nvmrc .npmrc *-lock.* *.lock ./
 
 # Rebuild npm run binaries
 RUN npm run rebuild && npm run build
@@ -30,18 +34,16 @@ FROM node:${NODE_VERSION}-alpine AS runner
 # Set container directory
 WORKDIR /app
 
-# Set NODE_ENV to production for performance reasons
-ENV NODE_ENV=production
-
 # Create Next JS user/group
-RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
 
 # Copy static files into the container
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --chown=nextjs:nodejs .env* next.config.js redirects.js yarn.lock package.json ./
+COPY --chown=nextjs:nodejs .env* next.config.js redirects.js package-lock.json package.json ./
 
 # Copy application files
-COPY --from=deps --chown=nextjs:nodejs /app/.yarn ./.yarn
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 
 # Rebuild npm run binaries

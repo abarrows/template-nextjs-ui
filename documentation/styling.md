@@ -4,13 +4,12 @@
 
 ## Prerequisites
 
-_NOTE: All Prerequisites are included with the [dotfiles repository](https://github.com/TODO: ONBOARDING/dotfiles) ./install script._
+_NOTE: All Prerequisites are included with the [dotfiles repository](<https://github.com/TODO>: ONBOARDING/dotfiles) ./install script._
 
 1. [NVM](https://github.com/nvm-sh/nvm)(Node Version Management)
-2. [Yarn](https://yarnpkg.com/) (The project should have a package.json file.)
-3. [VS Code](https://code.visualstudio.com/download)
-4. [VS Code Stylelint Extension](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
-5. [VS Code Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+2. [VS Code](https://code.visualstudio.com/download)
+3. [VS Code Stylelint Extension](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+4. [VS Code Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 ## Installation for a Project
 
@@ -19,11 +18,11 @@ project by project.*_
 To install Stylelint navigate into your project and open a terminal and enter these commands:
 
 ```bash
-yarn add stylelint --dev
-yarn add stylelint-config-prettier --dev
-yarn add stylelint-config-recommended-scss --dev
-yarn add stylelint-no-unsupported-browser-features --dev
-yarn add stylelint-scss --dev
+npm install -D stylelint
+npm install -D stylelint-config-prettier
+npm install -D stylelint-config-recommended-scss
+npm install -D stylelint-no-unsupported-browser-features
+npm install -D stylelint-scss
 ```
 
 After the packages have installed, navigate to the root directory of your
@@ -37,7 +36,7 @@ Within VS Code, navigate to your User Settings (CMD + Shift + P -> Type "_Prefer
 Open Settings JSON_") and either verify these settings are in here or add/update
 them to the follow configuration.
 
-_NOTE: All VS Code Settings are included with the [dotfiles repository](https://github.com/TODO: ONBOARDING/dotfiles) ./install script._
+_NOTE: All VS Code Settings are included with the [dotfiles repository](<https://github.com/TODO>: ONBOARDING/dotfiles) ./install script._
 
 ```json
 "[scss]": {
@@ -94,7 +93,7 @@ something, you can always view outstanding errors/warnings in that problem pane.
 In some projects, you'll notice two other methods to use stylelint and prettier
 on styling code:
 
-1. _Yarn Scripts within the package.json_ - Below are examples of common scripts
+1. _NPM Scripts within the package.json_ - Below are examples of common scripts
    that can be ran at the command line to lint stylesheet code:
 
    ```json
