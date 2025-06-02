@@ -50,11 +50,7 @@ jobs:
 
       - name: Use cache-next-install action
         if: ${{ inputs.YARN_INSTALL == 'false' }}
-        uses: Andrews-McMeel-Universal/cache-next-install@v1
-
-      - name: Use cache-yarn-install action
-        if: ${{ inputs.YARN_INSTALL == 'true' }}
-        uses: Andrews-McMeel-Universal/cache-yarn-install@v1
+        uses: Andrews-McMeel-Universal/cache-next-install@v1.2.0
 
       - name: Lint javascript
         if: ${{ inputs.LINT_JS == 'true' }}

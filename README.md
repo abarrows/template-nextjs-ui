@@ -17,17 +17,16 @@ Upon cloning, fill in the values for the .env.example and save this as a new .en
 ## Related links
 
 - Deploy Environments
-  - [Development](https://development.TODO_APPLICATION_DOMAIN.com/)
-  - [Staging](https://staging.TODO_APPLICATION_DOMAIN.com/)
-  - [Production](https://www.TODO_APPLICATION_DOMAIN.com/)
+  - [Development](https://NEXT_PUBLIC_DEPLOY_ENV.APPLICATION_DOMAIN.com/)
+  - [Staging](https://NEXT_PUBLIC_DEPLOY_ENV.APPLICATION_DOMAIN.com/)
+  - [Production](https://NEXT_PUBLIC_DEPLOY_ENV.APPLICATION_DOMAIN.com/)
 - Swagger docs for the back-end service
-  - [Development](https://development.service.TODO_APPLICATION_DOMAIN.com/swagger/index.html)
-  - [Staging](https://staging.service.TODO_APPLICATION_DOMAIN.com/swagger/index.html)
-  - [Production](https://service.TODO_APPLICATION_DOMAIN.com/swagger/index.html)
-- [Storybook](<https://www.chromatic.com/library?appId=TODO>: ONBOARDING:input-storybook-instance)
-- [Jira Project](<https://COMPANY_NAME.atlassian.net/browse/TODO>: ONBOARDING:input-jira-instance)
-- [Confluence Space](<https://COMPANY_NAME.atlassian.net/l/c/TODO>: ONBOARDING:input-confluence-space)
-- [Sentry Error Reporting](<https://sentry.io/organizations/COMPANY_NAME/issues/?project=TODO>: ONBOARDING:input-sentry-project-id)
+  - [Development](https://NEXT_PUBLIC_DEPLOY_ENV.service.SERVICE_ORCHESTRATOR_URL.com/swagger/index.html)
+  - [Production](https://NEXT_PUBLIC_DEPLOY_ENV.service.SERVICE_ORCHESTRATOR_URL.com/swagger/index.html)
+- [Storybook](<https://www.chromatic.com/library?appId=TODO: ONBOARDING - input-storybook-instance>)
+- [Jira Project](<https://COMPANY_NAME.atlassian.net/browse/TODO:ONBOARDING - input-jira-instance>)
+- [Confluence Space](<https://COMPANY_NAME.atlassian.net/l/c/TODO:ONBOARDING - input-confluence-space>)
+- [Sentry Error Reporting](<https://sentry.io/organizations/COMPANY_NAME/issues/?project=TODO:ONBOARDING - input-sentry-project-id>)
 
 ---
 
@@ -116,7 +115,7 @@ These files are where you can find and manage environment variables:
 
 <!-- ## Updating the Node Version
 
-Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/TODO_GITHUB_ORGANIZATION). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it. -->
+Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/GITHUB_ORGANIZATION). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it. -->
 
 <!-- TODO: Bring over the dynamic node version that analyzes the .nvmrc version and uses it during the provisioning of containers. -->
 
@@ -132,8 +131,8 @@ Whenever we update our Node version, it needs to be updated to the same version 
 npm run validate
 ```
 
-4. _TODO_OWNER_NAME_ Update with the repo's owner name.
-5. _TODO_OWNER_EMAIL_ Update with the repo's owner email.
+4. _GITHUB_USER_NAME_ Update with the repo's owner name.
+5. _GITHUB_USER_EMAIL_ Update with the repo's owner email.
 
 ---
 

@@ -63,6 +63,6 @@ export const WithExternalUrl = Template.bind({});
 WithExternalUrl.args = {
   children: 'Link offsite',
   title: 'Link to an external website',
-  href: 'https://www.TODO_APPLICATION_DOMAIN.com/',
+  href: 'https://www.APPLICATION_DOMAIN.com/',
   openInNewTab: true,
 };

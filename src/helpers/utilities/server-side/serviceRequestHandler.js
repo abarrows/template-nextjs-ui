@@ -9,7 +9,7 @@ const serviceRequestHandler = async (url, method = 'GET', body = null) => {
   if (typeof window === 'undefined') {
     // Required for any request to the service
     const subscriptionKey = {
-      'Ocp-Apim-Subscription-Key': process.env.SERVICE_ONBOARDING_KEY,
+      'Ocp-Apim-Subscription-Key': process.env.SERVICE_ORCHESTRATOR_KEY,
     };
 
     // Common request headers for most methods

@@ -111,7 +111,6 @@ module.exports = {
     'unused-imports/no-unused-imports': 'error',
   },
   // Prevents no-sync await to the rules.
-  // TODO: Work with team on this one for GC.
   overrides: [
     {
       // Jest overrides
