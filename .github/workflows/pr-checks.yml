@@ -1,43 +1,161 @@
-name: Validate Codeowners File
+name: Next.js Application CI
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - ".github/CODEOWNERS"
-      - ".github/workflows/codeowners-validation.yml"
   workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      YARN_INSTALL:
+        required: false
+        type: string
+        default: ${{ vars.APPLICATION_CI_YARN_INSTALL || 'false' }}
+      RUN_PLAYWRIGHT_TESTS:
+        required: false
+        type: string
+        default: ${{ vars.APPLICATION_CI_RUN_PLAYWRIGHT_TESTS || 'true' }}
+      LINT_SCSS:
+        required: false
+        type: string
+        default: ${{ vars.APPLICATION_CI_LINT_SCSS || 'true' }}
+      LINT_JS:
+        required: false
+        type: string
+        default: ${{ vars.APPLICATION_CI_LINT_JS || 'true' }}
+      CHECK_SIZE_LIMIT:
+        required: false
+        type: string
+        default: ${{ vars.APPLICATION_CI_CHECK_SIZE_LIMIT || 'true' }}
+      RUN_JEST_TESTS:
+        required: false
+        type: string
+        default: ${{ vars.APPLICATION_CI_RUN_JEST_TESTS || 'true' }}
+    secrets:
+      AZURE_CREDENTIALS:
+        required: true
+      PAT_ACTION_CI:
+        required: true
 
 jobs:
-  codeowners-validation:
-    name: Codeowners File Validation
+  build:
+    name: Build App
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          token: ${{ secrets.PAT_ACTION_CI }}
+          fetch-depth: 0
 
-      - name: Get repository owner type
-        id: owner-type
-        run: |
-          REPO_JSON=$(curl -s "${{ github.api_url}}/repos/${{ github.repository }}" -H "Authorization: token ${{ github.token }}")
-          OWNER_TYPE=$(echo $REPO_JSON | jq -r '.owner.type')
-          OWNER_TYPE=$(echo "$OWNER_TYPE" | tr '[:upper:]' '[:lower:]')
-          echo "Owner type: $OWNER_TYPE"
-          echo "owner-type=$OWNER_TYPE" >> $GITHUB_OUTPUT
+      - name: Use cache-next-install action
+        if: ${{ inputs.YARN_INSTALL == 'false' }}
+        uses: Andrews-McMeel-Universal/cache-next-install@v1
 
-      - name: Basic CODEOWNERS validation
-        if: ${{ steps.owner-type.outputs.owner-type != 'organization' }}
-        uses: mszostok/codeowners-validator@v0.7.4
+      - name: Use cache-yarn-install action
+        if: ${{ inputs.YARN_INSTALL == 'true' }}
+        uses: Andrews-McMeel-Universal/cache-yarn-install@v1
+
+      - name: Lint javascript
+        if: ${{ inputs.LINT_JS == 'true' }}
+        run: yarn lint:js
+
+      - name: Lint scss
+        if: ${{ inputs.LINT_SCSS == 'true' }}
+        run: yarn lint:styles
+
+      - name: Push Linting Fixes
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          checks: "duppatterns,syntax"
-          github_access_token: "${{ github.token }}"
+          commit_user_name: amutechtest
+          commit_user_email: amu_deploy@amuniversal.com
+          commit_message: "[Formatter] Apply prettier changes"
 
-      - name: Full CODEOWNERS validation
-        if: ${{ steps.owner-type.outputs.owner-type == 'organization' }}
-        uses: mszostok/codeowners-validator@v0.7.4
+      - name: Use .env cache action
+        uses: Andrews-McMeel-Universal/get-envs@v1
         with:
-          github_access_token: "${{ github.token }}"
-          checks: "duppatterns,syntax" # Removing files since this is a template for all organization repos.
+          azurecredentials: ${{ secrets.AZURE_CREDENTIALS }}
+          environment: ${{ inputs.environment }}
+
+      - name: Use cache-next-build action
+        uses: Andrews-McMeel-Universal/cache-next-build@v1
+
+  unit-tests:
+    name: Unit Tests
+    if: ${{ inputs.RUN_JEST_TESTS == 'true' }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use cache-next-install action
+        if: ${{ inputs.YARN_INSTALL == 'false' }}
+        uses: Andrews-McMeel-Universal/cache-next-install@v1
+
+      - name: Use cache-yarn-install action
+        if: ${{ inputs.YARN_INSTALL == 'true' }}
+        uses: Andrews-McMeel-Universal/cache-yarn-install@v1
+
+      - name: Use .env cache action
+        uses: Andrews-McMeel-Universal/get-envs@v1
+        with:
+          azurecredentials: ${{ secrets.AZURE_CREDENTIALS }}
+          environment: ${{ inputs.environment }}
+
+      - name: Use cache-next-build action
+        uses: Andrews-McMeel-Universal/cache-next-build@v1
+
+      - name: Run Jest tests
+        if: ${{ inputs.RUN_JEST_TESTS == 'true' }}
+        run: yarn test:unit:ci
+
+  integration-tests:
+    name: Integration Tests
+    if: ${{ inputs.RUN_PLAYWRIGHT_TESTS == 'true' || inputs.CHECK_SIZE_LIMIT == 'true' }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use cache-next-install action
+        if: ${{ inputs.YARN_INSTALL == 'false' }}
+        uses: Andrews-McMeel-Universal/cache-next-install@v1
+
+      - name: Use cache-yarn-install action
+        if: ${{ inputs.YARN_INSTALL == 'true' }}
+        uses: Andrews-McMeel-Universal/cache-yarn-install@v1
+
+      - name: Install Playwright Browsers
+        if: ${{ inputs.RUN_PLAYWRIGHT_TESTS == 'true' }}
+        run: yarn playwright install
+
+      - name: Use .env cache action
+        uses: Andrews-McMeel-Universal/get-envs@v1
+        with:
+          azurecredentials: ${{ secrets.AZURE_CREDENTIALS }}
+          environment: ${{ inputs.environment }}
+
+      - name: Use cache-next-build action
+        uses: Andrews-McMeel-Universal/cache-next-build@v1
+
+      - name: Run Playwright tests
+        if: ${{ inputs.RUN_PLAYWRIGHT_TESTS == 'true' }}
+        run: yarn test:integration:ci
+
+      - uses: actions/upload-artifact@v4
+        if: inputs.RUN_PLAYWRIGHT_TESTS == 'true' && always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - uses: andresz1/size-limit-action@v1
+        if: ${{ inputs.CHECK_SIZE_LIMIT == 'true' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # The size-limit-action tries to run a
+          # redundant yarn build
+          skip_step: build

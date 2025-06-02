@@ -18,13 +18,13 @@
   "secrets": {
     "ENVIRONMENT": {
       "description": "Key Vault Environment",
-      "documentationUrl": "https://TODO_COMPANY_NAME.atlassian.net/"
+      "documentationUrl": "https://COMPANY_NAME.atlassian.net/"
     }
   },
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
-      "label": "TODO-ONBOARDING:Application UI",
+      "label": "TODO: ONBOARDING:Application UI",
       "onAutoForward": "openPreview"
     }
   }

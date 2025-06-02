@@ -1,0 +1,108 @@
+name: Run Jira Linter
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_call:
+    inputs:
+      fail-on-error:
+        type: string
+        description: A Boolean which, if set to true, fails the GitHub Action when an error occurs. Default true.
+        default: ${{ vars.JIRA_LINT_FAIL_ON_ERROR || 'false' }}
+      skip-comments:
+        type: string
+        description: A Boolean if set to true then action-jira-linter will skip adding lint comments for PR title.
+        default: ${{ vars.JIRA_LINT_SKIP_COMMENTS || 'true' }}
+    secrets:
+      JIRA_TOKEN:
+        required: true
+
+env:
+  githubPrBranch: ${{ github.head_ref }}
+  githubPrTitle: ${{ github.event.pull_request.title }}
+
+jobs:
+  jira-lint:
+    name: Run Jira Lint
+    if: ${{ github.actor != TODO_OWNER_EMAIL && github.actor != 'dependabot[bot]' && !contains(github.head_ref, 'sync') && !contains(github.event.pull_request.labels.*.name, 'disable-jira-linter') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve Jira issue key from PR
+        id: jira-ticket
+        run: |
+          extract_jira_id() {
+            input="$1"
+            printf "%s\n" "$input" | grep -Eo '\b[A-Z][A-Z0-9_]+-[1-9][0-9]*' | head -n1 | tr -cd 'A-Za-z0-9_-'
+          }
+
+          # Safely assign to local variables
+          read -r PR_BRANCH <<'EOF'
+          ${{ env.githubPrBranch }}
+          EOF
+
+          read -r PR_TITLE <<'EOF'
+          ${{ env.githubPrTitle }}
+          EOF
+
+          for var in ${PR_BRANCH} ${PR_TITLE}; do JIRA_TICKET_ID=$(extract_jira_id "$var" | grep -E ".") && break ; done
+
+          if [ -z "$JIRA_TICKET_ID" ]; then
+            echo "::error::A Jira issue key is missing from your branch name, pull request title, and pull request description. Please confirm it is linked properly in the pull request."
+            exit 1
+          fi
+
+          echo "Jira ticket: ${JIRA_TICKET_ID}"
+          echo "ticket-found=true"
+          echo "ticket-found=true" >> $GITHUB_OUTPUT
+
+          if [ -z "${JIRA_TICKET_ID}" ]; then
+            if [ "${{ inputs.fail-on-error }}" = "true" ]; then
+                echo "::error::A Jira issue key is missing from your branch name and pull request title. Please confirm it is linked properly in the pull request."
+                exit 1
+            else
+                echo "::warning::A Jira issue key is missing from your branch name and pull request title. Please confirm it is linked properly in the pull request."
+                echo "ticket-found=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "ticket-found=true"
+            echo "ticket-found=true" >> $GITHUB_OUTPUT
+            echo "jira-ticket-id=${JIRA_TICKET_ID}"
+            echo "jira-ticket-id=${JIRA_TICKET_ID}" >> $GITHUB_OUTPUT
+            echo "jira-ticket-id-branch=${PR_BRANCH}"
+            echo "jira-ticket-id-branch=${PR_BRANCH}" >> $GITHUB_OUTPUT
+            echo "jira-ticket-id-title=${PR_TITLE}"
+            echo "jira-ticket-id-title=${PR_TITLE}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if missing Jira issue key comment exists
+        if: ${{ steps.jira-ticket.outputs.ticket-found != 'false' }}
+        id: comment
+        uses: peter-evans/find-comment@v3
+        with:
+          issue-number: ${{ github.event.number }}
+          body-includes: A JIRA Issue ID is missing from your branch name!
+          direction: last
+
+      # TODO: Update
+      - uses: jira-tools/action-jira-linter@v1.0.1
+        if: ${{ ! steps.comment.outputs.comment-body && steps.jira-ticket.outputs.ticket-found != 'false' }}
+        name: Jira Lint
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          jira-token: ${{ secrets.JIRA_TOKEN }}
+          jira-base-url: https://TODO_APPLICATION_DOMAIN.atlassian.net
+          pr-threshold: 1000
+          jira-user: TODO_JIRA_USER
+          validate-issue-status: true
+          allowed-issue-statuses: |
+            New
+            Reopened
+            To Do
+            In Progress
+            Peer Review
+            Testing
+            Approved
+            Resolved
+          skip-branches: "^(main|development|develop|dev|test|testing|staging|production)$"
+          fail-on-error: ${{ inputs.fail-on-error }}
+          skip-comments: ${{ inputs.skip-comments }}

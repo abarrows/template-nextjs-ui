@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-_NOTE: All Prerequisites are included with the [dotfiles repository](https://github.com/TODO-ONBOARDING/dotfiles) ./install script._
+_NOTE: All Prerequisites are included with the [dotfiles repository](https://github.com/TODO: ONBOARDING/dotfiles) ./install script._
 
 1. [NVM](https://github.com/nvm-sh/nvm)(Node Version Management)
 2. [Yarn](https://yarnpkg.com/) (The project should have a package.json file.)
@@ -37,7 +37,7 @@ Within VS Code, navigate to your User Settings (CMD + Shift + P -> Type "_Prefer
 Open Settings JSON_") and either verify these settings are in here or add/update
 them to the follow configuration.
 
-_NOTE: All VS Code Settings are included with the [dotfiles repository](https://github.com/TODO-ONBOARDING/dotfiles) ./install script._
+_NOTE: All VS Code Settings are included with the [dotfiles repository](https://github.com/TODO: ONBOARDING/dotfiles) ./install script._
 
 ```json
 "[scss]": {

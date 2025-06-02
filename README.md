@@ -1,6 +1,6 @@
 # AppName
 
-[![Production](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml/badge.svg?event=release)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
+[![Production](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=release)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 [![Staging](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=prerelease)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 [![Development](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=push&branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 
@@ -8,7 +8,7 @@ App responsible for all appname related data.
 
 ## Setting up your repository
 
-<!-- You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template) -->
+<!-- You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://COMPANY_NAME.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template) -->
 Upon cloning, fill in the values for the .env.example and save this as a new .env in the root directory.  Run the following:
 
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
@@ -24,10 +24,10 @@ Upon cloning, fill in the values for the .env.example and save this as a new .en
   - [Development](https://development.service.TODO_APPLICATION_DOMAIN.com/swagger/index.html)
   - [Staging](https://staging.service.TODO_APPLICATION_DOMAIN.com/swagger/index.html)
   - [Production](https://service.TODO_APPLICATION_DOMAIN.com/swagger/index.html)
-- [Storybook](https://www.chromatic.com/library?appId=TODO-ONBOARDING:input-storybook-instance)
-- [Jira Project](https://TODO_COMPANY_NAME.atlassian.net/browse/TODO-ONBOARDING:input-jira-instance)
-- [Confluence Space](https://TODO_COMPANY_NAME.atlassian.net/l/c/TODO-ONBOARDING:input-confluence-space)
-- [Sentry Error Reporting](https://sentry.io/organizations/TODO_COMPANY_NAME/issues/?project=TODO-ONBOARDING:input-sentry-project-id)
+- [Storybook](<https://www.chromatic.com/library?appId=TODO>: ONBOARDING:input-storybook-instance)
+- [Jira Project](<https://COMPANY_NAME.atlassian.net/browse/TODO>: ONBOARDING:input-jira-instance)
+- [Confluence Space](<https://COMPANY_NAME.atlassian.net/l/c/TODO>: ONBOARDING:input-confluence-space)
+- [Sentry Error Reporting](<https://sentry.io/organizations/COMPANY_NAME/issues/?project=TODO>: ONBOARDING:input-sentry-project-id)
 
 ---
 
@@ -55,14 +55,14 @@ You will need:
   - MacOS: `brew install --cask powershell`
   - Windows: `choco install powershell-core`
 
-<!-- More notes on other helpful tools you can use in this project, here: [Basic Workstation Setup](https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/DEVOps/pages/3114369037/Basic+Workstation+Setup) -->
+<!-- More notes on other helpful tools you can use in this project, here: [Basic Workstation Setup](https://COMPANY_NAME.atlassian.net/wiki/spaces/DEVOps/pages/3114369037/Basic+Workstation+Setup) -->
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 
 ---
 
 ## Building the Project
 
-<!-- We use Docker to build and deploy this project. You can read up more on some tips on how to use Docker, here: <https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/DEVOps/pages/3399024641/Tips+for+Using+Docker> -->
+<!-- We use Docker to build and deploy this project. You can read up more on some tips on how to use Docker, here: <https://COMPANY_NAME.atlassian.net/wiki/spaces/DEVOps/pages/3399024641/Tips+for+Using+Docker> -->
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 
 To start the app locally:
@@ -80,7 +80,7 @@ To start the app locally:
 
 The environment variables for this project were previously sourced from Azure Key Vault Secrets.  WIP: I will create a branch soon to update this process so that it sources from either AWS Secret Manager.  Until then, simply replace the values with you personal situation's values..
 
-<!-- > :white_check_mark: Read about [Application Environment Variables](https://TODO_COMPANY_NAME.atlassian.net/l/cp/z7HWk0Ah) for information on how to use and edit environment variables in an application **before proceeding**. -->
+<!-- > :white_check_mark: Read about [Application Environment Variables](https://COMPANY_NAME.atlassian.net/l/cp/z7HWk0Ah) for information on how to use and edit environment variables in an application **before proceeding**. -->
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 
 ### Retrieving Environment Variables
@@ -122,9 +122,8 @@ Whenever we update our Node version, it needs to be updated to the same version 
 
 ## Onboarding A New UI Product
 
-1. _TODO_APPLICATION_NAME_ Find and replace all references of this with the real
-   product's name.
-2. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO
+1. Review `.env.example`,
+2. _TODO: ONBOARDING:_ Review all instances of this and follow the TODO
    instructions for the new product.
 3. Once all is finished, run the `npm run validate` or the `npm run validate:ci` command which executes all setup scripts,
    tests, linting, etc. to ensure that everything works correctly without errors:
@@ -142,7 +141,7 @@ npm run validate
 
 <!-- ### Components -->
 
-<!-- Read about [React Component Composition](https://TODO-ONBOARDING:input-component-composition-url) for information on how to build components in the UI. -->
+<!-- Read about [React Component Composition](https://TODO: ONBOARDING:input-component-composition-url) for information on how to build components in the UI. -->
 <!-- TODO: Post composition to personal website or my github profile. -->
 
 ### Hooks
@@ -216,13 +215,13 @@ We use [Storybook](https://storybook.js.org/) for component documentation and st
 
 ## Deployments & Releases tom did you move this stuff bud
 
-We use GitHub Actions to deploy this project. More information on how to deploy using GitHub Actions here: [GitHub Action Deployments](TODO-ONBOARDING:github-action-deployments-url)
+We use GitHub Actions to deploy this project. More information on how to deploy using GitHub Actions here: [GitHub Action Deployments](TODO: ONBOARDING:github-action-deployments-url)
 
 ## Onboarding A New UI Product
 
-1. _TODO_APPLICATION_NAME_ Find and replace all references of this with the real
+1. _APPLICATION_NAME_ Find and replace all references of this with the real
    product's name.
-2. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO
+2. _TODO: ONBOARDING:_ Review all instances of this and follow the TODO
    instructions for the new product.
 3. Once all is finished, run the **preflight** command which executes all setup scripts, tests, linting, etc. to ensure that everything works correctly without errors:
 

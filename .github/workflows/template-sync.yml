@@ -24,13 +24,13 @@ jobs:
         uses: AndreasAugustin/actions-template-sync@v1.1.1
         with:
           github_token: ${{ secrets.PAT_ACTION_CI }}
-          source_repo_path: abarrows/template-nextjs-ui
+          source_repo_path: TODO_GITHUB_USER/template-nextjs-ui
           upstream_branch: main
           pr_labels: sync
-          pr_commit_msg: 🔄 Synchronize with abarrows/template-nextjs-ui
-          pr_title: 🔄 Sync with @abarrows/template-nextjs-ui
+          pr_commit_msg: 🔄 Synchronize with TODO_GITHUB_USER/template-nextjs-ui
+          pr_title: 🔄 Sync with @TODO_GITHUB_USER/template-nextjs-ui
           pr_branch_name_prefix: sync/template-nextjs-ui/
-          # pr_reviewers: abarrows
+          # pr_reviewers: TODO_GITHUB_USER
           is_dry_run: ${{ inputs.isdryrun || 'false' }}
-          # git_user_name: abarrows
-          # git_user_email: mew@andybarrows.com
+          # git_user_name: TODO_GITHUB_USER
+          # git_user_email: TODO_OWNER_EMAIL
