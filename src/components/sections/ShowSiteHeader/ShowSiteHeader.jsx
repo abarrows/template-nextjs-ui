@@ -10,7 +10,7 @@ function ShowSiteHeader() {
   return (
     <header className={styles.header}>
       <Image
-        alt='TODO_PRODUCT_NAME Logo'
+        alt='PRODUCT_NAME Logo'
         height={200}
         priority
         src='/images/logo-transparent.svg'

@@ -1,4 +1,4 @@
-name: 📝 Storybook Deployment
+name: Build and Deploy Storybook
 
 on:
   # push:
@@ -9,25 +9,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    name: Deploy to Storybook
-    if: ${{ github.actor != 'dependabot[bot]' }}
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
-      - uses: pozetroninc/github-action-get-latest-release@v0.8.0
-        id: latest_release
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          repository: ${{ github.repository }}
-          excludes: prerelease, draft
-          token: ${{ secrets.PAT_ACTION_CI }}
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: ./package-lock.json
 
-      - name: Use cache-yarn-install action
-        uses: Andrews-McMeel-Universal/cache-yarn-install@v1
+      - name: Install dependencies
+        run: npm ci
+
+      # If using a reusable workflow, uncomment the following
+      # - uses: pozetroninc/github-action-get-latest-release@v0.7.0
+      #   id: latest_release
+      #   with:
+      #     repository: ${{ github.repository }}
+      #     excludes: prerelease, draft
+      #     token: ${{ secrets.PAT_ACTION_CI }}
 
       - name: Publish to Storybook
         uses: chromaui/action@v1

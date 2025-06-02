@@ -15,7 +15,7 @@ module.exports = {
   //     href: 'https://gocomics.com',
   //   },
   // ],
-  // TODO-REVIEW: Need to work with the team to establish which basic pages.
+  // TODO: Need to work with the team to establish which basic pages.
   Sitemap: `${process.env.NEXT_PUBLIC_BASE_URL}/sitemap.xml.gz`,
 
   robotsTxtOptions: {

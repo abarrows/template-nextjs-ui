@@ -1,12 +1,8 @@
 dependencies:
-  - yarn.lock
+  - package-lock.json
   - package.json
   - "**/package-lock.json"
-  - Gemfile.lock
-  - Gemfile
-  - ".ruby-version"
   - "**/*.csproj"
-  - "**/pnpm-lock.yaml"
 
 documentation:
   - "**/*.md"
@@ -62,7 +58,6 @@ tools:
 
 tests:
   - "playwright/**"
-  - "cypress/**"
   - "**/.spec.*"
   - "**/*.test.js"
   - ".github/workflows/workflow-linter.yaml"
@@ -71,8 +66,30 @@ tests:
 devops:
   - ".github/**"
   - "deployments/**"
-  - "*.ps1"
   - "Secrets.json*"
   - "docker-compose.yml"
   - "Dockerfile"
   - ".*ignore"
+
+# Add 'hotfix' label to any PR that is opened against the `release/*` branch
+hotfix:
+  - base-branch: "^release/"
+
+breaking-change:
+  - head-branch: "^breaking"
+
+story:
+  - head-branch: ["^feature", "^story", "^improvement"]
+
+bugfix:
+  - head-branch: "^bugfix"
+
+research:
+  - head-branch: "^research"
+
+maintenance:
+  - head-branch: "^maintenance"
+
+# Add 'release' label to any PR that is opened against the `main` branch
+release:
+  - head-branch: "^release"

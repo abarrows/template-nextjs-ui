@@ -24,7 +24,6 @@
     "stylelint",
     "typescript",
     "node",
-    "npm",
-    "yarn"
+    "npm"
   ]
 }

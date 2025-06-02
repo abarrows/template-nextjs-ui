@@ -1,6 +1,5 @@
-yarn@*
-https://github.com/Andrews-McMeel-Universal/gocomics_ui
+npm@*
+https://github.com/abarrows/template-nextjs-ui
 http://localhost*
-.*-(cms|service)\.amuniversal\.com.*
+.*-(cms|service)\.COMPANY_NAME\.com.*
 https://(development|staging|production).*
-https://amutechnology.sharepoint*

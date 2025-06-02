@@ -41,7 +41,7 @@ const config = {
   /* Run your local dev server before starting the tests */
   /* TODO: Figure out a place to set the localhost value */
   webServer: {
-    command: process.env.CI ? 'yarn start' : 'yarn build && yarn start',
+    command: process.env.CI ? 'npm run start' : 'npm run build && npm run start',
     timeout: 120 * 1000,
     url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,

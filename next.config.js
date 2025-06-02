@@ -10,13 +10,14 @@ consola
   .withTag('ChatGPT')
   .wrapConsole();
 
-// Importing package.json for app level values.
+// Optionally analyze client, server, and edge/middleware bundle sizes,
+// Run with `npm build:analyze`
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
 // Optionally analyze client, server, and edge/middleware bundle sizes,
-// Run with `yarn build:analyze`
+// Run with `npm run build:analyze`
 
 // Permanent site redirects file, see that for adding new redirects
 const redirects = require('./redirects');

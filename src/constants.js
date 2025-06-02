@@ -12,12 +12,12 @@ export const B2C = {
 
 // TODO: Add localhost to the constants file or figure out where to put it.
 export const URLS = {
-  TERMS_OF_SERVICE: 'https://www.andrewsmcmeel.com/terms-of-service',
-  PRIVACY_POLICY: 'https://www.andrewsmcmeel.com/privacy-policy',
-  SUPPORT: `https://support.${process.env.APPLICATION_NAME}.com`, // TODO Update this with the real link once we hav it
+  TERMS_OF_SERVICE: 'https://www.APPLICATION_DOMAIN.com/terms-of-service',
+  PRIVACY_POLICY: 'https://www.APPLICATION_DOMAIN.com/privacy-policy',
+  SUPPORT: `https://support.APPLICATION_DOMAIN.com`, // TODO Update this with the real link once we hav it
 };
 
 export const APPLICATION = {
-  NAME: 'AMU Template UI',
-  ID: 'AMU UI',
+  NAME: 'Template UI',
+  ID: 'UI',
 };
