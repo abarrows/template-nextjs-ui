@@ -1,0 +1,99 @@
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: ".github/"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    labels:
+      - "devops"
+      - "dependencies"
+    open-pull-requests-limit: 10
+    commit-message:
+      # Prefix all commit messages with 'github-actions'
+      prefix: "github-actions"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    ignore:
+      - dependency-name: node
+      - dependency-name: dotnet/sdk
+      # - dependency-name: "*"
+      #   update-types: ["version-update:semver-major"]
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    labels:
+      - "dependencies"
+      - "devops"
+    open-pull-requests-limit: 10
+    commit-message:
+      # Prefix all commit messages with 'docker'
+      prefix: "docker(dependencies): "
+
+  - package-ecosystem: "npm"
+    # Look for `package(-lock).json` files in root directory
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    ignore:
+      - dependency-name: "@mui/*"
+        update-types: ["version-update:semver-major"]
+    labels:
+      - "front-end"
+      - "dependencies"
+    # Prevents overzealous updates
+    versioning-strategy: widen
+    commit-message:
+      # Prefix all commit messages with 'npm'
+      prefix: "npm(dependencies): "
+    open-pull-requests-limit: 10
+    # Create a group of dependencies to be updated together in one pull request
+    groups:
+      # Specify a name for the group, which will be used in pull request titles
+      # and branch names
+      dependencies-major:
+        # Open PR for all major updates from "dependencies" in package.json
+        dependency-type: "production"
+        # ignore:
+        #   - dependency-name: "*"
+        #     update-types: ["version-update:semver-major"]
+        update-types:
+          - "major"
+      dependencies-minor:
+        # Open PR for all minor updates from "dependencies" in package.json
+        dependency-type: "production"
+        update-types:
+          - "minor"
+      dependencies-patch:
+        # Open PR for all patch updates from "dependencies" in package.json
+        dependency-type: "production"
+        update-types:
+          - "patch"
+      devDependencies:
+        # Open PR for all updates from "devDependencies" in package.json
+        dependency-type: "development"
+      security:
+        # Open PR for all security updates from "dependencies" in package.json
+        applies-to: security-updates
+        patterns: ["*"]
+
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    # ignore:
+    #   - dependency-name: "*"
+    #     update-types: ["version-update:semver-major"]
+    labels:
+      - "back-end"
+      - "dependencies"
+    open-pull-requests-limit: 10
+    commit-message:
+      # Prefix all commit messages with 'nuget'
+      prefix: "nuget"
