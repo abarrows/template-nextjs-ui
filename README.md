@@ -1,8 +1,8 @@
 # AppName
 
-[![Production](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml/badge.svg?event=release)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml)
-[![Staging](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml/badge.svg?event=prerelease)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml)
-[![Development](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml/badge.svg?event=push&branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml)
+[![Production](https://github.com/abarrows/template-nextjs-ui/actions/workflows/aks-deployment.yml/badge.svg?event=release)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
+[![Staging](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=prerelease)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
+[![Development](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=push&branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 
 App responsible for all appname related data.
 
@@ -11,27 +11,23 @@ App responsible for all appname related data.
 <!-- You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://TODO_COMPANY_NAME.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template) -->
 Upon cloning, fill in the values for the .env.example and save this as a new .env in the root directory.  Run the following:
 
-```
-corepack enable && npm install
-```
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 <!-- TODO: Port over npm run setup script to work with AWS Secrets Manager. -->
 
 ## Related links
 
 - Deploy Environments
-  - [Development](https://development.appname.com/)
-  - [Staging](https://staging.appname.com/)
-  - [Production](https://www.appname.com/)
+  - [Development](https://development.TODO_APPLICATION_DOMAIN.com/)
+  - [Staging](https://staging.TODO_APPLICATION_DOMAIN.com/)
+  - [Production](https://www.TODO_APPLICATION_DOMAIN.com/)
 - Swagger docs for the back-end service
-  - [Development](https://development.service.appname.com/swagger/index.html)
-  - [Staging](https://staging.service.appname.com/swagger/index.html)
-  - [Production](https://service.appname.com/swagger/index.html)
+  - [Development](https://development.service.TODO_APPLICATION_DOMAIN.com/swagger/index.html)
+  - [Staging](https://staging.service.TODO_APPLICATION_DOMAIN.com/swagger/index.html)
+  - [Production](https://service.TODO_APPLICATION_DOMAIN.com/swagger/index.html)
 - [Storybook](https://www.chromatic.com/library?appId=TODO-ONBOARDING:input-storybook-instance)
-<!-- - [Jira Project](https://TODO_COMPANY_NAME.atlassian.net/browse/TODO-ONBOARDING:input-jira-instance)
+- [Jira Project](https://TODO_COMPANY_NAME.atlassian.net/browse/TODO-ONBOARDING:input-jira-instance)
 - [Confluence Space](https://TODO_COMPANY_NAME.atlassian.net/l/c/TODO-ONBOARDING:input-confluence-space)
-- [Sharepoint Group](https://TODO_COMPANY_NAME.sharepoint.com/sites/TODO-ONBOARDING:sharepoint-group) -->
-<!-- - [Sentry Error Reporting](https://sentry.io/organizations/andrews-mcmeel-universal/issues/?project=TODO-ONBOARDING:input-sentry-project-id) -->
+- [Sentry Error Reporting](https://sentry.io/organizations/TODO_COMPANY_NAME/issues/?project=TODO-ONBOARDING:input-sentry-project-id)
 
 ---
 
@@ -120,24 +116,25 @@ These files are where you can find and manage environment variables:
 
 <!-- ## Updating the Node Version
 
-Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/Andrews-McMeel-Universal). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it. -->
+Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/TODO_GITHUB_ORGANIZATION). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it. -->
 
 <!-- TODO: Bring over the dynamic node version that analyzes the .nvmrc version and uses it during the provisioning of containers. -->
 
-## Onboarding A New AMU Product
+## Onboarding A New UI Product
 
-1. _amuproduct_ Find and replace all references of this with the real
+1. _TODO_APPLICATION_NAME_ Find and replace all references of this with the real
    product's name.
-2. _AMUPRODUCTJIRAKEY_ Find and replace all references of this with the real
-   JIRA project key.
-3. _k8sapp_ui_template_ Find and replace all references of this with the real
-   repository name.
-4. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO
+2. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO
    instructions for the new product.
-5. Once all is finished, run the `yarn validate` or the `yarn validate:ci` command which executes all setup scripts,
+3. Once all is finished, run the `npm run validate` or the `npm run validate:ci` command which executes all setup scripts,
    tests, linting, etc. to ensure that everything works correctly without errors:
 
+```javascript
+npm run validate
+```
 
+4. _TODO_OWNER_NAME_ Update with the repo's owner name.
+5. _TODO_OWNER_EMAIL_ Update with the repo's owner email.
 
 ---
 
@@ -145,7 +142,7 @@ Whenever we update our Node version, it needs to be updated to the same version 
 
 <!-- ### Components -->
 
-<!-- Read about [React Component Composition](https://TODO_COMPANY_NAME.atlassian.net/l/cp/Z1Hx13R1) for information on how to build components in the UI. -->
+<!-- Read about [React Component Composition](https://TODO-ONBOARDING:input-component-composition-url) for information on how to build components in the UI. -->
 <!-- TODO: Post composition to personal website or my github profile. -->
 
 ### Hooks
@@ -219,21 +216,16 @@ We use [Storybook](https://storybook.js.org/) for component documentation and st
 
 ## Deployments & Releases tom did you move this stuff bud
 
-We use GitHub Actions to deploy this project. More information on how to deploy using GitHub Actions here: [GitHub Action Deployments](https://amuniversal.atlassian.net/wiki/spaces/TD/pages/3445784596/Deploying+a+New+Application#GitHub-Action-Deployments)
+We use GitHub Actions to deploy this project. More information on how to deploy using GitHub Actions here: [GitHub Action Deployments](TODO-ONBOARDING:github-action-deployments-url)
 
-## Onboarding A New AMU Product
+## Onboarding A New UI Product
 
-1. _amuproduct_ Find and replace all references of this with the real
+1. _TODO_APPLICATION_NAME_ Find and replace all references of this with the real
    product's name.
-2. _AMUPRODUCTJIRAKEY_ Find and replace all references of this with the real
-   JIRA project key.
-3. _k8sapp_ui_template_ Find and replace all references of this with the real
-   repository name.
-4. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO
+2. _TODO-ONBOARDING:_ Review all instances of this and follow the TODO
    instructions for the new product.
-5. Once all is finished, run the **preflight** command which executes all setup scripts,
-   tests, linting, etc. to ensure that everything works correctly without errors:
+3. Once all is finished, run the **preflight** command which executes all setup scripts, tests, linting, etc. to ensure that everything works correctly without errors:
 
 ```javascript
-yarn preflight
+npm run validate
 ```

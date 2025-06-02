@@ -87,7 +87,7 @@ module.exports = {
         sortShapeProp: true,
       },
     ],
-    // Remember to use the AMU consoleLogger(message, object) utility helper instead of console.log.
+    // Remember to use the TODO_APPLICATION_NAME consoleLogger(message, object) utility helper instead of console.log.
     'no-console': ['error'],
     'no-unused-vars': ['off'],
 
