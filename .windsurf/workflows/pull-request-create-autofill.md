@@ -27,7 +27,7 @@ If a release is mentioned in my prompt the format would be: release/WR-XXXX-<pul
    gh pr create
 
    --repo <!-- The repository name you identified in step 2 -->
-   --base develop
+   --base main
    --head <!-- The feature branch I provided you in step 1 -->
    --title "<!-- The feature branch I provided you in step 1 -->"
    --body "<!-- The pull request description you crafted from step 1 -->"
