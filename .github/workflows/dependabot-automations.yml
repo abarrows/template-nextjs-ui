@@ -1,28 +1,188 @@
+---
 name: 🤖 Dependabot Automations
 
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
-    branches: [main, development]
+  workflow_dispatch:
 
 permissions:
-  pull-requests: write
   contents: write
-  repository-projects: write
+  pull-requests: write
+  issues: write
+
+# Commenting until stable.
+# concurrency:
+#   group: dependabot-${{ github.event.pull_request.number }}
+#   cancel-in-progress: false
 
 jobs:
   dependabot-automations:
-    if: ${{ github.actor == 'dependabot[bot]' }}
-    name: Dependabot PR Automations
-    uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/dependabot-automations.yaml@2
-    with:
-      autoApprove: true
-      autoMerge: false
-
-  required-checks:
-    name: Required Checks
+    if: github.actor == 'dependabot[bot]'
+    name: Dependabot Automations
     runs-on: ubuntu-latest
-    needs: [dependabot-automations]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.DEPENDABOT_PAT || secrets.GITHUB_TOKEN }}
+          compat-lookup: true
+          alert-lookup: true
+
+      - name: Wait for required status checks
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+
+            // Wait for status checks to complete
+            let attempts = 0;
+            const maxAttempts = 20; // 10 minutes max wait
+
+            while (attempts < maxAttempts) {
+              const { data: pr } = await github.rest.pulls.get({
+                owner,
+                repo,
+                pull_number
+              });
+
+              console.log(`Attempt ${attempts + 1}: PR mergeable_state is '${pr.mergeable_state}'`);
+
+              if (pr.mergeable_state === 'clean') {
+                console.log('✅ All required checks have passed');
+                break;
+              } else if (pr.mergeable_state === 'dirty' || pr.mergeable_state === 'unstable') {
+                throw new Error(`❌ PR checks failed. Mergeable state: ${pr.mergeable_state}`);
+              }
+
+              // Wait 30 seconds before checking again
+              await new Promise(resolve => setTimeout(resolve, 30000));
+              attempts++;
+            }
+
+            if (attempts >= maxAttempts) {
+              throw new Error('⏰ Timeout waiting for status checks to complete');
+            }
+
+      - name: Auto-approve and auto-merge patch updates
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        run: |
+          echo "🔧 Processing patch update: auto-approve and auto-merge"
+
+          # Retry logic for gh commands
+          for i in {1..3}; do
+            if gh pr review --approve "$PR_URL"; then
+              echo "✅ PR approved successfully"
+              break
+            else
+              echo "⚠️ Approval attempt $i failed, retrying..."
+              sleep 5
+            fi
+          done
+
+          for i in {1..3}; do
+            if gh pr merge --auto --squash "$PR_URL"; then
+              echo "✅ Auto-merge enabled successfully"
+              break
+            else
+              echo "⚠️ Auto-merge attempt $i failed, retrying..."
+              sleep 5
+            fi
+          done
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Handle minor updates based on compatibility score
+        if: steps.metadata.outputs.update-type == 'version-update:semver-minor'
+        run: |
+          COMPATIBILITY_SCORE="${{ steps.metadata.outputs.compatibility-score }}"
+          echo "🔍 Processing minor update with compatibility score: $COMPATIBILITY_SCORE"
+
+          # Convert compatibility score to integer for comparison (0-100 scale)
+          SCORE_INT=$(echo "$COMPATIBILITY_SCORE" | cut -d'.' -f1)
+
+          if [ "$SCORE_INT" -ge 90 ] 2>/dev/null; then
+            echo "✅ High confidence (≥90): auto-approve and auto-merge"
+            gh pr review --approve "$PR_URL" || echo "⚠️ Approval failed"
+            gh pr merge --auto --squash "$PR_URL" || echo "⚠️ Auto-merge failed"
+          elif [ "$SCORE_INT" -gt 0 ] 2>/dev/null; then
+            echo "⚠️ Lower confidence (<90): auto-merge only, no approval"
+            gh pr merge --auto --squash "$PR_URL" || echo "⚠️ Auto-merge failed"
+          else
+            echo "❓ Unknown confidence: auto-merge only, no approval"
+            gh pr merge --auto --squash "$PR_URL" || echo "⚠️ Auto-merge failed"
+          fi
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log major update (no automation)
+        if: steps.metadata.outputs.update-type == 'version-update:semver-major'
+        run: |
+          echo "🚨 Major update detected - requires manual review"
+          echo "Dependency: ${{ steps.metadata.outputs.dependency-names }}"
+          echo "From: ${{ steps.metadata.outputs.previous-version }}"
+          echo "To: ${{ steps.metadata.outputs.new-version }}"
+          echo "This PR will not be automatically approved or merged."
+
+      - name: Handle security updates
+        if: steps.metadata.outputs.alert-state == 'OPEN'
+        run: |
+          echo "🔒 Security update detected"
+          echo "GHSA ID: ${{ steps.metadata.outputs.ghsa-id }}"
+          echo "CVSS Score: ${{ steps.metadata.outputs.cvss }}"
+
+          # Only auto-merge high severity security updates
+          CVSS_SCORE="${{ steps.metadata.outputs.cvss }}"
+          if (( $(echo "$CVSS_SCORE >= 7.0" | bc -l) )); then
+            echo "🚨 High severity security update - auto-approving and merging"
+            gh pr review --approve "$PR_URL" || echo "⚠️ Approval failed"
+            gh pr merge --auto --squash "$PR_URL" || echo "⚠️ Auto-merge failed"
+          else
+            echo "ℹ️ Lower severity security update - requires manual review"
+          fi
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add labels based on update type
+        run: |
+          UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
+          DEPENDENCY_TYPE="${{ steps.metadata.outputs.dependency-type }}"
+
+          case "$UPDATE_TYPE" in
+            "version-update:semver-patch")
+              gh pr edit "$PR_URL" --add-label "dependencies:patch" || echo "⚠️ Label addition failed"
+              ;;
+            "version-update:semver-minor")
+              gh pr edit "$PR_URL" --add-label "dependencies:minor" || echo "⚠️ Label addition failed"
+              ;;
+            "version-update:semver-major")
+              gh pr edit "$PR_URL" --add-label "dependencies:major" || echo "⚠️ Label addition failed"
+              ;;
+          esac
+
+          if [ "${{ steps.metadata.outputs.alert-state }}" = "OPEN" ]; then
+            gh pr edit "$PR_URL" --add-label "security" || echo "⚠️ Security label addition failed"
+          fi
+
+          if [ "$DEPENDENCY_TYPE" = "direct:development" ]; then
+            gh pr edit "$PR_URL" --add-label "dev-dependencies" || echo "⚠️ Dev dependencies label addition failed"
+          fi
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Dependabot automation failed"
+          echo "PR: ${{ github.event.pull_request.html_url }}"
+          echo "Please review manually"

@@ -21,8 +21,6 @@ updates:
     ignore:
       - dependency-name: node
       - dependency-name: dotnet/sdk
-      # - dependency-name: "*"
-      #   update-types: ["version-update:semver-major"]
     schedule:
       interval: "weekly"
       day: "thursday"
@@ -40,30 +38,21 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
-    ignore:
-      - dependency-name: "@mui/*"
-        update-types: ["version-update:semver-major"]
     labels:
       - "front-end"
       - "dependencies"
-    # Prevents overzealous updates
-    versioning-strategy: widen
+    # Use increase strategy for better compatibility during migration
+    versioning-strategy: increase
+    rebase-strategy: auto
     commit-message:
       # Prefix all commit messages with 'npm'
       prefix: "npm(dependencies): "
     open-pull-requests-limit: 10
-    # Create a group of dependencies to be updated together in one pull request
+    # Assign reviewers for dependency updates
+    # reviewers:
+    #   - "Retail-Success/leads"
+    # Will enable once stable.
     groups:
-      # Specify a name for the group, which will be used in pull request titles
-      # and branch names
-      dependencies-major:
-        # Open PR for all major updates from "dependencies" in package.json
-        dependency-type: "production"
-        # ignore:
-        #   - dependency-name: "*"
-        #     update-types: ["version-update:semver-major"]
-        update-types:
-          - "major"
       dependencies-minor:
         # Open PR for all minor updates from "dependencies" in package.json
         dependency-type: "production"
@@ -77,23 +66,21 @@ updates:
       devDependencies:
         # Open PR for all updates from "devDependencies" in package.json
         dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
       security:
         # Open PR for all security updates from "dependencies" in package.json
         applies-to: security-updates
-        patterns: ["*"]
+        dependency-type: "production"
 
+  # Enable version updates for NuGet
   - package-ecosystem: "nuget"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "thursday"
-    # ignore:
-    #   - dependency-name: "*"
-    #     update-types: ["version-update:semver-major"]
     labels:
       - "back-end"
       - "dependencies"
-    open-pull-requests-limit: 10
-    commit-message:
-      # Prefix all commit messages with 'nuget'
-      prefix: "nuget"
+    rebase-strategy: auto
