@@ -17,7 +17,7 @@ jobs:
     uses: Andrews-McMeel-Universal/reusable_workflows/.github/workflows/dependabot-automations.yaml@2
     with:
       autoApprove: true
-      autoMerge: false
+      autoMerge: true
 
   required-checks:
     name: Required Checks
@@ -25,4 +25,4 @@ jobs:
     needs: [dependabot-automations]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4

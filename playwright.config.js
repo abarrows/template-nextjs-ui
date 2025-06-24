@@ -54,7 +54,9 @@ const config = {
   },
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: process.env.CI ? 'yarn start' : 'yarn build && yarn start',
+    command: process.env.CI
+      ? 'npm run start'
+      : 'npm run build && npm run start',
     url: baseURL,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
