@@ -27,7 +27,7 @@
     "lint:styles:rules": "stylelint --print-config .",
     "preflight": "npm run browserslist --update-db && npm run lint:js && npm run lint:styles && npm run format && npm run test:unit:ci && npm run build && npm run test:integration:ci && npm run test:size && npm run test:integration:report",
     "pretest:integration:ci": "npx playwright install --with-deps",
-    "setup": "npm install && npm run dev",
+    "setup": "yarn install && yarn keys:setup ${1:-development}",
     "start": "next start",
     "storybook:build": "storybook build",
     "storybook:dev": "storybook dev",
