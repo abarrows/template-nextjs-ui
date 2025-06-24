@@ -32,7 +32,7 @@ If a release is mentioned in my prompt the format would be: release/WR-XXXX-<pul
    --title "<!-- The feature branch I provided you in step 1 -->"
    --body "<!-- The pull request description you crafted from step 1 -->"
    --assignee <!-- The assignee you identified in step 1 -->
-   --reviewers "taib-rs, gisanchez, dominicp21, <!-- And any other reviewers you identified in step 2. -->"
+   --reviewers gisanchez, dominicp21, <!-- And any other reviewers you identified in step 2. -->"
 
    ```
 
