@@ -1,5 +1,4 @@
 @use '/src/styles/variables';
-
 // This variable is to only be used to reset the overall font-size at root.
 // 16px is the default font-size in most browsers, calculating 62.5% of that value
 // allows for us to reference all font-sizes by rems expecting 1rem = 10px.

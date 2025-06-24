@@ -10,11 +10,12 @@ import styles from './SiteLink.module.scss';
 /* eslint-disable react/jsx-props-no-spreading */
 function SiteLink({
   children,
-  className,
-  href,
-  onClick,
-  nextLinkProps,
-  openInNewTab,
+  className = null,
+  title = '',
+  href = '',
+  nextLinkProps = null,
+  openInNewTab = false,
+  onClick = undefined,
   ...props
 }) {
   // Support situations where no href can be sent and the link needs to be disabled
@@ -22,7 +23,7 @@ function SiteLink({
     return (
       <div
         className={className || styles.link}
-        data-testid="site-link-disabled"
+        data-testid='site-link-disabled'
         {...props}
       >
         {children}
@@ -34,28 +35,14 @@ function SiteLink({
   const newTab = openInNewTab
     ? { rel: 'noopener noreferrer', target: '_blank' }
     : null;
-
-  if (isUrl(href)) {
-    return (
-      <a
-        className={className || styles.link}
-        data-testid="site-link-external"
-        href={href}
-        onClick={onClick}
-        {...newTab}
-        {...props}
-      >
-        {children}
-      </a>
-    );
-  }
-
+  const dataTestId = `site-link${isUrl(href) ? '-external' : ''}`;
   return (
     <Link
       className={className || styles.link}
-      data-testid="site-link"
+      data-testid={dataTestId}
       href={href}
       onClick={onClick}
+      title={title}
       {...nextLinkProps}
       {...newTab}
       {...props}
@@ -85,18 +72,11 @@ SiteLink.propTypes = {
   /** Optional flag to open the link in a new tab/window. */
   openInNewTab: PropTypes.bool,
 
+  title: PropTypes.string,
   /** Optional `onClick` function triggered when clicking the link. Note: the
    * `onClick` event on links is also triggered with keyboard navigation, so
    * `onKeyUp` and similar events are not needed. */
   onClick: PropTypes.func,
-};
-
-SiteLink.defaultProps = {
-  className: null,
-  href: '',
-  nextLinkProps: null,
-  openInNewTab: false,
-  onClick: undefined,
 };
 
 export default SiteLink;

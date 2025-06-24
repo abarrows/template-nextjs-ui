@@ -5,6 +5,7 @@
   font-weight: variables.$font-weight-bold;
   color: variables.$color-teal;
   text-decoration: none;
+
   @include mixins.blink();
 
   &:hover {

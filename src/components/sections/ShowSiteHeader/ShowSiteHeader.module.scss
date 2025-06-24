@@ -2,10 +2,9 @@
 
 .header {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr;
   gap: variables.$gap-lg;
-  align-items: center;
-  justify-items: end;
+  place-items: center;
   padding: variables.$gap-lg;
   background-color: variables.$color-white;
   box-shadow: variables.$box-shadow;

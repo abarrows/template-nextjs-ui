@@ -1,0 +1,29 @@
+{
+  "depcheck": {
+    "ignoreMatches": [
+      "src",
+      "public",
+      "coverage",
+      "dist",
+      "data",
+      "stylelint-no-unsupported-browser-features",
+      "@storybook/*",
+      "stylelint*",
+      "style-dictionary"
+    ]
+  },
+  "specials": [
+    "bin",
+    "nextjs",
+    "react",
+    "webpack",
+    "jest",
+    "babel",
+    "eslint",
+    "prettier",
+    "stylelint",
+    "typescript",
+    "node",
+    "npm"
+  ]
+}

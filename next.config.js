@@ -1,11 +1,23 @@
-// Add timestamps to console logs
-require('console-stamp')(console);
+/* eslint-disable @typescript-eslint/no-var-requires */
+// Importing consola for logging.
+const consola = require('consola');
+
+consola
+  .withDefaults({
+    fancy: true,
+    badge: true,
+  })
+  .withTag('ChatGPT')
+  .wrapConsole();
 
 // Optionally analyze client, server, and edge/middleware bundle sizes,
 // Run with `npm build:analyze`
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+
+// Optionally analyze client, server, and edge/middleware bundle sizes,
+// Run with `npm run build:analyze`
 
 // Permanent site redirects file, see that for adding new redirects
 const redirects = require('./redirects');
@@ -29,7 +41,11 @@ const customConfig = {
   },
   productionBrowserSourceMaps: true,
   swcMinify: true,
-
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   async redirects() {
     // Production-only redirects
     // These are used as a quick feature flag when certain pages should be

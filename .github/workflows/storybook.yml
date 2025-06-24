@@ -1,7 +1,8 @@
 name: Build and Deploy Storybook
 
 on:
-  push:
+  # push:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

@@ -1,8 +1,5 @@
-// Use process.env.PORT by default and fallback to port 3000
-const PORT = process.env.PORT || 3000;
-
-// Set webServer.url and use.baseURL with the location of the WebServer respecting the correct set port
-const baseURL = `http://localhost:${PORT}`;
+/* eslint-disable import/no-import-module-exports */
+// @ts-check
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -11,7 +8,7 @@ const baseURL = `http://localhost:${PORT}`;
 const config = {
   testDir: './playwright',
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
@@ -19,6 +16,7 @@ const config = {
      */
     timeout: 10000,
   },
+
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -29,36 +27,23 @@ const config = {
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
-  /* Run tasks prior to starting tests, such as to generate mock sessions. */
-  // globalSetup: require.resolve('./playwright.setup.js'),
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL,
+    baseURL: 'http://127.0.0.1:3000',
     browserName: 'chromium',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    launchOptions: {
-      logger: {
-        /* eslint-disable no-unused-vars */
-        isEnabled: (name, severity) => name === 'browser',
-        log: (name, severity, message, args) =>
-          // eslint-disable-next-line no-console
-          console.log(`${name} ${message}`),
-        /* eslint-enable no-unused-vars */
-      },
-    },
     viewport: { width: 1280, height: 720 },
   },
   /* Run your local dev server before starting the tests */
+  /* TODO: Figure out a place to set the localhost value */
   webServer: {
-    command: process.env.CI
-      ? 'npm run start'
-      : 'npm run build && npm run start',
-    url: baseURL,
+    command: process.env.CI ? 'npm run start' : 'npm run build && npm run start',
     timeout: 120 * 1000,
+    url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
   },
 

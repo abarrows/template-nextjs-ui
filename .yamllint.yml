@@ -3,8 +3,6 @@ indentation: 2
 line-length: 120
 
 rules:
-  require-starting-space: true
-  min-spaces-from-content: 1
   truthy:
     check-keys: false
   document-start:

@@ -1,7 +1,5 @@
-# General
 .cache/
 .git/
-
 
 # GitHub Actions Workflows
 .github/
@@ -9,28 +7,22 @@
 # Helm
 deployments/**/templates/
 **/values.yaml
-
-# Docker
 docker-compose.yml
-
-# Node.js
-.next
+node_modules/**
+.next/**
 build/
-coverage/
+coverage/**
 playwright-report/
 test-results/
 **.js.map
 **.bundle.js
-storybook-static
+storybook-static/**
 src/helpers/utilities/tokens/_design_tokens.js
-
-# WordPress
 wp-content/
-
-# Games
 *Game/
-
-# Dotnet
+.prettierignore
+.stylelintignore
+.eslintignore
 *Service/
 *.Library/
 *.Tests/
@@ -39,3 +31,14 @@ wp-content/
 *.csproj
 *.lutconfig
 .editorconfig
+*.tsbuildinfo
+package-lock.json
+yarn.lock
+.vscode/
+.idea/
+deployments/
+**/vendor
+/tests/
+**/.test.
+# Project Specific Ignores
+src/design-system-package/dist/**

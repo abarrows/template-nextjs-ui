@@ -1,0 +1,5 @@
+npm@*
+https://github.com/abarrows/template-nextjs-ui
+http://localhost*
+.*-(cms|service)\.COMPANY_NAME\.com.*
+https://(development|staging|production).*
