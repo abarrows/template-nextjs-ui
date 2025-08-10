@@ -4,6 +4,7 @@ name: 🤖 Dependabot Auto-merge
 on:
   pull_request_target:
     types: [opened, synchronize]
+  workflow_dispatch:
 
 permissions:
   contents: write
