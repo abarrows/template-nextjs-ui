@@ -1,16 +1,18 @@
-name: 📄 Create Release Draft
+name: 📄 Release Drafter
 
 on:
-  workflow_dispatch:
   push:
+    # branches to consider in the event; optional, defaults to all
     branches:
       - main
+
+  # pull_request event is required only for autolabeler
   pull_request:
+    # Only following types are handled by the action, but one can default to all as well
     types: [opened, reopened, synchronize]
-  workflow_call:
-    secrets:
-      PAT_ACTION_CI:
-        required: true
+  # pull_request_target event is required for autolabeler to support PRs from forks
+  # pull_request_target:
+  #   types: [opened, reopened, synchronize]
 
 permissions:
   contents: write
@@ -21,7 +23,11 @@ jobs:
     name: Update Release Draft
     runs-on: ubuntu-latest
     steps:
+      - uses: release-drafter/release-drafter@v6
+        # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
+        with:
+          config-name: release.yml
       - name: Draft Release Notes
-        uses: release-drafter/release-drafter@v6.0.0
+        uses: release-drafter/release-drafter@v6
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_ACTION_CI }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
