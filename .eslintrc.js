@@ -87,7 +87,7 @@ module.exports = {
         sortShapeProp: true,
       },
     ],
-    // Remember to use the APPLICATION_NAME consoleLogger(message, object) utility helper instead of console.log.
+    // Remember to use the APPLICATION_NAME consola.log(message, object) utility helper instead of console.log.
     'no-console': ['error'],
     'no-unused-vars': ['off'],
 
