@@ -23,5 +23,7 @@ jobs:
     steps:
       - name: Draft Release Notes
         uses: release-drafter/release-drafter@v6.0.0
+        with:
+          config-file: release.yml
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_ACTION_CI }}
