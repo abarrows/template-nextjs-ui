@@ -5,7 +5,7 @@
   "homepage": "https://github.com/abarrows/template-nextjs-ui",
   "version": "0.0.0",
   "license": "UNLICENSED",
-  "private": false,
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/abarrows/template-nextjs-ui"
