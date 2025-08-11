@@ -1,16 +1,11 @@
 name: 📄 Create Release Draft
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
   pull_request:
     types: [opened, reopened, synchronize]
-  workflow_call:
-    secrets:
-      PAT_ACTION_CI:
-        required: true
 
 permissions:
   contents: write
@@ -22,8 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Draft Release Notes
-        uses: release-drafter/release-drafter@v6.0.0
-        with:
-          config-file: release.yml
+        uses: release-drafter/release-drafter@v6
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_ACTION_CI }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
