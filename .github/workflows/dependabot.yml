@@ -1,81 +1,51 @@
-name: 🤖 Dependabot Automations
+---
+name: 🤖 Dependabot Auto-merge
 
 on:
-  workflow_dispatch:
   pull_request_target:
     types: [opened, synchronize, reopened]
-  workflow_call:
-    inputs:
-      autoApprove:
-        default: ${{ vars.DEPENDABOT_AUTOAPPROVE || '["semver-minor", "semver-patch"]' }}
-        description: Update types to auto approve
-        type: string
-      autoMerge:
-        default: ${{ vars.DEPENDABOT_AUTOMERGE || 'false' }}
-        description: Update types to auto merge
-        type: string
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  dependabot-automations:
-    name: Dependabot Automations
+  dependabot-auto-merge:
+    if: github.actor == 'dependabot[bot]'
+    name: Auto-merge Patch Updates
     runs-on: ubuntu-latest
-    if: >
-      ${{
-        github.actor == 'dependabot[bot]' && (inputs.autoApprove != 'false' || inputs.autoMerge != 'false')
-      }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Retrieve dependabot metadata
-        id: dependabot-metadata
+      - name: Fetch Dependabot metadata
+        id: metadata
         uses: dependabot/fetch-metadata@v2
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Await required status checks before continuing
-        if: success()  # Ensures only green builds are approved or merged
-        uses: actions/github-script@v7
-        with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const pr = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number
-            });
-            if (pr.data.mergeable_state !== 'clean') {
-              throw new Error('PR is not clean or CI is not successful. Skipping.');
-            }
 
-      - name: Check confidence for minor updates
-        if: ${{ steps.dependabot-metadata.outputs.update-type == 'semver-minor' }}
-        id: minor-confidence
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const confidence = parseFloat(steps.dependabot-metadata.outputs.confidence || '0');
-            if (confidence < 0.8) {
-              core.setFailed(`Skipping auto-approve/merge. Confidence level too low: ${confidence}`);
-            }
-
-      - name: Approve PR if update type is allowed
-        if: ${{ contains(fromJson(inputs.autoApprove), steps.dependabot-metadata.outputs.update-type) }}
-        uses: hmarr/auto-approve-action@v4.0.0
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Enable auto-merge if update type is allowed
-        if: ${{ contains(fromJson(inputs.autoMerge), steps.dependabot-metadata.outputs.update-type) }}
+      - name: Auto-approve and auto-merge patch updates
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "🔧 Auto-approving and merging patch update"
+          gh pr review --approve "$PR_URL"
           gh pr merge --auto --squash "$PR_URL"
 
-      - name: Notify on merge failure or skipped PR
-        if: failure()
+      - name: Label non-patch updates for manual review
+        if: steps.metadata.outputs.update-type != 'version-update:semver-patch'
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "❌ Dependabot PR merge failed or skipped. Assigning to maintainers."
-          # Insert Slack or GitHub Issues notification logic here if needed
+          UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
+          echo "⚠️ $UPDATE_TYPE detected - requires manual review"
+
+          case "$UPDATE_TYPE" in
+            "version-update:semver-minor")
+              gh pr edit "$PR_URL" --add-label "dependencies:minor"
+              ;;
+            "version-update:semver-major")
+              gh pr edit "$PR_URL" --add-label "dependencies:major"
+              ;;
+          esac
