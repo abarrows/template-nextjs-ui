@@ -110,13 +110,13 @@ jobs:
           regex: true
           include: "**package.json"
 
-      - name: Update version in Chart.yaml
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "appVersion: .*"
-          replace: "appVersion: ${{ inputs.version || env.release }}"
-          regex: true
-          include: "**Chart.yaml"
+      # - name: Update version in Chart.yaml
+      #   uses: jacobtomlinson/gha-find-replace@v3
+      #   with:
+      #     find: "appVersion: .*"
+      #     replace: "appVersion: ${{ inputs.version || env.release }}"
+      #     regex: true
+      #     include: "**Chart.yaml"
 
       - name: Create Pull Request
         id: cpr
