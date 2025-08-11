@@ -1,41 +1,9 @@
 name: Next.js Application CI
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
-  workflow_call:
-    inputs:
-      environment:
-        required: true
-        type: string
-      NPM_INSTALL:
-        required: false
-        type: string
-        default: ${{ vars.APPLICATION_CI_NPM_INSTALL || 'false' }}
-      RUN_PLAYWRIGHT_TESTS:
-        required: false
-        type: string
-        default: ${{ vars.APPLICATION_CI_RUN_PLAYWRIGHT_TESTS || 'true' }}
-      LINT_SCSS:
-        required: false
-        type: string
-        default: ${{ vars.APPLICATION_CI_LINT_SCSS || 'true' }}
-      LINT_JS:
-        required: false
-        type: string
-        default: ${{ vars.APPLICATION_CI_LINT_JS || 'true' }}
-      CHECK_SIZE_LIMIT:
-        required: false
-        type: string
-        default: ${{ vars.APPLICATION_CI_CHECK_SIZE_LIMIT || 'true' }}
-      RUN_JEST_TESTS:
-        required: false
-        type: string
-        default: ${{ vars.APPLICATION_CI_RUN_JEST_TESTS || 'true' }}
-    secrets:
-      AZURE_CREDENTIALS:
-        required: true
-      PAT_ACTION_CI:
-        required: true
 
 jobs:
   build:
@@ -46,13 +14,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PAT_ACTION_CI }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-
-      - name: Use cache-next-install action
-        if: ${{ inputs.NPM_INSTALL == 'false' }}
-        uses: Andrews-McMeel-Universal/cache-next-install@v1.2.0
-
+      - name: Install dependencies
+        run: npm install
       - name: Lint javascript
         if: ${{ inputs.LINT_JS == 'true' }}
         run: npm run lint:js
