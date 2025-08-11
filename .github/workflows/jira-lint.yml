@@ -22,7 +22,7 @@ jobs:
           jira-token: ${{ secrets.JIRA_TOKEN }}
           jira-base-url: https://${{ secrets.JIRA_DOMAIN }}.atlassian.net
           pr-threshold: 1000
-          jira-user: 'andyb@retailsuccess.com'
+          jira-user: ${{ secrets.JIRA_USER }}
           validate-issue-status: false
           skip-branches: "^(main|development|develop|dev|test|testing|staging|qa|master|production)$"
           fail-on-error: false
