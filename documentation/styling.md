@@ -94,7 +94,7 @@ In some projects, you'll notice two other methods to use stylelint and prettier
 on styling code:
 
 1. _NPM Scripts within the package.json_ - Below are examples of common scripts
-   that can be ran at the command line to lint stylesheet code:
+    that can be run at the command line to lint stylesheet code:
 
    ```json
    "lint:styles": "stylelint **/*.scss --fix",
