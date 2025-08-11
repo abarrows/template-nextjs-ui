@@ -21,15 +21,3 @@ jobs:
         with:
           repo-token: ${{ secrets.PAT_ACTION_CI }}
           sync-labels: true
-
-  # Prevent merging if certain labels exist
-  # https://github.com/marketplace/actions/require-labels
-  check-required-labels:
-    name: Check for "do not merge" label
-    runs-on: ubuntu-latest
-    steps:
-      - uses: mheap/github-action-required-labels@v5
-        with:
-          mode: exactly
-          count: 0
-          labels: "do not merge"

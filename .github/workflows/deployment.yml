@@ -26,11 +26,10 @@ jobs:
               echo "maximumReplicas=2" >> $GITHUB_ENV
               echo "ingressWhitelist=207.67.20.252" >> $GITHUB_ENV
           elif [[ ${{ github.event_name == 'release' && github.event.release.prerelease }} == true ]]; then
-              # Staging Environment
-              echo "environment=staging" >> $GITHUB_ENV
+              # QA Environment
+              echo "environment=qa" >> $GITHUB_ENV
               echo "maximumReplicas=4" >> $GITHUB_ENV
               echo "webAuthentication=true" >> $GITHUB_ENV
-              echo "ingressWhitelist=207.67.20.252" >> $GITHUB_ENV
           elif [[ ${{ github.event_name == 'release' && !github.event.release.prerelease }} == true ]]; then
               # Production Environment
               echo "environment=production" >> $GITHUB_ENV
@@ -40,7 +39,6 @@ jobs:
       environment: ${{ env.environment }}
       maximumReplicas: ${{ env.maximumReplicas }}
       environmentIngress: ${{ env.environmentIngress }}
-      ingressWhitelist: ${{ env.ingressWhitelist }}
       webAuthentication: ${{ env.webAuthentication }}
 
   deploy:
@@ -54,13 +52,12 @@ jobs:
       chartsPath: ./deployments/${{ needs.vars.outputs.environment }}-charts
       environmentIngress: ${{ needs.vars.outputs.environmentIngress || 'true' }}
       maximumReplicas: ${{ needs.vars.outputs.maximumReplicas || '30' }}
-      ingressWhitelist: ${{ needs.vars.outputs.ingressWhitelist || '207.67.20.252' }}
-    secrets:
-      azureClusterName: ${{ secrets.AKS_CLUSTER_NAME }}
-      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
-      registryHostName: ${{ secrets.IMAGE_NAME_HOSTNAME }}
-      registryUserName: ${{ secrets.IMAGE_NAME_USERNAME }}
-      registryPassword: ${{ secrets.IMAGE_NAME_PASSWORD }}
-      storageAccountKey: ${{ secrets.STORAGE_KEY }}
-      webAuthenticationPassword: ${{ secrets.WEB_AUTHENTICATION_PASSWORD }}
-      webAuthenticationUsername: ${{ secrets.WEB_AUTHENTICATION_USERNAME }}
+    # secrets:
+    #   azureClusterName: ${{ secrets.AKS_CLUSTER_NAME }}
+    #   azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+    #   registryHostName: ${{ secrets.IMAGE_NAME_HOSTNAME }}
+    #   registryUserName: ${{ secrets.IMAGE_NAME_USERNAME }}
+    #   registryPassword: ${{ secrets.IMAGE_NAME_PASSWORD }}
+    #   storageAccountKey: ${{ secrets.STORAGE_KEY }}
+    #   webAuthenticationPassword: ${{ secrets.WEB_AUTHENTICATION_PASSWORD }}
+    #   webAuthenticationUsername: ${{ secrets.WEB_AUTHENTICATION_USERNAME }}

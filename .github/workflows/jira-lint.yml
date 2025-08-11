@@ -3,6 +3,7 @@ name: Run Jira Linter
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_dispatch:
   workflow_call:
     inputs:
       fail-on-error:
