@@ -85,7 +85,7 @@ jobs:
           [Version]$a = "${{ steps.packagejson.outputs.prop || '0.0.0' }}"
           [Version]$b = "${{ steps.latestrelease.outputs.tag_name || '0.0.0' }}"
 
-          $versions = [array]($a,$b,$c)
+          $versions = [array]($a,$b)
           $v = [version]($versions | Sort-Object -Descending | Select-Object -First 1)
 
           if ( "${{ inputs.releaseType }}" -match "major") {
