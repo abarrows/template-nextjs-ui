@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
+import packageJson from 'package.json';
 
 // TODO: it's generally considered bad practice for security to expose your
 // package.json, figure out a safer way to get this value and make it easily
 // accessible, see https://github.com/axelpale/genversion
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const packageJson = require('package.json');
 
 async function getNextPublicVariables() {
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars

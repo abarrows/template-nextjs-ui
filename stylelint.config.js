@@ -76,7 +76,8 @@ module.exports = {
     ],
     'shorthand-property-no-redundant-values': true,
     'value-no-vendor-prefix': true,
-    'scss/load-no-partial-leading-underscore': true,
+    // TODO: Unknown rule below.
+    // 'scss/load-no-partial-leading-underscore': true,
     // 'scss/at-import-partial-extension-whitelist': ['module'],
 
     // Front-end Consensus Agreed Rules
