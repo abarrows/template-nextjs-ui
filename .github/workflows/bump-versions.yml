@@ -34,31 +34,18 @@ jobs:
         continue-on-error: true
         uses: gregziegan/fetch-latest-release@v2.0.0
 
-      - name: Check if environment charts exist
-        id: environment-charts
-        shell: pwsh
-        run: |
-          if (Test-Path -Path "./deployments/production-charts") {
-              echo "environmentCharts=true"
-              echo "environmentCharts=true" >> $env:GITHUB_ENV
-          }
-          else {
-              echo "environmentCharts=false"
-              echo "environmentCharts=false" >> $env:GITHUB_ENV
-          }
-
-      - name: Check if charts directory exists
-        id: charts-directory
-        shell: pwsh
-        run: |
-          if (Test-Path -Path "./deployments/charts") {
-              echo "charts=true"
-              echo "charts=true" >> $env:GITHUB_ENV
-          }
-          else {
-              echo "charts=false"
-              echo "charts=false" >> $env:GITHUB_ENV
-          }
+      # - name: Check if charts directory exists
+      #   id: charts-directory
+      #   shell: pwsh
+      #   run: |
+      #     if (Test-Path -Path "./deployments/charts") {
+      #         echo "charts=true"
+      #         echo "charts=true" >> $env:GITHUB_ENV
+      #     }
+      #     else {
+      #         echo "charts=false"
+      #         echo "charts=false" >> $env:GITHUB_ENV
+      #     }
 
       # Enable for K8s chart versioning.
       # - name: Get Chart.yaml appVersion
