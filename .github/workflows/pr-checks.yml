@@ -135,7 +135,7 @@ jobs:
         if: ${{ inputs.RUN_PLAYWRIGHT_TESTS == 'true' }}
         run: npm run test:integration:ci
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4.6.2
         if: inputs.RUN_PLAYWRIGHT_TESTS == 'true' && always()
         with:
           name: playwright-report
