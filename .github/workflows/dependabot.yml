@@ -3,7 +3,7 @@ name: 🤖 Dependabot Auto-merge
 
 on:
   pull_request_target:
-    types: [opened, synchronize]
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
