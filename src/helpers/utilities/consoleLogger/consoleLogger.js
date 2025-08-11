@@ -1,26 +1,18 @@
-import { consola, LogTypes } from 'consola';
+import { consola } from 'consola';
 
 // TODO: Need to add query param support for debug=true.
-const allLogTypes = [
-  ...Object.keys(LogTypes),
-  'seo',
-  'auth',
-  'advertising',
-  'analytics',
-  'integration',
-];
 
 // export default function consoleLogger(message, ...args) {
 // const sanitizedLogObjects = args ? JSON.stringify(args) : '';
 
 export const consoleLogger = (message, ...args) => {
   // const sanitizedLogObjects =
-  //   args && args.length ? JSON.stringify(args) : undefined;
-  // if (sanitizedLogObjects === undefined) {
-  //   consola.info(message);
-  // } else {
+    args && args.length ? JSON.stringify(args) : undefined;
+  if (sanitizedLogObjects === undefined) {
+    consola.info(message);
+  } else {
   consola.withTag(process.env.PRODUCT_NAME).info(message, ...args);
-  // }
+  }
 };
 // const sanitizedLogObjects = args ? JSON.stringify(args) : '';
 // console.log(message, sanitizedLogObjects);
