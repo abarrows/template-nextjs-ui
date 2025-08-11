@@ -83,7 +83,6 @@ jobs:
         shell: pwsh
         run: |
           [Version]$a = "${{ steps.packagejson.outputs.prop || '0.0.0' }}"
-          [Version]$b = "${{ steps.environmentchartyaml.outputs.values || steps.chartyaml.outputs.values || '0.0.0' }}"
           [Version]$c = "${{ steps.latestrelease.outputs.tag_name || '0.0.0' }}"
 
           $versions = [array]($a,$b,$c)
