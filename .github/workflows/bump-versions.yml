@@ -73,7 +73,7 @@ jobs:
       - name: Get package.json version
         if: ${{ steps.packagejsonfile.outputs.files_exists == 'true' && ! inputs.version }}
         id: packagejson
-        uses: notiz-dev/github-action-json-property@v0.2.0
+        uses: notiz-dev/github-action-json-property@release
         with:
           path: "package.json"
           prop_path: "version"
@@ -120,7 +120,7 @@ jobs:
 
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "⬆️ Version bump: ${{ inputs.version || env.release }}"
           branch: maintenance/bump-version/${{ inputs.version || env.release }}
