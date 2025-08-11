@@ -124,12 +124,11 @@ jobs:
         with:
           commit-message: "⬆️ Version bump: ${{ inputs.version || env.release }}"
           branch: maintenance/bump-version/${{ inputs.version || env.release }}
-          committer: AMU Automations <amu_deploy@amuniversal.com>
+          # committer: AMU Automations <amu_deploy@amuniversal.com>
           delete-branch: true
           title: "⬆️ Version bump: ${{ inputs.version || env.release }}"
           body: |
             Updating version to ${{ inputs.version || env.release }} in:
-            - `**/Charts.yaml`
             - `**/package.json`
           labels: |
             ${{ inputs.releaseType }}
