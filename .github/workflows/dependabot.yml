@@ -7,7 +7,7 @@ on:
   workflow_call:
     inputs:
       autoApprove:
-        default: ${{ vars.DEPENDABOT_AUTOAPPROVE || '["version-update:semver-minor", "version-update:semver-patch"]' }}
+        default: ${{ vars.DEPENDABOT_AUTOAPPROVE || '["semver-minor", "semver-patch"]' }}
         description: Update types to auto approve
         type: string
       autoMerge:
@@ -49,7 +49,7 @@ jobs:
             }
 
       - name: Check confidence for minor updates
-        if: ${{ steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor' }}
+        if: ${{ steps.dependabot-metadata.outputs.update-type == 'semver-minor' }}
         id: minor-confidence
         uses: actions/github-script@v7
         with:

@@ -32,8 +32,6 @@ on:
         type: string
         default: ${{ vars.APPLICATION_CI_RUN_JEST_TESTS || 'true' }}
     secrets:
-      AZURE_CREDENTIALS:
-        required: true
       PAT_ACTION_CI:
         required: true
 
@@ -49,9 +47,9 @@ jobs:
           token: ${{ secrets.PAT_ACTION_CI }}
           fetch-depth: 0
 
-      - name: Use cache-next-install action
-        if: ${{ inputs.NPM_INSTALL == 'false' }}
-        uses: Andrews-McMeel-Universal/cache-next-install@v1.2.0
+      # - name: Use cache-next-install action
+      #   if: ${{ inputs.NPM_INSTALL == 'false' }}
+      #   uses: Andrews-McMeel-Universal/cache-next-install@v1
 
       - name: Lint javascript
         if: ${{ inputs.LINT_JS == 'true' }}
@@ -61,21 +59,26 @@ jobs:
         if: ${{ inputs.LINT_SCSS == 'true' }}
         run: npm run lint:styles
 
+      - name: Setup Git User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Push Linting Fixes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_user_name: amutechtest
-          commit_user_email: amu_deploy@amuniversal.com
-          commit_message: "[Formatter] Apply prettier changes"
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_message: "[CI] Applying formatting and linting changes"
 
-      - name: Use .env cache action
-        uses: Andrews-McMeel-Universal/get-envs@v1
-        with:
-          azurecredentials: ${{ secrets.AZURE_CREDENTIALS }}
-          environment: ${{ inputs.environment }}
+      # - name: Use .env cache action
+      #   uses: Andrews-McMeel-Universal/get-envs@v1
+      #   with:
+      #     azurecredentials: ${{ secrets.AZURE_CREDENTIALS }}
+      #     environment: ${{ inputs.environment }}
 
-      - name: Use cache-next-build action
-        uses: Andrews-McMeel-Universal/cache-next-build@v1
+      # - name: Use cache-next-build action
+      #   uses: Andrews-McMeel-Universal/cache-next-build@v1
 
   unit-tests:
     name: Unit Tests
@@ -97,8 +100,8 @@ jobs:
           azurecredentials: ${{ secrets.AZURE_CREDENTIALS }}
           environment: ${{ inputs.environment }}
 
-      - name: Use cache-next-build action
-        uses: Andrews-McMeel-Universal/cache-next-build@v1
+      # - name: Use cache-next-build action
+      #   uses: Andrews-McMeel-Universal/cache-next-build@v1
 
       - name: Run Jest tests
         if: ${{ inputs.RUN_JEST_TESTS == 'true' }}
@@ -114,22 +117,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use cache-next-install action
-        if: ${{ inputs.NPM_INSTALL == 'false' }}
-        uses: Andrews-McMeel-Universal/cache-next-install@v1
+      # - name: Use cache-next-install action
+      #   if: ${{ inputs.NPM_INSTALL == 'false' }}
+      #   uses: Andrews-McMeel-Universal/cache-next-install@v1
 
       - name: Install Playwright Browsers
         if: ${{ inputs.RUN_PLAYWRIGHT_TESTS == 'true' }}
         run: npm run playwright install
 
-      - name: Use .env cache action
-        uses: Andrews-McMeel-Universal/get-envs@v1
-        with:
-          azurecredentials: ${{ secrets.AZURE_CREDENTIALS }}
-          environment: ${{ inputs.environment }}
+      # - name: Use .env cache action
+      #   uses: Andrews-McMeel-Universal/get-envs@v1
+      #   with:
+      #     azurecredentials: ${{ secrets.AZURE_CREDENTIALS }}
+      #     environment: ${{ inputs.environment }}
 
-      - name: Use cache-next-build action
-        uses: Andrews-McMeel-Universal/cache-next-build@v1
+      # - name: Use cache-next-build action
+      #   uses: Andrews-McMeel-Universal/cache-next-build@v1
 
       - name: Run Playwright tests
         if: ${{ inputs.RUN_PLAYWRIGHT_TESTS == 'true' }}
@@ -145,7 +148,7 @@ jobs:
       - uses: andresz1/size-limit-action@v1
         if: ${{ inputs.CHECK_SIZE_LIMIT == 'true' }}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PAT_ACTION_CI }}
           # The size-limit-action tries to run a
           # redundant npm run build
           skip_step: build
