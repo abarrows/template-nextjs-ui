@@ -17,6 +17,17 @@ permissions:
 #   cancel-in-progress: false
 
 jobs:
+  check-dependabot-pr:
+    name: Check if PR is from Dependabot
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if PR is from Dependabot
+        id: check-actor
+        run: |
+          if [[ "${{ github.actor }}" != "dependabot[bot]" ]]; then
+            echo "This PR is not from Dependabot, skipping Dependabot automations."
+            exit 0
+          fi
   dependabot-automations:
     if: github.actor == 'dependabot[bot]'
     name: Dependabot Automations
