@@ -202,7 +202,7 @@ Debugging Tools:
 
 - We recommend the [VSCode extension for Playwright](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright) for easier debugging
 
-Run integration tests with `npm run test:integration`.
+Run integration tests with `npm run test:e2e`.
 
 ---
 
