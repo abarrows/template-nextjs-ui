@@ -1,12 +1,9 @@
 name: Add PR Labels
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
-  workflow_call:
-    secrets:
-      PAT_ACTION_CI:
-        required: true
-
 jobs:
   # Automatically apply labels that match globs, defined in .github/labeler.yml
   # https://github.com/marketplace/actions/labeler
@@ -19,5 +16,5 @@ jobs:
     steps:
       - uses: actions/labeler@v5
         with:
-          repo-token: ${{ secrets.PAT_ACTION_CI }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           sync-labels: true
