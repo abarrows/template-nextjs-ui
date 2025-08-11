@@ -47,7 +47,7 @@ COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 
 # Rebuild npm run binaries
-RUN rm -rf /app/.npm run/unplugged && npm run rebuild
+RUN npm cache clean --force && RUN npm rebuild
 
 # Set Next.js properties
 ENV NEXT_TELEMETRY_DISABLED 1
