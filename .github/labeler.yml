@@ -1,5 +1,5 @@
 dependencies:
-  - package*.json
+  - "package*.json"
   - "**/*.csproj"
   - ".npmrc"
   - ".nvmrc"
