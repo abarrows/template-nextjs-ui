@@ -1,6 +1,8 @@
 name: Lint and Format Code
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
       NODE_ENV:
