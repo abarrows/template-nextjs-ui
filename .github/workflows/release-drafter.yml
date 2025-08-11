@@ -1,6 +1,7 @@
 name: 📄 Create Release Draft
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

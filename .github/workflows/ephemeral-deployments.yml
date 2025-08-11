@@ -1,6 +1,7 @@
 name: Ephemeral Deployment
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       environmentKeyVaultPrefix:

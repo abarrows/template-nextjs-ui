@@ -1,6 +1,7 @@
 name: Next.js Application CI
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       environment:

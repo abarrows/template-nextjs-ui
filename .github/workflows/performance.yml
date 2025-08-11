@@ -1,8 +1,8 @@
 name: Lighthouse Performance Audit
 on:
+  workflow_dispatch:
   pull_request:
     types: [opened, synchronize, reopened]
-  workflow_dispatch:
 jobs:
   performance_audit:
     runs-on: ubuntu-latest
