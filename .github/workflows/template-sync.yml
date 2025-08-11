@@ -33,4 +33,4 @@ jobs:
           # pr_reviewers: GITHUB_USER
           is_dry_run: ${{ inputs.isdryrun || 'false' }}
           # git_user_name: GITHUB_USER
-          # git_user_email: GITHUB_USER_EMAIL
+          # git_user_email: USER_EMAIL

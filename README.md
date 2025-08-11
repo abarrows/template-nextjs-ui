@@ -132,7 +132,7 @@ npm run validate
 ```
 
 4. _GITHUB_USER_NAME_ Update with the repo's owner name.
-5. _GITHUB_USER_EMAIL_ Update with the repo's owner email.
+5. _USER_EMAIL_ Update with the repo's owner email.
 
 ---
 
