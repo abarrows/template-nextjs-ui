@@ -17,6 +17,7 @@
         "resourceType": "total"
       }
     ],
+    "runs": 3,
     "timings": [
       {
         "budget": 3000,
