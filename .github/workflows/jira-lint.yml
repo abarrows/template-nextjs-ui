@@ -24,7 +24,7 @@ env:
 jobs:
   jira-lint:
     name: Run Jira Lint
-    if: ${{ github.actor != USER_EMAIL && github.actor != 'dependabot[bot]' && !contains(github.head_ref, 'sync') && !contains(github.event.pull_request.labels.*.name, 'disable-jira-linter') }}
+    if: ${{ github.actor != (vars.USER_NAME || github.repository_owner) && github.actor != 'dependabot[bot]' && !contains(github.head_ref, 'sync') && !contains(github.event.pull_request.labels.*.name, 'disable-jira-linter') }}
     runs-on: ubuntu-latest
     steps:
       - name: Retrieve Jira issue key from PR
@@ -90,9 +90,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           jira-token: ${{ secrets.JIRA_TOKEN }}
-          jira-base-url: https://APPLICATION_DOMAIN.atlassian.net
+          jira-base-url: https://${{ env.JIRA_DOMAIN }}.atlassian.net
           pr-threshold: 1000
-          jira-user: _JIRA_USER
+          jira-user: ${{ env.JIRA_USER }}
           validate-issue-status: true
           allowed-issue-statuses: |
             New

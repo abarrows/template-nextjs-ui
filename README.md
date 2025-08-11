@@ -4,7 +4,7 @@
 [![Staging](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=prerelease)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 [![Development](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=push&branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 
-Application responsible for all appname related data.
+App responsible for all appname related data.
 
 ## Setting up your repository
 
@@ -115,7 +115,7 @@ These files are where you can find and manage environment variables:
 
 <!-- ## Updating the Node Version
 
-Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/GITHUB_ORGANIZATION). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it. -->
+Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/ORGANIZATION_NAME). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it. -->
 
 <!-- TODO: Bring over the dynamic node version that analyzes the .nvmrc version and uses it during the provisioning of containers. -->
 
@@ -131,7 +131,7 @@ Whenever we update our Node version, it needs to be updated to the same version 
 npm run validate
 ```
 
-4. _GITHUB_USER_NAME_ Update with the repo's owner name.
+4. _USER_ Update with the repo's owner name.
 5. _USER_EMAIL_ Update with the repo's owner email.
 
 ---
