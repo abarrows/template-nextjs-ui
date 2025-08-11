@@ -1,7 +1,6 @@
 name: Bump App Version
 
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       releaseType:
@@ -35,31 +34,18 @@ jobs:
         continue-on-error: true
         uses: gregziegan/fetch-latest-release@v2.0.0
 
-      - name: Check if environment charts exist
-        id: environment-charts
-        shell: pwsh
-        run: |
-          if (Test-Path -Path "./deployments/production-charts") {
-              echo "environmentCharts=true"
-              echo "environmentCharts=true" >> $env:GITHUB_ENV
-          }
-          else {
-              echo "environmentCharts=false"
-              echo "environmentCharts=false" >> $env:GITHUB_ENV
-          }
-
-      - name: Check if charts directory exists
-        id: charts-directory
-        shell: pwsh
-        run: |
-          if (Test-Path -Path "./deployments/charts") {
-              echo "charts=true"
-              echo "charts=true" >> $env:GITHUB_ENV
-          }
-          else {
-              echo "charts=false"
-              echo "charts=false" >> $env:GITHUB_ENV
-          }
+      # - name: Check if charts directory exists
+      #   id: charts-directory
+      #   shell: pwsh
+      #   run: |
+      #     if (Test-Path -Path "./deployments/charts") {
+      #         echo "charts=true"
+      #         echo "charts=true" >> $env:GITHUB_ENV
+      #     }
+      #     else {
+      #         echo "charts=false"
+      #         echo "charts=false" >> $env:GITHUB_ENV
+      #     }
 
       # Enable for K8s chart versioning.
       # - name: Get Chart.yaml appVersion
@@ -97,10 +83,9 @@ jobs:
         shell: pwsh
         run: |
           [Version]$a = "${{ steps.packagejson.outputs.prop || '0.0.0' }}"
-          [Version]$b = "${{ steps.environmentchartyaml.outputs.values || steps.chartyaml.outputs.values || '0.0.0' }}"
-          [Version]$c = "${{ steps.latestrelease.outputs.tag_name || '0.0.0' }}"
+          [Version]$b = "${{ steps.latestrelease.outputs.tag_name || '0.0.0' }}"
 
-          $versions = [array]($a,$b,$c)
+          $versions = [array]($a,$b)
           $v = [version]($versions | Sort-Object -Descending | Select-Object -First 1)
 
           if ( "${{ inputs.releaseType }}" -match "major") {
@@ -125,13 +110,13 @@ jobs:
           regex: true
           include: "**package.json"
 
-      - name: Update version in Chart.yaml
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "appVersion: .*"
-          replace: "appVersion: ${{ inputs.version || env.release }}"
-          regex: true
-          include: "**Chart.yaml"
+      # - name: Update version in Chart.yaml
+      #   uses: jacobtomlinson/gha-find-replace@v3
+      #   with:
+      #     find: "appVersion: .*"
+      #     replace: "appVersion: ${{ inputs.version || env.release }}"
+      #     regex: true
+      #     include: "**Chart.yaml"
 
       - name: Create Pull Request
         id: cpr
@@ -139,12 +124,11 @@ jobs:
         with:
           commit-message: "⬆️ Version bump: ${{ inputs.version || env.release }}"
           branch: maintenance/bump-version/${{ inputs.version || env.release }}
-          committer: AMU Automations <amu_deploy@amuniversal.com>
+          # committer: AMU Automations <amu_deploy@amuniversal.com>
           delete-branch: true
           title: "⬆️ Version bump: ${{ inputs.version || env.release }}"
           body: |
             Updating version to ${{ inputs.version || env.release }} in:
-            - `**/Charts.yaml`
             - `**/package.json`
           labels: |
             ${{ inputs.releaseType }}
