@@ -4,7 +4,7 @@ Before your branch can be merged into "staging", a code review is required as pa
 
 1. When initiating a pull request, make sure your branch name matches the parameters set forth in the [git-hooks](https://github.com/TODO: ONBOARDING/tree/main/general/github/git-hooks) section (if applicable).
 2. Add a description of your changes and add relevant links. Repos should have a template to follow but if there isn't, please [add one from here](https://github.com/TODO: ONBOARDING/tree/main/general/github/git-hooks) and update the issue key to match the project's JIRA.
-3. After initializing a pull request, you'll see a review page that shows a high-level overview of the changes between your branch and `main`. Here you can add explanation for your changes, especially if they're not explained in the associated JIRA task.
+3. After initializing a pull request, you'll see a review page that shows a high-level overview of the changes between your branch and `main`. Here you can add an explanation for your changes, especially if they're not explained in the associated JIRA task.
 4. Reviewers should pre-populate based on an AI windsurf workflow or github/CODEOWNERS.
 5. After successful review, merge your branch into "staging". Make sure to delete your remote branch thereafter as to not clutter the number of branches on the repo.
 
