@@ -1,22 +1,18 @@
-name: Lighthouse Performance Audit
-on: [pull_request]
+name: Lighthouse CI
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
 jobs:
-  performance_audit:
+  lighthouse:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check Performance Budget of PR
+      - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v12
         with:
-          configPath: '.lighthouserc.json'
-          uploadArtifacts: true
-          temporaryPublicStorage: true
-      - name: Commit Lighthouse Report
-        if: success() || failure()
-        run: |
-          git config user.name "Lighthouse Bot"
-          git config user.email "actions@github.com"
-          git add .lighthouseci/
-          git commit -m "chore(ci): update Lighthouse report [skip ci]" || echo "No changes to commit"
-          git push || echo "Push failed (likely due to PR context)"
-
+          urls: |
+            https://admin.wayroo-dev-beta.com/
+          budgetPath: ./budget.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
