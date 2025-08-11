@@ -21,7 +21,7 @@ If a release is mentioned in my prompt the format would be: release/WR-XXXX-<pul
 1. Take note of the <pull-request-title-hyphenated> which should hint to you what the pull request and branch are focused on.
 2. Carefully analyze the changed files, the commit messages, and the contributors so you can summarize these changes into a pull request description. One to two paragraphs and/or a bullet list of changes is expected. Leave out any changes with mundane details like `updating props` or `fixing state`. Find the repository name of the branch provided.
 3. Populate the pull request description and any other relevant information where I ask for your input in an html comment.
-4. Execute the following script and provide me with your output so I can review it. You must not use \n for hard returns. The description will render as plain text in the pull request description so format it nicely using markdown. The h1 heading should same `# Summary` and then the h2 heading should say `## Changelog`.  Below is the cli command you must fill out:
+4. Execute the following script and provide me with your output so I can review it. You must not use \n for hard returns. The description will render as plain text in the pull request description so format it nicely using markdown. The h1 heading should same `# Summary` and then the h2 heading should say `## Changelog`. Below is the cli command you must fill out:
 
    ```bash
    gh pr create

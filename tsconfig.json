@@ -11,30 +11,14 @@
       // "src/*": ["src/*"],
       // "src/components/*": ["@/src/app/components/*"],
       // "*.module.scss": ["*.module.scss"],
-      "@/commons/*": [
-        "src/components/commons/*"
-      ],
-      "@/context/*": [
-        "src/components/context/*"
-      ],
-      "@/modules/*": [
-        "src/components/modules/*"
-      ],
-      "@/sections/*": [
-        "src/components/sections/*"
-      ],
-      "@/utilities/*": [
-        "src/helpers/utilities/*"
-      ],
-      "@/helpers/*": [
-        "src/helpers/*"
-      ]
+      "@/commons/*": ["src/components/commons/*"],
+      "@/context/*": ["src/components/context/*"],
+      "@/modules/*": ["src/components/modules/*"],
+      "@/sections/*": ["src/components/sections/*"],
+      "@/utilities/*": ["src/helpers/utilities/*"],
+      "@/helpers/*": ["src/helpers/*"]
     },
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
