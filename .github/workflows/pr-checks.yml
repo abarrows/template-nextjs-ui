@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Playwright Browsers
-        run: npm run playwright install
+        run: npx playwright install
       - name: Run Playwright tests
         run: npm run test:e2e:ci
 
