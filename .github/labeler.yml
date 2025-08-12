@@ -1,95 +1,114 @@
+# Labeler v5 compatible configuration
+# See: https://github.com/marketplace/actions/labeler
+
+# File-based labels
+
 dependencies:
-  - "package*.json"
-  - "**/*.csproj"
-  - ".npmrc"
-  - ".nvmrc"
+  - changed-files:
+      any-glob-to-any-file: ["package*.json", "**/*.csproj", ".npmrc", ".nvmrc"]
 
 documentation:
-  - "**/*.md"
+  - changed-files:
+      any-glob-to-any-file: ["**/*.md"]
 
 front-end:
-  - "**/*.{js,js.html,jsx,ts,tsx,html,css,less,scss,sass,otf,eot,ttf,woff*,erb}"
-  - "public/"
-  - "src/"
-  - "wp-content/"
-  - "package.json"
-  - "!/.vscode"
-  - "!/.devcontainer"
-  - "!**/*.test.js"
-  - "**/*.jpg"
-  - "**/*.jpeg"
-  - "**/*.gif"
-  - "**/*.png"
-  - "**/*.ico"
-  - "**/*.svg"
-  - "**/*.woff*"
-  - ".storybook/**"
+  - changed-files:
+      any-glob-to-any-file:
+        - "**/*.{js,js.html,jsx,ts,tsx,html,css,less,scss,sass,otf,eot,ttf,woff*,erb}"
+        - "public/**"
+        - "src/**"
+        - "wp-content/**"
+        - "package.json"
+        - "**/*.jpg"
+        - "**/*.jpeg"
+        - "**/*.gif"
+        - "**/*.png"
+        - "**/*.ico"
+        - "**/*.svg"
+        - "**/*.woff*"
+        - ".storybook/**"
+      # Exclude test and config folders
+      all-globs-to-all-files:
+        - "!/.vscode/**"
+        - "!/.devcontainer/**"
+        - "!**/*.test.js"
 
 back-end:
-  - "**/*.{cs,sln,csproj,ru}"
-  - "**/*.json"
-  - "bin/"
-  - "**/*.rb"
-  - "Rakefile"
-  - "**/*.yml"
-  - "!**/Secrets.json*"
-  - "!.github/**"
+  - changed-files:
+      any-glob-to-any-file:
+        - "**/*.{cs,sln,csproj,ru}"
+        - "**/*.json"
+        - "bin/**"
+        - "**/*.rb"
+        - "Rakefile"
+        - "**/*.yml"
+      all-globs-to-all-files:
+        - "!**/Secrets.json*"
+        - "!.github/**"
 
 tools:
-  - ".vscode"
-  - ".devcontainer"
-  - "stylelint.config.js"
-  - ".prettierrc.js"
-  - "size-limit.js"
-  - ".eslintrc.js"
-  - ".yamllint.yml"
-  - ".mega-linter.yml"
-  - ".postcssrc.yml"
-  - ".jscpd.json"
-  - "markdownlint.json"
-  - "babel.config.json"
-  - "playwright/**"
-  - ".spec.*"
-  - "*.test.js"
-  - "jest.config.js"
-  - "playwright.config.js"
-  - ".storybook/"
-  - ".browserlistrc"
+  - changed-files:
+      any-glob-to-any-file:
+        - ".vscode/**"
+        - ".devcontainer/**"
+        - "stylelint.config.js"
+        - ".prettierrc.js"
+        - "size-limit.js"
+        - ".eslintrc.js"
+        - ".yamllint.yml"
+        - ".mega-linter.yml"
+        - ".postcssrc.yml"
+        - ".jscpd.json"
+        - "markdownlint.json"
+        - "babel.config.json"
+        - "playwright/**"
+        - ".spec.*"
+        - "*.test.js"
+        - "jest.config.js"
+        - "playwright.config.js"
+        - ".storybook/**"
+        - ".browserlistrc"
 
 tests:
-  - "playwright/**"
-  - ".spec.*"
-  - "*.test.js"
-  - "jest.config.js"
-  - "playwright.config.js"
-  - ".github/workflows/workflow-linter.yaml"
-  - ".github/actionlint.yaml"
+  - changed-files:
+      any-glob-to-any-file:
+        - "playwright/**"
+        - ".spec.*"
+        - "*.test.js"
+        - "jest.config.js"
+        - "playwright.config.js"
+        - ".github/workflows/workflow-linter.yaml"
+        - ".github/actionlint.yaml"
 
 devops:
-  - ".github/"
-  - "deployments/"
-  - "docker-compose.yml"
-  - "Dockerfile"
+  - changed-files:
+      any-glob-to-any-file:
+        - ".github/**"
+        - "deployments/**"
+        - "docker-compose.yml"
+        - "Dockerfile"
 
-# Add 'hotfix' label to any PR that is opened against the `release/*` branch
+# Branch-based labels
+
 hotfix:
-  - base-branch: "^release/"
+  - base-branch: ["^release/"]
 
 breaking-change:
-  - head-branch: "^breaking"
+  - head-branch: ["^breaking"]
 
 story:
   - head-branch: ["^feature", "^story", "^improvement"]
 
 bugfix:
-  - head-branch: "^bugfix"
+  - head-branch: ["^bugfix"]
 
 research:
-  - head-branch: "^research"
+  - head-branch: ["^research"]
 
 maintenance:
-  - head-branch: "^maintenance"
+  - head-branch: ["^maintenance"]
 
-# Add 'release' label to any PR that is opened against the `main` branch
 release:
-  - head-branch: "^release"
+  - head-branch: ["^release"]
+  # If you want to label PRs opened against main branch, use base-branch:
+  # - base-branch: ["main"]
