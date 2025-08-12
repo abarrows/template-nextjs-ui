@@ -12,7 +12,7 @@ env:
 jobs:
   jira-lint:
     name: Run Jira Lint
-    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.head_ref, 'sync') && !contains(github.event.pull_request.labels.*.name, 'disable-jira-linter') }}
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - uses: jira-tools/action-jira-linter@v1.0.1
@@ -24,6 +24,5 @@ jobs:
           pr-threshold: 1000
           jira-user: andyb@retailsuccess.com
           validate-issue-status: false
-          skip-branches: "^(main|development|develop|dev|test|testing|staging|qa|master|production)$"
           fail-on-error: false
           skip-comments: false

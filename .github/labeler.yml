@@ -1,9 +1,3 @@
-dependencies:
-  - "package*.json"
-  - "**/*.csproj"
-  - ".npmrc"
-  - ".nvmrc"
-
 documentation:
   - "**/*.md"
 
