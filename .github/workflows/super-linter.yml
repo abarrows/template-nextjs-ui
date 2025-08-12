@@ -19,7 +19,7 @@ jobs:
       - name: Run Super Linter
         uses: super-linter/super-linter@v6.6.0
         env:
-          DEFAULT_BRANCH: main
+          DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref || 'main' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: false
           RUN_LOCAL: true
