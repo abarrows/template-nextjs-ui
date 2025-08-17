@@ -1,12 +1,5 @@
 # Labeler v5 compatible configuration
 # See: https://github.com/marketplace/actions/labeler
-
-# File-based labels
-
-dependencies:
-  - changed-files:
-      any-glob-to-any-file: ["package*.json", "**/*.csproj", ".npmrc", ".nvmrc"]
-
 documentation:
   - changed-files:
       any-glob-to-any-file: ["**/*.md"]
