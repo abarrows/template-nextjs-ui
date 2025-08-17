@@ -45,7 +45,7 @@ const customConfig = {
     // Production-only redirects
     // These are used as a quick feature flag when certain pages should be
     // temporarily excluded from the prod site.
-    const prodRedirects = [];
+    const prodRedirects = await Promise.resolve([]);
     if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
       // prodRedirects.push({
       //   source: 'url to disable',
