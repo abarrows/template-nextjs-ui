@@ -41,17 +41,17 @@ const customConfig = {
   },
   productionBrowserSourceMaps: true,
   swcMinify: true,
-  async redirects() {
+  redirects() {
     // Production-only redirects
     // These are used as a quick feature flag when certain pages should be
     // temporarily excluded from the prod site.
-    const prodRedirects = await Promise.resolve([]);
+    const prodRedirects = [];
     if (process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production') {
-      // prodRedirects.push({
-      //   source: 'url to disable',
-      //   destination: '/',
-      //   permanent: false,
-      // });
+      prodRedirects.push({
+        source: 'url to disable',
+        destination: '/',
+        permanent: false,
+      });
     }
 
     return [...prodRedirects, ...redirects];
