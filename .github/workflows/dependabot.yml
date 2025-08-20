@@ -30,7 +30,7 @@ jobs:
         id: metadata
         uses: dependabot/fetch-metadata@v2
         with:
-          github-token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT_TOKEN != '' && secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
           compat-lookup: true
           alert-lookup: true
 
@@ -42,17 +42,20 @@ jobs:
 
       - name: Auto-approve and auto-merge patch updates
         if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "🔧 Patch update: auto-approve and auto-merge"
           gh pr review --approve "$PR_URL"
           gh pr merge --auto --squash "$PR_URL"
-          env:
-            PR_URL: ${{ github.event.pull_request.html_url }}
-            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
        # Minor: Auto-approve and auto-merge if confidence > 80, else only auto-approve
       - name: Handle minor updates
         if: steps.metadata.outputs.update-type == 'version-update:semver-minor'
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           COMPATIBILITY_SCORE="${{ steps.metadata.outputs.compatibility-score }}"
           SCORE_INT=$(echo "$COMPATIBILITY_SCORE" | cut -d'.' -f1)
