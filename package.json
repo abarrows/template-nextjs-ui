@@ -73,7 +73,7 @@
     "@storybook/nextjs": "^7.0.17",
     "@storybook/react": "^7.0.17",
     "@storybook/testing-library": "^0.0.14-next.2",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^14.0.0",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
     "babel-jest": "^29.5.0",
