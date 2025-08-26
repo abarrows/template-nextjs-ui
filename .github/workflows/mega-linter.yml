@@ -1,8 +1,8 @@
 name: Lint and Format Code
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  # pull_request:
+  #   types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
       NODE_ENV:
@@ -102,62 +102,6 @@ jobs:
         if: steps.ml.outputs.has_updated_sources == 1 && github.ref != 'refs/heads/main' && (env.APPLY_FIXES_EVENT == 'all' || env.APPLY_FIXES_EVENT == github.event_name) && env.APPLY_FIXES_MODE == 'commit'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_user_name: amutechtest
-          commit_user_email: amu_deploy@amuniversal.com
-          commit_message: "[MegaLinter] Apply prettier changes"
-
-  lint-dotnet:
-    name: Run MegaLinter Dotnet
-    if: ${{ inputs.LINT_FLAVOR == 'dotnet' }}
-    timeout-minutes: 20
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT_ACTION_CI }}
-          fetch-depth: 0
-
-      # Run the MegaLinter Github Action
-      - name: MegaLinter
-        id: ml
-        uses: oxsecurity/megalinter/flavors/dotnet@v7
-        env:
-          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
-          GITHUB_TOKEN: ${{ secrets.PAT_ACTION_CI }}
-
-      # Creates archive artifact of linting reports
-      # Upload MegaLinter artifacts
-      - name: Archive production artifacts
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v4.6.2
-        with:
-          name: MegaLinter reports
-          path: |
-            megalinter-reports
-            mega-linter.log
-          retention-days: 7
-
-      # Create pull request if applicable (for now works only on PR from same repository, not from forks)
-      - name: Create Pull Request with applied fixes
-        id: cpr
-        if: steps.ml.outputs.has_updated_sources == 1 && (env.APPLY_FIXES_EVENT == 'all' || env.APPLY_FIXES_EVENT == github.event_name) && env.APPLY_FIXES_MODE == 'pull_request'
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.PAT_ACTION_CI|| secrets.GITHUB_TOKEN }}
-          commit-message: "[MegaLinter] Apply linters automatic fixes"
-          title: "[MegaLinter] Apply linters automatic fixes"
-          labels: bot
-
-      # Commit fixes back into the raised PR branch
-      - name: Prepare Linting Fix Commit
-        if: steps.ml.outputs.has_updated_sources == 1 && github.ref != 'refs/heads/main' && (env.APPLY_FIXES_EVENT == 'all' || env.APPLY_FIXES_EVENT == github.event_name) && env.APPLY_FIXES_MODE == 'commit'
-        run: sudo chown -Rc $UID .git/
-
-      - name: Commit and Push Linting Fixes
-        if: steps.ml.outputs.has_updated_sources == 1 && github.ref != 'refs/heads/main' && (env.APPLY_FIXES_EVENT == 'all' || env.APPLY_FIXES_EVENT == github.event_name) && env.APPLY_FIXES_MODE == 'commit'
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_user_name: amutechtest
-          commit_user_email: amu_deploy@amuniversal.com
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
           commit_message: "[MegaLinter] Apply prettier changes"
