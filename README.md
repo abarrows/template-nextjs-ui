@@ -3,14 +3,14 @@
 [![Production](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=release)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 [![Staging](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=prerelease)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 [![Development](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=push&branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
-[![Megalinter](https://github.com/abarrows/template-nextjs-ui/actions/workflows/mega-linter.yml/badge.svg?branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/mega-linter.yml)
 
 App responsible for all appname related data.
 
 ## Setting up your repository
 
 <!-- You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://COMPANY_NAME.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template) -->
-Upon cloning, fill in the values for the .env.example and save this as a new .env in the root directory.  Run the following:
+
+Upon cloning, fill in the values for the .env.example and save this as a new .env in the root directory. Run the following:
 
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 <!-- TODO: Port over npm run setup script to work with AWS Secrets Manager. -->
@@ -78,7 +78,7 @@ To start the app locally:
 
 ## Environment Variables
 
-The environment variables for this project were previously sourced from Azure Key Vault Secrets.  WIP: I will create a branch soon to update this process so that it sources from either AWS Secret Manager.  Until then, simply replace the values with you personal situation's values..
+The environment variables for this project were previously sourced from Azure Key Vault Secrets. WIP: I will create a branch soon to update this process so that it sources from either AWS Secret Manager. Until then, simply replace the values with you personal situation's values..
 
 <!-- > :white_check_mark: Read about [Application Environment Variables](https://COMPANY_NAME.atlassian.net/l/cp/z7HWk0Ah) for information on how to use and edit environment variables in an application **before proceeding**. -->
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
@@ -116,7 +116,7 @@ These files are where you can find and manage environment variables:
 
 <!-- ## Updating the Node Version
 
-Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/ORGANIZATION_NAME). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it. -->
+Whenever we update our Node version, it needs to be updated to the same version within both the `Dockerfile` and `.nvmrc`. Typically the `Dockerfile`'s Node version is updated by [Dependabot](https://app.dependabot.com/accounts/GITHUB_ORGANIZATION). When a pull request is created, pull down the branch, and update the listed version in `.nvmrc` to match it. -->
 
 <!-- TODO: Bring over the dynamic node version that analyzes the .nvmrc version and uses it during the provisioning of containers. -->
 
@@ -132,8 +132,8 @@ Whenever we update our Node version, it needs to be updated to the same version 
 npm run validate
 ```
 
-4. _USER_ Update with the repo's owner name.
-5. _USER_EMAIL_ Update with the repo's owner email.
+4. _GITHUB_USER_NAME_ Update with the repo's owner name.
+5. _GITHUB_USER_EMAIL_ Update with the repo's owner email.
 
 ---
 
@@ -203,7 +203,7 @@ Debugging Tools:
 
 - We recommend the [VSCode extension for Playwright](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright) for easier debugging
 
-Run integration tests with `npm run test:e2e`.
+Run integration tests with `npm run test:integration`.
 
 ---
 
