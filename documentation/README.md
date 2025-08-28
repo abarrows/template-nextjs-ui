@@ -2,12 +2,11 @@
 
 Before your branch can be merged into "staging", a code review is required as part of your [pull request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 
-1. When initiating a pull request, make sure your branch name matches the parameters set forth in the [git-hooks](https://github.com/Andrews-McMeel-Universal/amu-code_standards/tree/production/general/github/git-hooks) section (if applicable).
-2. In most cases, create your pull request against branch "staging" (in rare cases you may make pull requests to another engineer's branch or other environments).
-3. Add a description of your changes and add relevant links. Repos should have a template to follow but if there isn't, please [add one from here](https://github.com/Andrews-McMeel-Universal/amu-code_standards/tree/production/general/github/git-hooks) and update the issue key to match the project's JIRA.
-4. After initializing a pull request, you'll see a review page that shows a high-level overview of the changes between your branch and "staging". Here you can add explanation for your changes, especially if they're not explained in the associated JIRA task.
-5. Make sure to add reviewers, this will ping the engineers you select for a review. In general, try to chose other engineers most familiar with the project you're working on.
-6. After successful review, merge your branch into "staging". Make sure to delete your remote branch thereafter as to not clutter the number of branches on the repo.
+1. When initiating a pull request, make sure your branch name matches the parameters set forth in the [git-hooks](https://github.com/TODO: ONBOARDING/tree/main/general/github/git-hooks) section (if applicable).
+2. Add a description of your changes and add relevant links. Repos should have a template to follow but if there isn't, please [add one from here](https://github.com/TODO: ONBOARDING/tree/main/general/github/git-hooks) and update the issue key to match the project's JIRA.
+3. After initializing a pull request, you'll see a review page that shows a high-level overview of the changes between your branch and `main`. Here you can add explanation for your changes, especially if they're not explained in the associated JIRA task.
+4. Reviewers should pre-populate based on an AI windsurf workflow or github/CODEOWNERS.
+5. After successful review, merge your branch into "staging". Make sure to delete your remote branch thereafter as to not clutter the number of branches on the repo.
 
 ## Peer Review Etiquette
 

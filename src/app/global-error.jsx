@@ -5,8 +5,6 @@ import React, { useEffect } from 'react';
 
 import consola from 'consola';
 
-// import consoleLogger from '@/utilities/ConsoleLogger';
-
 // TODO: Determine a strategy for Sentry error reporting.
 
 // import * as Sentry from '@sentry/nextjs';

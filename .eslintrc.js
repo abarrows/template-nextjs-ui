@@ -87,7 +87,7 @@ module.exports = {
         sortShapeProp: true,
       },
     ],
-    // Remember to use the AMU consoleLogger(message, object) utility helper instead of console.log.
+    // Remember to use the APPLICATION_NAME consola.log(message, object) utility helper instead of console.log.
     'no-console': ['error'],
     'no-unused-vars': ['off'],
 
@@ -111,7 +111,6 @@ module.exports = {
     'unused-imports/no-unused-imports': 'error',
   },
   // Prevents no-sync await to the rules.
-  // TODO: Work with team on this one for GC.
   overrides: [
     {
       // Jest overrides

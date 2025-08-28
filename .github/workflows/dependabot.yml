@@ -1,0 +1,71 @@
+---
+name: 🤖 Dependabot Automations
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+# Commenting until stable.
+# concurrency:
+#   group: dependabot-${{ github.event.pull_request.number }}
+#   cancel-in-progress: false
+
+jobs:
+  dependabot:
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'owner/my_repo'
+
+    name: Dependabot Automations
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.PAT_TOKEN }}
+          compat-lookup: true
+          alert-lookup: true
+
+      - name: Exit workflow for major updates
+        if: steps.metadata.outputs.update-type == 'version-update:semver-major'
+        run: |
+          echo "🚨 Major update detected - exiting workflow as success (no automation)"
+          exit 0
+
+      - name: Auto-approve and auto-merge patch updates
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔧 Patch update: auto-approve and auto-merge"
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL"
+
+       # Minor: Auto-approve and auto-merge if confidence > 80, else only auto-approve
+      - name: Handle minor updates
+        if: steps.metadata.outputs.update-type == 'version-update:semver-minor'
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMPATIBILITY_SCORE="${{ steps.metadata.outputs.compatibility-score }}"
+          SCORE_INT=$(echo "$COMPATIBILITY_SCORE" | cut -d'.' -f1)
+          echo "🔍 Minor update with compatibility score: $SCORE_INT"
+          gh pr review --approve "$PR_URL"
+          if [ "$SCORE_INT" -gt 80 ] 2>/dev/null; then
+            echo "✅ Confidence >80: auto-merge"
+            gh pr merge --auto --squash "$PR_URL"
+          else
+            echo "⚠️ Confidence ≤80: auto-approve only"
+          fi
+
+

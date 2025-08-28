@@ -1,0 +1,28 @@
+name: Run Jira Linter
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+env:
+  githubPrBranch: ${{ github.head_ref }}
+  githubPrTitle: ${{ github.event.pull_request.title }}
+
+jobs:
+  jira-lint:
+    name: Run Jira Lint
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jira-tools/action-jira-linter@v1.0.1
+        name: Jira Lint
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          jira-token: ${{ secrets.JIRA_TOKEN }}
+          jira-base-url: https://${{ secrets.JIRA_DOMAIN }}.atlassian.net
+          pr-threshold: 1000
+          jira-user: andyb@retailsuccess.com
+          validate-issue-status: false
+          fail-on-error: false
+          skip-comments: false
