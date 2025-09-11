@@ -46,7 +46,7 @@
   "dependencies": {
     "@next/bundle-analyzer": "^13.4.19",
     "classnames": "^2.3.2",
-    "concurrently": "^9.2.0",
+    "concurrently": "^9.2.1",
     "consola": "^3.4.2",
     "console-stamp": "^3.1.1",
     "eslint-config-next": "^15.4.6",
