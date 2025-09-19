@@ -17,8 +17,32 @@ permissions:
 #   cancel-in-progress: false
 
 jobs:
+  setup:
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js App
+        uses: ./.github/actions/setup-ui
+
+      - name: Build application
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.setup.outputs.artifact-name }}-build
+          path: |
+            .next/
+            out/
+            dist/
+            build/
+          retention-days: 7
   dependabot:
     if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
+    needs: ['setup']
 
     name: Dependabot Automations
     runs-on: ubuntu-latest
