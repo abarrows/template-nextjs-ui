@@ -13,7 +13,7 @@ IGNORE_GENERATED_FILES: true
 DISABLE_LINTERS:
   # Linters
   # Prevents false positives with stylelint.
-  - CSS_SCSS_LINT
+  - CSS_SCSSLINT
   - C_CPPLINT
   - CLOJURE_CLJ_KONDO
   - COFFEE_COFFEELINT

@@ -1,8 +1,8 @@
 name: Lint and Format Code
 
 on:
-  # pull_request:
-  #   types: [opened, synchronize, reopened]
+  pull_request:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
       NODE_ENV:
@@ -30,6 +30,7 @@ on:
           - "push"
           - "pull_request"
           - "none"
+        default: "pull_request"
 
 env:
   APPLY_FIXES: ${{ inputs.APPLY_FIXES }}
@@ -50,13 +51,11 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Node from NVM
-        if: ${{ inputs.NODE_ENV }}
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
       - name: Install dependencies
-        if: ${{ inputs.NODE_ENV }}
         run: npm install --frozen-lockfile --prefer-offline
 
       # Run the MegaLinter Github Action
@@ -65,7 +64,7 @@ jobs:
         uses: oxsecurity/megalinter/flavors/cupcake@v7
         continue-on-error: true
         env:
-          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
+          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' || inputs.VALIDATE_ALL_CODEBASE == 'true' }}
           GITHUB_TOKEN: ${{ secrets.PAT_ACTION_CI }}
 
       # Creates archive artifact of linting reports
