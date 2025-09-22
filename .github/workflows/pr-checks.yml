@@ -82,23 +82,32 @@ jobs:
   unit-tests:
     name: Unit Tests
     needs: [setup, lint]
-    uses: ./.github/workflows/automated-tests.yml
-    with:
-      test-command: "npm run test:unit:ci"
-      artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-results"
-      timeout-minutes: 15
-      upload-path: |
-        coverage/
-        test-results/
-        junit.xml
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js App
+        uses: ./.github/actions/setup-ui
+      - name: Run Unit Tests
+        uses: ./.github/workflows/automated-tests.yml
+        with:
+          test-command: "npm run test:unit:ci"
+          artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-results"
+          timeout-minutes: 15
+          upload-path: |
+            coverage/
+            test-results/
+            junit.xml
 
 
   playwright-tests:
-    name: Playwright Tests
     needs: [setup, lint, build]
-    uses: ./.github/workflows/automated-tests.yml
-    with:
-      test-command: "npx playwright install --with-deps && npx playwright test"
-      artifact-name: "${{ needs.setup.outputs.artifact-name }}-playwright-report"
-      timeout-minutes: 60
-      upload-path: "playwright-report/"
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Playwright Tests
+        uses: ./.github/workflows/automated-tests.yml
+        with:
+          test-command: "npx playwright install --with-deps && npx playwright test"
+          artifact-name: "${{ needs.setup.outputs.artifact-name }}-playwright-report"
+          timeout-minutes: 60
+          upload-path: "playwright-report/"
