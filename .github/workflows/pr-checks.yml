@@ -45,12 +45,10 @@ jobs:
 
   # Jobs that run in parallel after linting
   build:
-    name: Build Application
-    needs: [setup, lint]
-    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node.js App
+      - uses: actions/checkout@v4
+      - name: Setup UI
         uses: ./.github/actions/setup-ui
 
       - name: Build application
