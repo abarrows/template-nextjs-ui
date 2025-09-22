@@ -41,7 +41,7 @@ jobs:
             build/
           retention-days: 7
   dependabot:
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
     needs: ['setup']
 
     name: Dependabot Automations
