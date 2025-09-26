@@ -4,29 +4,31 @@ on:
   workflow_call:
     inputs:
       test-command:
-        description: 'Test command to run'
+        description: "Test command to run"
         required: true
         type: string
       artifact-name:
-        description: 'Base artifact name'
+        description: "Base artifact name"
         required: true
         type: string
       timeout-minutes:
-        description: 'Job timeout in minutes'
+        description: "Job timeout in minutes"
         required: false
         type: number
         default: 30
       upload-path:
-        description: 'Path to upload as artifacts'
+        description: "Path to upload as artifacts"
         required: false
         type: string
-        default: ''
+        default: ""
 
 jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: ${{ inputs.timeout-minutes }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Setup Node.js App
         uses: ./.github/actions/setup-ui
 

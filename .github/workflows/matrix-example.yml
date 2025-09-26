@@ -20,6 +20,8 @@ jobs:
             artifact-suffix: "integration-results"
             upload-path: "test-results/"
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Setup Node.js App
         uses: ./.github/actions/setup-ui
 
