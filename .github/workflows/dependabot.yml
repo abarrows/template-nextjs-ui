@@ -38,7 +38,8 @@ jobs:
             .next/
           retention-days: 7
   dependabot:
-    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'owner/my_repo'
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
+    needs: ["setup"]
 
     name: Dependabot Automations
     runs-on: ubuntu-latest
