@@ -74,7 +74,7 @@ jobs:
           gh pr review --approve "$PR_URL"
           gh pr merge --auto --squash "$PR_URL"
 
-       # Minor: Auto-approve and auto-merge if confidence > 80, else only auto-approve
+        # Minor: Auto-approve and auto-merge if confidence > 80, else only auto-approve
       - name: Handle minor updates
         if: steps.metadata.outputs.update-type == 'version-update:semver-minor'
         env:
@@ -91,5 +91,3 @@ jobs:
           else
             echo "⚠️ Confidence ≤80: auto-approve only"
           fi
-
-
