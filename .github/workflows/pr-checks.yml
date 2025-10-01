@@ -92,8 +92,8 @@ jobs:
       timeout-minutes: 15
       upload-path: |
         coverage/
-        test-results/
-        junit.xml
+        unit/
+        lcov-report/
 
   playwright-tests:
     name: Playwright Tests
