@@ -61,9 +61,6 @@ jobs:
           name: ${{ needs.setup.outputs.artifact-name }}-build
           path: |
             .next/
-            out/
-            dist/
-            build/
           retention-days: 7
 
       - name: Upload deployment package
