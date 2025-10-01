@@ -45,6 +45,7 @@ jobs:
 
   # Jobs that run in parallel after linting
   build:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -79,31 +80,23 @@ jobs:
     name: Unit Tests
     needs: [setup, lint]
     if: ${{ github.actor != 'dependabot[bot]' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js App
-        uses: ./.github/actions/setup-ui
-      - name: Run Unit Tests
-        uses: ./.github/workflows/automated-tests.yml
-        with:
-          test-command: "npm run test:unit:ci"
-          artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-results"
-          timeout-minutes: 15
-          upload-path: |
-            coverage/
-            test-results/
-            junit.xml
+    uses: ./.github/workflows/automated-tests.yml
+    with:
+      test-command: "npm run test:unit:ci"
+      artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-results"
+      timeout-minutes: 15
+      upload-path: |
+        coverage/
+        test-results/
+        junit.xml
 
   playwright-tests:
+    name: Playwright Tests
     needs: [setup, lint, build]
     if: ${{ github.actor != 'dependabot[bot]' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Playwright Tests
-        uses: ./.github/workflows/automated-tests.yml
-        with:
-          test-command: "npx playwright install --with-deps && npx playwright test"
-          artifact-name: "${{ needs.setup.outputs.artifact-name }}-playwright-report"
-          timeout-minutes: 60
-          upload-path: "playwright-report/"
+    uses: ./.github/workflows/automated-tests.yml
+    with:
+      test-command: "npx playwright install --with-deps && npx playwright test"
+      artifact-name: "${{ needs.setup.outputs.artifact-name }}-playwright-report"
+      timeout-minutes: 60
+      upload-path: "playwright-report/"
