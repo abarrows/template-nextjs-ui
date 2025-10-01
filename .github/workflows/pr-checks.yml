@@ -87,7 +87,7 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' }}
     uses: ./.github/workflows/automated-tests.yml
     with:
-      test-command: "npm run test:ci"
+      test-command: "npm run test:unit:ci"
       artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-results"
       timeout-minutes: 15
       upload-path: "coverage/"
