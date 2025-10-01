@@ -87,13 +87,10 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' }}
     uses: ./.github/workflows/automated-tests.yml
     with:
-      test-command: "npm run test:unit:ci"
+      test-command: "npm run test:ci"
       artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-results"
       timeout-minutes: 15
-      upload-path: |
-        coverage/
-        unit/
-        lcov-report/
+      upload-path: "coverage/"
 
   playwright-tests:
     name: Playwright Tests
