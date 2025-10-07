@@ -14,6 +14,12 @@
     "**/*.svg"
   ],
   "output": "coverage/code-quality/duplication/",
-  "reporters": ["html", "markdown", "badge", "console", "json-summary"],
+  "reporter": [
+    "html",
+    "markdown",
+    "badge",
+    "console",
+    "json-summary"
+  ],
   "threshold": 15
 }
