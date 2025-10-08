@@ -2,7 +2,27 @@ import React from 'react';
 
 import classNames from 'classnames';
 // eslint-disable-next-line camelcase
-import { Carter_One, Source_Code_Pro } from 'next/font/google';
+// Remove Carter One import and usage
+// import { Carter_One, Source_Code_Pro } from 'next/font/google';
+// const carterOne = Carter_One({ ... });
+import { Source_Code_Pro } from 'next/font/google';
+const sourceCodePro = Source_Code_Pro({
+  display: 'swap',
+  subsets: ['latin'],
+  variable: '--font-source-code-pro',
+  weight: ['400', '700'],
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang='en'>
+      <body className={sourceCodePro.variable}>
+        <ShowSiteHeader />
+        {children}
+      </body>
+    </html>
+  );
+}
 import PropTypes from 'prop-types';
 
 import ShowSiteHeader from 'src/components/sections/ShowSiteHeader';
@@ -16,12 +36,12 @@ export const metadata = {
   description: 'Starter kit for new UI apps',
 };
 
-const carterOne = Carter_One({
-  display: 'swap',
-  subsets: ['latin'],
-  variable: '--font-carter-one',
-  weight: '400',
-});
+// const carterOne = Carter_One({
+//   display: 'swap',
+//   subsets: ['latin'],
+//   variable: '--font-carter-one',
+//   weight: '400',
+// });
 const sourceCodePro = Source_Code_Pro({
   display: 'swap',
   subsets: ['latin'],
@@ -32,7 +52,8 @@ const sourceCodePro = Source_Code_Pro({
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body className={classNames(carterOne.variable, sourceCodePro.variable)}>
+      {/* <body className={classNames(carterOne.variable, sourceCodePro.variable)}> */}
+      <body className={sourceCodePro.variable}>
         <ShowSiteHeader />
 
         {children}
