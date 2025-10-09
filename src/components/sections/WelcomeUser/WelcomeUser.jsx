@@ -13,10 +13,16 @@ function WelcomeUser() {
   consola.info(
     'WelcomeUser this is a message for advertising on the client side from a client component.',
   );
-  consola.warn('WelcomeUser this is a warning message from a client component.');
-  consola.error('WelcomeUser this is an error message from a client component.');
+  consola.warn(
+    'WelcomeUser this is a warning message from a client component.',
+  );
+  consola.error(
+    'WelcomeUser this is an error message from a client component.',
+  );
   consola.debug('WelcomeUser this is a debug message from a client component.');
-  consola.success('WelcomeUser this is a success message from a client component.');
+  consola.success(
+    'WelcomeUser this is a success message from a client component.',
+  );
   // TODO: ONBOARDING - remove these debug variables while setting up a new project
   // Checking NEXT_PUBLIC_ vars in the client side is a good way to validate
   // if they were set properly during the build. If they are set during
@@ -31,6 +37,7 @@ function WelcomeUser() {
         <SiteLink
           href='https://github.com/abarrows/template-nextjs-ui#readme'
           openInNewTab
+          name='README'
           title='View the Readme'
         >
           README

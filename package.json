@@ -37,7 +37,7 @@
     "test:e2e:report": "playwright show-report",
     "test:size": "size-limit",
     "test:unit": "jest src --verbose",
-    "test:ci": "jest --ci --changedSince=origin/main --coverage --watchAll=false",
+    "test:unit:ci": "jest --ci --changedSince=origin/main --coverage --watchAll=false",
     "test:unit:report": "open coverage/unit/lcov-report/index.html",
     "test:unit:watch": "jest --watch --detectOpenHandles",
     "test:dependencies": "npm-check ./ --specials=bin,nextjs,react,webpack,jest,babel,eslint,prettier,stylelint,typescript,node,npm,yarn",
