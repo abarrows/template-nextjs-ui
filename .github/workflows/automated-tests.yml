@@ -48,15 +48,16 @@ jobs:
         with:
           test-script: ${{ inputs.test-command }}
           package-manager: npm
-          # coverage-file: ./coverage/unit/coverage-final.json
-          # base-coverage-file: "${{ inputs.artifact-name }}-unit-results/coverage/unit/lcov-report/report.json"
-      # - name: Upload test artifacts
-      #   if: ${{ inputs.upload-path != '' && always() }}
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ${{ inputs.artifact-name }}
-      #     path: "${{ inputs.upload-path }}"
-      #     retention-days: 7
+          coverage-file: ./coverage/unit/coverage-final.json
+          base-coverage-file: "${{ inputs.artifact-name }}-unit-results/coverage/unit/coverage-final.json"
+
+      - name: Upload test artifacts
+        if: ${{ inputs.upload-path != '' && always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: "${{ inputs.upload-path }}"
+          retention-days: 7
 
   e2e-test:
     name: Playwright Test Scenarios
@@ -76,10 +77,10 @@ jobs:
       - name: Run Test Scenarios
         run: |
           ${{ inputs.test-command }}
-      # - name: Upload test artifacts
-      #   if: ${{ inputs.upload-path != '' && always() }}
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ${{ inputs.artifact-name }}
-      #     path: "${{ inputs.upload-path }}"
-      #     retention-days: 7
+      - name: Upload test artifacts
+        if: ${{ inputs.upload-path != '' && always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: "${{ inputs.upload-path }}"
+          retention-days: 7
