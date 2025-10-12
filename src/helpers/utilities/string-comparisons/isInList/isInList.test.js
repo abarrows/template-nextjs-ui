@@ -4,19 +4,19 @@ describe('isInList', () => {
   // isStrict = true
   it('returns true when string is in list', () => {
     expect(isInList('check', ['check', 'is', 'in', 'the', 'list'], true)).toBe(
-      true,
+      true
     );
   });
 
   it('returns false when string is capitalized but in the list', () => {
     expect(isInList('check', ['Check', 'is', 'in', 'the', 'list'], true)).toBe(
-      false,
+      false
     );
   });
 
   it('returns false when string is not in the list', () => {
     expect(isInList('check', ['is', 'not', 'in', 'the', 'list'], true)).toBe(
-      false,
+      false
     );
   });
 

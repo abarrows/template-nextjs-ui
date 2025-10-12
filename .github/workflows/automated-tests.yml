@@ -26,6 +26,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: ${{ inputs.timeout-minutes }}
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,6 +39,10 @@ jobs:
         uses: ./.github/actions/setup-ui
       - name: Run Tests and Check Coverage
         uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          test-script: ${{ inputs.test-command }}
+          package-manager: npm
+          annotations: failed-tests
 
       # - name: Run tests
       #   run: ${{ inputs.test-command }}
