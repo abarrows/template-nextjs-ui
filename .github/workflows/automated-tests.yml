@@ -49,7 +49,7 @@ jobs:
           test-script: ${{ inputs.test-command }}
           package-manager: npm
           coverage-file: ./coverage/unit/coverage-final.json
-          base-coverage-file: "${{ inputs.artifact-name }}-unit-results/coverage/unit/coverage-final.json"
+          skip-step: install
 
       - name: Upload test artifacts
         if: ${{ inputs.upload-path != '' && always() }}
