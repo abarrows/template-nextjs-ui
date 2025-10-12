@@ -28,14 +28,29 @@ module.exports = async () => {
       // separate workflow.
       ignoreDuringBuilds: true,
     },
+    experimental: {
+      // Optimize package imports for faster builds
+      optimizePackageImports: ['classnames', 'prop-types'],
+    },
+    typescript: {
+      // Skip type checking during builds (similar to eslint)
+      // Set to false if you want strict type checking
+      ignoreBuildErrors: false,
+    },
     images: {
       // Breakpoints, plus 2x 1200 and 1400 for retina screens
       deviceSizes: [576, 768, 992, 1200, 1400, 2400, 2800],
       // TODO: ONBOARDING - Set the correct CDN host
-      domains: ['assets.product.com'],
-      // TODO: allow avif once the Storybook addon supports it
-      // https://github.com/RyanClementsHax/storybook-addon-next#avif
-      // formats: ['image/avif', 'image/webp'],
+      // Using remotePatterns instead of deprecated domains
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'assets.product.com',
+          pathname: '/**',
+        },
+      ],
+      // Enable modern image formats
+      formats: ['image/avif', 'image/webp'],
     },
     productionBrowserSourceMaps: true,
     redirects() {
