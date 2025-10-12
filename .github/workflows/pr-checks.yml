@@ -109,7 +109,8 @@ jobs:
 
   unit-tests:
     name: Run Unit Tests and Check Coverage
-    needs: [setup, lint]
+    # needs: [setup, lint]
+    needs: setup
     if: ${{ github.actor != 'dependabot[bot]' }}
     uses: ./.github/workflows/automated-tests.yml
     with:
