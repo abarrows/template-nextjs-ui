@@ -40,7 +40,7 @@ on:
         description: Mega Lint flavor
         type: string
         default: "cupcake"
-      APPLY_FIXES:
+      ACTIVE_LINTERS:
         type: string
         description: "Comma-separated list of linters to run"
         default: "all"
@@ -54,7 +54,7 @@ on:
         default: "pull_request"
 
 env:
-  APPLY_FIXES: ${{ inputs.APPLY_FIXES }}
+  ACTIVE_LINTERS: ${{ inputs.ACTIVE_LINTERS }}
   APPLY_FIXES_MODE: ${{ inputs.APPLY_FIXES_MODE }}
   APPLY_FIXES_EVENT: ${{ inputs.APPLY_FIXES_EVENT }}
 
@@ -93,7 +93,6 @@ jobs:
       - name: Archive production artifacts
         if: ${{ always() }}
         uses: actions/upload-artifact@v4.6.2
-
 
         with:
           name: MegaLinter reports

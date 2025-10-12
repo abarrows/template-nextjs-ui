@@ -4,6 +4,25 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
+    inputs:
+      ACTIVE_LINTERS:
+        type: string
+        description: Comma-separated list of linters to run
+        default: "all"
+      APPLY_FIXES_MODE:
+        type: choice
+        description: "Create PR or commit directly to branch"
+        options:
+          - "pull_request"
+          - "commit"
+      APPLY_FIXES_EVENT:
+        type: choice
+        description: "Create PR or commit directly to branch"
+        options:
+          - "all"
+          - "push"
+          - "pull_request"
+          - "none"
 env:
   ENVIRONMENT: "development"
   # Foolproof artifact naming strategy
@@ -38,9 +57,9 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' }}
     uses: ./.github/workflows/mega-linter.yml
     with:
-      LINT_FLAVOR: "cupcake"
-      APPLY_FIXES_MODE: "commit"
-      APPLY_FIXES_EVENT: "pull_request"
+      ACTIVE_LINTERS: ${{ inputs.ACTIVE_LINTERS|| 'all' }}
+      APPLY_FIXES_MODE: ${{ inputs.APPLY_FIXES_MODE || 'commit' }}
+      APPLY_FIXES_EVENT: ${{ inputs.APPLY_FIXES_EVENT || 'pull_request' }}
     secrets: inherit
 
   # Jobs that run in parallel after linting
