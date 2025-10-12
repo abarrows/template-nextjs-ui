@@ -2,8 +2,8 @@ module.exports = {
   plugins: ['@ianvs/prettier-plugin-sort-imports'],
   singleQuote: true,
   tabWidth: 2,
-  trailingComma: 'all',
-  jsxSingleQuote: true,
+  trailingComma: 'es5',
+  jsxSingleQuote: false,
   importOrder: [
     '<BUILTIN_MODULES>',
     '^react$',

@@ -1,11 +1,9 @@
 import React from 'react';
-
+import classNames from 'classnames';
 // eslint-disable-next-line camelcase
 import { Source_Code_Pro } from 'next/font/google';
 import PropTypes from 'prop-types';
-
 import ShowSiteHeader from 'src/components/sections/ShowSiteHeader';
-
 import 'src/styles/index.scss';
 
 const sourceCodePro = Source_Code_Pro({
@@ -24,8 +22,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en'>
-      <body className={sourceCodePro.variable}>
+    <html lang="en">
+      <body className={classNames(sourceCodePro.variable)}>
         <ShowSiteHeader />
         {children}
       </body>

@@ -4,19 +4,17 @@ import packageJson from 'package.json';
 // TODO: it's generally considered bad practice for security to expose your
 // package.json, figure out a safer way to get this value and make it easily
 // accessible, see https://github.com/axelpale/genversion
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 
-async function getNextPublicVariables() {
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+function getNextPublicVariables() {
   const regexMatches = Object.entries(process.env).filter(([key, value]) =>
-    /NEXT_PUBLIC_/.test(key),
+    /NEXT_PUBLIC_/.test(key)
   );
-  const data = await Object.fromEntries(regexMatches.sort());
+  const data = Object.fromEntries(regexMatches.sort());
   return () => data;
 }
 
-export async function GET() {
-  const nextPublicVariables = await getNextPublicVariables();
+export function GET() {
+  const nextPublicVariables = getNextPublicVariables();
 
   return NextResponse.json({
     version: packageJson.version,

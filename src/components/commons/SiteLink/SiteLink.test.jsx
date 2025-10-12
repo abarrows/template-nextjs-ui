@@ -1,12 +1,10 @@
 import React from 'react';
-
 import { render, screen } from '@testing-library/react';
-
 import SiteLink from './SiteLink';
 
 describe('SiteLink', () => {
   test('renders SiteLink with an href', () => {
-    render(<SiteLink href='/'>Hello World</SiteLink>);
+    render(<SiteLink href="/">Hello World</SiteLink>);
 
     const siteLink = screen.getByRole('link', { name: /hello world/i });
 
@@ -29,9 +27,9 @@ describe('SiteLink', () => {
 
   test('renders SiteLink with new tab attributes when an external href is provided', () => {
     render(
-      <SiteLink href='https://puzzlesociety.com/' openInNewTab>
+      <SiteLink href="https://puzzlesociety.com/" openInNewTab>
         Fun and Games
-      </SiteLink>,
+      </SiteLink>
     );
 
     const siteLink = screen.getByRole('link', { name: /fun and games/i });

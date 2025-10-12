@@ -1,27 +1,24 @@
 'use client';
 
 import React from 'react';
-
 import { consola } from 'consola';
-
 import SiteLink from 'src/components/commons/SiteLink';
-
 import styles from './WelcomeUser.module.scss';
 
 function WelcomeUser() {
   consola.log('WelcomeUser this is client side from a client component.');
   consola.info(
-    'WelcomeUser this is a message for advertising on the client side from a client component.',
+    'WelcomeUser this is a message for advertising on the client side from a client component.'
   );
   consola.warn(
-    'WelcomeUser this is a warning message from a client component.',
+    'WelcomeUser this is a warning message from a client component.'
   );
   consola.error(
-    'WelcomeUser this is an error message from a client component.',
+    'WelcomeUser this is an error message from a client component.'
   );
   consola.debug('WelcomeUser this is a debug message from a client component.');
   consola.success(
-    'WelcomeUser this is a success message from a client component.',
+    'WelcomeUser this is a success message from a client component.'
   );
   // TODO: ONBOARDING - remove these debug variables while setting up a new project
   // Checking NEXT_PUBLIC_ vars in the client side is a good way to validate
@@ -35,10 +32,10 @@ function WelcomeUser() {
         Get started by editing <code>src/app/page.jsx</code>. See the
         project&apos;s{' '}
         <SiteLink
-          href='https://github.com/abarrows/template-nextjs-ui#readme'
+          href="https://github.com/abarrows/template-nextjs-ui#readme"
           openInNewTab
-          name='README'
-          title='View the Readme'
+          name="README"
+          title="View the Readme"
         >
           README
         </SiteLink>{' '}
@@ -47,16 +44,16 @@ function WelcomeUser() {
       <ul>
         <li>
           <SiteLink
-            href='/api/health'
-            title='View the application health check'
+            href="/api/health"
+            title="View the application health check"
           >
             health check
           </SiteLink>
         </li>
         <li>
           <SiteLink
-            href='/test-redirect'
-            title='Test the redirect functionality'
+            href="/test-redirect"
+            title="Test the redirect functionality"
           >
             test redirect
           </SiteLink>{' '}
