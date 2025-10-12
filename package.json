@@ -37,7 +37,7 @@
     "test:e2e:report": "playwright show-report",
     "test:size": "size-limit",
     "test:unit": "jest src --verbose",
-    "test:unit:ci": "jest --ci --changedSince=origin/main --coverage --watchAll=false && npm run test:unit:report",
+    "test:unit:ci": "jest --ci --changedSince=origin/main --coverage --watchAll=false",
     "test:unit:coverage": "jest --coverage --watchAll=false && npm run test:unit:report",
     "test:unit:report": "open coverage/unit/lcov-report/index.html",
     "test:unit:watch": "jest --watch --detectOpenHandles",
