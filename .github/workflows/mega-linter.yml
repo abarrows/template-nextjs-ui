@@ -96,7 +96,7 @@ jobs:
         with:
           name: MegaLinter reports
           path: |
-            megalinter-reports
+            coverage/linting/megalinter-reports
             mega-linter.log
           retention-days: 7
 
