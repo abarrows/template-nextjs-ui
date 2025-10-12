@@ -246,11 +246,12 @@ pids
 node_modules/
 
 # CI Health Reporting
-coverage/
-# TODO: We should organize linting/test reports into coverage.
-# coverage/linting/*
-!coverage/unit/**/*
-!coverage/e2e/*
+# Ignore all coverage except unit and e2e
+coverage/*
+!coverage/unit/
+coverage/unit/.gitkeep
+!coverage/e2e/
+coverage/e2e/.gitkeep
 /test-results/*
 megalinter-reports/*
 jscpd-report.json
