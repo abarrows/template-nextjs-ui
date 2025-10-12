@@ -38,7 +38,6 @@ module.exports = async () => {
       // formats: ['image/avif', 'image/webp'],
     },
     productionBrowserSourceMaps: true,
-    swcMinify: true,
     redirects() {
       // Production-only redirects
       // These are used as a quick feature flag when certain pages should be
