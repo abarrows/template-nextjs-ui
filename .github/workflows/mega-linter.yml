@@ -52,9 +52,6 @@ on:
         type: string
         description: "Create PR or commit directly to branch"
         default: "pull_request"
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
 env:
   ACTIVE_LINTERS: ${{ inputs.ACTIVE_LINTERS }}
   APPLY_FIXES_MODE: ${{ inputs.APPLY_FIXES_MODE }}
