@@ -28,7 +28,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  test:
+  unit-tests:
+    name: Jest Test Suites
     runs-on: ubuntu-latest
     timeout-minutes: ${{ inputs.timeout-minutes }}
     permissions:
@@ -47,12 +48,38 @@ jobs:
         with:
           test-script: ${{ inputs.test-command }}
           # package-manager: npm
-          # coverage-file: ./coverage/unit/report.json
-          # base-coverage-file: ./coverage/unit/lcov-report/report.json
+          coverage-file: ./coverage/unit/lcov-report/coverage-final.json
+          base-coverage-file: ./coverage/unit/lcov-report/report.json
       - name: Upload test artifacts
         if: ${{ inputs.upload-path != '' && always() }}
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifact-name }}
-          path: ${{ inputs.upload-path }}
+          path: "${{ inputs.upload-path }}"
+          retention-days: 7
+
+  e2e-test:
+    name: Playwright Test Scenarios
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js App
+        uses: ./.github/actions/setup-ui
+      - name: Run Test Scenarios
+        run: |
+          ${{ inputs.test-command }}
+      - name: Upload test artifacts
+        if: ${{ inputs.upload-path != '' && always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: "${{ inputs.upload-path }}"
           retention-days: 7

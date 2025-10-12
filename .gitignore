@@ -249,8 +249,8 @@ node_modules/
 coverage/
 # TODO: We should organize linting/test reports into coverage.
 # coverage/linting/*
-# coverage/unit/*
-# coverage/integration/*
+!coverage/unit/**/*
+!coverage/e2e/*
 /test-results/*
 megalinter-reports/*
 jscpd-report.json

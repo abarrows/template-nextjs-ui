@@ -116,10 +116,10 @@ jobs:
       test-command: "npm run test:unit:ci"
       artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-unit-results"
       timeout-minutes: 15
-      upload-path: "./coverage"
+      upload-path: "./coverage/unit/"
 
   playwright-tests:
-    name: Playwright Tests
+    name: E2E Tests
     needs: [setup, lint, build]
     if: ${{ github.actor != 'dependabot[bot]' }}
     uses: ./.github/workflows/automated-tests.yml
@@ -127,4 +127,4 @@ jobs:
       test-command: "npx playwright install --with-deps && npx playwright test"
       artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-e2e-results"
       timeout-minutes: 60
-      upload-path: "playwright-report/"
+      upload-path: "./coverage/e2e/"
