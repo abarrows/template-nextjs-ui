@@ -47,7 +47,7 @@ jobs:
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           test-script: ${{ inputs.test-command }}
-          # package-manager: npm
+          package-manager: npm
           coverage-file: ./coverage/unit/lcov-report/coverage-final.json
           base-coverage-file: ./coverage/unit/lcov-report/report.json
       - name: Upload test artifacts
