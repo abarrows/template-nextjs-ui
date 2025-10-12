@@ -34,6 +34,7 @@ function WelcomeUser() {
         <SiteLink
           href="https://github.com/abarrows/template-nextjs-ui#readme"
           openInNewTab
+          name="README"
           title="View the Readme"
         >
           README

@@ -24,6 +24,10 @@ on:
           - "pull_request"
           - "none"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
   pull-requests: write
@@ -104,26 +108,23 @@ jobs:
           retention-days: 30
 
   unit-tests:
-    name: Unit Tests
+    name: Run Unit Tests and Check Coverage
     needs: [setup, lint]
     if: ${{ github.actor != 'dependabot[bot]' }}
     uses: ./.github/workflows/automated-tests.yml
     with:
       test-command: "npm run test:unit:ci"
-      artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-results"
+      artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-unit-results"
       timeout-minutes: 15
-      upload-path: |
-        coverage/
-        test-results/
-        junit.xml
+      upload-path: "./coverage/unit/"
 
   playwright-tests:
-    name: Playwright Tests
+    name: E2E Tests
     needs: [setup, lint, build]
     if: ${{ github.actor != 'dependabot[bot]' }}
     uses: ./.github/workflows/automated-tests.yml
     with:
       test-command: "npx playwright install --with-deps && npx playwright test"
-      artifact-name: "${{ needs.setup.outputs.artifact-name }}-playwright-report"
+      artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-e2e-results"
       timeout-minutes: 60
-      upload-path: "playwright-report/"
+      upload-path: "./coverage/e2e/"
