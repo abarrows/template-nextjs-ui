@@ -1,16 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 // eslint-disable-next-line camelcase
-import { Carter_One, Source_Code_Pro } from 'next/font/google';
+import { Source_Code_Pro } from 'next/font/google';
 import 'src/styles/index.scss';
 import customViewports from './customViewports';
 
-const carterOne = Carter_One({
-  display: 'swap',
-  subsets: ['latin'],
-  variable: '--font-carter-one',
-  weight: '400',
-});
 const sourceCodePro = Source_Code_Pro({
   display: 'swap',
   subsets: ['latin'],
@@ -34,7 +28,7 @@ const preview = {
   decorators: [
     (Story) => (
       // Make the Next.js powered Google Fonts available within Storybook
-      <div className={classNames(carterOne.variable, sourceCodePro.variable)}>
+      <div className={classNames(sourceCodePro.variable)}>
         <Story />
       </div>
     ),
