@@ -119,13 +119,30 @@ jobs:
       timeout-minutes: 15
       upload-path: "./coverage/unit/"
 
-  playwright-tests:
-    name: E2E Tests
+  e2e-test:
+    name: Playwright Test Scenarios
     needs: [setup, lint, build]
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    uses: ./.github/workflows/automated-tests.yml
-    with:
-      test-command: "npx playwright install --with-deps && npx playwright test"
-      artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-e2e-results"
-      timeout-minutes: 60
-      upload-path: "./coverage/e2e/"
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js App
+        uses: ./.github/actions/setup-ui
+      - name: Run Test Scenarios
+        run: |
+          npx playwright install --with-deps && npx playwright test
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.setup.outputs.artifact-name }}-test-e2e-results
+          path: "./coverage/e2e/"
+          retention-days: 7
+          overwrite: true
+          include-hidden-files: true
