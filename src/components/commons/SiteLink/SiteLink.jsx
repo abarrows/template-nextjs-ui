@@ -1,10 +1,7 @@
 import React from 'react';
-
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-
 import { isUrl } from 'src/helpers/utilities/string-comparisons';
-
 import styles from './SiteLink.module.scss';
 
 /* eslint-disable react/jsx-props-no-spreading */
@@ -23,7 +20,7 @@ function SiteLink({
     return (
       <div
         className={className || styles.link}
-        data-testid='site-link-disabled'
+        data-testid="site-link-disabled"
         {...props}
       >
         {children}
@@ -66,7 +63,7 @@ SiteLink.propTypes = {
   /** Next Link has several props it accepts, they can be passed
    * to it via this optional prop. For more information,
    * see https://nextjs.org/docs/api-reference/next/link */
-  // eslint-disable-next-line react/forbid-prop-types
+
   nextLinkProps: PropTypes.object,
 
   /** Optional flag to open the link in a new tab/window. */
