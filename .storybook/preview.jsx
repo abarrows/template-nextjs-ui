@@ -1,11 +1,8 @@
 import React from 'react';
-
 import classNames from 'classnames';
 // eslint-disable-next-line camelcase
 import { Carter_One, Source_Code_Pro } from 'next/font/google';
-
 import 'src/styles/index.scss';
-
 import customViewports from './customViewports';
 
 const carterOne = Carter_One({
