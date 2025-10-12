@@ -12,7 +12,7 @@ This document outlines the strategic order for upgrading dependencies and key br
 
 ### 1.1 Prettier (2.8.8 → 3.6.2)
 
-**Order: FIRST** - Upgr before ESLint to avoid formatting conflicts
+**Order: FIRST** - Upgrade before ESLint to avoid formatting conflicts
 
 #### Breaking Changes
 
