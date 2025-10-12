@@ -1,12 +1,8 @@
 import React from 'react';
-
 import classNames from 'classnames';
-// eslint-disable-next-line camelcase
 import { Carter_One, Source_Code_Pro } from 'next/font/google';
 import PropTypes from 'prop-types';
-
 import ShowSiteHeader from 'src/components/sections/ShowSiteHeader';
-
 import 'src/styles/index.scss';
 
 export const dynamic = 'force-dynamic';
@@ -31,7 +27,7 @@ const sourceCodePro = Source_Code_Pro({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body className={classNames(carterOne.variable, sourceCodePro.variable)}>
         <ShowSiteHeader />
 

@@ -1,6 +1,6 @@
 export const B2C = {
   // All times in seconds and use Azure's default values from:
-  // eslint-disable-next-line max-len
+
   // https://learn.microsoft.com/en-us/azure/active-directory-b2c/configure-tokens?pivots=b2c-custom-policy#token-lifetime-behavior
   REFRESH_TOKEN_AGE: 14 * 24 * 60 * 60, // 14 days
   ID_TOKEN_AGE: 60 * 60, // 60 minutes

@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { render, screen } from '@testing-library/react';
-
 import Heading from './Heading';
 
 describe('Heading', () => {
@@ -15,7 +13,7 @@ describe('Heading', () => {
   });
 
   test('renders Heading with the supplied element', () => {
-    render(<Heading Element='h4'>Lorem Ipsum</Heading>);
+    render(<Heading Element="h4">Lorem Ipsum</Heading>);
 
     const text = screen.getByRole('heading', { name: /lorem ipsum/i });
 

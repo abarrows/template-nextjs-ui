@@ -23,6 +23,12 @@ on:
           - "push"
           - "pull_request"
           - "none"
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+
 env:
   ENVIRONMENT: "development"
   # Foolproof artifact naming strategy
@@ -69,6 +75,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Setup UI
         uses: ./.github/actions/setup-ui
 

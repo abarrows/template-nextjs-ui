@@ -1,7 +1,5 @@
 import React from 'react';
-
 import consola from 'consola';
-
 import WelcomeUser from 'src/components/sections/WelcomeUser';
 
 // const consola = require('consola');

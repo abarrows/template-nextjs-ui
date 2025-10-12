@@ -1,5 +1,4 @@
 import React from 'react';
-
 import SiteLink from './SiteLink';
 
 export default {
