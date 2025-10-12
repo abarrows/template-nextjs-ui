@@ -54,7 +54,6 @@ id_rsa
 capybara-*.html
 .rspec
 /public/system
-/coverage/**
 /spec/tmp
 *.orig
 rerun.txt
@@ -248,10 +247,9 @@ node_modules/
 # CI Health Reporting
 # Ignore all coverage except unit and e2e
 coverage/*
-!coverage/unit/
-coverage/unit/.gitkeep
+!coverage/unit/coverage-final.json
+!coverage/unit/index.html
 !coverage/e2e/
-coverage/e2e/.gitkeep
 /test-results/*
 megalinter-reports/*
 jscpd-report.json
