@@ -4,6 +4,7 @@
 [![Staging](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=prerelease)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 [![Development](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=push&branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 [![Megalinter](https://github.com/abarrows/template-nextjs-ui/actions/workflows/mega-linter.yml/badge.svg?branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/mega-linter.yml)
+[![CI Checks](https://github.com/abarrows/template-nextjs-ui/actions/workflows/pr-checks.yml/badge.svg)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/pr-checks.yml)
 [![Within Web Performance Budget](https://github.com/abarrows/template-nextjs-ui/actions/workflows/performance.yml/badge.svg)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/performance.yml)
 
 App responsible for all appname related data.
