@@ -20,7 +20,7 @@ const customJestConfig = {
   // TODO: add coverage badge too
   // TODO: Make a concerted effort to get coverage up to over 90%
   collectCoverage: true,
-  reporter: ['lcov', 'text', 'text-summary', 'json', 'html'],
+  coverageReporters: ['lcov', 'text', 'text-summary', 'json', 'html'],
   coverageDirectory: '<rootDir>/coverage/unit',
   coverageThreshold: {
     global: {

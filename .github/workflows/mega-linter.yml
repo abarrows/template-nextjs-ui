@@ -52,7 +52,6 @@ on:
         type: string
         description: "Create PR or commit directly to branch"
         default: "pull_request"
-
 env:
   ACTIVE_LINTERS: ${{ inputs.ACTIVE_LINTERS }}
   APPLY_FIXES_MODE: ${{ inputs.APPLY_FIXES_MODE }}
@@ -97,7 +96,7 @@ jobs:
         with:
           name: MegaLinter reports
           path: |
-            megalinter-reports
+            coverage/linting/megalinter-reports
             mega-linter.log
           retention-days: 7
 
