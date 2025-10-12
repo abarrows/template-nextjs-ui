@@ -14,14 +14,19 @@ export default function CurrentBreakpoint() {
   // const xl = useMediaQuery(theme.breakpoints.only('xl'));
 
   let currentBreakpoint = '';
-  if (process.env.NEXT_PUBLIC_DEPLOY_ENV?.toLowerCase() === 'prod') {
+  if (process.env.NEXT_PUBLIC_DEPLOY_ENV?.toLowerCase() === 'production') {
     return <></>;
   }
-  if (xs) currentBreakpoint = 'xs';
-  // else if (sm) currentBreakpoint = 'sm';
-  // else if (md) currentBreakpoint = 'md';
-  // else if (lg) currentBreakpoint = 'lg';
-  // else if (xl) currentBreakpoint = 'xl';
+  const xs: string = 'xs';
+  const sm: string = 'sm';
+  const md: string = 'md';
+  const lg: string = 'lg';
+  const xl: string = 'xl';
+  if (xs) currentBreakpoint = xs;
+  else if (sm) currentBreakpoint = sm;
+  else if (md) currentBreakpoint = md;
+  else if (lg) currentBreakpoint = lg;
+  else if (xl) currentBreakpoint = xl;
 
   return <div>{currentBreakpoint}</div>;
 }
