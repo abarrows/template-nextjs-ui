@@ -1,0 +1,34 @@
+# Example of matrix approach (not recommended for your current setup)
+name: Automated Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-matrix:
+    name: ${{ matrix.test-type }} Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - test-type: "Unit"
+            command: "npm run test:unit:ci"
+            artifact-suffix: "test-results"
+            upload-path: "coverage/"
+          - test-type: "Integration"
+            command: "npm run test:integration"
+            artifact-suffix: "integration-results"
+            upload-path: "test-results/"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js App
+        uses: ./.github/actions/setup-ui
+
+      - name: Run ${{ matrix.test-type }} tests
+        run: ${{ matrix.command }}
+
+      # Note: In practice, you'd use the automated-tests.yml reusable workflow
+      # This is just an example of matrix strategy
+      - name: Example upload (use reusable workflow instead)
+        run: echo "Results would be uploaded by reusable workflow"
