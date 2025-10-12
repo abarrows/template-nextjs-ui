@@ -44,7 +44,7 @@
     "update:dependencies": "npm-check ./ --specials=bin,nextjs,react,webpack,jest,babel,eslint,prettier,stylelint,typescript,node,npm,yarn --update"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^13.4.19",
+    "@next/bundle-analyzer": "^13.5.11",
     "classnames": "^2.3.2",
     "concurrently": "^9.2.0",
     "consola": "^3.4.2",
