@@ -45,11 +45,10 @@ jobs:
       - name: Run Tests and Check Coverage
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          coverage-file: ./coverage/unit/report.json
-          base-coverage-file: ./coverage/unit/report.json
-
-      # - name: Run tests
-      #   run: ${{ inputs.test-command }}
+          test-script: ${{ inputs.test-command }}
+          # package-manager: npm
+          # coverage-file: ./coverage/unit/report.json
+          # base-coverage-file: ./coverage/unit/lcov-report/report.json
       - name: Upload test artifacts
         if: ${{ inputs.upload-path != '' && always() }}
         uses: actions/upload-artifact@v4
