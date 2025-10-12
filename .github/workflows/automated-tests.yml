@@ -58,6 +58,7 @@ jobs:
           name: ${{ inputs.artifact-name }}
           path: "${{ inputs.upload-path }}"
           retention-days: 7
+          overwrite: true
 
   e2e-test:
     name: Playwright Test Scenarios
@@ -84,3 +85,4 @@ jobs:
           name: ${{ inputs.artifact-name }}
           path: "${{ inputs.upload-path }}"
           retention-days: 7
+          overwrite: true
