@@ -121,7 +121,7 @@ jobs:
 
   e2e-test:
     name: Playwright Test Scenarios
-    needs: [setup, lint, build]
+    needs: [setup, lint]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
