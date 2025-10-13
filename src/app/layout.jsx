@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-// eslint-disable-next-line camelcase
+ 
 import { Source_Code_Pro } from 'next/font/google';
 import PropTypes from 'prop-types';
 import ShowSiteHeader from 'src/components/sections/ShowSiteHeader';

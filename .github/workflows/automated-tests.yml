@@ -38,48 +38,25 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Setup Node.js App
         uses: ./.github/actions/setup-ui
-      - name: Run Tests and Check Coverage
+
+      - name: Run Tests and Generate Coverage Report
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           test-script: ${{ inputs.test-command }}
           package-manager: npm
-          # coverage-file: ./coverage/unit/coverage-final.json
-          # base-coverage-file: "${{ inputs.artifact-name }}-unit-results/coverage/unit/lcov-report/report.json"
-      # - name: Upload test artifacts
-      #   if: ${{ inputs.upload-path != '' && always() }}
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ${{ inputs.artifact-name }}
-      #     path: "${{ inputs.upload-path }}"
-      #     retention-days: 7
+          skip-step: install
 
-  e2e-test:
-    name: Playwright Test Scenarios
-    runs-on: ubuntu-latest
-    timeout-minutes: ${{ inputs.timeout-minutes }}
-    permissions:
-      contents: read
-      checks: write
-      pull-requests: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Upload test artifacts
+        if: ${{ inputs.upload-path != '' && always() }}
+        uses: actions/upload-artifact@v4
         with:
-          fetch-depth: 0
-      - name: Setup Node.js App
-        uses: ./.github/actions/setup-ui
-      - name: Run Test Scenarios
-        run: |
-          ${{ inputs.test-command }}
-      # - name: Upload test artifacts
-      #   if: ${{ inputs.upload-path != '' && always() }}
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ${{ inputs.artifact-name }}
-      #     path: "${{ inputs.upload-path }}"
-      #     retention-days: 7
+          name: ${{ inputs.artifact-name }}
+          path: "${{ inputs.upload-path }}"
+          retention-days: 7
+          overwrite: true
+          include-hidden-files: true

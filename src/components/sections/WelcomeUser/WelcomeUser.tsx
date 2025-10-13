@@ -5,7 +5,7 @@ import { consola } from 'consola';
 import SiteLink from 'src/components/commons/SiteLink';
 import styles from './WelcomeUser.module.scss';
 
-function WelcomeUser() {
+function WelcomeUser(): React.JSX.Element {
   consola.log('WelcomeUser this is client side from a client component.');
   consola.info(
     'WelcomeUser this is a message for advertising on the client side from a client component.'

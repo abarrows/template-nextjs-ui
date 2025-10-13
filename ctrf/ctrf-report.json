@@ -1,0 +1,46 @@
+{
+  "reportFormat": "CTRF",
+  "specVersion": "0.0.0",
+  "reportId": "d027d0e4-d46f-43bd-9e7b-d12d11e90298",
+  "timestamp": "2025-10-13T16:17:29.752Z",
+  "generatedBy": "playwright-ctrf-json-reporter",
+  "results": {
+    "tool": {
+      "name": "playwright"
+    },
+    "summary": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "skipped": 0,
+      "other": 0,
+      "start": 1760372257707,
+      "stop": 1760372260520,
+      "suites": 0
+    },
+    "tests": [
+      {
+        "name": "displays a reference to page.jsx and a link to the README",
+        "status": "passed",
+        "duration": 2206,
+        "start": 1760372257,
+        "stop": 1760372260,
+        "rawStatus": "passed",
+        "tags": [],
+        "type": "e2e",
+        "filePath": "/Users/andyb/Retail-Success/repos/development-team/template-nextjs-ui/playwright/fixtures/pages/Homepage.spec.js",
+        "retries": 0,
+        "flaky": false,
+        "steps": [],
+        "suite": "fixtures/pages/Homepage.spec.js > Homepage",
+        "attachments": [],
+        "stdout": [],
+        "stderr": [],
+        "extra": {
+          "annotations": []
+        }
+      }
+    ]
+  }
+}

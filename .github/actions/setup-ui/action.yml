@@ -1,30 +1,30 @@
-name: 'Setup Node.js Application'
-description: 'Checkout code, setup Node.js, and install dependencies'
+name: "Setup Node.js Application"
+description: "Checkout code, setup Node.js, and install dependencies"
 
 inputs:
   artifact-name:
-    description: 'Base artifact name to download source from'
+    description: "Base artifact name to download source from"
     required: false
   use-artifacts:
-    description: 'Whether to use artifacts instead of fresh checkout'
+    description: "Whether to use artifacts instead of fresh checkout"
     required: false
-    default: 'false'
+    default: "false"
   install-deps:
-    description: 'Whether to install dependencies'
+    description: "Whether to install dependencies"
     required: false
-    default: 'true'
+    default: "true"
 
 outputs:
   cache-hit:
-    description: 'Whether npm cache was hit'
+    description: "Whether npm cache was hit"
     value: ${{ steps.setup-node.outputs.cache-hit }}
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Checkout code
       if: inputs.use-artifacts != 'true'
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Download source artifacts
       if: inputs.use-artifacts == 'true'
@@ -38,7 +38,7 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version-file: ".nvmrc"
-        cache: 'npm'
+        cache: "npm"
 
     - name: Install dependencies
       if: inputs.install-deps == 'true'
