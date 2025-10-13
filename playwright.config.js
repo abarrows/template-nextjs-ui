@@ -41,7 +41,7 @@ const config = {
   /* Run your local dev server before starting the tests */
   /* TODO: Figure out a place to set the localhost value */
   webServer: {
-    command: process.env.CI
+    command: !process.env.CI
       ? 'npm run start'
       : 'npm run build && npm run start',
     timeout: 120 * 1000,
