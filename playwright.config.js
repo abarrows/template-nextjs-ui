@@ -25,70 +25,90 @@ const config = {
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['list'], ['playwright-ctrf-json-reporter', 'github']],
+  reporter: process.env.CI
+    ? [
+        ['list'],
+        [
+          'html',
+          {
+            open:
+              process.env.NODE_ENV === 'development' ? 'on-failure' : 'never',
+            outputFolder: 'coverage/e2e',
+          },
+        ],
+        ['playwright-ctrf-json-reporter'],
+        ['github'],
+      ]
+    : [['list']],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://127.0.0.1:3000',
-    browserName: 'chromium',
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL || 'http://127.0.0.1:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: process.env.CI ? 'on-first-retry' : 'retain-on-failure',
+    /* Screenshot on failure */
+    screenshot: 'only-on-failure',
+    /* Video on retry */
+    video: process.env.CI ? 'retain-on-failure' : 'off',
+    /* Viewport size */
     viewport: { width: 1280, height: 720 },
+    /* Emulate browser locale and timezone */
+    locale: 'en-US',
+    timezoneId: 'America/Chicago',
+    /* Permissions */
+    permissions: [],
+    /* Ignore HTTPS errors during navigation */
+    ignoreHTTPSErrors: true,
   },
+
   /* Run your local dev server before starting the tests */
-  /* TODO: Figure out a place to set the localhost value */
   webServer: {
+    // CI: build already done, just start server
+    // Local: build and start
     command: !process.env.CI
       ? 'npm run start'
       : 'npm run build && npm run start',
     timeout: 120 * 1000,
     url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
+    stdout: 'pipe',
+    stderr: 'pipe',
   },
 
   /* Configure projects for major browsers */
-  // projects: [
-  //   {
-  //     name: 'chromium',
-  //     use: {
-  //       ...devices['Desktop Chrome'],
-  //     },
-  //   },
-
-  //   {
-  //     name: 'firefox',
-  //     use: {
-  //       ...devices['Desktop Firefox'],
-  //     },
-  //   },
-
-  //   {
-  //     name: 'webkit',
-  //     use: {
-  //       ...devices['Desktop Safari'],
-  //     },
-  //   },
-
-  //   /* Test against mobile viewports. */
-  //   {
-  //     name: 'Mobile Chrome',
-  //     use: {
-  //       ...devices['Pixel 5'],
-  //     },
-  //   },
-  //   {
-  //     name: 'Mobile Safari',
-  //     use: {
-  //       ...devices['iPhone 12'],
-  //     },
-  //   },
-  // ],
+  projects: [
+    {
+      name: 'chromium',
+      use: {
+        browserName: 'chromium',
+        // Modern Chrome features
+        channel: 'chrome',
+      },
+    },
+    // Uncomment to test on Firefox and Safari
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     browserName: 'firefox',
+    //   },
+    // },
+    // {
+    //   name: 'webkit',
+    //   use: {
+    //     browserName: 'webkit',
+    //   },
+    // },
+  ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  // outputDir: 'coverage/integration',
+  outputDir: 'coverage/e2e',
+
+  /* Global setup/teardown */
+  // globalSetup: require.resolve('./playwright/global-setup'),
+  // globalTeardown: require.resolve('./playwright/global-teardown'),
 };
 
 module.exports = config;
