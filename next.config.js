@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 /**
  * @type {import('next').NextConfig | ((phase: string, defaultConfig: import('next').NextConfig) => Promise<import('next').NextConfig>)}
  */
@@ -31,8 +29,6 @@ module.exports = async () => {
     experimental: {
       // Optimize package imports for faster builds
       optimizePackageImports: ['classnames', 'prop-types'],
-      // Explicitly set the project root for file tracing
-      outputFileTracingRoot: __dirname,
     },
     typescript: {
       // Skip type checking during builds (similar to eslint)
