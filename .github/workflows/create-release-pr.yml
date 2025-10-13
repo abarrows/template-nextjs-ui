@@ -1,9 +1,9 @@
-name: 'Sync Release Branch Downstream to Default Branch'
+name: "Sync Release Branch Downstream to Default Branch"
 
 on:
   push:
     branches:
-      - 'release/*'
+      - "release/*"
   workflow_dispatch:
 
 permissions:
@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout release branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
