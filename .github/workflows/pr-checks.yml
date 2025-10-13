@@ -151,6 +151,13 @@ jobs:
       - name: Run Test Scenarios
         run: |
           npm run test:e2e:ci
+
+      - name: Publish Test Report
+        uses: ctrf-io/github-test-reporter@v1
+        with:
+          report-path: "./ctrf/*.json"
+          github-report: true
+        if: always()
       - name: Upload test artifacts
         uses: actions/upload-artifact@v4
         with:
