@@ -90,7 +90,7 @@
     "storybook:dev": "storybook dev",
     "test:dependencies": "npm-check ./ --specials=bin,nextjs,react,webpack,jest,babel,eslint,prettier,stylelint,typescript,node,npm,yarn",
     "test:e2e": "playwright test --trace on",
-    "test:e2e:ci": "CI=true npm run test:e2e:setup && playwright test",
+    "test:e2e:ci": "CI=true NEXT_PUBLIC_DEPLOY_ENV=production npm run test:e2e:setup && playwright test",
     "test:e2e:record": "playwright codegen",
     "test:e2e:report": "playwright show-report",
     "test:e2e:setup": "playwright install",
