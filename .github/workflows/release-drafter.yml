@@ -2,27 +2,83 @@ name: 📄 Release Drafter
 
 on:
   push:
-    # branches to consider in the event; optional, defaults to all
     branches:
       - main
+      - "release/**"
 
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, closed]
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
-  update-release-draft:
+  # Draft release when pushes happen to main branch
+  draft-release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
-      # write permission is required to create a github release
       contents: write
-      # write permission is required for autolabeler
       pull-requests: write
-    name: Update Release Draft
+    name: Draft Release
     runs-on: ubuntu-latest
     steps:
       - name: Draft Release Notes
         uses: release-drafter/release-drafter@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish: false
+          prerelease: false
+
+  # Create prerelease when pushes happen to release/* branches
+  publish-prerelease:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
+    permissions:
+      contents: write
+      pull-requests: write
+    name: Publish Prerelease
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish Pre-Release Notes
+        uses: release-drafter/release-drafter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish: true
+          prerelease: true
+          prerelease-identifier: "rc"
+
+  # Publish final release when release/* branch is merged to main
+  publish-release:
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
+    permissions:
+      contents: write
+      pull-requests: write
+    name: Publish Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish Production Release Notes
+        uses: release-drafter/release-drafter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish: true
+          prerelease: false
+
+  # Update draft on PR activity (for changelog updates)
+  update-draft-on-pr:
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == false
+    permissions:
+      contents: write
+      pull-requests: write
+    name: Update Release Draft on PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Draft Release Notes
+        uses: release-drafter/release-drafter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish: false
