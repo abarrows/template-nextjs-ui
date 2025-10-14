@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 /**
  * @type {import('next').NextConfig | ((phase: string, defaultConfig: import('next').NextConfig) => Promise<import('next').NextConfig>)}
  */

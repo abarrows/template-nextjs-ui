@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Setup UI
@@ -91,9 +91,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ needs.setup.outputs.artifact-name }}-build
-          path: |
-            .next/
+          path: .
           retention-days: 7
+          if-no-files-found: error
 
       - name: Upload deployment package
         uses: actions/upload-artifact@v4
@@ -109,7 +109,8 @@ jobs:
 
   unit-tests:
     name: Run Unit Tests and Check Coverage
-    needs: [setup, lint]
+    # needs: [setup, lint]
+    needs: setup
     if: ${{ github.actor != 'dependabot[bot]' }}
     uses: ./.github/workflows/automated-tests.yml
     with:
@@ -118,13 +119,50 @@ jobs:
       timeout-minutes: 15
       upload-path: "./coverage/unit/"
 
-  playwright-tests:
-    name: E2E Tests
-    needs: [setup, lint, build]
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    uses: ./.github/workflows/automated-tests.yml
-    with:
-      test-command: "npx playwright install --with-deps && npx playwright test"
-      artifact-name: "${{ needs.setup.outputs.artifact-name }}-test-e2e-results"
-      timeout-minutes: 60
-      upload-path: "./coverage/e2e/"
+  e2e-test:
+    name: Playwright Test Scenarios
+    needs: [setup, lint]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Publish Test Report
+        uses: ctrf-io/github-test-reporter@v1
+        with:
+          report-path: "./ctrf/*.json"
+          github-report: true
+        if: always()
+      - name: Setup Node.js App
+        uses: ./.github/actions/setup-ui
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.setup.outputs.artifact-name }}-build
+          path: .
+
+      - name: Run Test Scenarios
+        run: |
+          npm run test:e2e:ci
+
+      - name: Publish Test Report
+        uses: ctrf-io/github-test-reporter@v1
+        with:
+          report-path: "./ctrf/*.json"
+          github-report: true
+      # if: always()
+      # - name: Upload test artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ${{ needs.setup.outputs.artifact-name }}-test-e2e-results
+      #     path: "./coverage/e2e/"
+      #     retention-days: 7
+      #     overwrite: true
+      #     include-hidden-files: true
