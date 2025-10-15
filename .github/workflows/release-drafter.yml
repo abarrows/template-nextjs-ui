@@ -6,18 +6,13 @@ on:
       - main
       - "release/**"
 
-  pull_request:
-    types: [opened, reopened, synchronize, closed]
-    branches:
-      - main
-
 permissions:
   contents: read
 
 jobs:
-  # Draft release when pushes happen to main branch
+  # Draft release when pushes happen to main branch (but not from release/* merges)
   draft-release:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'Merge branch ''release/')
     permissions:
       contents: write
       pull-requests: write
@@ -52,7 +47,7 @@ jobs:
 
   # Publish final release when release/* branch is merged to main
   publish-release:
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'Merge branch ''release/')
     permissions:
       contents: write
       pull-requests: write
@@ -66,19 +61,3 @@ jobs:
         with:
           publish: true
           prerelease: false
-
-  # Update draft on PR activity (for changelog updates)
-  update-draft-on-pr:
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged == false
-    permissions:
-      contents: write
-      pull-requests: write
-    name: Update Release Draft on PR
-    runs-on: ubuntu-latest
-    steps:
-      - name: Update Draft Release Notes
-        uses: release-drafter/release-drafter@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          publish: false
