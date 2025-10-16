@@ -258,6 +258,8 @@ coverage/unit/*
 !coverage/unit/sorter.js
 !coverage/e2e/
 coverage/e2e/.gitkeep
+coverage/e2e/.last-run.json
+coverage/e2e/**/trace.zip
 /test-results/*
 megalinter-reports/*
 jscpd-report.json
