@@ -1,0 +1,112 @@
+name-template: "$RESOLVED_VERSION"
+tag-template: "$RESOLVED_VERSION"
+categories:
+  - title: Breaking Changes
+    labels:
+      - "semver-major"
+      - "major"
+      - "epic"
+  - title: 🚀 Exciting New Features
+    labels:
+      - "semver-minor"
+      - "minor"
+      - "feature"
+      - "story"
+  - title: 🐛 Bug Fixes
+    labels:
+      - "bug"
+      - "bugfix"
+      - "hotfix"
+  - title: 🔨 Maintenance
+    labels:
+      - "tools"
+      - "tests"
+      - "dependencies"
+      - "documentation"
+      - "maintenance"
+      - "chore"
+  - title: 🔐 DevOps
+    labels:
+      - "sync"
+      - "devops"
+exclude-labels:
+  - "skip-changelog"
+change-template: "- $TITLE by @$AUTHOR in #$NUMBER"
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions
+exclude-contributors:
+  - "dependabot[bot]"
+  - "github-actions"
+autolabeler:
+  - label: "documentation"
+    files:
+      - "**/*.md"
+  - label: "dependencies"
+    files:
+      - "package*.json"
+      - "**/*.csproj"
+      - ".{npm,nvm}rc"
+  - label: "front-end"
+    files:
+      - "**/*.{js,js.html,jsx,ts,tsx,html,css,less,scss,sass,otf,eot,ttf,woff*,erb}"
+      - "public/"
+      - "src/"
+      - "wp-content/"
+      - "package.json"
+      - "!/.vscode"
+      - "!/.devcontainer"
+      - "!**/*.test.js"
+  - label: "back-end"
+    files:
+      - "**/*.{cs,sln,csproj,ru}"
+      - "appsettings.*json"
+      - "CodeCoverage.runsettings"
+  - label: "tools"
+    files:
+      - "/.vscode"
+      - "/.devcontainer"
+      - "stylelint.config.js"
+      - ".{prettierrc,size-limit,eslintrc}.js"
+      - ".{yamllint,mega-linter,postcssrc}.yml"
+      - ".{jscpd,markdownlint,babel.config,prettierrc,eslintrc,stylelintrc}.json"
+      - "playwright/**"
+      - ".spec.*"
+      - "*.test.js"
+      - "{jest,playwright}.*.js"
+      - ".storybook/"
+      - ".browserlistrc"
+  - label: "devops"
+    files:
+      - ".github/"
+      - "deployments/"
+      - "docker-compose.yml"
+      - "Dockerfile"
+include-pre-releases: true
+version-resolver:
+  major:
+    labels:
+      - "semver-major"
+      - "major"
+      - "epic"
+  minor:
+    labels:
+      - "semver-minor"
+      - "minor"
+      - "feature"
+      - "story"
+  patch:
+    labels:
+      - "semver-patch"
+      - "patch"
+      - "hotfix"
+      - "bug"
+      - "maintenance"
+      - "research"
+      - "sync"
+      - "chore"
+  default: patch
+template: |
+  ## What's Changed
+
+  $CHANGES
+
+  **Full Changelog**: https://github.com/${OWNER}/${REPOSITORY}/compare/${PREVIOUS_TAG}...${RESOLVED_VERSION}

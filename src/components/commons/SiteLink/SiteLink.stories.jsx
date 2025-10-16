@@ -1,5 +1,4 @@
 import React from 'react';
-
 import SiteLink from './SiteLink';
 
 export default {
@@ -63,6 +62,6 @@ export const WithExternalUrl = Template.bind({});
 WithExternalUrl.args = {
   children: 'Link offsite',
   title: 'Link to an external website',
-  href: 'https://www.andrewsmcmeel.com/',
+  href: 'https://www.APPLICATION_DOMAIN.com/',
   openInNewTab: true,
 };

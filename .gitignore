@@ -54,7 +54,6 @@ id_rsa
 capybara-*.html
 .rspec
 /public/system
-/coverage/**
 /spec/tmp
 *.orig
 rerun.txt
@@ -246,11 +245,19 @@ pids
 node_modules/
 
 # CI Health Reporting
-coverage/
-# TODO: We should organize linting/test reports into coverage.
-# coverage/linting/*
-# coverage/unit/*
-# coverage/integration/*
+# Ignore all coverage except unit and e2e
+coverage/*
+!coverage/unit/
+coverage/unit/*
+!coverage/unit/index.html
+!coverage/unit/lcov-report/*
+!coverage/unit/lcov.info
+!coverage/unit/prettify.css
+!coverage/unit/prettify.js
+!coverage/unit/sort-arrow-sprite.png
+!coverage/unit/sorter.js
+!coverage/e2e/
+coverage/e2e/.gitkeep
 /test-results/*
 megalinter-reports/*
 jscpd-report.json
@@ -261,22 +268,18 @@ jscpd-report.json
 /playwright/storage-states/
 /playwright/.cache/
 /playwright-report/
+/playwright-results/
+/ctrf/
+# Playwright runtime artifacts
+**/.last-run.json
+**/trace.zip
+**/*-trace.zip
 
 # Optional eslint cache
 .eslintcache
 
 # Output of 'npm pack'
 *.tgz
-
-# Yarn Package Management
-.yarn-integrity
-yarn-error.log
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
 
 # Configs
 configFile.json

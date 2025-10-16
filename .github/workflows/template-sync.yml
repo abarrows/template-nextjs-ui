@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch or tag
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.PAT_ACTION_CI }}
 
@@ -24,13 +24,13 @@ jobs:
         uses: AndreasAugustin/actions-template-sync@v1.1.1
         with:
           github_token: ${{ secrets.PAT_ACTION_CI }}
-          source_repo_path: abarrows/template-nextjs-ui
+          source_repo_path: ${{ (vars.USER_NAME || github.repository_owner) }}/template-nextjs-ui
           upstream_branch: main
           pr_labels: sync
-          pr_commit_msg: 🔄 Synchronize with abarrows/template-nextjs-ui
-          pr_title: 🔄 Sync with @abarrows/template-nextjs-ui
+          pr_commit_msg: 🔄 Synchronize with ${{ (vars.USER_NAME || github.repository_owner) }}/template-nextjs-ui
+          pr_title: 🔄 Sync with @${{ (vars.USER_NAME || github.repository_owner) }}/template-nextjs-ui
           pr_branch_name_prefix: sync/template-nextjs-ui/
-          # pr_reviewers: abarrows
+          # pr_reviewers: ${{ (vars.USER_NAME || github.repository_owner) }}
           is_dry_run: ${{ inputs.isdryrun || 'false' }}
-          # git_user_name: abarrows
-          # git_user_email: mew@andybarrows.com
+          # git_user_name: ${{ (vars.USER_NAME || github.repository_owner) }}
+          # git_user_email: ${{ vars.USER_EMAIL || '' }}

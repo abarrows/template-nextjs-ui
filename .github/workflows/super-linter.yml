@@ -1,0 +1,31 @@
+name: Lint and Format Code
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Super Linter
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Run Super Linter
+        uses: super-linter/super-linter@v6.6.0
+        env:
+          DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref || 'main' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ALL_CODEBASE: false
+          FILTER_REGEX_EXCLUDE: ".*node_modules/.*"
+      - name: Upload Super Linter reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: super-linter-report
+          path: super-linter.report
+          retention-days: 7

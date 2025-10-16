@@ -1,12 +1,12 @@
 # Contributing
 
-New branches should always be associated with a Jira ticket. The branch should be prefixed with the issue key and a short description, like so: `jiraIssueType/TODO_JIRA_ORGANIZATION-1234/hyphenated-issue-summary`.
+New branches should always be associated with a Jira ticket. The branch should be prefixed with the issue key and a short description, like so: `jiraIssueType/_JIRA_ORGANIZATION-1234/hyphenated-issue-summary`.
 
 ## Jira Smart Commits
 
 In scenarios where creating a separate branch for each Jira ticket is not exactly feasible, you can still trigger our automation by using what are called [smart commits](https://confluence.atlassian.com/fisheye/using-smart-commits-960155400.html).
 
-To use Jira smart commits, you would include the Jira issue key for each commit like so: `[TODO_JIRA_ORGANIZATION-1234], [TODO_JIRA_ORGANIZATION-1235] Knocked out the 4 copy edits needed`
+To use Jira smart commits, you would include the Jira issue key for each commit like so: `[_JIRA_ORGANIZATION-1234], [_JIRA_ORGANIZATION-1235] Knocked out the 4 copy edits needed`
 
 ## Creating Pull Requests
 

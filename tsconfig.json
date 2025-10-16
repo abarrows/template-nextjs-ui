@@ -30,7 +30,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": [
     "node_modules",
@@ -38,6 +39,7 @@
     "storybook-static"
   ],
   "include": [
+    "redirects.js",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",

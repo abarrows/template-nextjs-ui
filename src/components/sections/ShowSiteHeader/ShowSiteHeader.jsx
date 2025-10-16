@@ -1,19 +1,16 @@
 import React from 'react';
-
 import Image from 'next/image';
-
 import Heading from 'src/components/commons/Heading';
-
 import styles from './ShowSiteHeader.module.scss';
 
 function ShowSiteHeader() {
   return (
     <header className={styles.header}>
       <Image
-        alt='TODO_PRODUCT_NAME Logo'
+        alt="PRODUCT_NAME Logo"
         height={200}
         priority
-        src='/images/logo-transparent.svg'
+        src="/images/logo-transparent.svg"
         width={152}
       />
       <Heading>

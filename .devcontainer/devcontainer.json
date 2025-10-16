@@ -18,13 +18,13 @@
   "secrets": {
     "ENVIRONMENT": {
       "description": "Key Vault Environment",
-      "documentationUrl": "https://amuniversal.atlassian.net/wiki/spaces/TD/pages/2796191745/Application+Environment+Variables"
+      "documentationUrl": "https://COMPANY_NAME.atlassian.net/"
     }
   },
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
-      "label": "Application UI",
+      "label": "TODO: ONBOARDING:Application UI",
       "onAutoForward": "openPreview"
     }
   }

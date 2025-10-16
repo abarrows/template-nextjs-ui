@@ -1,0 +1,46 @@
+name: "Setup Node.js Application"
+description: "Checkout code, setup Node.js, and install dependencies"
+
+inputs:
+  artifact-name:
+    description: "Base artifact name to download source from"
+    required: false
+  use-artifacts:
+    description: "Whether to use artifacts instead of fresh checkout"
+    required: false
+    default: "false"
+  install-deps:
+    description: "Whether to install dependencies"
+    required: false
+    default: "true"
+
+outputs:
+  cache-hit:
+    description: "Whether npm cache was hit"
+    value: ${{ steps.setup-node.outputs.cache-hit }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      if: inputs.use-artifacts != 'true'
+      uses: actions/checkout@v5
+
+    - name: Download source artifacts
+      if: inputs.use-artifacts == 'true'
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.artifact-name }}-source
+        path: ./
+
+    - name: Set up Node from NVM
+      id: setup-node
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: ".nvmrc"
+        cache: "npm"
+
+    - name: Install dependencies
+      if: inputs.install-deps == 'true'
+      shell: bash
+      run: npm ci

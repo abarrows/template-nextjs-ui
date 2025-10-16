@@ -1,52 +1,52 @@
 # General
-*                               @TODO_GITHUB_ORGANIZATION/devops-engineers
+*                               @Retail-Success/infrastructure
 
 # Front-end Engineering
-*.html                          @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.lock                          @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.js                            @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.jsx                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.ts                            @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.tsx                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.css                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.less                          @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.scss                          @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.sass                          @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.otf                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.eot                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.ttf                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.woff*                         @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.svg                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.jpg                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.jpeg                          @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.gif                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.png                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-*.ico                           @TODO_GITHUB_ORGANIZATION/front-end-engineers
-public/**                       @TODO_GITHUB_ORGANIZATION/front-end-engineers
-src/**                          @TODO_GITHUB_ORGANIZATION/front-end-engineers
-.storybook/**                   @TODO_GITHUB_ORGANIZATION/front-end-engineers
-.browserslistrc                 @TODO_GITHUB_ORGANIZATION/front-end-engineers
-**eslint**                      @TODO_GITHUB_ORGANIZATION/front-end-engineers
-**jest**                        @TODO_GITHUB_ORGANIZATION/front-end-engineers
-**prettier**                    @TODO_GITHUB_ORGANIZATION/front-end-engineers
-**stylelint**                   @TODO_GITHUB_ORGANIZATION/front-end-engineers
-**/src/assets/**                @TODO_GITHUB_ORGANIZATION/front-end-engineers
-**/src/src/**                   @TODO_GITHUB_ORGANIZATION/front-end-engineers
+*.html                          @Retail-Success/luci-web
+*.lock                          @Retail-Success/luci-web
+*.js                            @Retail-Success/luci-web
+*.jsx                           @Retail-Success/luci-web
+*.ts                            @Retail-Success/luci-web
+*.tsx                           @Retail-Success/luci-web
+*.css                           @Retail-Success/luci-web
+*.less                          @Retail-Success/luci-web
+*.scss                          @Retail-Success/luci-web
+*.sass                          @Retail-Success/luci-web
+*.otf                           @Retail-Success/luci-web
+*.eot                           @Retail-Success/luci-web
+*.ttf                           @Retail-Success/luci-web
+*.woff*                         @Retail-Success/luci-web
+*.svg                           @Retail-Success/luci-web
+*.jpg                           @Retail-Success/luci-web
+*.jpeg                          @Retail-Success/luci-web
+*.gif                           @Retail-Success/luci-web
+*.png                           @Retail-Success/luci-web
+*.ico                           @Retail-Success/luci-web
+public/**                       @Retail-Success/luci-web
+src/**                          @Retail-Success/luci-web
+.storybook/**                   @Retail-Success/luci-web
+.browserslistrc                 @Retail-Success/luci-web
+**eslint**                      @Retail-Success/luci-web
+**jest**                        @Retail-Success/luci-web
+**prettier**                    @Retail-Success/luci-web
+**stylelint**                   @Retail-Success/luci-web
+**/src/assets/**                @Retail-Success/luci-web
+**/src/src/**                   @Retail-Success/luci-web
 
 # Back-end Engineering
-# **.cs                           @TODO_GITHUB_ORGANIZATION/back-end-engineers
-# **.csproj                       @TODO_GITHUB_ORGANIZATION/back-end-engineers
-# **.sln                          @TODO_GITHUB_ORGANIZATION/back-end-engineers
-# data/**                         @TODO_GITHUB_ORGANIZATION/back-end-engineers
-# *.Library/                      @TODO_GITHUB_ORGANIZATION/back-end-engineers
-# *.Tests/                        @TODO_GITHUB_ORGANIZATION/back-end-engineers
-# *.WebAPI/                       @TODO_GITHUB_ORGANIZATION/back-end-engineers
-# *.UnitTests/                    @TODO_GITHUB_ORGANIZATION/back-end-engineers
+# **.cs                           @Retail-Success/luci-api
+# **.csproj                       @Retail-Success/luci-api
+# **.sln                          @Retail-Success/luci-api
+# data/**                         @Retail-Success/luci-api
+# *.Library/                      @Retail-Success/luci-api
+# *.Tests/                        @Retail-Success/luci-api
+# *.WebAPI/                       @Retail-Success/luci-api
+# *.UnitTests/                    @Retail-Success/luci-api
 
 # DevOps
-.github/                        @TODO_GITHUB_ORGANIZATION/devops-engineers
-deployments/                    @TODO_GITHUB_ORGANIZATION/devops-engineers
-*-Secrets.ps1                   @TODO_GITHUB_ORGANIZATION/devops-engineers
-Dockerfile                      @TODO_GITHUB_ORGANIZATION/devops-engineers
-docker-compose.yml              @TODO_GITHUB_ORGANIZATION/devops-engineers
-.nvmrc*                         @TODO_GITHUB_ORGANIZATION/devops-engineers
+.github/                        @Retail-Success/infrastructure
+deployments/                    @Retail-Success/infrastructure
+.ci/                            @Retail-Success/infrastructure
+Dockerfile                      @Retail-Success/infrastructure
+docker-compose.yml              @Retail-Success/infrastructure
+.nvmrc*                         @Retail-Success/infrastructure
