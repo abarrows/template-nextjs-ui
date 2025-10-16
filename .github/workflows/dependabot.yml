@@ -1,86 +1,103 @@
-# Please see the documentation for all configuration options:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+name: 🤖 Dependabot Automations
 
-version: 2
-updates:
-  - package-ecosystem: "github-actions"
-    directory: ".github/"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-    labels:
-      - "devops"
-      - "dependencies"
-    open-pull-requests-limit: 10
-    commit-message:
-      # Prefix all commit messages with 'github-actions'
-      prefix: "github-actions"
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
-  - package-ecosystem: "docker"
-    directory: "/"
-    ignore:
-      - dependency-name: node
-      - dependency-name: dotnet/sdk
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-    labels:
-      - "dependencies"
-      - "devops"
-    open-pull-requests-limit: 10
-    commit-message:
-      # Prefix all commit messages with 'docker'
-      prefix: "docker(dependencies): "
+permissions:
+  contents: write
+  pull-requests: write
 
-  - package-ecosystem: "npm"
-    # Look for `package(-lock).json` files in root directory
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-    labels:
-      - "front-end"
-      - "dependencies"
-    # Use increase strategy for better compatibility during migration
-    versioning-strategy: increase
-    rebase-strategy: auto
-    commit-message:
-      # Prefix all commit messages with 'npm'
-      prefix: "npm(dependencies): "
-    open-pull-requests-limit: 10
-    # Assign reviewers for dependency updates
-    # reviewers:
-    #   - "Retail-Success/leads"
-    # Will enable once stable.
-    groups:
-      dependencies-minor:
-        # Open PR for all minor updates from "dependencies" in package.json
-        dependency-type: "production"
-        update-types:
-          - "minor"
-      dependencies-patch:
-        # Open PR for all patch updates from "dependencies" in package.json
-        dependency-type: "production"
-        update-types:
-          - "patch"
-      devDependencies:
-        # Open PR for all updates from "devDependencies" in package.json
-        dependency-type: "development"
-        update-types:
-          - "minor"
-          - "patch"
-      security:
-        # Open PR for all security updates from "dependencies" in package.json
-        applies-to: security-updates
-        dependency-type: "production"
+jobs:
+  dependabot:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          compat-lookup: true
+          alert-lookup: true
 
-  # Enable version updates for NuGet
-  - package-ecosystem: "nuget"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-    labels:
-      - "back-end"
-      - "dependencies"
-    rebase-strategy: auto
+      - name: Auto-approve and auto-merge security updates
+        if: steps.metadata.outputs.alert-state != ''
+        run: |
+          echo "🔒 Security update detected - auto-approving and enabling auto-merge"
+          echo "Alert: ${{ steps.metadata.outputs.alert-state }}"
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-approve and auto-merge patch updates
+        if: |
+          steps.metadata.outputs.update-type == 'version-update:semver-patch' &&
+          steps.metadata.outputs.alert-state == ''
+        run: |
+          echo "🔧 Patch update detected - auto-approving and enabling auto-merge"
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Handle minor updates based on compatibility score
+        if: |
+          steps.metadata.outputs.update-type == 'version-update:semver-minor' &&
+          steps.metadata.outputs.alert-state == ''
+        run: |
+          COMPATIBILITY_SCORE="${{ steps.metadata.outputs.compatibility-score }}"
+          echo "🔍 Processing minor update with compatibility score: $COMPATIBILITY_SCORE"
+          
+          SCORE_INT=$(echo "$COMPATIBILITY_SCORE" | cut -d'.' -f1)
+          
+          if [ "$SCORE_INT" -ge 80 ] 2>/dev/null; then
+            echo "✅ High confidence (≥80): auto-approve and enable auto-merge"
+            gh pr review --approve "$PR_URL"
+            gh pr merge --auto --squash "$PR_URL"
+          elif [ "$SCORE_INT" -gt 0 ] 2>/dev/null; then
+            echo "⚠️ Lower confidence (<80): enable auto-merge only (requires manual approval)"
+            gh pr merge --auto --squash "$PR_URL"
+          else
+            echo "❓ Unknown confidence score: enable auto-merge only (requires manual approval)"
+            gh pr merge --auto --squash "$PR_URL"
+          fi
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const updateType = '${{ steps.metadata.outputs.update-type }}';
+            const labels = ['dependencies'];
+            
+            if ('${{ steps.metadata.outputs.alert-state }}' !== '') {
+              labels.push('security');
+            } else if (updateType.includes('patch')) {
+              labels.push('auto-merged');
+            } else if (updateType.includes('minor')) {
+              labels.push('auto-merged');
+            } else if (updateType.includes('major')) {
+              labels.push('requires-review');
+            }
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: labels
+            });
+
+      - name: Log major update (no automation)
+        if: |
+          steps.metadata.outputs.update-type == 'version-update:semver-major' &&
+          steps.metadata.outputs.alert-state == ''
+        run: |
+          echo "🚨 Major update detected - requires manual review"
+          echo "Dependency: ${{ steps.metadata.outputs.dependency-names }}"
+          echo "PR: ${{ github.event.pull_request.html_url }}"
