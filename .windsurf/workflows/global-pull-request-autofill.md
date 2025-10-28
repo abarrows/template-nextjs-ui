@@ -31,8 +31,17 @@ This workflow is intended to quickly raise a pull request, ideally without my in
 
 // turbo 4. Execute the following command to create the pull request:
 
+# Substitute the following placeholder tokens before executing:
+#   REPO_NAME: The repository name you identified in step 2
+#   BASE_BRANCH: The default branch (main, develop, or master, or as specified)
+#   FEATURE_BRANCH: The feature/hotfix/release branch you created in step 1
+#   PR_TITLE: A short, descriptive title for the pull request
+#   PR_BODY: The pull request description you crafted from step 2
+#   ASSIGNEE: The assignee you identified in step 1 or default to abarrows
+#   REVIEWERS: Space-separated list of reviewers (e.g., "--reviewer gisanchez --reviewer dominicp21")
+
 ```bash
-gh pr create --repo <!-- The repository name you identified in step 2 --> --base <!-- Check for the default branch in this order: main, develop, or master --> --head <!-- The feature branch I provided you in step 1 --> --title "<!-- The feature branch I provided you in step 1 -->" --body "<!-- The pull request description you crafted from step 2 -->" --assignee <!-- The assignee you identified in step 1 or default to: abarrows --> --reviewer gisanchez --reviewer dominicp21 <!-- And any other reviewers you identified in step 2. -->
+gh pr create --repo REPO_NAME --base BASE_BRANCH --head FEATURE_BRANCH --title "PR_TITLE" --body "PR_BODY" --assignee ASSIGNEE REVIEWERS
 ```
 
 5. If for some reason, I'm in a private repo and the reviewers that I've specified are not available the first time, retry raising the PR again but omit the reviewers the second time. Just let me know in the post summary. Confirm the pull request was created successfully and then run the github mcp command that adds Copilot as a reviewer.
