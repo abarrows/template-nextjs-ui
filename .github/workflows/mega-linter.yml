@@ -1,8 +1,8 @@
 name: Lint and Format Code
 
 on:
-  # pull_request:
-  #   types: [opened, synchronize, reopened]
+  pull_request:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
       NODE_ENV:
@@ -30,42 +30,61 @@ on:
           - "push"
           - "pull_request"
           - "none"
-
+        default: "pull_request"
+  workflow_call:
+    inputs:
+      NODE_ENV:
+        description: Next.js build arg [optional]
+        type: string
+      LINT_FLAVOR:
+        description: Mega Lint flavor
+        type: string
+        default: "cupcake"
+      ACTIVE_LINTERS:
+        type: string
+        description: "Comma-separated list of linters to run"
+        default: "all"
+      APPLY_FIXES_MODE:
+        type: string
+        description: "Decide which event triggers application of fixes in a commit or a PR"
+        default: "commit"
+      APPLY_FIXES_EVENT:
+        type: string
+        description: "Create PR or commit directly to branch"
+        default: "pull_request"
 env:
-  APPLY_FIXES: ${{ inputs.APPLY_FIXES }}
+  ACTIVE_LINTERS: ${{ inputs.ACTIVE_LINTERS }}
   APPLY_FIXES_MODE: ${{ inputs.APPLY_FIXES_MODE }}
   APPLY_FIXES_EVENT: ${{ inputs.APPLY_FIXES_EVENT }}
 
 jobs:
   lint-cupcake:
     name: Run MegaLinter Cupcake
-    if: ${{ inputs.LINT_FLAVOR == 'cupcake' }}
+    if: ${{ inputs.LINT_FLAVOR == 'cupcake' || inputs.LINT_FLAVOR == '' || inputs.LINT_FLAVOR == null }}
     timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.PAT_ACTION_CI }}
           fetch-depth: 0
 
       - name: Set up Node from NVM
-        if: ${{ inputs.NODE_ENV }}
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
       - name: Install dependencies
-        if: ${{ inputs.NODE_ENV }}
         run: npm install --frozen-lockfile --prefer-offline
 
       # Run the MegaLinter Github Action
       - name: MegaLinter
         id: ml
-        uses: oxsecurity/megalinter/flavors/cupcake@v7
+        uses: oxsecurity/megalinter/flavors/cupcake@v8
         continue-on-error: true
         env:
-          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
+          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' || inputs.VALIDATE_ALL_CODEBASE == 'true' }}
           GITHUB_TOKEN: ${{ secrets.PAT_ACTION_CI }}
 
       # Creates archive artifact of linting reports
@@ -74,11 +93,10 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4.6.2
 
-
         with:
           name: MegaLinter reports
           path: |
-            megalinter-reports
+            coverage/linting/megalinter-reports
             mega-linter.log
           retention-days: 7
 

@@ -4,13 +4,16 @@
 [![Staging](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=prerelease)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 [![Development](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml/badge.svg?event=push&branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/deployment.yml)
 [![Megalinter](https://github.com/abarrows/template-nextjs-ui/actions/workflows/mega-linter.yml/badge.svg?branch=main)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/mega-linter.yml)
+[![CI Checks](https://github.com/abarrows/template-nextjs-ui/actions/workflows/pr-checks.yml/badge.svg)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/pr-checks.yml)
+[![Within Web Performance Budget](https://github.com/abarrows/template-nextjs-ui/actions/workflows/performance.yml/badge.svg)](https://github.com/abarrows/template-nextjs-ui/actions/workflows/performance.yml)
 
 App responsible for all appname related data.
 
 ## Setting up your repository
 
 <!-- You can use this guide to figure out how to update your application using the template: [Creating a new repository from a template](https://COMPANY_NAME.atlassian.net/wiki/spaces/TD/pages/3419832336/Creating+a+New+GitHub+Repository#Creating-a-new-repository-from-a-template) -->
-Upon cloning, fill in the values for the .env.example and save this as a new .env in the root directory.  Run the following:
+
+Upon cloning, fill in the values for the .env.example and save this as a new .env in the root directory. Run the following:
 
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
 <!-- TODO: Port over npm run setup script to work with AWS Secrets Manager. -->
@@ -78,7 +81,7 @@ To start the app locally:
 
 ## Environment Variables
 
-The environment variables for this project were previously sourced from Azure Key Vault Secrets.  WIP: I will create a branch soon to update this process so that it sources from either AWS Secret Manager.  Until then, simply replace the values with you personal situation's values..
+The environment variables for this project were previously sourced from Azure Key Vault Secrets. WIP: I will create a branch soon to update this process so that it sources from either AWS Secret Manager. Until then, simply replace the values with you personal situation's values..
 
 <!-- > :white_check_mark: Read about [Application Environment Variables](https://COMPANY_NAME.atlassian.net/l/cp/z7HWk0Ah) for information on how to use and edit environment variables in an application **before proceeding**. -->
 <!-- TODO: Retrieve my document from DevOps and publish on personal site or my github profile. -->
