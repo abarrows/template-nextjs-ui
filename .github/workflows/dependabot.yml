@@ -1,90 +1,103 @@
----
 name: 🤖 Dependabot Automations
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
-  workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
-  issues: write
-
-# Commenting until stable.
-# concurrency:
-#   group: dependabot-${{ github.event.pull_request.number }}
-#   cancel-in-progress: false
 
 jobs:
-  setup:
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup Node.js App
-        uses: ./.github/actions/setup-ui
-
-      - name: Build application
-        run: npm run build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ needs.setup.outputs.artifact-name }}-build
-          path: |
-            .next/
-          retention-days: 7
   dependabot:
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
-    needs: ["setup"]
-
-    name: Dependabot Automations
+    if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
       - name: Fetch Dependabot metadata
         id: metadata
         uses: dependabot/fetch-metadata@v2
         with:
-          github-token: ${{ secrets.PAT_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           compat-lookup: true
           alert-lookup: true
 
-      - name: Exit workflow for major updates
-        if: steps.metadata.outputs.update-type == 'version-update:semver-major'
+      - name: Auto-approve and auto-merge security updates
+        if: steps.metadata.outputs.alert-state != ''
         run: |
-          echo "🚨 Major update detected - exiting workflow as success (no automation)"
-          exit 0
-
-      - name: Auto-approve and auto-merge patch updates
-        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "🔧 Patch update: auto-approve and auto-merge"
+          echo "🔒 Security update detected - auto-approving and enabling auto-merge"
+          echo "Alert: ${{ steps.metadata.outputs.alert-state }}"
           gh pr review --approve "$PR_URL"
           gh pr merge --auto --squash "$PR_URL"
-
-        # Minor: Auto-approve and auto-merge if confidence > 80, else only auto-approve
-      - name: Handle minor updates
-        if: steps.metadata.outputs.update-type == 'version-update:semver-minor'
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-approve and auto-merge patch updates
+        if: |
+          steps.metadata.outputs.update-type == 'version-update:semver-patch' &&
+          steps.metadata.outputs.alert-state == ''
+        run: |
+          echo "🔧 Patch update detected - auto-approving and enabling auto-merge"
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Handle minor updates based on compatibility score
+        if: |
+          steps.metadata.outputs.update-type == 'version-update:semver-minor' &&
+          steps.metadata.outputs.alert-state == ''
         run: |
           COMPATIBILITY_SCORE="${{ steps.metadata.outputs.compatibility-score }}"
+          echo "🔍 Processing minor update with compatibility score: $COMPATIBILITY_SCORE"
+          
           SCORE_INT=$(echo "$COMPATIBILITY_SCORE" | cut -d'.' -f1)
-          echo "🔍 Minor update with compatibility score: $SCORE_INT"
-          gh pr review --approve "$PR_URL"
-          if [ "$SCORE_INT" -gt 80 ] 2>/dev/null; then
-            echo "✅ Confidence >80: auto-merge"
+          
+          if [ "$SCORE_INT" -ge 80 ] 2>/dev/null; then
+            echo "✅ High confidence (≥80): auto-approve and enable auto-merge"
+            gh pr review --approve "$PR_URL"
+            gh pr merge --auto --squash "$PR_URL"
+          elif [ "$SCORE_INT" -gt 0 ] 2>/dev/null; then
+            echo "⚠️ Lower confidence (<80): enable auto-merge only (requires manual approval)"
             gh pr merge --auto --squash "$PR_URL"
           else
-            echo "⚠️ Confidence ≤80: auto-approve only"
+            echo "❓ Unknown confidence score: enable auto-merge only (requires manual approval)"
+            gh pr merge --auto --squash "$PR_URL"
           fi
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const updateType = '${{ steps.metadata.outputs.update-type }}';
+            const labels = ['dependencies'];
+            
+            if ('${{ steps.metadata.outputs.alert-state }}' !== '') {
+              labels.push('security');
+            } else if (updateType.includes('patch')) {
+              labels.push('auto-merged');
+            } else if (updateType.includes('minor')) {
+              labels.push('auto-merged');
+            } else if (updateType.includes('major')) {
+              labels.push('requires-review');
+            }
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: labels
+            });
+
+      - name: Log major update (no automation)
+        if: |
+          steps.metadata.outputs.update-type == 'version-update:semver-major' &&
+          steps.metadata.outputs.alert-state == ''
+        run: |
+          echo "🚨 Major update detected - requires manual review"
+          echo "Dependency: ${{ steps.metadata.outputs.dependency-names }}"
+          echo "PR: ${{ github.event.pull_request.html_url }}"
