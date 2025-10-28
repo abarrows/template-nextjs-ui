@@ -47,7 +47,7 @@ jobs:
 
   # Publish final release when release/* branch is merged to main
   # publish-release:
-  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.head_commit.parents && github.event.head_commit.parents.length > 1
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.head_commit.parent_count > 1
   #   permissions:
   #     contents: write
   #     pull-requests: write
