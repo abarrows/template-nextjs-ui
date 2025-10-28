@@ -12,7 +12,7 @@ permissions:
 jobs:
   # Draft release when pushes happen to main branch (but not from release/* merges)
   draft-release:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'Merge branch ''release/')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
       pull-requests: write
@@ -46,18 +46,18 @@ jobs:
           prerelease-identifier: "rc"
 
   # Publish final release when release/* branch is merged to main
-  publish-release:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.head_commit.parents && length(github.event.head_commit.parents) > 1
-    permissions:
-      contents: write
-      pull-requests: write
-    name: Publish Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Publish Production Release Notes
-        uses: release-drafter/release-drafter@b1476f6e6eb133afa41ed8589daba6dc69b4d3f5 # v6.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          publish: true
-          prerelease: false
+  # publish-release:
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.head_commit.parent_count > 1
+  #   permissions:
+  #     contents: write
+  #     pull-requests: write
+  #   name: Publish Release
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Publish Production Release Notes
+  #       uses: release-drafter/release-drafter@b1476f6e6eb133afa41ed8589daba6dc69b4d3f5 # v6.1.0
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         publish: true
+  #         prerelease: false
