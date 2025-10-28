@@ -47,6 +47,6 @@ src/**                          @Retail-Success/luci-web
 .github/                        @Retail-Success/infrastructure
 deployments/                    @Retail-Success/infrastructure
 .ci/                            @Retail-Success/infrastructure
-Dockerfile                       @Retail-Success/infrastructure
+Dockerfile                      @Retail-Success/infrastructure
 docker-compose.yml              @Retail-Success/infrastructure
 .nvmrc*                         @Retail-Success/infrastructure

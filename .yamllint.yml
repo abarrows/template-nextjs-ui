@@ -1,6 +1,6 @@
 extends: default
 indentation: 2
-line-length: 120
+line-length: null
 
 rules:
   truthy:

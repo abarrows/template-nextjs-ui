@@ -1,15 +1,14 @@
 // ESLint Flat Config (v9+)
-import tanstackQuery from '@tanstack/eslint-plugin-query';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
 import jsoncPlugin from 'eslint-plugin-jsonc';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import testingLibrary from 'eslint-plugin-testing-library';
 import unusedImports from 'eslint-plugin-unused-imports';
-import vitest from 'eslint-plugin-vitest';
 import globals from 'globals';
 import jsoncParser from 'jsonc-eslint-parser';
 
@@ -20,11 +19,19 @@ export default [
       '**/**.bundle.js',
       '**/.cache',
       '.vscode/',
+      '.idea/',
+      '.git/',
       'deployments',
       '**/build',
+      'out/',
+      '.next/',
       '**/node_modules/**/*',
       '**/vendor',
       '**/playwright-static',
+      'test-results/',
+      'code-quality/',
+      'playwright-report/',
+      '.storybook-static/',
       '**/*.css',
       '**/*.svg',
       '**/*.stories.*',
@@ -38,6 +45,12 @@ export default [
       'public/mockServiceWorker.js',
       'prettier.config.js',
       'stylelint.config.js',
+      'package-lock.json',
+      'yarn.lock',
+      '*.tsbuildinfo',
+      'dist/**',
+      'src/design-system-package/dist/**',
+      '**/_design_tokens.js',
     ],
   },
   {
@@ -60,10 +73,9 @@ export default [
     plugins: {
       '@typescript-eslint': typescriptEslint,
       import: importPlugin,
-      vitest: vitest,
+      'jsx-a11y': jsxA11y,
       react,
       'react-hooks': reactHooks,
-      '@tanstack/query': tanstackQuery,
       'unused-imports': unusedImports,
       jest: jestPlugin,
       'testing-library': testingLibrary,
@@ -73,11 +85,61 @@ export default [
         typescript: {
           project: './tsconfig.json',
         },
-        node: true,
+        node: {
+          moduleDirectory: ['node_modules', '.'],
+        },
+      },
+      'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.js', '.jsx', '.ts', '.tsx'],
       },
       react: {
         version: 'detect',
       },
+      'jsx-a11y': {
+        rules: {
+          'anchor-ambiguous-text': 'on',
+        },
+        components: {
+          InputField: 'input',
+          Button: 'button',
+          ButtonClose: 'button',
+          ContentDivider: 'hr',
+          DropdownToggle: 'button',
+          Paragraph: 'p',
+          Icon: 'svg',
+          Image: 'img',
+          List: 'ul',
+          ListItem: 'li',
+          UtilityNavigation: 'nav',
+          PageNavigation: 'nav',
+          AccountNavigation: 'nav',
+          NavLink: 'button',
+          HeaderDesktopLinks: 'ul',
+          Footer: 'footer',
+          NavigationDesktop: 'header',
+          Header: 'header',
+          ShowFeatureHeader: 'section',
+          ShowFiveFavorites: 'section',
+        },
+      },
+      propWrapperFunctions: [
+        'forbidExtraProps',
+        {
+          property: 'freeze',
+          object: 'Object',
+        },
+        {
+          property: 'myFavoriteWrapper',
+        },
+      ],
+      linkComponents: [
+        'Hyperlink',
+        {
+          name: 'Link',
+          linkAttribute: 'to',
+        },
+      ],
     },
     rules: {
       // ❌ Remove these spreads - they contain "extends"
@@ -90,18 +152,23 @@ export default [
       // ...tanstackQuery.configs.recommended.rules,
 
       // ✅ Add rules manually instead
+      // // Next.js rules
+      // '@next/next/no-img-element': 'error',
+
       // TypeScript rules
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-function-return-type': [
         'warn',
-        { allowExpressions: true },
+        {
+          allowExpressions: true,
+          allowConciseArrowFunctionExpressionsStartingWithVoid: true,
+        },
       ],
       '@typescript-eslint/require-await': 'error',
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/await-thenable': 'error',
       '@typescript-eslint/no-use-before-define': ['error'],
-      '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-shadow': [
         'warn',
         {
@@ -151,6 +218,10 @@ export default [
         'error',
         {
           devDependencies: [
+            '{jest,.storybook,src/stories}/**/*',
+            '**/*.{spec,stories,test}.js*',
+            'jest.*.js',
+            'webpack.config.js',
             '**/mocks/**',
             '**/testUtilities.tsx',
             '**/tools/**',
@@ -166,21 +237,26 @@ export default [
       ],
       'import/prefer-default-export': 'off',
 
-      // Vitest rules
-      'vitest/expect-expect': 'error',
-      'vitest/no-conditional-expect': 'error',
-      'vitest/no-disabled-tests': 'warn',
-      'vitest/no-focused-tests': 'error',
-      'vitest/prefer-mock-promise-shorthand': 'error',
-
-      // TanStack Query rules
-      '@tanstack/query/exhaustive-deps': 'error',
-      // '@tanstack/query/prefer-query-object-syntax': 'error',
-
       // General rules
-      'no-console': 'warn',
+      'max-len': [
+        'warn',
+        {
+          code: 120,
+          ignoreComments: true,
+          ignoreUrls: true,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+          ignoreRegExpLiterals: true,
+          // This regex excludes only .svg files from max-length rule
+          ignorePattern: 'd="([\\s\\S]*?)"',
+        },
+      ],
+      semi: 'error',
+      'no-console': 'error',
       'no-use-before-define': 'off',
       'no-shadow': 'off',
+      'no-unused-expressions': 'error',
+      'require-await': 'warn',
       'unused-imports/no-unused-imports': 'error',
       // TODO: Enable this back and fix all warnings.
       'unused-imports/no-unused-vars': [
@@ -211,10 +287,22 @@ export default [
     },
     rules: {
       'react/jsx-props-no-spreading': 'off',
-      // Additional test-specific Vitest rules
-      'vitest/no-conditional-in-test': 'error',
-      'vitest/prefer-to-be-truthy': 'error',
-      'vitest/prefer-to-be-falsy': 'error',
+    },
+  },
+
+  // Commons components overrides
+  {
+    files: ['**/components/commons/**'],
+    rules: {
+      'react/jsx-props-no-spreading': 'warn',
+    },
+  },
+
+  // Route overrides
+  {
+    files: ['**/route.js'],
+    rules: {
+      'import/prefer-default-export': 'off',
     },
   },
 

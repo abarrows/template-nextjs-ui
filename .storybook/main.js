@@ -3,8 +3,6 @@ const config = {
   addons: [
     // Essentials addon provides several addons, see the list before adding more
     // https://storybook.js.org/integrations/tag/essentials/
-    '@storybook/addon-essentials',
-    '@storybook/addon-links',
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
   ],
