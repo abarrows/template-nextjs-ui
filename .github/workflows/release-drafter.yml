@@ -5,6 +5,11 @@ on:
     branches:
       - main
       - "release/**"
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 permissions:
   contents: read
@@ -60,4 +65,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           publish: true
+          prerelease: false
+
+  # Update draft on PR activity (for changelog updates and autolabeling)
+  update-draft-on-pr:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: write
+      pull-requests: write
+    name: Update Draft on PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Draft Release Notes
+        uses: release-drafter/release-drafter@b1476f6e6eb133afa41ed8589daba6dc69b4d3f5 # v6.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish: false
           prerelease: false
