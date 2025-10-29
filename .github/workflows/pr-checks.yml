@@ -55,12 +55,9 @@ jobs:
           SAFE_BRANCH=$(echo "$BRANCH_NAME" | sed 's/[^a-zA-Z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
           COMMIT_SHORT="${{ github.sha }}"
           COMMIT_SHORT=${COMMIT_SHORT:0:8}
-
           ARTIFACT_NAME="${{ env.ARTIFACT_PREFIX }}-${SAFE_BRANCH}-${COMMIT_SHORT}-${{ env.RUN_ID }}"
-
           echo "name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
           echo "Generated artifact name: ${ARTIFACT_NAME}"
-
   lint:
     needs: setup
     name: Lint and Format Application
@@ -151,7 +148,6 @@ jobs:
       - name: Run Test Scenarios
         run: |
           npm run test:e2e:ci
-
       - name: Publish Test Report
         uses: ctrf-io/github-test-reporter@v1
         with:
