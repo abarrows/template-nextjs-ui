@@ -8,7 +8,7 @@
     "console-stamp": "^3.1.1",
     "esbuild": "^0.25.10",
     "eslint-config-next": "^15.4.6",
-    "next": "^15.5.4",
+    "next": "^16.0.1",
     "npm-check": "^3.2.10",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
