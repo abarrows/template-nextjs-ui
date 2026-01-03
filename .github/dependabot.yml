@@ -75,12 +75,12 @@ updates:
         dependency-type: "production"
 
   # Enable version updates for NuGet
-  - package-ecosystem: "nuget"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-    labels:
-      - "back-end"
-      - "dependencies"
-    rebase-strategy: auto
+  # - package-ecosystem: "nuget"
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
+  #     day: "thursday"
+  #   labels:
+  #     - "back-end"
+  #     - "dependencies"
+  #   rebase-strategy: auto
