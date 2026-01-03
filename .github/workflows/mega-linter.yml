@@ -89,16 +89,16 @@ jobs:
 
       # Creates archive artifact of linting reports
       # Upload MegaLinter artifacts
-      - name: Archive production artifacts
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v4.6.2
+      # - name: Archive production artifacts
+      #   if: ${{ always() }}
+      #   uses: actions/upload-artifact@v4.6.2
 
-        with:
-          name: MegaLinter reports
-          path: |
-            coverage/linting/megalinter-reports
-            mega-linter.log
-          retention-days: 7
+      #   with:
+      #     name: MegaLinter reports
+      #     path: |
+      #       coverage/linting/megalinter-reports
+      #       mega-linter.log
+      #     retention-days: 7
 
       # Create pull request if applicable (for now works only on PR from same repository, not from forks)
       - name: Create Pull Request with applied fixes
