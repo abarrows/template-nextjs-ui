@@ -22,7 +22,7 @@ jobs:
           alert-lookup: true
 
       - name: Approve & Merge Dependabot PR
-        if: steps.metadata.outputs.alert-state != ''
+        if: steps.metadata.outputs.alert-state != '' || steps.metadata.outputs.dependency-group == 'security'
         uses: fastify/github-action-merge-dependabot@v3
         with:
           github-token: ${{ github.token }}
@@ -75,7 +75,7 @@ jobs:
             const updateType = '${{ steps.metadata.outputs.update-type }}';
             const labels = ['dependencies'];
 
-            if ('${{ steps.metadata.outputs.alert-state }}' !== '') {
+            if ('${{ steps.metadata.outputs.alert-state }}' !== '' || '${{ steps.metadata.outputs.dependency-group }}' === 'security') {
               labels.push('security');
             } else if (updateType.includes('patch')) {
               labels.push('auto-merged');
