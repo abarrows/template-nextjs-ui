@@ -1,8 +1,9 @@
 name: 🤖 Dependabot Automations
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
+    branches: [main]
 
 permissions:
   contents: write
@@ -22,11 +23,11 @@ jobs:
           alert-lookup: true
 
       - name: Approve & Merge Dependabot PR
-        if: steps.metadata.outputs.alert-state != '' || steps.metadata.outputs.dependency-group == 'security'
+        if: steps.metadata.outputs.dependency-group == 'security'
         uses: fastify/github-action-merge-dependabot@v3
         with:
-          github-token: ${{ github.token }}
-          merge-method: squash
+          github-token: ${{ secrets.DEPENDABOT_TOKEN }}
+          merge-method: minor
           target: any
           approve-only: false
           use-github-auto-merge: true
