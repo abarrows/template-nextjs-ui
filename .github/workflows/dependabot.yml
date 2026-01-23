@@ -1,14 +1,10 @@
 name: 🤖 Dependabot Automations
-
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
-    branches: [main]
-
 permissions:
   contents: write
   pull-requests: write
-
 jobs:
   dependabot:
     if: github.actor == 'dependabot[bot]'
@@ -18,73 +14,21 @@ jobs:
         id: metadata
         uses: dependabot/fetch-metadata@v2
         with:
-          github-token: ${{ github.token }}
-          compat-lookup: true
-          alert-lookup: true
-
-      - name: Approve & Merge Dependabot Patch
-        if: |
-          steps.metadata.outputs.update-type == 'version-update:semver-patch'
-        uses: fastify/github-action-merge-dependabot@v3
-        with:
-          github-token: ${{ secrets.PAT_DEPENDABOT }}
-          # merge-method: squash
-          target: patch
-          # approve-only: false
-          # use-github-auto-merge: true
-
-      - name: Approve & Merge Dependabot Minor
-        if: |
-          steps.metadata.outputs.update-type == 'version-update:semver-minor' &&
-          fromJSON(steps.metadata.outputs.compatibility-score || '0') >= 80
-        uses: fastify/github-action-merge-dependabot@v3
-        with:
-          github-token: ${{ secrets.PAT_DEPENDABOT }}
-          merge-method: squash
-          target: minor
-          approve-only: false
-          use-github-auto-merge: true
-
-      - name: Approve & Merge Dependabot Major
-        if: |
-          steps.metadata.outputs.update-type == 'version-update:semver-major' &&
-          fromJSON(steps.metadata.outputs.compatibility-score || '0') >= 90
-        uses: fastify/github-action-merge-dependabot@v3
-        with:
-          github-token: ${{ secrets.PAT_DEPENDABOT }}
-          merge-method: squash
-          target: minor
-          approve-only: false
-          use-github-auto-merge: true
-      - name: Add labels
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const updateType = '${{ steps.dependabot-metadata.outputs.dependency-type }}';
-            const labels = ['dependencies'];
-
-            if ('${{ steps.metadata.outputs.alert-state }}' !== '' || '${{ steps.metadata.outputs.dependency-group }}' === 'security') {
-              labels.push('security');
-            } else if (updateType.includes('patch')) {
-              labels.push('auto-merged');
-            } else if (updateType.includes('minor')) {
-              labels.push('auto-merged');
-            } else if (updateType.includes('major')) {
-              labels.push('requires-review');
-            }
-
-            await github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              labels: labels
-            });
-
-      - name: Log major update (no automation)
-        if: |
-          steps.dependabot-metadata.outputs.dependency-type == 'version-update:semver-major' &&
-          steps.metadata.outputs.alert-state == ''
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Auto-merge based on update type
         run: |
-          echo "🚨 Major update detected - requires manual review"
-          echo "Dependency: ${{ steps.metadata.outputs.dependency-names }}"
-          echo "PR: ${{ github.event.pull_request.html_url }}"
+          UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
+
+          if [ "$UPDATE_TYPE" = "version-update:semver-patch" ]; then
+            gh pr review --approve "$PR_URL"
+            gh pr merge --squash --auto "$PR_URL"
+          elif [ "$UPDATE_TYPE" = "version-update:semver-minor" ]; then
+            SCORE_INT=$(echo "${{ steps.metadata.outputs.compatibility-score }}" | cut -d'.' -f1)
+            if [ "$SCORE_INT" -ge 80 ] 2>/dev/null; then
+              gh pr review --approve "$PR_URL"
+              gh pr merge --squash --auto "$PR_URL"
+            fi
+          fi
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
