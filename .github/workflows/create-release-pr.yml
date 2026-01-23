@@ -1,27 +1,28 @@
-name: "Sync Release Branch Downstream to Default Branch"
+name: "Merge In, Merge Down"
 
 on:
   push:
     branches:
       - "release/*"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   create_sync_pr:
     name: Sync Release Branch Downstream to Default Branch
+    if: ${{ !github.event.created && !github.event.deleted }}
     runs-on: ubuntu-latest
-
-    env:
-      BASE_BRANCH: develop
-      CLEAN_NAME: ${{ github.ref_name }}
-      INTERMEDIATE_BRANCH: feature/sync-${{ github.ref_name }}-to-develop
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
-      - name: Checkout release branch
-        uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
           fetch-depth: 0
 
       - name: Setup Git User
@@ -29,61 +30,71 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Set up GitHub CLI
-        run: |
-          echo "gh path: $(which gh)"
-          gh --version
-
-      - name: Create Sync Branch from release/*
-        id: create_sync_branch
-        uses: peterjgrainger/action-create-branch@v2.2.0
+      # - name: Create Sync Branch
+      #   id: create_sync_branch
+      #   uses: peterjgrainger/action-create-branch@v2.2.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     branch: refs/heads/feature/${{ github.ref_name }}-pr-sync-automation
+      #     sha: '${{ github.sha }}'
+      - name: Prepare and Push Sync Branch
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          branch: ${{ env.INTERMEDIATE_BRANCH }}
-          sha: ${{ github.sha }} # SHA of the latest commit on release/*
-
-      - name: Prepare Sync Branch
+          SYNC_BRANCH: feature/${{ github.ref_name }}-pr-sync-automation
         run: |
-          git fetch origin
-          git checkout $INTERMEDIATE_BRANCH
+          set -euo pipefail
 
-          # Optional: rebase or merge release with develop here if needed
-          # git merge origin/develop
+          git fetch origin develop
+          git checkout -B "$SYNC_BRANCH" HEAD
 
-          git push -u origin $INTERMEDIATE_BRANCH
+          if ! git rebase origin/develop; then
+            echo "Rebase failed due to conflicts. Resolve manually in '$SYNC_BRANCH' and re-run the workflow."
+            git rebase --abort || true
+            exit 1
+          fi
 
-      # The following steps detect and optionally create a downstream PR from release/* to develop
-      # These are commented out until you're ready to turn it on
+          git push origin HEAD:refs/heads/"$SYNC_BRANCH" --force-with-lease
 
-      # - name: Check for existing downstream PR
-      #   id: check_pr
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     existing_pr=$(gh pr list \
-      #       --base "$BASE_BRANCH" \
-      #       --head "$INTERMEDIATE_BRANCH" \
-      #       --state open \
-      #       --json number \
-      #       --jq '.[0].number // ""')
-      #     echo "existing_pr=$existing_pr" >> $GITHUB_OUTPUT
-      #     if [[ -n "$existing_pr" ]]; then
-      #       echo "Found existing PR: #$existing_pr"
-      #     else
-      #       echo "No existing PR found."
-      #     fi
+      - name: Check for existing PR
+        id: check_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_BRANCH: feature/${{ github.ref_name }}-pr-sync-automation
+          BASE_BRANCH: develop
+        run: |
+          echo "Checking for existing PR from $HEAD_BRANCH to $BASE_BRANCH"
+          existing_pr=$(gh pr list --head "$HEAD_BRANCH" --base "$BASE_BRANCH" --state open --json number --jq '.[0].number // ""')
+          if [[ -n "$existing_pr" ]]; then
+            echo "Found existing PR: #$existing_pr"
+          else
+            echo "No existing PR found."
+          fi
+          echo "existing_pr=$existing_pr" >> $GITHUB_OUTPUT
 
-      # - name: Create Pull Request to Sync Release to Develop
-      #   if: steps.check_pr.outputs.existing_pr == ''
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     PR_TITLE="🔁 Sync ${CLEAN_NAME} → develop"
-      #     PR_BODY="This automated PR brings hotfixes from \`${CLEAN_NAME}\` into \`develop\` to prevent regressions."
-      #     gh pr create \
-      #       --title "$PR_TITLE" \
-      #       --body "$PR_BODY" \
-      #       --head "$INTERMEDIATE_BRANCH" \
-      #       --base "$BASE_BRANCH" \
-      #       --label "auto-sync"
+      - name: Create Pull Request to Sync Release Changes to Develop
+        if: steps.check_pr.outputs.existing_pr == ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Check if there are commits to sync
+          COMMITS=$(git rev-list --count origin/develop..HEAD)
+          if [ "$COMMITS" -eq "0" ]; then
+            echo "No new commits found in release branch relative to develop. Skipping PR creation."
+            exit 0
+          fi
+
+          RELEASE_BRANCH="${{ github.ref_name }}"
+          INTERMEDIATE_BRANCH="feature/${{ github.ref_name }}-pr-sync-automation"
+          PR_TITLE="$INTERMEDIATE_BRANCH"
+          PR_BODY="Automated PR to sync release branch changes (hotfixes) back to develop branch."
+
+          echo "Creating PR: '$PR_TITLE' from $INTERMEDIATE_BRANCH to develop"
+
+          gh pr create \
+            --title "$PR_TITLE" \
+            --body "$PR_BODY" \
+            --head "$INTERMEDIATE_BRANCH" \
+            --base "develop" \
+            --label "maintenance" \
+            --label "sync" \
+            --assignee "${{ github.actor }}"
