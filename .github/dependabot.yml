@@ -53,6 +53,13 @@ updates:
     #   - "Retail-Success/leads"
     # Will enable once stable.
     groups:
+      storybook:
+        patterns:
+          - "@storybook/*"
+          - "storybook"
+          - "storybook-*"
+          - "@chromatic-com/*"
+          - "chromatic"
       dependencies-minor:
         # Open PR for all minor updates from "dependencies" in package.json
         dependency-type: "production"
@@ -71,8 +78,8 @@ updates:
           - "patch"
       security:
         # Open PR for all security updates from "dependencies" in package.json
-        applies-to: security-updates
         dependency-type: "production"
+        applies-to: security-updates
 
   # Enable version updates for NuGet
   # - package-ecosystem: "nuget"
