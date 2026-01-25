@@ -1,12 +1,16 @@
 name: 🤖 Dependabot Automations
+
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
+
 permissions:
   contents: write
   pull-requests: write
+
 jobs:
   dependabot:
+    name: Dependabot Auto-Merge
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -15,20 +19,71 @@ jobs:
         uses: dependabot/fetch-metadata@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          compat-lookup: true
+
       - name: Auto-merge based on update type
         run: |
-          UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
+          # Save JSON to file for parsing
+          echo "$UPDATED_DEPENDENCIES_JSON" > dependencies.json
 
-          if [ "$UPDATE_TYPE" = "version-update:semver-patch" ]; then
-            gh pr review --approve "$PR_URL"
-            gh pr merge --squash --auto "$PR_URL"
-          elif [ "$UPDATE_TYPE" = "version-update:semver-minor" ]; then
-            SCORE_INT=$(echo "${{ steps.metadata.outputs.compatibility-score }}" | cut -d'.' -f1)
-            if [ "$SCORE_INT" -ge 80 ] 2>/dev/null; then
-              gh pr review --approve "$PR_URL"
-              gh pr merge --squash --auto "$PR_URL"
+          if ! jq empty dependencies.json >/dev/null 2>&1; then
+            echo "No valid dependency metadata found; skipping auto-merge."
+            exit 0
+          fi
+
+          echo "Analyzing $(jq 'length' dependencies.json) dependencies..."
+
+          # Debug: Show the full JSON content for inspection
+          echo "Debug: Content of dependencies.json:"
+          cat dependencies.json
+
+          # Initialize safe state
+          MERGE_SAFE="true"
+
+          # Iterate through each dependency
+          # Format: Name|UpdateType|Score
+          while IFS="|" read -r NAME TYPE SCORE; do
+            echo "Checking $NAME..."
+            echo "  - Type: $TYPE"
+            echo "  - Score: $SCORE"
+
+            if [ "$TYPE" == "version-update:semver-patch" ]; then
+              echo "  - Result: PASS (Patch)"
+
+            elif [ "$TYPE" == "version-update:semver-minor" ]; then
+              # Default to 0 if null/empty
+              SCORE=${SCORE:-0}
+              if [ "$SCORE" -ge 80 ]; then
+                echo "  - Result: PASS (Minor with score $SCORE)"
+              else
+                echo "  - Result: FAIL (Minor with score $SCORE < 80)"
+                MERGE_SAFE="false"
+              fi
+            elif [ "$TYPE" == "version-update:semver-major" ]; then
+              # Default to 0 if null/empty
+              SCORE=${SCORE:-0}
+              if [ "$SCORE" -ge 60 ]; then
+                echo "  - Result: PASS (Major with score $SCORE)"
+              else
+                echo "  - Result: FAIL (Major with score $SCORE < 60)"
+                MERGE_SAFE="false"
+              fi
+            else
+              echo "  - Result: FAIL (Type '$TYPE' requires manual review)"
+              MERGE_SAFE="false"
             fi
+          done < <(jq -r '.[] | "\(.dependencyName)|\(.updateType)|\(.compatibilityScore // 0)"' dependencies.json)
+
+          # Final Decision
+          if [ "$MERGE_SAFE" == "true" ]; then
+            echo " All dependencies passed checks. Auto-merging..."
+            gh pr review --approve "$PR_URL" || true
+            gh pr merge --squash --auto "$PR_URL"
+          else
+            echo " One or more dependencies failed checks. Manual review required."
+            exit 0
           fi
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPDATED_DEPENDENCIES_JSON: ${{ steps.metadata.outputs.updated-dependencies-json }}
