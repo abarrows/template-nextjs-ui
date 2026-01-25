@@ -26,14 +26,19 @@ jobs:
           # Save JSON to file for parsing
           echo "$UPDATED_DEPENDENCIES_JSON" > dependencies.json
 
+          if ! jq empty dependencies.json >/dev/null 2>&1; then
+            echo "No valid dependency metadata found; skipping auto-merge."
+            exit 0
+          fi
+
+          echo "Analyzing $(jq 'length' dependencies.json) dependencies..."
+
           # Debug: Show the full JSON content for inspection
           echo "Debug: Content of dependencies.json:"
           cat dependencies.json
 
           # Initialize safe state
           MERGE_SAFE="true"
-
-          echo "Analyzing $(jq length dependencies.json) dependencies..."
 
           # Iterate through each dependency
           # Format: Name|UpdateType|Score
