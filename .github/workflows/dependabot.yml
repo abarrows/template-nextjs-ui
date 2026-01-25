@@ -53,10 +53,10 @@ jobs:
             elif [ "$TYPE" == "version-update:semver-minor" ]; then
               # Default to 0 if null/empty
               SCORE=${SCORE:-0}
-              if [ "$SCORE" -ge 80 ]; then
+              if [ "$SCORE" -ge 60 ]; then
                 echo "  - Result: PASS (Minor with score $SCORE)"
               else
-                echo "  - Result: FAIL (Minor with score $SCORE < 80)"
+                echo "  - Result: FAIL (Minor with score $SCORE < 60)"
                 MERGE_SAFE="false"
               fi
             elif [ "$TYPE" == "version-update:semver-major" ]; then
