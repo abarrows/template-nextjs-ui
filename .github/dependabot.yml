@@ -11,6 +11,7 @@ updates:
     labels:
       - "devops"
       - "dependencies"
+    rebase-strategy: auto
     open-pull-requests-limit: 10
     commit-message:
       # Prefix all commit messages with 'github-actions'
@@ -27,10 +28,12 @@ updates:
     labels:
       - "dependencies"
       - "devops"
+      #   rebase-strategy: auto
     open-pull-requests-limit: 10
     commit-message:
       # Prefix all commit messages with 'docker'
       prefix: "docker(dependencies): "
+    rebase-strategy: auto
 
   - package-ecosystem: "npm"
     # Look for `package(-lock).json` files in root directory
