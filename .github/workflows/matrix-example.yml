@@ -16,7 +16,7 @@ jobs:
             artifact-suffix: "test-results"
             upload-path: "coverage/"
           - test-type: "Integration"
-            command: "npm run test:integration"
+            command: "npm run test:e2e:ci"
             artifact-suffix: "integration-results"
             upload-path: "test-results/"
     steps:

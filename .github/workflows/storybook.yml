@@ -25,6 +25,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build Storybook
+        run: npm run storybook:build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::203538442868:role/LuciDevReadWrite
+          aws-region: us-east-1
+
+      - name: Publish to S3
+        run: npm run publish-storybook
+
+      # Chromatic deployment (commented out for future use)
       # If using a reusable workflow, uncomment the following
       # - uses: pozetroninc/github-action-get-latest-release@v0.7.0
       #   id: latest_release
@@ -32,14 +45,14 @@ jobs:
       #     repository: ${{ github.repository }}
       #     excludes: prerelease, draft
       #     token: ${{ secrets.PAT_ACTION_CI }}
-
-      - name: Publish to Storybook
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          buildScriptName: storybook:build
-          exitZeroOnChanges: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
-          allowConsoleErrors: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
-          onlyChanged: true
-          skip: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
-          autoAcceptChanges: ${{ contains(github.ref, steps.latest_release.outputs.release) }}
+      #
+      # - name: Publish to Chromatic
+      #   uses: chromaui/action@latest
+      #   with:
+      #     projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #     buildScriptName: storybook:build
+      #     exitZeroOnChanges: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
+      #     allowConsoleErrors: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
+      #     onlyChanged: true
+      #     skip: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
+      #     autoAcceptChanges: ${{ contains(github.ref, steps.latest_release.outputs.release) }}

@@ -1,81 +1,59 @@
-// @ts-check
+import { defineConfig, devices } from '@playwright/test';
+
+// Environment variables are loaded by dotenv-cli in npm scripts
+// via: cross-env dotenv -e .env.test -- playwright test
+// Get port from environment or default to 8000
 
 /**
- * @see https://playwright.dev/docs/test-configuration
- * @type {import('@playwright/test').PlaywrightTestConfig}
+ * See https://playwright.dev/docs/test-configuration
  */
-const config = {
-  testDir: './playwright',
-  /* Maximum time one test can run for. */
-  timeout: 60 * 1000,
+export default defineConfig({
+  testDir: './src',
+  testMatch: '**/*.spec.{ts,tsx}',
+  timeout: 30_000,
   expect: {
-    /**
-     * Maximum time expect() should wait for the condition to be met.
-     * For example in `await expect(locator).toHaveText();`
-     */
-    timeout: 10000,
+    timeout: 10_000,
   },
+  retries: process.env.CI ? 1 : 0,
+  workers: process.env.CI ? '50%' : undefined,
+
+  /* Shard tests across CI matrix jobs for speed */
+  shard:
+    process.env.SHARD_INDEX && process.env.SHARD_TOTAL
+      ? {
+          current: parseInt(process.env.SHARD_INDEX, 10),
+          total: parseInt(process.env.SHARD_TOTAL, 10),
+        }
+      : undefined,
 
   /* Run tests in files in parallel */
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
+
+  /* Fail the build on CI if you accidentally left test.only in the source code */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
     ? [
-        ['list'],
-        [
-          'html',
-          {
-            open:
-              process.env.NODE_ENV === 'development' ? 'on-failure' : 'never',
-            outputFolder: 'coverage/e2e',
-          },
-        ],
-        ['playwright-ctrf-json-reporter'],
-        ['github'],
+        ['html'],
+        ['json', { outputFile: 'coverage/e2e/results.json' }],
+        ['junit', { outputFile: 'coverage/e2e/junit.xml' }],
       ]
-    : [['list']],
+    : [['html'], ['list']],
 
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  /* Shared settings for all the projects below */
   use: {
-    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 0,
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL || 'http://127.0.0.1:3000',
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: process.env.CI ? 'on-first-retry' : 'retain-on-failure',
+    /* Base URL to use in actions like `await page.goto('/')` */
+    baseURL: 'http://127.0.0.1:3000',
+
+    /* Collect trace when retrying the failed test */
+    trace: process.env.CI ? 'retain-on-failure' : 'on-first-retry',
+
     /* Screenshot on failure */
     screenshot: 'only-on-failure',
-    /* Video on retry */
-    video: process.env.CI ? 'retain-on-failure' : 'off',
-    /* Viewport size */
-    viewport: { width: 1280, height: 720 },
-    /* Emulate browser locale and timezone */
-    locale: 'en-US',
-    timezoneId: 'America/Chicago',
-    /* Permissions */
-    permissions: [],
-    /* Ignore HTTPS errors during navigation */
-    ignoreHTTPSErrors: true,
-  },
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    // CI: build already done, just start server
-    // Local: build and start
-    command: !process.env.CI
-      ? 'npm run start'
-      : 'npm run build && npm run start',
-    timeout: 120 * 1000,
-    url: 'http://127.0.0.1:3000',
-    reuseExistingServer: !process.env.CI,
-    stdout: 'pipe',
-    stderr: 'pipe',
+    /* Video on retry */
+    video: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
@@ -83,32 +61,47 @@ const config = {
     {
       name: 'chromium',
       use: {
-        browserName: 'chromium',
-        // Modern Chrome features
-        channel: 'chrome',
+        ...devices['Desktop Chrome'],
+        headless: true, // or false, doesn't matter for viewport
+        viewport: { width: 1920, height: 1080 },
       },
     },
-    // Uncomment to test on Firefox and Safari
-    // {
-    //   name: 'firefox',
-    //   use: {
-    //     browserName: 'firefox',
-    //   },
-    // },
-    // {
-    //   name: 'webkit',
-    //   use: {
-    //     browserName: 'webkit',
-    //   },
-    // },
   ],
 
-  /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  outputDir: 'coverage/e2e',
+  // Uncomment for cross-browser testing
+  // projects: [
+  //   {
+  //     name: 'chromium',
+  //     use: { ...devices['Desktop Chrome'] },
+  //   },
+  //   {
+  //     name: 'firefox',
+  //     use: { ...devices['Desktop Firefox'] },
+  //   },
+  //   {
+  //     name: 'webkit',
+  //     use: { ...devices['Desktop Safari'] },
+  //   },
+  //   /* Test against mobile viewports */
+  //   {
+  //     name: 'Mobile Chrome',
+  //     use: { ...devices['Pixel 5'] },
+  //   },
+  //   {
+  //     name: 'Mobile Safari',
+  //     use: { ...devices['iPhone 12'] },
+  //   },
+  // ],
 
-  /* Global setup/teardown */
-  // globalSetup: require.resolve('./playwright/global-setup'),
-  // globalTeardown: require.resolve('./playwright/global-teardown'),
-};
-
-module.exports = config;
+  /* Run your local dev server before starting the tests */
+  webServer: {
+    command: process.env.CI
+      ? 'cross-env dotenv -e .env.test npm run build && cross-env dotenv -e .env.test npm run preview'
+      : 'cross-env dotenv -e .env.test npm run start:mock:static', // MSW intercepts network calls
+    url: 'http://127.0.0.1:3000',
+    timeout: 120 * 1000,
+    reuseExistingServer: !process.env.CI,
+    stdout: 'pipe',
+    stderr: 'pipe',
+  },
+});
